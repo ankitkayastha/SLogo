@@ -12,6 +12,6 @@ The User Interface for this program will be fairly simple to start, and then we 
 
 The picture, or general outline, of the User Interface can be seen below.
 
-![Slogo GUI](img/GUI.PNG?raw=true "Slogo GUI")
+![Slogo GUI](img/GUI.JPG?raw=true "Slogo GUI")
 
 In terms of the erroneous situations reported to the user, the GUI will most likely display some sort of dialog or warning box displaying what the error is. For instance, if the command the user types in is invalid, after the command is parsed and it has been determined that it is invalid, an exception will be thrown and the user will see a box that pops up displaying the error. Similar things will happen for incorrect arguments, and if the user tries to access variables or user defined commands that are not avaialble. 
