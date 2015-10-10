@@ -1,14 +1,13 @@
 package UserInterface.LeftPane;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class LeftPane {
+public class LeftContent {
 	private Group root;
 	
-	public LeftPane() {
+	public LeftContent() {
 		root = makeScrollablePanes();
 	}
 	
@@ -16,8 +15,8 @@ public class LeftPane {
 		ScrollPaneHandler myScrollPaneHandler = new ScrollPaneHandler();
 		TextHandler myTextHandler = new TextHandler();
 		double[] prefWidth = {150, 150};
-		double[] prefHeight = {675/2, 675/2};
-		double[] translateYPane = {0, 675/2};
+		double[] prefHeight = {675/2 - 35, 675/2 - 35};
+		double[] translateYPane = {0, 675/2 - 35};
 		ScrollPane[] paneArr = myScrollPaneHandler.createScrollPanes(2, prefWidth, prefHeight, translateYPane);
 		String[] titles = {"User Defined Functions", "Variables"};
 		double[] translateYText = {20, 675/2 + 20};
