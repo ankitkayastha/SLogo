@@ -1,14 +1,17 @@
 package commands;
 import java.util.List;
 
+import slogo_team03.CommandErrorChecker;
+
 public class Forward extends Command {
 	public Forward(List<String> input) {
 		super(input);
 		parametersNeeded = 1;
+		myErrorChecker = new CommandErrorChecker(parametersNeeded, restOfInput, factory);
 	}
 	
 	public double execute() {
-		if (validParameters()) {
+		if (checkAndPutParameters()) {
 			double length = myParameters[0];
 			double x0 = myTurtle.getX();
 			double y0 = myTurtle.getY();

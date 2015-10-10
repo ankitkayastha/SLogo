@@ -1,14 +1,17 @@
 package commands;
 import java.util.List;
 
+import slogo_team03.CommandErrorChecker;
+
 public class Right extends Command {
 	public Right(List<String> input) {
 		super(input);
 		parametersNeeded = 1;
+		myErrorChecker = new CommandErrorChecker(parametersNeeded, restOfInput, factory);
 	}
 	
 	public double execute() {
-		if (validParameters()) {
+		if (checkAndPutParameters()) {
 			double angle = myTurtle.getAngle();
 			angle -= myParameters[0];
 			myTurtle.setAngle(angle%360);

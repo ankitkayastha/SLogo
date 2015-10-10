@@ -20,6 +20,7 @@ public class Main extends Application {
 	//	while (true) {
 		//	world.getInput(scan.nextLine());
 	//	}
+
 //		world.getInput("setheading s setheading setheading 180 heading 3"); 
 	}	
 }
