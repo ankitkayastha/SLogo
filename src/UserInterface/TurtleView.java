@@ -1,4 +1,5 @@
 package UserInterface;
+import UserInterface.LeftPane.LeftPane;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 
