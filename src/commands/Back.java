@@ -1,4 +1,5 @@
 package commands;
+import slogo_team03.CommandErrorChecker;
 import slogo_team03.Turtle;
 import java.util.List;
 
@@ -6,10 +7,11 @@ public class Back extends Command {
 	public Back(List<String> input) {
 		super(input);
 		parametersNeeded = 1;
+		myErrorChecker = new CommandErrorChecker(parametersNeeded, restOfInput, factory);
 	}
 	
 	public double execute() {
-		if (validParameters()) {
+		if (checkAndPutParameters()) {
 			double length = myParameters[0];
 			double x0 = myTurtle.getX();
 			double y0 = myTurtle.getY();

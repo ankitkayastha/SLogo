@@ -1,14 +1,17 @@
 package commands;
 import java.util.List;
 
+import slogo_team03.CommandErrorChecker;
+
 public class Towards extends Command {
 	public Towards(List<String> input) {
 		super(input);
 		parametersNeeded = 2;
+		myErrorChecker = new CommandErrorChecker(parametersNeeded, restOfInput, factory);
 	}
 	
 	public double execute() {
-		if (validParameters()) {
+		if (checkAndPutParameters()) {
 			double oldAngle = myTurtle.getAngle();
 			double newAngle;	//Not correct
 			

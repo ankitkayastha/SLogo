@@ -173,4 +173,11 @@ public class CommandFactory {
 			return null;
 		}
 	}
+	
+	public boolean isValidCommand(String command) {
+		if (createCommand(command, null) == null) {
+			return false;
+		}
+		return true;
+	}
 }

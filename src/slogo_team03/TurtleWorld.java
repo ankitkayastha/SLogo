@@ -9,33 +9,34 @@ public class TurtleWorld {
 	private Turtle turtle;
 	private CommandFactory factory;
 	private List<String> inputList;
-	
+	private CommandParser parser;
+
 	public TurtleWorld() {
 		turtle = new Turtle();
 		factory = new CommandFactory();
-		inputList = new ArrayList<String>();	
+		inputList = new ArrayList<String>();
+		parser = new CommandParser();
 	}
-	
-	public void getInput(String input) {
-		String[] inputArray = input.split("\\s+");
-		inputList = new ArrayList<String>(Arrays.asList(inputArray));
+
+	public void receiveAndExecuteInput(String input) {
+		inputList = parser.getInput(input);
+		executeCommands(inputList);
+	}
+
+	private void executeCommands(List<String> commandList) {
 		Command command = null;
 		String commandName;
-		
-		while (inputList.size() > 0) {			
-			commandName = inputList.remove(0);
-			command = factory.createCommand(commandName, inputList);
+
+		while (commandList.size() > 0) {			
+			commandName = commandList.remove(0);
+			command = factory.createCommand(commandName, commandList);
 			if (command == null) {
-				System.out.println("Invalid Input: " + commandName);
-				continue;
+				System.out.println("Invalid Input: Your command '" + commandName + "' is not defined.");
+				break;
 			}
-			
+
 			command.setTurtle(turtle);
 			System.out.println(command.execute());
 		}
-	}
-	
-	public boolean isNumeric(String s) {  
-	    return s.matches("[-+]?\\d*\\.?\\d+");  
 	}
 }
