@@ -104,28 +104,28 @@ public class CommandFactory {
 		else if (name.equals("pi")) {
 			return new Pi(inputList);
 		}
-//		//Boolean Operations
-//		else if (name.equals("less?") || name.equals("lessp")) {
-//			return new LessP(inputList);
-//		}
-//		else if (name.equals("greater?") || name.equals("greaterp")) {
-//			return new GreaterP(inputList);
-//		}
-//		else if (name.equals("equal?") || name.equals("equalp")) {
-//			return new EqualP(inputList);
-//		}
-//		else if (name.equals("notequal?") || name.equals("notequalp")) {
-//			return new NotEqualP(inputList);
-//		}
-//		else if (name.equals("and")) {
-//			return new And(inputList);
-//		}
-//		else if (name.equals("or")) {
-//			return new Or(inputList);
-//		}
-//		else if (name.equals("not")) {
-//			return new Not(inputList);
-//		}
+		//Boolean Operations
+		else if (name.equals("less?") || name.equals("lessp")) {
+			return new LessP(inputList);
+		}
+		else if (name.equals("greater?") || name.equals("greaterp")) {
+			return new GreaterP(inputList);
+		}
+		else if (name.equals("equal?") || name.equals("equalp")) {
+			return new EqualP(inputList);
+		}
+		else if (name.equals("notequal?") || name.equals("notequalp")) {
+			return new NotEqualP(inputList);
+		}
+		else if (name.equals("and")) {
+			return new And(inputList);
+		}
+		else if (name.equals("or")) {
+			return new Or(inputList);
+		}
+		else if (name.equals("not")) {
+			return new Not(inputList);
+		}
 		//Variables, Control Structures, and User-Defined Commands
 		else {
 			return null;
