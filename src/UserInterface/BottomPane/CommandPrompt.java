@@ -21,6 +21,11 @@ public class CommandPrompt {
 		double[] translateX = {850, 850};
 		double[] translateY = {0, 30};
 		buttonArr = buttonHandler.makeButtons(2, titles, translateX, translateY);
+		Button clear = buttonArr[1];
+		clear.setOnAction((event) -> {
+			field.clear();
+		});
+		
 		addToRoot(field, buttonArr, root);
 		return root;
 	}
