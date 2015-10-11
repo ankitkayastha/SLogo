@@ -1,7 +1,8 @@
 package UserInterface;
 import UserInterface.BottomPane.CommandPrompt;
+import UserInterface.CenterPane.DisplayTurtle;
 import UserInterface.LeftPane.LeftContent;
-import javafx.geometry.Insets;
+import UserInterface.RightPane.CommandHistory;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 
@@ -11,9 +12,11 @@ public class TurtleView {
 		BorderPane myPane = new BorderPane();
 		LeftContent left = new LeftContent();
 		CommandPrompt prompt = new CommandPrompt();
-		//myPane.setCenter(value);
+		CommandHistory history = new CommandHistory();
+		DisplayTurtle turtleDisplay = new DisplayTurtle();
+		myPane.setCenter(turtleDisplay.makeTurtle());
 		myPane.setLeft(left.makeScrollablePanes());
-		//myPane.setRight(value);
+		myPane.setRight(history.makeScrollablePane());
 		//myPane.setTop(prompt.makeCommandPromptArea());
 		//BorderPane.setMargin(prompt.makeCommandPromptArea(), new Insets(12, 12, 12, 12));
 		myPane.setBottom(prompt.makeCommandPromptArea());
