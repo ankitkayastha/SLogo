@@ -21,7 +21,6 @@ public class TurtleView {
 		myPane.setRight(history.makeScrollablePane());
 		myPane.setTop(menu.makeMenuBar());
 		//myPane.setTop(prompt.makeCommandPromptArea());
-		//BorderPane.setMargin(prompt.makeCommandPromptArea(), new Insets(12, 12, 12, 12));
 		myPane.setBottom(prompt.makeCommandPromptArea());
 		myScene = new Scene(myPane, 900, 700);
 	}

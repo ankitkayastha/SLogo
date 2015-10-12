@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
+
 public class CommandPrompt {
 	private Group root;
 	
@@ -13,6 +14,8 @@ public class CommandPrompt {
 	
 	public Group makeCommandPromptArea() {
 		Group root = new Group();
+		//ScrollPane field = new ScrollPane();
+		
 		ButtonHandler buttonHandler = new ButtonHandler();
 		Button[] buttonArr;
 		TextArea field = new TextArea();
@@ -34,6 +37,7 @@ public class CommandPrompt {
 		for (int i = 0; i < buttonArr.length; i++) {
 			root.getChildren().add(buttonArr[i]);
 		}
+		//root.getChildren().add(pane);
 		root.getChildren().add(field);
 	}
 }
