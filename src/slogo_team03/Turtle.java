@@ -2,12 +2,14 @@ package slogo_team03;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 
 public class Turtle {
 	private double x, y;
 	private double angle;
 	private boolean visible, penDown;
 	private List<Point2D> pointList;
+	private Color penColor;
 	
 	public Turtle() {
 		x = 0;
@@ -66,6 +68,10 @@ public class Turtle {
 
 	public void setPenDown(boolean penDown) {
 		this.penDown = penDown;
+	}
+	
+	public void setPenColor(Color c) {
+		this.penColor = c;
 	}
 	
 	public void addPoint(double x, double y) {

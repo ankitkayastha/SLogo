@@ -21,7 +21,8 @@ public class CommandHistory {
 		String title = "Command History";
 		Text text = new Text();
 		text.setText(title);
-		text.setTranslateY(10);
+		text.setTranslateY(12);
+		text.setTranslateX(1);
 		text.setTextAlignment(TextAlignment.JUSTIFY);
 		pane.setPrefSize(200, 600);
 		root.getChildren().add(pane);

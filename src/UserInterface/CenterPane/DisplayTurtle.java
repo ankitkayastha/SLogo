@@ -20,5 +20,4 @@ public Group makeTurtle() {
 		turtle.setY(675/2);
 		return root;
 	}
-	
 }

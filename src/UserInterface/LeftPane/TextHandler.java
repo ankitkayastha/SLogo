@@ -10,6 +10,7 @@ public class TextHandler {
 			Text textObj = new Text();
 			textObj.setText(titles[i]);
 			textObj.setTranslateY(translateY[i]);
+			textObj.setTranslateX(1);
 			textObj.setTextAlignment(alignments[i]);
 			myTextArr[i] = textObj;
 		}
