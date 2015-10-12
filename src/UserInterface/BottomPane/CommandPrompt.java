@@ -2,9 +2,8 @@ package UserInterface.BottomPane;
 
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+
 
 public class CommandPrompt {
 	private Group root;
