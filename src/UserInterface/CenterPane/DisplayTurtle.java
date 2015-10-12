@@ -6,12 +6,12 @@ import javafx.scene.image.ImageView;
 
 public class DisplayTurtle {
 	private Group root;
-	
+
 	public DisplayTurtle() {
 		root = makeTurtle();
 	}
-	
-public Group makeTurtle() {
+
+	public Group makeTurtle() {
 		Group root = new Group();
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
 		ImageView turtle = new ImageView(image);
