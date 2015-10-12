@@ -22,6 +22,7 @@ public class LeftContent {
 		double[] yCor = {20, 675/2 - 20};
 		double[] xCor = {10, 20};
 		Text[] textArr = myTextHandler.createTextObjects(2, titles, yCor, xCor);
+
 		Group root = new Group();
 		addToRoot(paneArr, textArr, root);
 		return root;
