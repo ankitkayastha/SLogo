@@ -22,11 +22,9 @@ public class BottomPane {
 		commandHistory.add(command);
 		List<Text> myTextList = convertToText(commandHistory);
 		for (Text text : myTextList) {
-			root.getChildren().add(text);
-			System.out.println(text.getText());
+			paneArr[index].setContent(text);
+			System.out.println("Adding " + text.getText() + " to pane with ID" + paneArr[index].getId());
 		}
-		paneArr[index].setContent(root);
-		System.out.println("Adding to scrollable pane");
 	}
 	
 	private List<Text> convertToText(List<String> commandList) {
