@@ -19,7 +19,7 @@ public class LeftContent {
 		double[] translateYPane = {0, 675/2 - 35};
 		ScrollPane[] paneArr = myScrollPaneHandler.createScrollPanes(2, prefWidth, prefHeight, translateYPane);
 		String[] titles = {"User Defined Functions", "Variables"};
-		double[] translateYText = {20, 675/2 + 20};
+		double[] translateYText = {15, 675/2 - 20};
 		TextAlignment[] alignments = {TextAlignment.JUSTIFY, TextAlignment.JUSTIFY};
 		Text[] textArr = myTextHandler.createTextObjects(2, titles, translateYText, alignments);
 		Group root = new Group();
