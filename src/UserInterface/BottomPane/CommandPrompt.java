@@ -2,6 +2,8 @@ package UserInterface.BottomPane;
 
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class CommandPrompt {
@@ -13,9 +15,11 @@ public class CommandPrompt {
 	
 	public Group makeCommandPromptArea() {
 		Group root = new Group();
+		//ScrollPane field = new ScrollPane();
+		
 		ButtonHandler buttonHandler = new ButtonHandler();
 		Button[] buttonArr;
-		TextField field = new TextField();
+		TextArea field = new TextArea();
 		field.setPrefSize(825, 50);
 		String[] titles = {"Run", "Clear"};
 		double[] translateX = {850, 850};
@@ -30,10 +34,11 @@ public class CommandPrompt {
 		return root;
 	}
 	
-	private void addToRoot(TextField field, Button[] buttonArr, Group root) {
+	private void addToRoot(TextArea field, Button[] buttonArr, Group root) {
 		for (int i = 0; i < buttonArr.length; i++) {
 			root.getChildren().add(buttonArr[i]);
 		}
+		//root.getChildren().add(pane);
 		root.getChildren().add(field);
 	}
 }
