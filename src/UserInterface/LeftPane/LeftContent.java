@@ -6,7 +6,7 @@ import javafx.scene.text.TextAlignment;
 
 public class LeftContent {
 	private Group root;
-	
+	private ScrollPane[] myPaneArr;
 	public LeftContent() {
 		root = makeScrollablePanes();
 	}
@@ -17,18 +17,21 @@ public class LeftContent {
 		double[] prefWidth = {150, 150};
 		double[] prefHeight = {675/2 - 35, 675/2 - 35};
 		double[] translateYPane = {0, 675/2 - 35};
-		ScrollPane[] paneArr = myScrollPaneHandler.createScrollPanes(2, prefWidth, prefHeight, translateYPane);
+		myPaneArr = myScrollPaneHandler.createScrollPanes(2, prefWidth, prefHeight, translateYPane);
 		String[] titles = {"User Defined Functions", "Variables"};
 		double[] yCor = {20, 675/2 - 20};
 		double[] xCor = {10, 20};
 		Text[] textArr = myTextHandler.createTextObjects(2, titles, yCor, xCor);
 
 		Group root = new Group();
-		addToRoot(paneArr, textArr, root);
+		addToRoot(myPaneArr, textArr, root);
 		return root;
 	}
 	
-	public void addToRoot(ScrollPane[] paneArray, Text[] textArr, Group root) {
+	public ScrollPane[] getPaneArray() {
+		return myPaneArr;
+	}
+	private void addToRoot(ScrollPane[] paneArray, Text[] textArr, Group root) {
 		for (ScrollPane pane: paneArray) {
 			root.getChildren().add(pane);
 		}
