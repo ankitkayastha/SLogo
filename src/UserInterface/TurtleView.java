@@ -22,7 +22,7 @@ public class TurtleView {
 		myPane.setTop(menu.makeMenuBar());
 		//myPane.setTop(prompt.makeCommandPromptArea());
 		myPane.setBottom(prompt.makeCommandPromptArea());
-		myScene = new Scene(myPane, 900, 675);
+		myScene = new Scene(myPane, 900, 700);
 	}
 	
 	public Scene getScene() {

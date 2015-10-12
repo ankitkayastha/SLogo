@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
+
 public class CommandPrompt {
 	private Group root;
 	private LeftContent left;
