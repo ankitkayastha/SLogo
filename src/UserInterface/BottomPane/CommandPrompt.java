@@ -1,21 +1,23 @@
 package UserInterface.BottomPane;
 
+import UserInterface.LeftPane.LeftContent;
+import controller.BottomPane;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 public class CommandPrompt {
 	private Group root;
-	
+	private LeftContent left;
+	private BottomPane bottomPaneController;
 	public CommandPrompt() {
 		root = makeCommandPromptArea();
+		bottomPaneController = new BottomPane();
+		left = new LeftContent();
 	}
 	
 	public Group makeCommandPromptArea() {
 		Group root = new Group();
-		//ScrollPane field = new ScrollPane();
 		
 		ButtonHandler buttonHandler = new ButtonHandler();
 		Button[] buttonArr;
@@ -26,8 +28,12 @@ public class CommandPrompt {
 		double[] translateY = {0, 30};
 		buttonArr = buttonHandler.makeButtons(2, titles, translateX, translateY);
 		Button clear = buttonArr[1];
+		Button run = buttonArr[0];
 		clear.setOnAction((event) -> {
-			field.clear();
+			bottomPaneController.clearButtonAction(field);
+		});
+		run.setOnAction((event) -> {
+			bottomPaneController.runButtonAction(field, left.getPaneArray(), 0);
 		});
 		
 		addToRoot(field, buttonArr, root);
@@ -38,7 +44,6 @@ public class CommandPrompt {
 		for (int i = 0; i < buttonArr.length; i++) {
 			root.getChildren().add(buttonArr[i]);
 		}
-		//root.getChildren().add(pane);
 		root.getChildren().add(field);
 	}
 }
