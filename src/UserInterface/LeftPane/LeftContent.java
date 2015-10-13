@@ -25,12 +25,13 @@ public class LeftContent {
 
 		Group root = new Group();
 		addToRoot(myPaneArr, textArr, root);
-		myPaneArr[0].setContent(new Text("Hi"));
+		//myPaneArr[0].setContent(new Text("Hi"));
 		return root;
 	}
 	
 	public ScrollPane[] getPaneArray() {
-		System.out.println(myPaneArr[0].getId());
+		//System.out.println(myPaneArr[0].getId());
+	//	System.out.println("Returning array with size " + myPaneArr.length);
 		return myPaneArr;
 	}
 	private void addToRoot(ScrollPane[] paneArray, Text[] textArr, Group root) {

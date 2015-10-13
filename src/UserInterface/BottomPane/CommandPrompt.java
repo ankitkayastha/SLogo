@@ -30,11 +30,13 @@ public class CommandPrompt {
 		buttonArr = buttonHandler.makeButtons(2, titles, translateX, translateY);
 		Button clear = buttonArr[1];
 		Button run = buttonArr[0];
+		field.setOnKeyPressed(event -> bottomPaneController.handleKeyInput(event.getCode(), field));
+		
 		clear.setOnAction((event) -> {
 			bottomPaneController.clearButtonAction(field);
 		});
 		run.setOnAction((event) -> {
-			bottomPaneController.runButtonAction(field, left.getPaneArray(), 0);
+			bottomPaneController.runButtonAction(field, left.getPaneArray());
 		});
 		
 		addToRoot(field, buttonArr, root);
