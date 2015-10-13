@@ -3,9 +3,11 @@ package UserInterface.CenterPane;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.util.ResourceBundle;
 
 public class DisplayTurtle {
 	private Group root;
+	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 
 	public DisplayTurtle() {
 		root = makeTurtle();
@@ -13,11 +15,15 @@ public class DisplayTurtle {
 
 	public Group makeTurtle() {
 		Group root = new Group();
-		Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
-		ImageView turtle = new ImageView(image);
+		ImageView turtle = new ImageView(setImage(r.getString("image")));
 		root.getChildren().add(turtle);
-		turtle.setX(900/2);
-		turtle.setY(675/2);
+		turtle.setX(Double.parseDouble(r.getString("xPos")));
+		turtle.setY(Double.parseDouble(r.getString("yPos")));
 		return root;
+	}
+	
+	private Image setImage(String s) {
+		Image image = new Image(getClass().getClassLoader().getResourceAsStream(s));
+		return image;
 	}
 }

@@ -6,16 +6,23 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Hyperlink;
+
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import slogo_team03.Turtle;
 
 public class MenuHandler {
 	private Group root;
+	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.TopPane/TopResource");
 	
 	public MenuHandler() {
 		root = makeMenuBar();
@@ -24,14 +31,36 @@ public class MenuHandler {
 	public Group makeMenuBar() {
 		Group root = new Group();
 		MenuBar menuBar = new MenuBar();
-		Menu backgroundColor = new Menu("Background Color");
-		addItems(backgroundColor, new String[] {"Blue", "Yellow", "White"});
-		Menu image = new Menu("Change Image");
-		addItems(image, new String[] {"Turtle", "RCD", "Circle"});
-		Menu penColor = new Menu("Change Pen Color");
-		addItems(penColor, new String[] {"Black", "Red", "Yellow", "Orange"});
-		Menu language = new Menu("Change Language");
-		addItems(language, new String[] {"Chinese", "English", "French", "German", "Italian", "Portuguese", "Russian", "Spanish"});
+		Turtle turtle = new Turtle();
+		
+		Menu backgroundColor = new Menu(r.getString("backgroundTitle"));
+		ColorPicker cp = new ColorPicker();
+		MenuItem changeColor = new MenuItem();
+		changeColor.setGraphic(cp);
+		backgroundColor.getItems().add(changeColor);
+			
+		Menu image = new Menu(r.getString("imageTitle"));
+		addItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")});
+		
+		Menu penColor = new Menu(r.getString("penTitle"));
+		ColorPicker cp1 = new ColorPicker();
+		MenuItem changeColor1 = new MenuItem();
+		changeColor1.setGraphic(cp1);
+		penColor.getItems().add(changeColor1);
+		cp1.setOnAction((event) -> {
+			turtle.setPenColor(cp.getValue());
+		});
+		
+		Menu language = new Menu(r.getString("languageTitle"));
+		addItems(language, new String[] {r.getString("languageItem1"),
+						r.getString("languageItem2"),
+						r.getString("languageItem3"),
+						r.getString("languageItem4"),
+						r.getString("languageItem5"),
+						r.getString("languageItem6"),
+						r.getString("languageItem7"),
+						r.getString("languageItem8")});
+		
 		menuBar.getMenus().addAll(backgroundColor, image, penColor, language);
 		root.getChildren().add(menuBar);
 		Hyperlink link = addLink("Help page", 830);
