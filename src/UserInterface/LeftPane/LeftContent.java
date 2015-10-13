@@ -5,9 +5,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import java.util.ResourceBundle;
+
+
 public class LeftContent {
 	private Group root;
 	private ScrollPane[] myPaneArr;
+	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.LeftPane/LeftResource");
 	public LeftContent() {
 		root = makeScrollablePanes();
 	}
@@ -15,19 +19,20 @@ public class LeftContent {
 	public Group makeScrollablePanes() {
 		ScrollPaneHandler myScrollPaneHandler = new ScrollPaneHandler();
 		TextHandler myTextHandler = new TextHandler();
-		double[] prefWidth = {150, 150};
-		double[] prefHeight = {675/2 - 35, 675/2 - 35};
-		double[] translateYPane = {0, 675/2 - 35};
+		double[] prefWidth = {Double.parseDouble(r.getString("prefWidth")), Double.parseDouble(r.getString("prefWidth"))};
+		double[] prefHeight = {Double.parseDouble(r.getString("prefHeight")), Double.parseDouble(r.getString("prefHeight"))};
+		double[] translateYPane = {Double.parseDouble(r.getString("translateTopY")), Double.parseDouble(r.getString("translateBottomY"))};
 		myPaneArr = myScrollPaneHandler.createScrollPanes(2, prefWidth, prefHeight, translateYPane);
-		String[] titles = {"User Defined Functions", "Variables"};
-		double[] yCor = {20, 675/2 - 20};
-		double[] xCor = {10, 20};
+		String[] titles = {r.getString("topTitle"), r.getString("bottomTitle")};
+		double[] yCor = {Double.parseDouble(r.getString("yTopCor")), Double.parseDouble(r.getString("yBottomCor"))};
+		double[] xCor = {Double.parseDouble(r.getString("xTopCor")), Double.parseDouble(r.getString("xBottomCor"))};
 		Text[] textArr = myTextHandler.createTextObjects(2, titles, yCor, xCor);
 
 		Group root = new Group();
 		addToRoot(myPaneArr, textArr, root);
-		Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
-		getPaneArray()[0].setContent(new ImageView(image));
+		//Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
+		//getPaneArray()[0].setContent(new ImageView(image));
+		//myPaneArr[0].setContent(new Text("Hi"));
 		return root;
 	}
 	
