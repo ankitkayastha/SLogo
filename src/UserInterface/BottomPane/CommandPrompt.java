@@ -5,6 +5,8 @@ import controller.BottomPane;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 
 public class CommandPrompt {
@@ -35,11 +37,15 @@ public class CommandPrompt {
 		clear.setOnAction((event) -> {
 			bottomPaneController.clearButtonAction(field);
 		});
-		run.setOnAction((event) -> {
-			bottomPaneController.runButtonAction(field, left.getPaneArray());
-		});
+		
+
 		
 		addToRoot(field, buttonArr, root);
+		run.setOnAction((eventOne) -> {
+			//Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
+			//left.getPaneArray()[0].setContent(new ImageView(image));
+			bottomPaneController.runButtonAction(field, left.getPaneArray());
+		});
 		return root;
 	}
 	

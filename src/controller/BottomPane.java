@@ -3,16 +3,20 @@ package controller;
 
 import java.util.*;
 
+import UserInterface.LeftPane.LeftContent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 
 public class BottomPane {
 	private List<String> commandHistory;
-	
+	private LeftContent left;
 	public BottomPane() {
 		commandHistory = new ArrayList<String>();
+		left = new LeftContent();
 	}
 	
 	public void clearButtonAction(TextArea field) {
@@ -59,12 +63,14 @@ public class BottomPane {
 		String command = field.getText();
 		//System.out.println(command);
 		commandHistory.add(command);
-		System.out.println(commandHistory.toString());
+		//System.out.println(commandHistory.toString());
 		List<Text> myTextList = convertToText(commandHistory);
-		System.out.println(myTextList.size());
+		//System.out.println(myTextList.size());
 		System.out.println(myTextList.get(0).getText());
-		//paneArr[0].setContent(new ImageView);
-		paneArr[0].setContent(myTextList.get(0));
+		Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
+		left.getPaneArray()[0].setContent(new ImageView(image));
+		//System.out.println(myTextList);
+		left.getPaneArray()[0].setContent(myTextList.get(0));
 		//paneArr[index].setContent(new Text(field.getText()));
 		for (Text text : myTextList) {
 			//text.setTranslateX(0);
