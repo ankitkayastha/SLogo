@@ -21,7 +21,7 @@ public class TurtleView {
 		CommandHistory history = new CommandHistory();
 		CommandPrompt prompt = new CommandPrompt(left, history);
 
-		history.makeScrollablePane();
+		history.makeListView();
 	//	Group rightPane = history.makeScrollablePane();
 		DisplayTurtle turtleDisplay = new DisplayTurtle();
 		MenuHandler menu = new MenuHandler();

@@ -51,10 +51,7 @@ public class CommandPrompt {
 		
 		addToRoot(field, buttonArr, root);
 		run.setOnAction((event) -> {
-			//Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
-			//left.getPaneArray()[0].setContent(new ImageView(image));
-			//leftPaneController.addToScrollPane(left.getPaneArray()[0], field);
-			//Group rootRight = right.getRoot();
+			
 			bottomPaneController.runButtonAction(field);
 		});
 		return root;

@@ -35,20 +35,12 @@ public class LeftContent {
 
 		Group root = new Group();
 		addToRoot(myPaneArr, textArr, root);
-		//HBox myBox = new HBox();
-		//myBox.getChildren().add(new Text("HI"));
-		//getPaneArray()[0].setContent(myBox);
-		//Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
-		//getPaneArray()[0].setContent(new ImageView(image));
-		//myPaneArr[0].setContent(new Text("Hi"));
+		
 		return root;
 	}
 	
 	public ScrollPane[] getPaneArray() {
-		//System.out.println(myPaneArr[0].getId());
-		//Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
-		//myPaneArr[0].setContent(new ImageView(image));
-		//System.out.println("Returning array with size " + myPaneArr.length);
+		
 		return myPaneArr;
 	}
 	private void addToRoot(ScrollPane[] paneArray, Text[] textArr, Group root) {
