@@ -2,16 +2,25 @@ package UserInterface.TopPane;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Hyperlink;
-
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import java.util.ResourceBundle;
-
+import javafx.geometry.Insets;
+import UserInterface.TurtleView;
+import UserInterface.CenterPane.DisplayTurtle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
@@ -23,6 +32,7 @@ import slogo_team03.Turtle;
 public class MenuHandler {
 	private Group root;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.TopPane/TopResource");
+	private StackPane s = DisplayTurtle.getPane();
 	
 	public MenuHandler() {
 		root = makeMenuBar();
@@ -31,13 +41,22 @@ public class MenuHandler {
 	public Group makeMenuBar() {
 		Group root = new Group();
 		MenuBar menuBar = new MenuBar();
-		Turtle turtle = new Turtle();
 		
 		Menu backgroundColor = new Menu(r.getString("backgroundTitle"));
-		ColorPicker cp = new ColorPicker();
+		ColorPicker cp = new ColorPicker(Color.WHITE);
 		MenuItem changeColor = new MenuItem();
 		changeColor.setGraphic(cp);
 		backgroundColor.getItems().add(changeColor);
+		cp.setOnAction((event) -> {
+			//s.setStyle("-fx-background-color: #" + cp.getValue().toString()+";");
+			//s.requestLayout();
+			//System.out.println(cp.getValue().toString());
+			s.setBackground(new Background(new BackgroundFill(Color.web(cp.getValue().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
+
+			
+			//s.setFill(cp.getValue());
+			//System.out.println(s.setF);
+		}); 
 			
 		Menu image = new Menu(r.getString("imageTitle"));
 		addItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")});
@@ -48,7 +67,7 @@ public class MenuHandler {
 		changeColor1.setGraphic(cp1);
 		penColor.getItems().add(changeColor1);
 		cp1.setOnAction((event) -> {
-			turtle.setPenColor(cp.getValue());
+			Turtle.setPenColor(cp1.getValue());
 		});
 		
 		Menu language = new Menu(r.getString("languageTitle"));
@@ -63,6 +82,8 @@ public class MenuHandler {
 		
 		menuBar.getMenus().addAll(backgroundColor, image, penColor, language);
 		root.getChildren().add(menuBar);
+		
+		
 		Hyperlink link = addLink("Help page", 830);
 		WebView browser = new WebView();
 		WebEngine webEngine = browser.getEngine();

@@ -10,7 +10,7 @@ public class Turtle {
 	private double angle;
 	private boolean visible, penDown;
 	private List<Point2D> pointList;
-	private Color penColor;
+	private static Color penColor;
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
 	
 	public Turtle() {
@@ -73,8 +73,8 @@ public class Turtle {
 		this.penDown = penDown;
 	}
 	
-	public void setPenColor(Color c) {
-		this.penColor = c;
+	public static void setPenColor(Color c) {
+		penColor = c;
 	}
 	
 	public void addPoint(double x, double y) {
