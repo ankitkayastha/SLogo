@@ -1,7 +1,9 @@
 package UserInterface.BottomPane;
 
 import UserInterface.LeftPane.LeftContent;
+import UserInterface.RightPane.CommandHistory;
 import controller.BottomPane;
+import controller.LeftPane;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -13,13 +15,17 @@ import java.util.ResourceBundle;
 public class CommandPrompt {
 	private Group root;
 	private LeftContent left;
+	private CommandHistory right; //right pane
+	private LeftPane leftPaneController;
 	private BottomPane bottomPaneController;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.BottomPane/bottomResource");
 	
-	public CommandPrompt() {
+	public CommandPrompt(LeftContent leftContent, CommandHistory rightPane) {
 		root = makeCommandPromptArea();
-		bottomPaneController = new BottomPane();
-		left = new LeftContent();
+		left = leftContent;
+		leftPaneController = new LeftPane();
+		right = rightPane;
+		bottomPaneController = new BottomPane(left, right);
 	}
 	
 	public Group makeCommandPromptArea() {
@@ -44,10 +50,9 @@ public class CommandPrompt {
 
 		
 		addToRoot(field, buttonArr, root);
-		run.setOnAction((eventOne) -> {
-			//Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
-			//left.getPaneArray()[0].setContent(new ImageView(image));
-			bottomPaneController.runButtonAction(field, left.getPaneArray());
+		run.setOnAction((event) -> {
+			
+			bottomPaneController.runButtonAction(field);
 		});
 		return root;
 	}

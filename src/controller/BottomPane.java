@@ -4,19 +4,22 @@ package controller;
 import java.util.*;
 
 import UserInterface.LeftPane.LeftContent;
-import javafx.scene.control.ScrollPane;
+import UserInterface.RightPane.CommandHistory;
+import javafx.collections.ObservableList;
+import javafx.scene.Group;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 
 public class BottomPane {
 	private List<String> commandHistory;
 	private LeftContent left;
-	public BottomPane() {
-		commandHistory = new ArrayList<String>();
-		left = new LeftContent();
+	private CommandHistory rightPane;
+	public BottomPane(LeftContent leftCont, CommandHistory right) {
+		this.commandHistory = new ArrayList<String>();
+		this.left = leftCont;
+		this.rightPane = right;
 	}
 	
 	public void clearButtonAction(TextArea field) {
@@ -27,10 +30,7 @@ public class BottomPane {
 		if (code.equals(KeyCode.UP)) {
 			//empty text area, which means should load last command
 			if (field.getText().equals("")) {
-				//System.out.println("Command History size is " + commandHistory.size());
-				//System.out.println("At index 2 is " + commandHistory.get(2));
 				field.setText(commandHistory.get(commandHistory.size() - 1));
-				//System.out.println("After setting text, text is " + field.getText());
 			}
 			else if (commandHistory.contains(field.getText())) { //text area has command previously stored in list
 				//first command, continue to show first command
@@ -44,7 +44,6 @@ public class BottomPane {
 				field.setText(commandHistory.get(index - 1));
 				
 			}
-			//field.setText(commandHistory.get(commandHistory.size() - 1));
 		}
 		else if (code.equals(KeyCode.DOWN)) {
 			if (!field.getText().equals("")) {	
@@ -58,40 +57,18 @@ public class BottomPane {
 		}
 	}
 	
-	public void runButtonAction(TextArea field, ScrollPane[] paneArr) {
-		//Group root = new Group();
+	public void runButtonAction(TextArea field) {
+		ListView<String> list = rightPane.getListView();
+		//System.out.println("Listview now is " + list.getItems().toString());
+		ObservableList<String> myObsList = rightPane.getObs();
 		String command = field.getText();
-		//System.out.println(command);
 		commandHistory.add(command);
-		//System.out.println(commandHistory.toString());
-		List<Text> myTextList = convertToText(commandHistory);
-		//System.out.println(myTextList.size());
-		System.out.println(myTextList.get(0).getText());
-		Image image = new Image(getClass().getClassLoader().getResourceAsStream("turtle.png"));
-		left.getPaneArray()[0].setContent(new ImageView(image));
-		//System.out.println(myTextList);
-		left.getPaneArray()[0].setContent(myTextList.get(0));
-		//paneArr[index].setContent(new Text(field.getText()));
-		for (Text text : myTextList) {
-			//text.setTranslateX(0);
-			//text.setTranslateY(50);
-			//paneArr[index].setContent(text);
-			//paneArr[index].getContent().;
-		//	paneArr[index].getContent().setAccessibleText("This hopefully works");
-			//System.out.println("Adding " + paneArr[index].getContent().getAccessibleText() + " to pane with ID " + paneArr[index].getId());
-		}
-		//System.out.println(paneArr[index].getContent().);
+		myObsList.add(field.getText());
+		//System.out.println("Observation list is " + myObsList.toString());
+		list.setItems(myObsList);
+		
 		field.clear();
 	}
-	
-	private List<Text> convertToText(List<String> commandList) {
-		List<Text> list = new ArrayList<Text>();
-		for (String s : commandList) {
-			Text textObj = new Text();
-			textObj.setText(s);
-			list.add(textObj);
-		}
 		
-		return list;
-	}
+
 }
