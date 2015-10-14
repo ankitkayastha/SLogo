@@ -1,6 +1,7 @@
 package slogo_team03;
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.geometry.Point2D;
 
 public class Turtle {
@@ -8,6 +9,7 @@ public class Turtle {
 	private double angle;
 	private boolean visible, penDown;
 	private List<Point2D> pointList;
+	private static int ID = 0;
 	
 	public Turtle() {
 		x = 0;
@@ -16,6 +18,7 @@ public class Turtle {
 		visible = true;
 		penDown = true;
 		resetPointList();
+		ID = ID++;
 	}
 	
 	public void resetPointList(double a, double b) {
@@ -26,6 +29,10 @@ public class Turtle {
 	public void resetPointList() {
 		pointList = new ArrayList<Point2D>();
 		pointList.add(new Point2D(this.x, this.y));
+	}
+	
+	public List<Point2D> getPointList() {
+		return pointList;
 	}
 	
 	public double getX() {
@@ -70,5 +77,9 @@ public class Turtle {
 	
 	public void addPoint(double x, double y) {
 		pointList.add(new Point2D(x, y));
+	}
+	
+	public int getID() {
+		return this.ID;
 	}
 }

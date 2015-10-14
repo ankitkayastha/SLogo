@@ -10,12 +10,15 @@ public class TurtleWorld {
 	private CommandFactory factory;
 	private List<String> inputList;
 	private CommandParser parser;
+	private TurtleMap turtles;
 
 	public TurtleWorld() {
 		turtle = new Turtle();
 		factory = new CommandFactory();
 		inputList = new ArrayList<String>();
 		parser = new CommandParser();
+		turtles = new TurtleMap();
+		turtles.addTurtle(turtle);
 	}
 
 	public void receiveAndExecuteInput(String input) {
@@ -39,4 +42,5 @@ public class TurtleWorld {
 			System.out.println(command.execute());
 		}
 	}
+	
 }
