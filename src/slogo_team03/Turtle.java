@@ -12,7 +12,7 @@ public class Turtle {
 	private boolean visible, penDown;
 	private List<Point2D> pointList;
 	private static int ID = 0;
-	private Color penColor;
+	private static Color penColor;
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
 	
 	public Turtle() {
