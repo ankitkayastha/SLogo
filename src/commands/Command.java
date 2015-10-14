@@ -47,11 +47,11 @@ public abstract class Command {
 		}
 	}
 	
-	public boolean isCommand(String s) {
+	private boolean isCommand(String s) {
 		return (!isNumeric(s));
 	}
 
-	public boolean isNumeric(String s) {  
+	private boolean isNumeric(String s) {  
 		return s.matches("[-+]?\\d*\\.?\\d+");  
 	}
 }

@@ -1,6 +1,7 @@
 package slogo_team03;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.ResourceBundle;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -10,7 +11,8 @@ public class Turtle {
 	private double angle;
 	private boolean visible, penDown;
 	private List<Point2D> pointList;
-	private static Color penColor;
+	private static int ID = 0;
+	private Color penColor;
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
 	
 	public Turtle() {
@@ -21,6 +23,7 @@ public class Turtle {
 		penDown = Boolean.parseBoolean(r.getString("penDown"));
 		penColor = Color.BLUE;
 		resetPointList();
+		ID = ID++;
 	}
 	
 	public void resetPointList(double a, double b) {
@@ -31,6 +34,10 @@ public class Turtle {
 	public void resetPointList() {
 		pointList = new ArrayList<Point2D>();
 		pointList.add(new Point2D(this.x, this.y));
+	}
+	
+	public List<Point2D> getPointList() {
+		return pointList;
 	}
 	
 	public double getX() {
@@ -77,7 +84,15 @@ public class Turtle {
 		penColor = c;
 	}
 	
+	public Color getPenColor() {
+		return penColor;
+	}
+	
 	public void addPoint(double x, double y) {
 		pointList.add(new Point2D(x, y));
+	}
+	
+	public int getID() {
+		return this.ID;
 	}
 }

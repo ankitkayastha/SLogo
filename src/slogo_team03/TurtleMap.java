@@ -1,0 +1,42 @@
+package slogo_team03;
+
+import java.util.HashMap;
+import java.util.List;
+
+import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
+
+public class TurtleMap {
+	private HashMap<Integer, Turtle> turtles;
+
+	public TurtleMap() {
+		turtles = new HashMap<Integer, Turtle>();
+	}
+	
+	private Turtle getTurtle(int turtleID) {
+		if (turtles.containsKey(turtleID)) {
+			return turtles.get(turtleID);
+		}
+		return null;
+	}
+	
+	public void addTurtle(Turtle t) {
+		turtles.put(t.getID(), t);
+	}
+	
+	public boolean isTurtleVisible(int turtleID) {
+		return this.getTurtle(turtleID).isVisible();
+	}
+	
+	public boolean isPenDown(int turtleID) {
+		return this.getTurtle(turtleID).isPenDown();
+	}
+	
+	public List<Point2D> getTurtleCoordinateList(int turtleID) {
+		return this.getTurtle(turtleID).getPointList();
+	}
+	
+	public Color getTurtleColor(int turtleID) {
+		return this.getTurtle(turtleID).getPenColor();
+	}
+}
