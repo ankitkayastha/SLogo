@@ -84,6 +84,10 @@ public class Turtle {
 		this.penColor = c;
 	}
 	
+	public Color getPenColor() {
+		return penColor;
+	}
+	
 	public void addPoint(double x, double y) {
 		pointList.add(new Point2D(x, y));
 	}

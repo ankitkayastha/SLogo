@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 
 public class TurtleMap {
 	private HashMap<Integer, Turtle> turtles;
@@ -33,5 +34,9 @@ public class TurtleMap {
 	
 	public List<Point2D> getTurtleCoordinateList(int turtleID) {
 		return this.getTurtle(turtleID).getPointList();
+	}
+	
+	public Color getTurtleColor(int turtleID) {
+		return this.getTurtle(turtleID).getPenColor();
 	}
 }
