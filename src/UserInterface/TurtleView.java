@@ -6,6 +6,7 @@ import UserInterface.CenterPane.DisplayTurtle;
 import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
 import UserInterface.TopPane.MenuHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -17,13 +18,16 @@ public class TurtleView {
 	public TurtleView() {
 		BorderPane myPane = new BorderPane();
 		LeftContent left = new LeftContent();
-		CommandPrompt prompt = new CommandPrompt();
 		CommandHistory history = new CommandHistory();
+		CommandPrompt prompt = new CommandPrompt(left, history);
+
+		history.makeScrollablePane();
+	//	Group rightPane = history.makeScrollablePane();
 		DisplayTurtle turtleDisplay = new DisplayTurtle();
 		MenuHandler menu = new MenuHandler();
 		myPane.setCenter(turtleDisplay.makeTurtle());
 		myPane.setLeft(left.makeScrollablePanes());
-		myPane.setRight(history.makeScrollablePane());
+		myPane.setRight(history.getListView());
 		myPane.setTop(menu.makeMenuBar());
 		//myPane.setTop(prompt.makeCommandPromptArea());
 		myPane.setBottom(prompt.makeCommandPromptArea());
