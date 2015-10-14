@@ -9,6 +9,7 @@ public class ScrollPaneHandler {
 			ScrollPane pane = new ScrollPane();
 			pane.setPrefSize(prefWidth[i], prefHeight[i]);
 			pane.setTranslateY(translateY[i]);
+			pane.setId(Integer.toString(i));
 			myArr[i] = pane;
 		}
 		return myArr;
