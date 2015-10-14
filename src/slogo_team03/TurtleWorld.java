@@ -43,4 +43,7 @@ public class TurtleWorld {
 		}
 	}
 	
+	public TurtleMap getTurtlesMap() {
+		return turtles;
+	}
 }
