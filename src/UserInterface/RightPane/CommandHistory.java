@@ -7,6 +7,8 @@ import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.TextFieldListCell;
+
 import java.util.ResourceBundle;
 
 public class CommandHistory {
@@ -29,8 +31,7 @@ public class CommandHistory {
 		myListView.setPrefSize(Double.parseDouble(r.getString("prefWidth")), Double.parseDouble(r.getString("prefHeight")));
 		myListView.setTranslateY(Double.parseDouble(r.getString("historyTranslateY")));
 		myListView.setItems(myObsList);
-		//myObsList.setEditable(true);
-		myListView.setEditable(true);
+		
 		root.getChildren().add(title);
 		root.getChildren().add(myListView);
 		myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
