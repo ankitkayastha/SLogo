@@ -6,11 +6,9 @@ import java.util.*;
 import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
-import javafx.scene.text.Text;
 
 public class BottomPane {
 	private List<String> commandHistory;
@@ -59,14 +57,16 @@ public class BottomPane {
 	
 	public void runButtonAction(TextArea field) {
 		ListView<String> list = rightPane.getListView();
-		//System.out.println("Listview now is " + list.getItems().toString());
+		ListView<String> listViewObjs = left.getListView(1);
+		ObservableList<String> vars = left.getListViewObservable(1);
+		//ObservableList<String> variables = listViewObjs.get
 		ObservableList<String> myObsList = rightPane.getObs();
 		String command = field.getText();
 		commandHistory.add(command);
 		myObsList.add(field.getText());
-		//System.out.println("Observation list is " + myObsList.toString());
 		list.setItems(myObsList);
-		
+		vars.add(command);
+		listViewObjs.setItems(vars);
 		field.clear();
 	}
 		
