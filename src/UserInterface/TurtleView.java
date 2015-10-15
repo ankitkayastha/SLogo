@@ -24,7 +24,7 @@ public class TurtleView {
 		history.makeListView();
 	//	Group rightPane = history.makeScrollablePane();
 		DisplayTurtle turtleDisplay = new DisplayTurtle();
-		MenuHandler menu = new MenuHandler();
+		MenuHandler menu = new MenuHandler(turtleDisplay);
 		myPane.setCenter(turtleDisplay.makeTurtle());
 		myPane.setLeft(left.makeScrollablePanes());
 		myPane.setRight(history.getListView());

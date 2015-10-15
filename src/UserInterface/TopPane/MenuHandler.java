@@ -32,10 +32,11 @@ import slogo_team03.Turtle;
 public class MenuHandler {
 	private Group root;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.TopPane/TopResource");
-	private StackPane s = DisplayTurtle.getPane();
+	private DisplayTurtle s;
 	
-	public MenuHandler() {
+	public MenuHandler(DisplayTurtle center) {
 		root = makeMenuBar();
+		this.s = center;
 	}
 	
 	public Group makeMenuBar() {
@@ -48,10 +49,11 @@ public class MenuHandler {
 		changeColor.setGraphic(cp);
 		backgroundColor.getItems().add(changeColor);
 		cp.setOnAction((event) -> {
-			//s.setStyle("-fx-background-color: #" + cp.getValue().toString()+";");
+			//s.getPane().setBackground(new Background(new BackgroundFill(Color.web(cp.getValue().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
+			s.getPane().setStyle("-fx-background-color: #" + cp.getValue().toString()+";");
 			//s.requestLayout();
 			//System.out.println(cp.getValue().toString());
-			s.setBackground(new Background(new BackgroundFill(Color.web(cp.getValue().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
+			//s.setBackground(new Background(new BackgroundFill(Color.web(cp.getValue().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
 
 			
 			//s.setFill(cp.getValue());

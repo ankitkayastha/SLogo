@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import java.util.ResourceBundle;
 
 public class DisplayTurtle {
-	public static StackPane root;
+	public StackPane root;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 
 	public DisplayTurtle() {
@@ -35,9 +35,8 @@ public class DisplayTurtle {
 		return image;
 	}
 	
-	//public static void changeColor
-	public static StackPane getPane() {
-		return root;
+	public StackPane getPane() {
+		return this.root;
 	}
 	
 }
