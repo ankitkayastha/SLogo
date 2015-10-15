@@ -7,7 +7,6 @@ import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.TextFieldListCell;
 
 import java.util.ResourceBundle;
 
@@ -37,9 +36,6 @@ public class CommandHistory {
 		myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> observable, String oldString, String newString) {
 				field.setText(newString);
-				System.out.println(myListView.getSelectionModel().getSelectedIndex());
-
-				//System.out.println(newString);
 			}
 		});
 
