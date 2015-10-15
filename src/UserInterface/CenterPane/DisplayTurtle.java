@@ -26,7 +26,7 @@ public class DisplayTurtle {
 		turtle.setX(Double.parseDouble(r.getString("xPos")));
 		turtle.setY(Double.parseDouble(r.getString("yPos")));
 		//root.setStyle("-fx-background-color: #000000;");
-		root.setBackground(new Background(new BackgroundFill(Color.web("0xf00fff"), CornerRadii.EMPTY, Insets.EMPTY)));
+		root.setBackground(new Background(new BackgroundFill(Color.web("0x000000"), CornerRadii.EMPTY, Insets.EMPTY)));
 		return root;
 	}
 	

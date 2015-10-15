@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import java.util.ResourceBundle;
 
-
 public class CommandPrompt {
 	private Group root;
 	private TextArea field;
