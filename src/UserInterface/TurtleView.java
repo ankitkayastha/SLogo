@@ -7,11 +7,9 @@ import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
 import UserInterface.TopPane.MenuHandler;
 import controller.BottomPane;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.scene.control.TextArea;
-import javafx.scene.paint.Color;
+
 
 public class TurtleView {
 	private Scene myScene;
@@ -29,7 +27,7 @@ public class TurtleView {
 		MenuHandler menu = new MenuHandler();
 		myPane.setCenter(turtleDisplay.makeTurtle());
 		myPane.setLeft(left.makeScrollablePanes());
-		myPane.setRight(history.getListView());
+		myPane.setRight(history.getRoot());
 		myPane.setTop(menu.makeMenuBar());
 		myPane.setBottom(prompt.getRoot());
 		myScene = new Scene(myPane, Integer.parseInt(r.getString("sceneWidth")), Integer.parseInt(r.getString("sceneHeight")));

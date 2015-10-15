@@ -57,14 +57,16 @@ public class BottomPane {
 	
 	public void runButtonAction(TextArea field) {
 		ListView<String> list = rightPane.getListView();
-		List<ListView<String>> listViewObjs = left.getListViewObs();
-		
+		ListView<String> listViewObjs = left.getListView(1);
+		ObservableList<String> vars = left.getListViewObservable(1);
+		//ObservableList<String> variables = listViewObjs.get
 		ObservableList<String> myObsList = rightPane.getObs();
 		String command = field.getText();
 		commandHistory.add(command);
 		myObsList.add(field.getText());
 		list.setItems(myObsList);
-		
+		vars.add(command);
+		listViewObjs.setItems(vars);
 		field.clear();
 	}
 		

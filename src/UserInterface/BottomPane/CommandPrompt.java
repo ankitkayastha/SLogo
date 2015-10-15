@@ -1,9 +1,6 @@
 package UserInterface.BottomPane;
 
-import UserInterface.LeftPane.LeftContent;
-import UserInterface.RightPane.CommandHistory;
 import controller.BottomPane;
-import controller.RightPane;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
