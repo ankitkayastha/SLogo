@@ -6,10 +6,10 @@ import UserInterface.CenterPane.DisplayTurtle;
 import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
 import UserInterface.TopPane.MenuHandler;
-import javafx.scene.Group;
+import controller.BottomPane;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+
 
 public class TurtleView {
 	private Scene myScene;
@@ -19,18 +19,17 @@ public class TurtleView {
 		BorderPane myPane = new BorderPane();
 		LeftContent left = new LeftContent();
 		CommandHistory history = new CommandHistory();
-		CommandPrompt prompt = new CommandPrompt(left, history);
-
-		history.makeListView();
-	//	Group rightPane = history.makeScrollablePane();
+		CommandPrompt prompt = new CommandPrompt();
+		BottomPane bottomController = new BottomPane(left, history);
+		prompt.makeCommandPromptArea(bottomController);
+		history.makeListView(prompt.getField());
 		DisplayTurtle turtleDisplay = new DisplayTurtle();
 		MenuHandler menu = new MenuHandler();
 		myPane.setCenter(turtleDisplay.makeTurtle());
 		myPane.setLeft(left.makeScrollablePanes());
-		myPane.setRight(history.getListView());
+		myPane.setRight(history.getRoot());
 		myPane.setTop(menu.makeMenuBar());
-		//myPane.setTop(prompt.makeCommandPromptArea());
-		myPane.setBottom(prompt.makeCommandPromptArea());
+		myPane.setBottom(prompt.getRoot());
 		myScene = new Scene(myPane, Integer.parseInt(r.getString("sceneWidth")), Integer.parseInt(r.getString("sceneHeight")));
 	}
 	
