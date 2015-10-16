@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import java.util.ResourceBundle;
 
+import UserInterface.CenterPane.DisplayTurtle;
+
 public class CommandPrompt {
 	private Group root;
 	private TextArea field;
@@ -23,7 +25,7 @@ public class CommandPrompt {
 		return field;
 	}
 	
-	public void makeCommandPromptArea(BottomPane bottomController) {
+	public void makeCommandPromptArea(BottomPane bottomController, DisplayTurtle display) {
 		ButtonHandler buttonHandler = new ButtonHandler();
 		Button[] buttonArr;
 		field.setPrefSize(Double.parseDouble(r.getString("inputBoxWidth")), Double.parseDouble(r.getString("inputBoxHeight")));
@@ -36,7 +38,7 @@ public class CommandPrompt {
 		field.setOnKeyPressed(event -> bottomController.handleKeyInput(event.getCode(), field));
 		
 		clear.setOnAction((event) -> {
-			bottomController.clearButtonAction(field);
+			bottomController.clearButtonAction(field, display.getPane());
 		});
 		addToRoot(field, buttonArr, root);
 		run.setOnAction((event) -> {

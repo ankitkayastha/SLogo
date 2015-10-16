@@ -76,6 +76,7 @@ public class MenuHandler {
 		penColor.getItems().add(changeColor1);
 		cp1.setOnAction((event) -> {
 			Turtle.setPenColor(cp1.getValue());
+			c.changePenColorAction(cp1.getValue());
 		});
 		
 		Menu language = new Menu(r.getString("languageTitle"));
