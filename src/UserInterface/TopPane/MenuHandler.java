@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import UserInterface.TurtleView;
 import UserInterface.CenterPane.DisplayTurtle;
+import controller.TopPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
@@ -32,16 +33,20 @@ import slogo_team03.Turtle;
 public class MenuHandler {
 	private Group root;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.TopPane/TopResource");
-	private DisplayTurtle s;
+	//private TopPane control;
 	
-	public MenuHandler(DisplayTurtle center) {
-		root = makeMenuBar();
-		this.s = center;
+	public MenuHandler() {
+		//root = new Group();
+		//this.control = controller;
 	}
 	
-	public Group makeMenuBar() {
-		Group root = new Group();
+	public Group getRoot() {
+		return this.root;
+	}
+	
+	public void makeMenuBar(TopPane c) {
 		MenuBar menuBar = new MenuBar();
+		root = new Group();
 		
 		Menu backgroundColor = new Menu(r.getString("backgroundTitle"));
 		ColorPicker cp = new ColorPicker(Color.WHITE);
@@ -49,8 +54,9 @@ public class MenuHandler {
 		changeColor.setGraphic(cp);
 		backgroundColor.getItems().add(changeColor);
 		cp.setOnAction((event) -> {
+			c.changeBackgroundAction(cp.getValue());
 			//s.getPane().setBackground(new Background(new BackgroundFill(Color.web(cp.getValue().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
-			s.getPane().setStyle("-fx-background-color: #" + cp.getValue().toString()+";");
+			//s.getPane().setStyle("-fx-background-color: #" + cp.getValue().toString()+";");
 			//s.requestLayout();
 			//System.out.println(cp.getValue().toString());
 			//s.setBackground(new Background(new BackgroundFill(Color.web(cp.getValue().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -97,7 +103,6 @@ public class MenuHandler {
 			}
 		});
 		root.getChildren().addAll(link);
-		return root;
 	}
 	
 	private Menu addItems(Menu menu, String[] options) {

@@ -12,22 +12,21 @@ import javafx.scene.paint.Color;
 import java.util.ResourceBundle;
 
 public class DisplayTurtle {
-	public StackPane root;
+	public StackPane pane;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
-
+	
 	public DisplayTurtle() {
-		root = makeTurtle();
+		pane = new StackPane();
+		//root = makeTurtle();
 	}
 
-	public StackPane makeTurtle() {
-		StackPane root = new StackPane();
+	public void makeTurtle() {
 		ImageView turtle = new ImageView(setImage(r.getString("image")));
-		root.getChildren().add(turtle);
+		pane.getChildren().add(turtle);
 		turtle.setX(Double.parseDouble(r.getString("xPos")));
 		turtle.setY(Double.parseDouble(r.getString("yPos")));
 		//root.setStyle("-fx-background-color: #000000;");
-		root.setBackground(new Background(new BackgroundFill(Color.web("0x000000"), CornerRadii.EMPTY, Insets.EMPTY)));
-		return root;
+		pane.setBackground(new Background(new BackgroundFill(Color.web("0x0000ff"), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	private Image setImage(String s) {
@@ -36,7 +35,7 @@ public class DisplayTurtle {
 	}
 	
 	public StackPane getPane() {
-		return this.root;
+		return this.pane;
 	}
 	
 }
