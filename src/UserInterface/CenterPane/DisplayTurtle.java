@@ -1,29 +1,41 @@
 package UserInterface.CenterPane;
 
-import javafx.scene.Group;
+import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+
 import java.util.ResourceBundle;
 
 public class DisplayTurtle {
-	private Group root;
+	public StackPane pane;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
-
+	
 	public DisplayTurtle() {
-		root = makeTurtle();
+		pane = new StackPane();
+		//root = makeTurtle();
 	}
 
-	public Group makeTurtle() {
-		Group root = new Group();
+	public void makeTurtle() {
 		ImageView turtle = new ImageView(setImage(r.getString("image")));
-		root.getChildren().add(turtle);
+		pane.getChildren().add(turtle);
 		turtle.setX(Double.parseDouble(r.getString("xPos")));
 		turtle.setY(Double.parseDouble(r.getString("yPos")));
-		return root;
+		//root.setStyle("-fx-background-color: #000000;");
+		pane.setBackground(new Background(new BackgroundFill(Color.web("0x0000ff"), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	private Image setImage(String s) {
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(s));
 		return image;
 	}
+	
+	public StackPane getPane() {
+		return this.pane;
+	}
+	
 }
