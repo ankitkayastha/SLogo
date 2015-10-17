@@ -7,18 +7,18 @@ import java.util.Map;
 
 import commands.Command;
 
-public class TurtleWorld implements ReceiveString {
+public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	private Turtle turtle;
 	private Parser parser;
 	private Map<String, List<String>> userDefinedCommands;
-	private Map<String, Double> variables;
+	private UserDefinedVariables variables;
 	private TurtleMap turtles;
 
 	public TurtleWorld() {
 		turtle = new Turtle();
 		parser = new Parser();
 		userDefinedCommands = new HashMap<String, List<String>>();
-		variables = new HashMap<String, Double>();
+		variables = new UserDefinedVariables();
 		turtles = new TurtleMap();
 		turtles.addTurtle(turtle);
 		Command.setMaps(userDefinedCommands, variables);
@@ -60,8 +60,20 @@ public class TurtleWorld implements ReceiveString {
 
 	@Override
 	public void receiveLanguage(String language) {
-
 		parser.processLanguage(language);
+	}
+
+
+	@Override
+	public Map<String, Double> getVariableMap() {
+		return variables.getVariableMap();
+	}
+
+
+	@Override
+	public Map<String, String> getUserDefinedCommands() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
