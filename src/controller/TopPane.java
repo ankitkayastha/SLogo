@@ -35,7 +35,7 @@ public class TopPane {
 	}
 	
 	public void changePenColorAction(Color c) {
-		
+		turtle.setLineColor(c);
 	}
 	
 	public void changeImageAction(String s) {

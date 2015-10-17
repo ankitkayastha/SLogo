@@ -107,7 +107,6 @@ public class MenuHandler {
 	
 	private Menu addImageItems(Menu menu, String[] options, TopPane controller) {
 		for (String s:options) {
-			System.out.println(s);
 			MenuItem m = new MenuItem(s);
 			m.setOnAction((event) -> controller.changeImage(s));
 			menu.getItems().add(m);
