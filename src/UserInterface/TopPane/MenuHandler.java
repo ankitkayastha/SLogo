@@ -67,7 +67,7 @@ public class MenuHandler {
 		}); 
 			
 		Menu image = new Menu(r.getString("imageTitle"));
-		addItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")});
+		addItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")});		
 		
 		Menu penColor = new Menu(r.getString("penTitle"));
 		ColorPicker cp1 = new ColorPicker();
@@ -75,7 +75,8 @@ public class MenuHandler {
 		changeColor1.setGraphic(cp1);
 		penColor.getItems().add(changeColor1);
 		cp1.setOnAction((event) -> {
-			Turtle.setPenColor(cp1.getValue());
+			c.changePenColorAction(cp1.getValue());
+			//Turtle.setPenColor(cp1.getValue());
 		});
 		
 		Menu language = new Menu(r.getString("languageTitle"));

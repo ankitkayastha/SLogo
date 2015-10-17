@@ -22,6 +22,7 @@ public class BottomPane {
 	
 	public void clearButtonAction(TextArea field) {
 		field.clear();
+		
 	}
 	
 	public void handleKeyInput(KeyCode code, TextArea field) {
