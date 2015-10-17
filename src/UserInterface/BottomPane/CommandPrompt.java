@@ -4,6 +4,8 @@ import controller.BottomPane;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import slogo_team03.ReceiveString;
+
 import java.util.ResourceBundle;
 
 import UserInterface.CenterPane.DisplayTurtle;
@@ -25,7 +27,7 @@ public class CommandPrompt {
 		return field;
 	}
 	
-	public void makeCommandPromptArea(BottomPane bottomController, DisplayTurtle display) {
+	public void makeCommandPromptArea(BottomPane bottomController, DisplayTurtle display, ReceiveString rs) {
 		ButtonHandler buttonHandler = new ButtonHandler();
 		Button[] buttonArr;
 		field.setPrefSize(Double.parseDouble(r.getString("inputBoxWidth")), Double.parseDouble(r.getString("inputBoxHeight")));
@@ -43,7 +45,7 @@ public class CommandPrompt {
 		addToRoot(field, buttonArr, root);
 		run.setOnAction((event) -> {
 			
-			bottomController.runButtonAction(field);
+			bottomController.runButtonAction(field, rs);
 		});
 	}
 	
