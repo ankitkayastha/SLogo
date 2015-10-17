@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import slogo_team03.AngleInterface;
+import slogo_team03.CommandInputException;
 import slogo_team03.CoordinateInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
@@ -49,7 +50,13 @@ public class CommandPrompt {
 		addToRoot(field, buttonArr, root);
 		run.setOnAction((event) -> {
 			
-			bottomController.runButtonAction(field, rs, ci, ai, pi, vi);
+			try {
+				bottomController.runButtonAction(field, rs, ci, ai, pi, vi);
+			} catch (CommandInputException e) {
+				
+				//Put up a dialog box here
+				System.out.println("Input error");
+			}
 		});
 	}
 	
