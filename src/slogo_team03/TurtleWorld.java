@@ -25,15 +25,11 @@ public class TurtleWorld implements ReceiveString {
 	}
 
 
-	public void processInput(String input) throws CommandInputException{
-		turtle.resetLineList();
+	public void processInput(String input) throws CommandInputException {
 		String[] inputArray = input.trim().split("\\s+");
 		List<String>inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();
-		System.out.println(parser.processInput(inputList));
-		System.out.println(turtle.getX());
-		System.out.println(turtle.getY());
-		System.out.println(turtle.getLineList());
+		parser.processInput(inputList);
 	}
 
 	private void setParser() {
@@ -53,7 +49,7 @@ public class TurtleWorld implements ReceiveString {
 
 	@Override
 	public void receiveLanguage(String language) {
-		System.out.println(language);
+
 		parser.processLanguage(language);
 	}
 
