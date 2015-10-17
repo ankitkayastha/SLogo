@@ -31,7 +31,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	}
 	
 	public void addPoint(double x, double y) {
-		pointList.add(new Point2D(format(x), format(x)));
+		pointList.add(new Point2D(format(x), format(y)));
 	}
 	
 	public void resetPointList() {
@@ -40,6 +40,8 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	}
 	
 	public List<Point2D> getPointList() {
+		//System.out.println("Ending X from turtle is" + pointList.get(1).getX());
+		//System.out.println("Ending Y from turtle is" + pointList.get(1).getY());
 		return pointList;
 	}
 	
@@ -72,6 +74,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	}
 
 	public boolean isVisible() {
+		System.out.println("Turtle visibility from Turtle object is " + visible);
 		return visible;
 	}
 
