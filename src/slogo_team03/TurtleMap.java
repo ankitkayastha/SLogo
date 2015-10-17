@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 public class TurtleMap {
 	private HashMap<Integer, Turtle> turtles;
@@ -32,7 +33,7 @@ public class TurtleMap {
 		return this.getTurtle(turtleID).isPenDown();
 	}
 	
-	public List<Point2D> getTurtleCoordinateList(int turtleID) {
+	public List<Line> getTurtleCoordinateList(int turtleID) {
 		return this.getTurtle(turtleID).getLineList();
 	}
 	

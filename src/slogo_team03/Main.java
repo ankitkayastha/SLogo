@@ -14,9 +14,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		TurtleWorld world = new TurtleWorld();		
-//		TurtleView view = new TurtleView();
-//		stage.setScene(view.getScene());
-//		stage.show();
+		TurtleView view = new TurtleView();
+		stage.setScene(view.getScene());
+		stage.show();
 		Scanner scan = new Scanner(System.in);
 
 		/*while (true) {

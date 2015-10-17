@@ -25,14 +25,13 @@ public class TurtleWorld implements ReceiveString {
 	}
 
 	public void processInput(String input) {
-		turtle.resetLineList();
 		String[] inputArray = input.trim().split("\\s+");
 		List<String>inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();
-		System.out.println(parser.processInput(inputList));
+		/*System.out.println(parser.processInput(inputList));
 		System.out.println(turtle.getX());
 		System.out.println(turtle.getY());
-		System.out.println(turtle.getLineList());
+		System.out.println(turtle.getLineList());*/
 	}
 
 	private void setParser() {
