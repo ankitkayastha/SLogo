@@ -55,28 +55,20 @@ public class MenuHandler {
 		backgroundColor.getItems().add(changeColor);
 		cp.setOnAction((event) -> {
 			c.changeBackgroundAction(cp.getValue());
-			//s.getPane().setBackground(new Background(new BackgroundFill(Color.web(cp.getValue().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
-			//s.getPane().setStyle("-fx-background-color: #" + cp.getValue().toString()+";");
-			//s.requestLayout();
-			//System.out.println(cp.getValue().toString());
-			//s.setBackground(new Background(new BackgroundFill(Color.web(cp.getValue().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
-
-			
-			//s.setFill(cp.getValue());
-			//System.out.println(s.setF);
 		}); 
 			
 		Menu image = new Menu(r.getString("imageTitle"));
-		addItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")});		
-		
+		addImageItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")}, 
+				c);
+		//image.setOnAction((event) -> c.changeImage(image.getItems().));
 		Menu penColor = new Menu(r.getString("penTitle"));
 		ColorPicker cp1 = new ColorPicker();
 		MenuItem changeColor1 = new MenuItem();
 		changeColor1.setGraphic(cp1);
 		penColor.getItems().add(changeColor1);
 		cp1.setOnAction((event) -> {
+			Turtle.setPenColor(cp1.getValue());
 			c.changePenColorAction(cp1.getValue());
-			//Turtle.setPenColor(cp1.getValue());
 		});
 		
 		Menu language = new Menu(r.getString("languageTitle"));
@@ -109,6 +101,16 @@ public class MenuHandler {
 	private Menu addItems(Menu menu, String[] options) {
 		for (String s:options) {
 			menu.getItems().add(new MenuItem(s));
+		}
+		return menu;
+	}
+	
+	private Menu addImageItems(Menu menu, String[] options, TopPane controller) {
+		for (String s:options) {
+			System.out.println(s);
+			MenuItem m = new MenuItem(s);
+			m.setOnAction((event) -> controller.changeImage(s));
+			menu.getItems().add(m);
 		}
 		return menu;
 	}
