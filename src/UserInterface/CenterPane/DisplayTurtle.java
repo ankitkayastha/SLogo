@@ -2,6 +2,7 @@ package UserInterface.CenterPane;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -29,41 +30,31 @@ public class DisplayTurtle {
 		myCanvas.setTranslateX(0);
 		myCanvas.setTranslateY(0);
 		root = new Group();
-		
-		//root = makeTurtle();
+
 	}
 	/*use point list */
 	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
-		System.out.println("Turtle visibility from front " + vi.isVisible());
-
-		if (!vi.isVisible()) {
+		Image image = setImage(r.getString("image"));
+		gc.fillRect(0, 0, 500, 500);
+		//System.out.println("Turtle visibility from front " + vi.isVisible());
 		
-			turtle.setVisible(false);
+		List<Line> lineList = ci.getLineList();
+		for (int i = 0; i < lineList.size(); i++) {
+			Line line = lineList.get(i);
+			drawLine(line, getLineColor());
 		}
-		else
-			turtle.setVisible(true);
-		List<Point2D> pointList = ci.getLineList();
-		for (int i = 0; i < pointList.size(); i++) {
-			/*System.out.println("Point is " + point.toString());
-			System.out.println("Starting X is: " + turtle.getX());
-			System.out.println("Ending X is: " + point.getX());
-			System.out.println("Starting Y is: " + turtle.getY());
-			System.out.println("Ending Y is: " + point.getY()); */
-			turtle.setX(-1*pointList.get(i).getX());
-			turtle.setY(-1*pointList.get(i).getY());
-			turtle.setRotate(ai.getAngle() + 90);
-			if (i != pointList.size() - 1)
-				drawLine(pointList.get(i).getX(), pointList.get(i).getY(), pointList.get(i + 1).getX(), pointList.get(i + 1).getY(), getLineColor());
-
-		}
+		double xpos = ci.getX();
+		double ypos = ci.getY();
+		if (vi.isVisible())
+			gc.drawImage(image, xpos, ypos);
 	
 	}
 		
-		private void drawLine(double startX, double startY, double endX, double endY, Color color) {
+		private void drawLine(Line line, Color color) {
 			//Line line = new Line(startX, startY, endX, endY);
 		//	line.setStroke(color);
-			gc.strokeLine(startX, startY, endX, endY);
 			gc.setStroke(color);
+			gc.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
 		}
 		//draw lines
 		
