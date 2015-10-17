@@ -1,16 +1,18 @@
 package commands;
+
 public class SetHeading extends Command {
 	public SetHeading() {
 		paramCode = "e";
 	}
 
 	public double execute() {
-		double oldAngle = myTurtle.getAngle();
-		double newAngle = 450 - myParameters[0];
-		newAngle = newAngle % 360;
-		myTurtle.setAngle(newAngle);
+		double startAngle = myTurtle.getAngle();
+		double endAngle = 450 - myParameters[0];
+		endAngle = endAngle % 360;
+		myTurtle.setAngle(endAngle);
+		myTurtle.addAngle((360 + startAngle - endAngle) % 360);
 
-		double difference = Math.abs(oldAngle - newAngle);
+		double difference = Math.abs(startAngle - endAngle);
 		if (difference > 180) {
 			return 360 - difference;
 		}

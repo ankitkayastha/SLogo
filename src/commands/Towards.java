@@ -6,8 +6,8 @@ public class Towards extends Command {
 	}
 
 	public double execute() {
-		double oldAngle = myTurtle.getAngle();
-		double newAngle; // Not correct
+		double startAngle = myTurtle.getAngle();
+		double endAngle; // Not correct
 
 		double startX = myTurtle.getX();
 		double startY = myTurtle.getY();
@@ -20,7 +20,22 @@ public class Towards extends Command {
 //		}
 		
 		double slope = (endY - startY) / (endX - startX);
-		return Math.atan(slope);
+		double angle = Math.atan(slope);
+		angle = Math.toDegrees(angle);
+		
+		if (angle == 90.0) {
+		} else if (angle == -90.0) {
+			
+		} else if ()
+		
+		
+		
+		
+		return angle;
+//		
+//		
+//		double angle = Math.atan(slope);
+//		return angle;
 
 		// if (startY == endY) {
 		// if (startX < endX) {
