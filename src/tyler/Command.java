@@ -1,0 +1,54 @@
+package tyler;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public abstract class Command {
+	protected double[] myParameters = new double[10];
+	protected Turtle myTurtle;
+	protected String myVariable;
+	protected String paramCode;
+
+	protected List<List<String>> commandLists = new ArrayList<List<String>>();
+	protected static Map<String, List<String>> userDefinedCommands;
+	protected static Map<String, Double> variableMap;
+
+	public Command() {
+	}
+
+	public abstract double execute();
+
+	public static void setMaps(Map<String, List<String>> uMap, Map<String, Double> vMap) {
+		userDefinedCommands = uMap;
+		variableMap = vMap;
+	}
+
+	public void addListOfCommands(List<String> cList) {
+		commandLists.add(cList);
+	}
+
+	public void setParameter(int i, double param) {
+		myParameters[i] = param;
+	}
+
+	public void setTurtle(Turtle turtle) {
+		myTurtle = turtle;
+	}
+
+	public void setVariable(String s) {
+		myVariable = s;
+	}
+
+	public double format() throws NumberFormatException, CommandInputException {
+		DecimalFormat df = new DecimalFormat("#.#####");
+		double value = Double.valueOf(df.format(execute()));
+		if (Double.valueOf(df.format(value)) == 0.00000)
+			return 0;
+		return value;
+	}
+
+	public String getParamCode() {
+		return paramCode;
+	}
+}
