@@ -10,6 +10,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import slogo_team03.ReceiveString;
 import slogo_team03.Turtle;
 
 public class TopPane {
@@ -37,7 +38,9 @@ public class TopPane {
 	public void changePenColorAction(Color c) {
 		turtle.setLineColor(c);
 	}
-	
+	public void changeLanguage(String s, ReceiveString rs) {
+		rs.receiveLanguage(s);
+	}
 	public void changeImageAction(String s) {
 		turtle.setImage(s);
 	}

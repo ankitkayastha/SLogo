@@ -26,8 +26,8 @@ public class DisplayTurtle {
 	
 	public DisplayTurtle() {
 		myCanvas = new Canvas(500, 500);
-		myCanvas.setTranslateX(-300);
-		myCanvas.setTranslateY(-350);
+		myCanvas.setTranslateX(0);
+		myCanvas.setTranslateY(0);
 		root = new Group();
 		
 		//root = makeTurtle();
@@ -84,12 +84,25 @@ public class DisplayTurtle {
 		gc.setFill(Color.GREEN);
 		gc.fillRect(0, 0, 500, 500);
 		//System.out.println("Filling color green");
-		root.getChildren().add(turtle);
+		Image image = setImage(r.getString("image"));
+		double xpos = Double.parseDouble(r.getString("xPos"));
+		double ypos = Double.parseDouble(r.getString("yPos"));
+		double width = image.getWidth();
+		double height = image.getHeight();
+		gc.drawImage(image, xpos, ypos);
+		System.out.println("Image height = " + height);
+		//gc.clearRect(xpos, ypos, width, height);
+		//gc.drawImage(setImage(r.getString("image")), 300, 300);
 
+		//turtle.setX(Double.parseDouble(r.getString("xPos")));
+		//turtle.setY(Double.parseDouble(r.getString("yPos")));
+		//turtle.setX(200);
+		//turtle.setY(200);
+		System.out.println(turtle.getX());
+		System.out.println(turtle.getY());
 		root.getChildren().add(myCanvas);
-		myCanvas.toBack();
-		turtle.setX(Double.parseDouble(r.getString("xPos")));
-		turtle.setY(Double.parseDouble(r.getString("yPos")));
+		//myCanvas.toBack();
+	
 		//root.setStyle("-fx-background-color: #000000;");
 		//pane.setBackground(new Background(new BackgroundFill(Color.web("0x0000ff"), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
