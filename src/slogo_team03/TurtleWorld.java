@@ -45,8 +45,7 @@ public class TurtleWorld implements ReceiveString {
 	}
 
 	@Override
-	public void receiveCommand(String s) {
-		//System.out.println(s);
+	public void receiveCommand(String s) throws CommandInputException {
 		processInput(s);
 	}
 
