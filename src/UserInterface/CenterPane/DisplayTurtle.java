@@ -1,16 +1,19 @@
 package UserInterface.CenterPane;
 
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import slogo_team03.AngleInterface;
 import slogo_team03.CoordinateInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.VisibleInterface;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DisplayTurtle {
@@ -18,6 +21,7 @@ public class DisplayTurtle {
 	private Group root;
 	private GraphicsContext gc;
 	private ImageView turtle;
+	private Color lineColor;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 	
 	public DisplayTurtle() {
@@ -25,18 +29,53 @@ public class DisplayTurtle {
 		myCanvas.setTranslateX(-300);
 		myCanvas.setTranslateY(-350);
 		root = new Group();
+		
 		//root = makeTurtle();
 	}
 	/*use point list */
-	private void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
-		turtle.setX(ci.getX());
-		turtle.setY(ci.getY());
-		//turtle.setrotate ai.getAngle();
+	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+		System.out.println("Turtle visibility from front " + vi.isVisible());
+
+		if (!vi.isVisible()) {
+		
+			turtle.setVisible(false);
+		}
+		else
+			turtle.setVisible(true);
+		List<Point2D> pointList = ci.getPointList();
+		for (Point2D point: pointList) {
+			/*System.out.println("Point is " + point.toString());
+			System.out.println("Starting X is: " + turtle.getX());
+			System.out.println("Ending X is: " + point.getX());
+			System.out.println("Starting Y is: " + turtle.getY());
+			System.out.println("Ending Y is: " + point.getY()); */
+			turtle.setX(point.getX());
+			turtle.setY(-1*point.getY());
+			turtle.setRotate(ai.getAngle() - 90);
+			if (pi.isPenDown()) {
+				System.out.println("Pen is down");
+				drawLine(turtle.getX(), turtle.getY(), point.getX(), point.getY(), getLineColor());
+				
+			}
+		}
+	}
+		
+		private void drawLine(double startX, double startY, double endX, double endY, Color color) {
+			Line line = new Line(startX, startY, endX, endY);
+			line.setStroke(color);
+			root.getChildren().add(line);
+		}
+		//draw lines
+		
 		//true-pen down - draw lines
 		//if false, pen up, only need final location (last point in point list)
 		//true  -if visible
+	public void setLineColor(Color color) {
+		this.lineColor = color;
 	}
-	
+	public Color getLineColor() {
+		return this.lineColor;
+	}
 	public void makeTurtle() {
 		turtle = new ImageView(setImage(r.getString("image")));
 		//gc = myCanvas.getGraphicsContext2D();
