@@ -1,4 +1,4 @@
-package tyler;
+package commands;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -36,7 +36,4 @@ public class TurtleMap {
 		return this.getTurtle(turtleID).getPointList();
 	}
 	
-	public Color getTurtleColor(int turtleID) {
-		return this.getTurtle(turtleID).getPenColor();
-	}
 }

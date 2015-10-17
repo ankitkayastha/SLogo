@@ -1,10 +1,7 @@
 package commands;
-import java.util.List;
-
 public class Home extends Command {
-	public Home(List<String> input) {
-		super(input);
-		parametersNeeded = 0;
+	public Home() {
+		paramCode = "";
 	}
 	
 	public double execute() {
@@ -13,6 +10,7 @@ public class Home extends Command {
 		
 		myTurtle.setX(0);
 		myTurtle.setY(0);
+		myTurtle.addPoint(0, 0);
 		
 		return Math.sqrt(x*x + y*y);
 	}

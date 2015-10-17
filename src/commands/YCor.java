@@ -1,10 +1,7 @@
 package commands;
-import java.util.List;
-
 public class YCor extends Command {
-	public YCor(List<String> input) {
-		super(input);
-		parametersNeeded = 0;
+	public YCor() {
+		paramCode = "";
 	}
 	
 	public double execute() {

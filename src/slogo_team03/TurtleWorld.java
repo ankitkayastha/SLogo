@@ -1,49 +1,43 @@
 package slogo_team03;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import commands.Command;
 
 public class TurtleWorld {
 	private Turtle turtle;
-	private CommandFactory factory;
-	private List<String> inputList;
-	private CommandParser parser;
+	private Parser parser;
+	private Map<String, List<String>> userDefinedCommands;
+	private Map<String, Double> variables;
 	private TurtleMap turtles;
 
 	public TurtleWorld() {
 		turtle = new Turtle();
-		factory = new CommandFactory();
-		inputList = new ArrayList<String>();
-		parser = new CommandParser();
+		parser = new Parser();
+		userDefinedCommands = new HashMap<String, List<String>>();
+		variables = new HashMap<String, Double>();
 		turtles = new TurtleMap();
 		turtles.addTurtle(turtle);
+		Command.setMaps(userDefinedCommands, variables);
 	}
 
-	public void receiveAndExecuteInput(String input) {
-		inputList = parser.getInput(input);
-		executeCommands(inputList);
+	public void processInput(String input) {
+		String[] inputArray = input.trim().split("\\s+");
+		List<String>inputList = new ArrayList<String>(Arrays.asList(inputArray));
+		setParser();
+		System.out.println(parser.processInput(inputList));
 	}
 
-	private void executeCommands(List<String> commandList) {
-		Command command = null;
-		String commandName;
-
-		while (commandList.size() > 0) {			
-			commandName = commandList.remove(0);
-			command = factory.createCommand(commandName, commandList);
-			if (command == null) {
-				System.out.println("Invalid Input: Your command '" + commandName + "' is not defined.");
-				break;
-			}
-
-			command.setTurtle(turtle);
-			System.out.println(command.execute());
-		}
+	private void setParser() {
+		parser.setTurtle(turtle);
+		parser.setUserDefinedCommands(userDefinedCommands);
+		parser.setVariables(variables);
 	}
 	
-	public TurtleMap getTurtlesMap() {
-		return turtles;
+	public Turtle getTurtle() {
+		return turtle;
 	}
 }

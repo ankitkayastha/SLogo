@@ -1,8 +1,11 @@
-package tyler;
+package slogo_team03;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import commands.Command;
+import commands.SpecialCommand;
 
 public class Parser {
 	private CommandFactory factory;
@@ -31,10 +34,10 @@ public class Parser {
 		double result = Double.MAX_VALUE;
 		String commandName = inputList.remove(0);
 
-		if (userDefinedCommands.containsKey(commandName)) {
-			inputList.addAll(0, userDefinedCommands.get(commandName));
-			commandName = inputList.remove(0);
-		}
+//		if (userDefinedCommands.containsKey(commandName)) {
+//			inputList.addAll(0, userDefinedCommands.get(commandName));
+//			commandName = inputList.remove(0);
+//		}
 
 		Command command = factory.createCommand(commandName);
 		if (command == null) {
@@ -44,16 +47,12 @@ public class Parser {
 		String paramTypes = command.getParamCode();
 		int paramsNeeded = paramTypes.length();
 		for (int i = 0; i < paramsNeeded; i++) {
-			if (setValidParameter(inputList, paramTypes.charAt(i), command, i)) {
-				continue;
-			} else {
-				return result;
-			}
+			setValidParameter(inputList, paramTypes.charAt(i), command, i);
 		}
 		command.setTurtle(currentTurtle);
 		result = command.format();
 
-		if (command instanceof SpecialCommand && result == -1) {
+		if (command instanceof SpecialCommand) {
 			result = processInput(((SpecialCommand) command).getRunList());
 		}
 		return result;
@@ -62,7 +61,7 @@ public class Parser {
 	public boolean setValidParameter(List<String> inputList, char inputType, Command command, int i)
 			throws CommandInputException {
 		if (inputList.size() == 0) {
-			return false;
+			throw new CommandInputException();
 		}
 
 		String current = inputList.remove(0);

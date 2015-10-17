@@ -1,4 +1,4 @@
-package tyler;
+package commands;
 
 public class Make extends Command {
 	public Make() {

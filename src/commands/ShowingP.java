@@ -1,10 +1,7 @@
 package commands;
-import java.util.List;
-
 public class ShowingP extends Command {
-	public ShowingP(List<String> input) {
-		super(input);
-		parametersNeeded = 0;
+	public ShowingP() {
+		paramCode = "";
 	}
 	
 	public double execute() {

@@ -1,10 +1,7 @@
 package commands;
-import java.util.List;
-
 public class PenDown extends Command {
-	public PenDown(List<String> input) {
-		super(input);
-		parametersNeeded = 0;
+	public PenDown() {
+		paramCode = "";
 	}
 	
 	public double execute() {

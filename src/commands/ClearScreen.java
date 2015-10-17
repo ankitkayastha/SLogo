@@ -1,10 +1,7 @@
 package commands;
-import java.util.List;
-
 public class ClearScreen extends Command {
-	public ClearScreen(List<String> input) {
-		super(input);
-		parametersNeeded = 0;
+	public ClearScreen() {
+		paramCode = "";
 	}
 	
 	public double execute() {
@@ -13,7 +10,8 @@ public class ClearScreen extends Command {
 		
 		myTurtle.setX(0);
 		myTurtle.setY(0);
-		myTurtle.resetPointList(Double.MAX_VALUE, Double.MAX_VALUE);
+		myTurtle.resetPointList();
+//		myTurtle.resetPointList(Double.MAX_VALUE, Double.MAX_VALUE);
 		
 		return Math.sqrt(x*x + y*y);
 	}

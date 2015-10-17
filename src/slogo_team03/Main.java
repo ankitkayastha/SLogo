@@ -18,10 +18,8 @@ public class Main extends Application {
 		stage.setScene(view.getScene());
 		stage.show();
 		Scanner scan = new Scanner(System.in);
-	//	while (true) {
-		//	world.getInput(scan.nextLine());
-	//	}
-
-//		world.getInput("setheading s setheading setheading 180 heading 3"); 
+		while (true) {
+			world.processInput(scan.nextLine());
+		}
 	}	
 } 

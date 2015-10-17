@@ -1,57 +1,57 @@
 package commands;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import slogo_team03.CommandErrorChecker;
-import slogo_team03.CommandFactory;
+import slogo_team03.CommandInputException;
 import slogo_team03.Turtle;
 
 public abstract class Command {
-	protected int parametersNeeded;
-	protected List<String> restOfInput;
-	protected double[] myParameters;
+	protected double[] myParameters = new double[10];
 	protected Turtle myTurtle;
-	protected CommandErrorChecker myErrorChecker;
-	protected CommandFactory factory = new CommandFactory();
+	protected String myVariable;
+	protected String paramCode;
 
+	protected List<List<String>> commandLists = new ArrayList<List<String>>();
+	protected static Map<String, List<String>> userDefinedCommands;
+	protected static Map<String, Double> variableMap;
 
-	public Command(List<String> input) {
-		restOfInput = input;
-		myParameters = new double[5];
+	public Command() {
 	}
 
 	public abstract double execute();
+
+	public static void setMaps(Map<String, List<String>> uMap, Map<String, Double> vMap) {
+		userDefinedCommands = uMap;
+		variableMap = vMap;
+	}
+
+	public void addListOfCommands(List<String> cList) {
+		commandLists.add(cList);
+	}
+
+	public void setParameter(int i, double param) {
+		myParameters[i] = param;
+	}
 
 	public void setTurtle(Turtle turtle) {
 		myTurtle = turtle;
 	}
 
-	public boolean checkAndPutParameters() {
-		if (myErrorChecker.areParametersValid()) {
-			putParameters();
-			return true;
-		}
-		return false;
-	}
-	
-	protected void putParameters() {
-		for (int i = 0; i < parametersNeeded; i++) {
-			if (isCommand(restOfInput.get(0))) {
-				String commandName = restOfInput.remove(0);
-				Command newCommand = factory.createCommand(commandName, restOfInput);
-				newCommand.setTurtle(myTurtle);
-				myParameters[i] = newCommand.execute();
-			}
-			else {
-				myParameters[i] = Double.parseDouble(restOfInput.remove(0));
-			}
-		}
-	}
-	
-	private boolean isCommand(String s) {
-		return (!isNumeric(s));
+	public void setVariable(String s) {
+		myVariable = s;
 	}
 
-	private boolean isNumeric(String s) {  
-		return s.matches("[-+]?\\d*\\.?\\d+");  
+	public double format() throws NumberFormatException, CommandInputException {
+		DecimalFormat df = new DecimalFormat("#.#####");
+		double value = Double.valueOf(df.format(execute()));
+		if (Double.valueOf(df.format(value)) == 0.00000)
+			return 0;
+		return value;
+	}
+
+	public String getParamCode() {
+		return paramCode;
 	}
 }

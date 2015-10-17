@@ -1,8 +1,9 @@
 package slogo_team03;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.ResourceBundle;
+
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
@@ -11,8 +12,9 @@ public class Turtle {
 	private double angle;
 	private boolean visible, penDown;
 	private List<Point2D> pointList;
+	private DecimalFormat df;
+	private int myID;
 	private static int ID = 0;
-	private static Color penColor;
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
 	
 	public Turtle() {
@@ -21,23 +23,28 @@ public class Turtle {
 		angle = Integer.parseInt(r.getString("startAngle"));
 		visible = Boolean.parseBoolean(r.getString("visible"));
 		penDown = Boolean.parseBoolean(r.getString("penDown"));
-		penColor = Color.BLUE;
-		resetPointList();
-		ID = ID++;
+		df = new DecimalFormat("#.#####");
+		pointList = new ArrayList<Point2D>();
+		addPoint(x, y);
+		myID = ID;
+		ID++;
 	}
 	
-	public void resetPointList(double a, double b) {
-		pointList = new ArrayList<Point2D>();
-		pointList.add(new Point2D(a, b));
+	public void addPoint(double x, double y) {
+		pointList.add(new Point2D(format(x), format(x)));
 	}
 	
 	public void resetPointList() {
-		pointList = new ArrayList<Point2D>();
-		pointList.add(new Point2D(this.x, this.y));
+		pointList.clear();
+		pointList.add(new Point2D(0, 0));
 	}
 	
 	public List<Point2D> getPointList() {
 		return pointList;
+	}
+	
+	public int getID() {
+		return myID;
 	}
 	
 	public double getX() {
@@ -45,7 +52,7 @@ public class Turtle {
 	}
 
 	public void setX(double x) {
-		this.x = x;
+		this.x = format(x);
 	}
 
 	public double getY() {
@@ -53,7 +60,7 @@ public class Turtle {
 	}
 
 	public void setY(double y) {
-		this.y = y;
+		this.y = format(y);
 	}
 
 	public double getAngle() {
@@ -61,7 +68,7 @@ public class Turtle {
 	}
 
 	public void setAngle(double angle) {
-		this.angle = angle;
+		this.angle = format(angle);
 	}
 
 	public boolean isVisible() {
@@ -80,19 +87,9 @@ public class Turtle {
 		this.penDown = penDown;
 	}
 	
-	public static void setPenColor(Color c) {
-		penColor = c;
-	}
-	
-	public Color getPenColor() {
-		return penColor;
-	}
-	
-	public void addPoint(double x, double y) {
-		pointList.add(new Point2D(x, y));
-	}
-	
-	public int getID() {
-		return this.ID;
+	private double format(double d) {
+		if (Double.valueOf(df.format(d)) == 0.00000)
+			return 0;
+		return Double.valueOf(df.format(d));
 	}
 }
