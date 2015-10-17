@@ -31,7 +31,7 @@ public class Parser {
 	}
 	
 	public void processLanguage(String language) {
-		
+		factory.receiveLanguage(language);
 	}
 
 	public double evaluateCommands(List<String> inputList) throws CommandInputException {

@@ -36,7 +36,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	
 	public void resetPointList() {
 		pointList.clear();
-		pointList.add(new Point2D(0, 0));
+		pointList.add(new Point2D(x, y));
 	}
 	
 	public List<Point2D> getPointList() {
