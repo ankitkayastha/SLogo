@@ -10,7 +10,7 @@ import commands.SpecialCommand;
 public class Parser {
 	private CommandFactory factory;
 	private Map<String, List<String>> userDefinedCommands;
-	private Map<String, Double> variables;
+	private UserDefinedVariables variables;
 	private Turtle currentTurtle;
 
 	public Parser() {
@@ -98,7 +98,7 @@ public class Parser {
 				command.setParameter(i, Double.parseDouble(current));
 				return true;
 			} else if (isVariable(current)) {
-				command.setParameter(i, variables.get(current));
+				command.setParameter(i, variables.getVariable(current));
 				return true;
 			} else {
 				inputList.add(0, current);
@@ -138,7 +138,7 @@ public class Parser {
 		userDefinedCommands = commands;
 	}
 
-	public void setVariables(Map<String, Double> vars) {
+	public void setVariables(UserDefinedVariables vars) {
 		variables = vars;
 	}
 
