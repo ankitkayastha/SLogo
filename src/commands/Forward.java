@@ -16,7 +16,7 @@ public class Forward extends Command {
 				
 		myTurtle.setX(x1);
 		myTurtle.setY(y1);
-		myTurtle.addPoint(x1, y1);
+		myTurtle.addLine(x0, y0, x1, y1);
 
 		return length;
 	}

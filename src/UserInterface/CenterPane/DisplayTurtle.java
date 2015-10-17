@@ -42,7 +42,7 @@ public class DisplayTurtle {
 		}
 		else
 			turtle.setVisible(true);
-		List<Point2D> pointList = ci.getPointList();
+		List<Point2D> pointList = ci.getLineList();
 		for (int i = 0; i < pointList.size(); i++) {
 			/*System.out.println("Point is " + point.toString());
 			System.out.println("Starting X is: " + turtle.getX());

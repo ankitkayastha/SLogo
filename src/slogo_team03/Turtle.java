@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInterface, VisibleInterface {
 	private double x, y;
 	private double angle;
 	private boolean visible, penDown;
-	private List<Point2D> pointList;
+	private List<Line> lineList;
 	private DecimalFormat df;
 	private int myID;
 	private static int ID = 0;
@@ -24,25 +23,25 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		visible = Boolean.parseBoolean(r.getString("visible"));
 		penDown = Boolean.parseBoolean(r.getString("penDown"));
 		df = new DecimalFormat("#.#####");
-		pointList = new ArrayList<Point2D>();
-		addPoint(x, y);
+		lineList = new ArrayList<Line>();
 		myID = ID;
 		ID++;
 	}
 	
-	public void addPoint(double x, double y) {
-		pointList.add(new Point2D(format(x), format(y)));
+	public void addLine(double x0, double y0, double x1, double y1) {
+		if (penDown) {
+			lineList.add(new Line(format(x0), format(y0), format(x1), format(y1)));
+		}
 	}
 	
-	public void resetPointList() {
-		pointList.clear();
-		pointList.add(new Point2D(x, y));
+	public void resetLineList() {
+		lineList.clear();
 	}
 	
-	public List<Point2D> getPointList() {
+	public List<Line> getLineList() {
 		//System.out.println("Ending X from turtle is" + pointList.get(1).getX());
 		//System.out.println("Ending Y from turtle is" + pointList.get(1).getY());
-		return pointList;
+		return lineList;
 	}
 	
 	public int getID() {

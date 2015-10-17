@@ -33,7 +33,7 @@ public class TurtleMap {
 	}
 	
 	public List<Point2D> getTurtleCoordinateList(int turtleID) {
-		return this.getTurtle(turtleID).getPointList();
+		return this.getTurtle(turtleID).getLineList();
 	}
 	
 }
