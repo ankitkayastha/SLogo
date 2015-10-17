@@ -25,12 +25,22 @@ public class TurtleWorld implements ReceiveString {
 	}
 
 
-	public void processInput(String input) throws CommandInputException {
+	public void processInput(String input) throws CommandInputException{
 		String[] inputArray = input.trim().split("\\s+");
 		List<String>inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();
+		try {
+//		System.out.println(parser.processInput(inputList));
 		parser.processInput(inputList);
-
+		} catch (CommandInputException e) {
+			System.out.println("Invalid Input!");
+			return;
+		}
+		System.out.println(getAngle());
+	}
+	
+	public double getAngle() {
+		return turtle.angleToRotate();
 	}
 
 	private void setParser() {
