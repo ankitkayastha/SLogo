@@ -1,0 +1,150 @@
+package tyler;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class Parser {
+	private CommandFactory factory;
+	private Map<String, List<String>> userDefinedCommands;
+	private Map<String, Double> variables;
+	private Turtle currentTurtle;
+
+	public Parser() {
+		factory = new CommandFactory();
+	}
+
+	public double processInput(List<String> list) {
+		double val = Double.MAX_VALUE;
+		while (list.size() > 0) {
+			try {
+				val = evaluateCommands(list);
+			} catch (CommandInputException e) {
+				System.out.println("Invalid input! Please try again:");
+				return Double.MAX_VALUE;
+			}
+		}
+		return val;
+	}
+
+	public double evaluateCommands(List<String> inputList) throws CommandInputException {
+		double result = Double.MAX_VALUE;
+		String commandName = inputList.remove(0);
+
+		if (userDefinedCommands.containsKey(commandName)) {
+			inputList.addAll(0, userDefinedCommands.get(commandName));
+			commandName = inputList.remove(0);
+		}
+
+		Command command = factory.createCommand(commandName);
+		if (command == null) {
+			throw new CommandInputException();
+		}
+
+		String paramTypes = command.getParamCode();
+		int paramsNeeded = paramTypes.length();
+		for (int i = 0; i < paramsNeeded; i++) {
+			if (setValidParameter(inputList, paramTypes.charAt(i), command, i)) {
+				continue;
+			} else {
+				return result;
+			}
+		}
+		command.setTurtle(currentTurtle);
+		result = command.format();
+
+		if (command instanceof SpecialCommand && result == -1) {
+			result = processInput(((SpecialCommand) command).getRunList());
+		}
+		return result;
+	}
+
+	public boolean setValidParameter(List<String> inputList, char inputType, Command command, int i)
+			throws CommandInputException {
+		if (inputList.size() == 0) {
+			return false;
+		}
+
+		String current = inputList.remove(0);
+
+		if (inputType == '[') {
+			return current.equals("[");
+		} else if (inputType == ']') {
+			return current.equals("]");
+		} else if (inputType == 'v') {
+			if (isVariable(current)) {
+				command.setVariable(current);
+				return true;
+			} else {
+				return false;
+			}
+		} else if (inputType == 'c') {
+			List<String> tempList = new ArrayList<String>();
+			if (current.equals("]")) {
+				return false;
+			}
+
+			while (inputList.size() >= 0) {
+				tempList.add(current);
+				if (inputList.get(0).equals("]")) {
+					command.addListOfCommands(tempList);
+					return true;
+				}
+				if (inputList.size() == 0)
+					return false;
+				current = inputList.remove(0);
+			}
+			return false;
+		} else if (inputType == 'e') {
+			if (isNumeric(current)) {
+				command.setParameter(i, Double.parseDouble(current));
+				return true;
+			} else if (isVariable(current)) {
+				command.setParameter(i, variables.get(current));
+				return true;
+			} else {
+				inputList.add(0, current);
+
+				double value = evaluateCommands(inputList);
+
+				if (value != Double.MAX_VALUE) {
+					command.setParameter(i, value);
+					return true;
+				}
+				return false;
+			}
+		} else if (inputType == 'n') {
+			return isCommandName(current);
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isNumeric(String s) {
+		return s.matches("[-+]?\\d*\\.?\\d+");
+	}
+
+	public boolean isVariable(String s) {
+		return s.matches(":[a-zA-Z_]+");
+	}
+
+	public boolean isCommandName(String s) {
+		if (!s.matches("[a-zA-Z_]+")) {
+			return false;
+		}
+		Command command = factory.createCommand(s);
+		return command == null;
+	}
+
+	public void setUserDefinedCommands(Map<String, List<String>> commands) {
+		userDefinedCommands = commands;
+	}
+
+	public void setVariables(Map<String, Double> vars) {
+		variables = vars;
+	}
+
+	public void setTurtle(Turtle turtle) {
+		currentTurtle = turtle;
+	}
+}
