@@ -75,20 +75,13 @@ public class BottomPane {
 
 	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) throws CommandInputException {
 		ListView<String> list = rightPane.getListView();
-		ListView<String> listViewObjs = left.getListView(1);
-		ObservableList<String> vars = left.getListViewObservable(1);
 		//ObservableList<String> variables = listViewObjs.get
 		ObservableList<String> myObsList = rightPane.getObs();
 		String command = field.getText();
 		commandHistory.add(command);
 		myObsList.add(field.getText());
 		list.setItems(myObsList);
-		vars.add(command);
-		listViewObjs.setItems(vars);
-		
 		rs.receiveCommand(command);
-		
-		
 		display.move(ci, ai, pi, vi);
 		field.clear();
 	}

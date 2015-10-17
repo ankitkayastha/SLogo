@@ -12,7 +12,7 @@ public class ListViewHandler {
 		obsList = new ArrayList<ObservableList<String>>();
 	}
 	
-	public List<ListView<String>> createListView(int n, double[] prefWidth, double[] prefHeight, double[] translateY) {
+	public List<ListView<String>> createListView(int n, double[] prefWidth, double[] prefHeight, double[] translateY, double[] translateX) {
 		List<ListView<String>> myList = new ArrayList<ListView<String>>();
 		
 		for (int i = 0; i < n; i++) {
@@ -20,6 +20,7 @@ public class ListViewHandler {
 			ObservableList<String> observable = FXCollections.observableArrayList();
 			list.setPrefSize(prefWidth[i], prefHeight[i]);
 			list.setTranslateY(translateY[i]);
+			list.setTranslateX(translateX[i]);
 			//list.setId(Integer.toString(i));
 			obsList.add(observable);
 			list.setItems(obsList.get(i));
