@@ -31,7 +31,7 @@ public class Turtle implements CoordinateInterface{
 	}
 	
 	public void addPoint(double x, double y) {
-		pointList.add(new Point2D(format(x), format(x)));
+		pointList.add(new Point2D(format(x), format(y)));
 	}
 	
 	public void resetPointList() {
