@@ -25,6 +25,7 @@ public class TurtleWorld implements ReceiveString {
 	}
 
 	public void processInput(String input) {
+		turtle.resetPointList();
 		String[] inputArray = input.trim().split("\\s+");
 		List<String>inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();

@@ -1,7 +1,5 @@
 package commands;
 
-import javafx.geometry.Point2D;
-
 public class Forward extends Command {
 	public Forward() {
 		paramCode = "e";
@@ -19,7 +17,7 @@ public class Forward extends Command {
 		myTurtle.setX(x1);
 		myTurtle.setY(y1);
 		myTurtle.addPoint(x1, y1);
-		
+
 		return length;
 	}
 }
