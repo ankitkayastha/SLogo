@@ -1,5 +1,7 @@
 package slogo_team03;
 
+import java.util.ResourceBundle;
+
 import commands.ATan;
 import commands.And;
 import commands.Back;
@@ -49,151 +51,159 @@ import commands.XCor;
 import commands.YCor;
 
 public class CommandFactory {
-	public CommandFactory() {}
+	private ResourceBundle language;
+	
+	public CommandFactory() {
+		language = ResourceBundle.getBundle("resources.languages/English");
+	}
+	
+	public void receiveLanguage(String l) {
+		language = ResourceBundle.getBundle("resources.languages/" + l);
+	}
 	
 	public Command createCommand(String name)  {
 		name = name.toLowerCase();
 		//Turtle Commands
-		if (name.equals("forward") || name.equals("fd")) {
+		if (name.matches(language.getString("Forward"))) {
 			return new Forward();
 		}
-		else if (name.equals("back") || name.equals("bk")) {
+		else if (name.matches(language.getString("Backward"))) {
 			return new Back();
 		}
-		else if (name.equals("left") || name.equals("lt")) {
+		else if (name.matches(language.getString("Left"))) {
 			return new Left();
 		}
-		else if (name.equals("right") || name.equals("rt")) {
+		else if (name.matches(language.getString("Right"))) {
 			return new Right();
 		}
-		else if (name.equals("setheading") || name.equals("seth")) {
+		else if (name.matches(language.getString("SetHeading"))) {
 			return new SetHeading();
 		}
-		else if (name.equals("towards")) {
+		else if (name.matches(language.getString("SetTowards"))) {
 			return new Towards();
 		}
-		else if (name.equals("setxy") || name.equals("goto")) {
+		else if (name.matches(language.getString("SetPosition"))) {
 			return new SetXY();
 		}
-		else if (name.equals("pendown") || name.equals("pd")) {
+		else if (name.matches(language.getString("PenDown"))) {
 			return new PenDown();
 		}
-		else if (name.equals("penup") || name.equals("pu")) {
+		else if (name.matches(language.getString("PenUp"))) {
 			return new PenUp();
 		}
-		else if (name.equals("showturtle") || name.equals("st")) {
+		else if (name.matches(language.getString("ShowTurtle"))) {
 			return new ShowTurtle();
 		}
-		else if (name.equals("hideturtle") || name.equals("ht")) {
+		else if (name.matches(language.getString("HideTurtle"))) {
 			return new HideTurtle();
 		}
-		else if (name.equals("home")) {
+		else if (name.matches(language.getString("Home"))) {
 			return new Home();
 		}
-		else if (name.equals("clearscreen") || name.equals("cs")) {
+		else if (name.matches(language.getString("ClearScreen"))) {
 			return new ClearScreen();
 		}
 		//Turtle Queries
-		else if (name.equals("xcor")) {
+		else if (name.matches(language.getString("XCoordinate"))) {
 			return new XCor();
 		}
-		else if (name.equals("ycor")) {
+		else if (name.matches(language.getString("YCoordinate"))) {
 			return new YCor();
 		}
-		else if (name.equals("heading")) {
+		else if (name.matches(language.getString("Heading"))) {
 			return new Heading();
 		}
-		else if (name.equals("pendown?") || name.equals("pendownp")) {
+		else if (name.matches(language.getString("IsPenDown"))) {
 			return new PenDownP();
 		}
-		else if (name.equals("showing?") || name.equals("showingp")) {
+		else if (name.matches(language.getString("IsShowing"))) {
 			return new ShowingP();
 		}
 		//Math Operations
-		else if (name.equals("sum") || name.equals("+")) {
+		else if (name.matches(language.getString("Sum"))) {
 			return new Sum();
 		}
-		else if (name.equals("difference") || name.equals("-")) {
+		else if (name.matches(language.getString("Difference"))) {
 			return new Difference();
 		}
-		else if (name.equals("product") || name.equals("*")) {
+		else if (name.matches(language.getString("Product"))) {
 			return new Product();
 		}
-		else if (name.equals("quotient") || name.equals("/")) {
+		else if (name.matches(language.getString("Quotient"))) {
 			return new Quotient();
 		}
-		else if (name.equals("remainder") || name.equals("%")) {
+		else if (name.matches(language.getString("Remainder"))) {
 			return new Remainder();
 		}
-		else if (name.equals("minus") || name.equals("~")) {
+		else if (name.matches(language.getString("Minus"))) {
 			return new Minus();
 		}
-		else if (name.equals("random")) {
+		else if (name.matches(language.getString("Random"))) {
 			return new RandomCommand();
 		}
-		else if (name.equals("sin")) {
+		else if (name.matches(language.getString("Sine"))) {
 			return new Sin();
 		}
-		else if (name.equals("cos")) {
+		else if (name.matches(language.getString("Cosine"))) {
 			return new Cos();
 		}
-		else if (name.equals("tan")) {
+		else if (name.matches(language.getString("Tangent"))) {
 			return new Tan();
 		}
-		else if (name.equals("atan")) {
+		else if (name.matches(language.getString("ArcTangent"))) {
 			return new ATan();
 		}
-		else if (name.equals("log")) {
+		else if (name.matches(language.getString("NaturalLog"))) {
 			return new Log();
 		}
-		else if (name.equals("pow")) {
+		else if (name.matches(language.getString("Power"))) {
 			return new Pow();
 		}
-		else if (name.equals("pi")) {
+		else if (name.matches(language.getString("Pi"))) {
 			return new Pi();
 		}
 		//Boolean Operations
-		else if (name.equals("less?") || name.equals("lessp")) {
+		else if (name.matches(language.getString("LessThan"))) {
 			return new LessP();
 		}
-		else if (name.equals("greater?") || name.equals("greaterp")) {
+		else if (name.matches(language.getString("GreaterThan"))) {
 			return new GreaterP();
 		}
-		else if (name.equals("equal?") || name.equals("equalp")) {
+		else if (name.matches(language.getString("Equal"))) {
 			return new EqualP();
 		}
-		else if (name.equals("notequal?") || name.equals("notequalp")) {
+		else if (name.matches(language.getString("NotEqual"))) {
 			return new NotEqualP();
 		}
-		else if (name.equals("and")) {
+		else if (name.matches(language.getString("And"))) {
 			return new And();
 		}
-		else if (name.equals("or")) {
+		else if (name.matches(language.getString("Or"))) {
 			return new Or();
 		}
-		else if (name.equals("not")) {
+		else if (name.matches(language.getString("Not"))) {
 			return new Not();
 		}
 		//Variables, Control Structures, and User-Defined Commands
-		else if (name.equals("make") || name.equals("set")) {
+		else if (name.matches(language.getString("MakeVariable"))) {
 			return new Make();
 		}
-		else if (name.equals("repeat")) {
+		else if (name.matches(language.getString("Repeat"))) {
 			return new Repeat();
 		}
-		else if (name.equals("dotimes")) {
+		else if (name.matches(language.getString("DoTimes"))) {
 			return new DoTimes();
 		}
-		else if (name.equals("for")) {
+		else if (name.matches(language.getString("For"))) {
 			return new For();
 		}
-		else if (name.equals("if")) {
+		else if (name.matches(language.getString("If"))) {
 			return new If();
 		}
-		else if (name.equals("ifelse")) {
+		else if (name.matches(language.getString("IfElse"))) {
 			return new IfElse();
 		}
-		else if (name.equals("to")) {
+		else if (name.matches(language.getString("MakeUserInstruction"))) {
 			return new To();
 		}
 		else {

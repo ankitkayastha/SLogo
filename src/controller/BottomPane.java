@@ -15,7 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import slogo_team03.ReceiveString;
-import slogo_team03.SendString;
+//import slogo_team03.SendString;
 
 public class BottomPane {
 	private List<String> commandHistory;

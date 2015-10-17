@@ -48,9 +48,8 @@ public class TurtleWorld implements ReceiveString {
 	}
 
 	@Override
-	public void receiveLanguage(String s) {
-		// TODO Auto-generated method stub
-		
+	public void receiveLanguage(String language) {
+		parser.processLanguage(language);
 	}
 
 }
