@@ -67,7 +67,7 @@ public class MenuHandler {
 		changeColor1.setGraphic(cp1);
 		penColor.getItems().add(changeColor1);
 		cp1.setOnAction((event) -> {
-			Turtle.setPenColor(cp1.getValue());
+			//Turtle.setPenColor(cp1.getValue());
 			c.changePenColorAction(cp1.getValue());
 		});
 		
