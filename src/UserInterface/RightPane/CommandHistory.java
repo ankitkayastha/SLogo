@@ -33,12 +33,13 @@ public class CommandHistory {
 		
 		root.getChildren().add(title);
 		root.getChildren().add(myListView);
-		myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		/*myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldString, String newString) {
 				field.setText(newString);
 			}
-		});
-
+		});*/
+		myListView.getSelectionModel().selectedItemProperty().addListener((ov, o, n) -> field.setText(n));
 	}
 	public Group getRoot() {
 		return root;

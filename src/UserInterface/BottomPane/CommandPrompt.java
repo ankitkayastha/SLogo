@@ -39,7 +39,7 @@ public class CommandPrompt {
 		
 		clear.setOnAction((event) -> {
 			bottomController.clearButtonAction(field, display.getPane());
-		});
+		}); 
 		addToRoot(field, buttonArr, root);
 		run.setOnAction((event) -> {
 			

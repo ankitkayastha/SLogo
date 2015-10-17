@@ -7,6 +7,7 @@ import UserInterface.CenterPane.CustomLine;
 import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
 import javafx.collections.ObservableList;
+import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -24,11 +25,12 @@ public class BottomPane {
 		this.rightPane = right;
 	}
 	
-	public void clearButtonAction(TextArea field, StackPane pane) {
-		Line line = new Line(200, 200, 300, 300);
+	public void clearButtonAction(TextArea field, Group root) {
+		Line line = new Line(50,50, 100, 100);
+		line.setStroke(Color.RED);
 		
 		//CustomLine line = new CustomLine(200, 200, 300, 300, Color.RED);
-		pane.getChildren().add(line);
+		root.getChildren().add(line);
 		field.clear();
 		
 	}
