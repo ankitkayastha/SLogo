@@ -30,6 +30,7 @@ public class TurtleWorld implements ReceiveString {
 		List<String>inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();
 		parser.processInput(inputList);
+
 	}
 
 	private void setParser() {
