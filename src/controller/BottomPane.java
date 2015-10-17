@@ -14,6 +14,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import slogo_team03.ReceiveString;
+import slogo_team03.SendString;
 
 public class BottomPane {
 	private List<String> commandHistory;
@@ -34,6 +36,9 @@ public class BottomPane {
 		field.clear();
 		
 	}
+	
+	//TODO pass language through language handler
+
 	
 	public void handleKeyInput(KeyCode code, TextArea field) {
 		if (code.equals(KeyCode.UP)) {
@@ -66,7 +71,7 @@ public class BottomPane {
 		}
 	}
 	
-	public void runButtonAction(TextArea field) {
+	public void runButtonAction(TextArea field, ReceiveString rs) {
 		ListView<String> list = rightPane.getListView();
 		ListView<String> listViewObjs = left.getListView(1);
 		ObservableList<String> vars = left.getListViewObservable(1);
@@ -78,8 +83,11 @@ public class BottomPane {
 		list.setItems(myObsList);
 		vars.add(command);
 		listViewObjs.setItems(vars);
+		rs.receiveCommand(command);
 		field.clear();
 	}
+
+
 		
 
 }

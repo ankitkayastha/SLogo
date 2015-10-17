@@ -10,6 +10,7 @@ import controller.BottomPane;
 import controller.TopPane;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import slogo_team03.TurtleWorld;
 
 
 public class TurtleView {
@@ -17,13 +18,14 @@ public class TurtleView {
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface/TurtleViewResource");
 	
 	public TurtleView() {
+		TurtleWorld world = new TurtleWorld();
 		BorderPane myPane = new BorderPane();
 		LeftContent left = new LeftContent();
 		CommandHistory history = new CommandHistory();
 		CommandPrompt prompt = new CommandPrompt();
 		BottomPane bottomController = new BottomPane(left, history);
 		DisplayTurtle turtleDisplay = new DisplayTurtle();
-		prompt.makeCommandPromptArea(bottomController, turtleDisplay);
+		prompt.makeCommandPromptArea(bottomController, turtleDisplay, world);
 		history.makeListView(prompt.getField());
 		TopPane topController = new TopPane(turtleDisplay);
 		MenuHandler menu = new MenuHandler();
