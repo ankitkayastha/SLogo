@@ -16,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import slogo_team03.AngleInterface;
+import slogo_team03.CommandInputException;
 import slogo_team03.CoordinateInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
@@ -32,15 +33,15 @@ public class BottomPane {
 		this.rightPane = right;
 		this.display = display;
 	}
-	
+
 	public void clearButtonAction(TextArea field, Group root) {
 		field.clear();
-		
+
 	}
-	
+
 	//TODO pass language through language handler
 
-	
+
 	public void handleKeyInput(KeyCode code, TextArea field) {
 		if (code.equals(KeyCode.UP)) {
 			//empty text area, which means should load last command
@@ -56,23 +57,23 @@ public class BottomPane {
 				String command = field.getText();
 				int index = commandHistory.indexOf(command);
 				if (index - 1 >= 0)
-				field.setText(commandHistory.get(index - 1));
-				
+					field.setText(commandHistory.get(index - 1));
+
 			}
 		}
 		else if (code.equals(KeyCode.DOWN)) {
 			if (!field.getText().equals("")) {	
-			String command = field.getText();
-			int index = commandHistory.indexOf(command);
-			if (index + 1 < commandHistory.size())
-				field.setText(commandHistory.get(index + 1));
-			else
-				field.clear();
+				String command = field.getText();
+				int index = commandHistory.indexOf(command);
+				if (index + 1 < commandHistory.size())
+					field.setText(commandHistory.get(index + 1));
+				else
+					field.clear();
 			}
 		}
 	}
-	
-	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+
+	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) throws CommandInputException {
 		ListView<String> list = rightPane.getListView();
 		ListView<String> listViewObjs = left.getListView(1);
 		ObservableList<String> vars = left.getListViewObservable(1);
@@ -84,12 +85,15 @@ public class BottomPane {
 		list.setItems(myObsList);
 		vars.add(command);
 		listViewObjs.setItems(vars);
+		
 		rs.receiveCommand(command);
+		
+		
 		display.move(ci, ai, pi, vi);
 		field.clear();
 	}
 
 
-		
+
 
 }

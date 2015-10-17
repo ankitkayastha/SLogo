@@ -17,15 +17,10 @@ public class Parser {
 		factory = new CommandFactory();
 	}
 
-	public double processInput(List<String> list) {
+	public double processInput(List<String> list) throws CommandInputException {
 		double val = Double.MAX_VALUE;
 		while (list.size() > 0) {
-			try {
-				val = evaluateCommands(list);
-			} catch (CommandInputException e) {
-				System.out.println("Invalid input! Please try again:");
-				return Double.MAX_VALUE;
-			}
+			val = evaluateCommands(list);	
 		}
 		return val;
 	}
