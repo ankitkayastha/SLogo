@@ -22,15 +22,16 @@ public class LeftContent {
 	
 	public Group makeScrollablePanes() {
 		TextHandler myTextHandler = new TextHandler();
-		double[] prefWidth = {Double.parseDouble(r.getString("prefWidth")), Double.parseDouble(r.getString("prefWidth"))};
-		double[] prefHeight = {Double.parseDouble(r.getString("prefHeight")), Double.parseDouble(r.getString("prefHeight"))};
-		double[] translateYPane = {Double.parseDouble(r.getString("translateTopY")), Double.parseDouble(r.getString("translateBottomY"))};
-		myListViewObjects = myListViewHandler.createListView(2, prefWidth, prefHeight, translateYPane);
+		double[] prefWidth = {Double.parseDouble(r.getString("prefTopWidth")), Double.parseDouble(r.getString("prefBottomWidth")), Double.parseDouble(r.getString("prefBottomWidth"))};
+		double[] prefHeight = {Double.parseDouble(r.getString("prefHeight")), Double.parseDouble(r.getString("prefHeight")), Double.parseDouble(r.getString("prefHeight"))};
+		double[] translateYPane = {Double.parseDouble(r.getString("translateTopY")), Double.parseDouble(r.getString("translateBottomY")), Double.parseDouble(r.getString("translateBottomY"))};
+		double[] translateXPane = {Double.parseDouble(r.getString("translateTopX")), Double.parseDouble(r.getString("translateBottomLeftX")), Double.parseDouble(r.getString("translateBottomRightX"))};
+		myListViewObjects = myListViewHandler.createListView(3, prefWidth, prefHeight, translateYPane, translateXPane);
 		myListViewObservable = myListViewHandler.getObsList();
-		ListView<String> variableList = myListViewObjects.get(1);
-		variableList.setEditable(true);
+		ListView<String> variableValueList = myListViewObjects.get(2);
+		variableValueList.setEditable(true);
 		ObservableList<String> variables = myListViewObservable.get(1);
-		variableList.setCellFactory(TextFieldListCell.forListView());
+		variableValueList.setCellFactory(TextFieldListCell.forListView());
 
 		String[] titles = {r.getString("topTitle"), r.getString("bottomTitle")};
 		double[] yCor = {Double.parseDouble(r.getString("yTopCor")), Double.parseDouble(r.getString("yBottomCor"))};
