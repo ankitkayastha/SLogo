@@ -7,7 +7,7 @@ import java.util.Map;
 
 import commands.Command;
 
-public class TurtleWorld {
+public class TurtleWorld implements ReceiveString {
 	private Turtle turtle;
 	private Parser parser;
 	private Map<String, List<String>> userDefinedCommands;
@@ -40,4 +40,17 @@ public class TurtleWorld {
 	public Turtle getTurtle() {
 		return turtle;
 	}
+
+	@Override
+	public void receiveCommand(String s) {
+		System.out.println(s);
+		processInput(s);
+	}
+
+	@Override
+	public void receiveLanguage(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

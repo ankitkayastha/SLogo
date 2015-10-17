@@ -6,6 +6,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import slogo_team03.AngleInterface;
+import slogo_team03.CoordinateInterface;
+import slogo_team03.PenUpDownInterface;
+import slogo_team03.VisibleInterface;
 
 import java.util.ResourceBundle;
 
@@ -23,7 +27,16 @@ public class DisplayTurtle {
 		root = new Group();
 		//root = makeTurtle();
 	}
-
+	/*use point list */
+	private void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+		turtle.setX(ci.getX());
+		turtle.setY(ci.getY());
+		//turtle.setrotate ai.getAngle();
+		//true-pen down - draw lines
+		//if false, pen up, only need final location (last point in point list)
+		//true  -if visible
+	}
+	
 	public void makeTurtle() {
 		turtle = new ImageView(setImage(r.getString("image")));
 		//gc = myCanvas.getGraphicsContext2D();
@@ -31,7 +44,7 @@ public class DisplayTurtle {
 		gc = myCanvas.getGraphicsContext2D();
 		gc.setFill(Color.GREEN);
 		gc.fillRect(0, 0, 500, 500);
-		System.out.println("Filling color green");
+		//System.out.println("Filling color green");
 		root.getChildren().add(turtle);
 
 		root.getChildren().add(myCanvas);
