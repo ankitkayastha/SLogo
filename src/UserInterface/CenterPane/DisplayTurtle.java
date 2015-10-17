@@ -17,6 +17,8 @@ import slogo_team03.VisibleInterface;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 public class DisplayTurtle {
 	private Canvas myCanvas;
 	private Group root;
@@ -43,8 +45,9 @@ public class DisplayTurtle {
 			Line line = lineList.get(i);
 			drawLine(line, getLineColor());
 		}
-		double xpos = ci.getX();
-		double ypos = ci.getY();
+		double xpos = 250 + ci.getX() - image.getWidth()/2;
+		System.out.println("x coor is " + ci.getX());
+		double ypos = 250 - ci.getY() - image.getHeight()/2;
 		if (vi.isVisible())
 			gc.drawImage(image, xpos, ypos);
 	
@@ -54,7 +57,7 @@ public class DisplayTurtle {
 			//Line line = new Line(startX, startY, endX, endY);
 		//	line.setStroke(color);
 			gc.setStroke(color);
-			gc.strokeLine(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY());
+			gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(), line.getEndX() + 250, 250 - line.getEndY());
 		}
 		//draw lines
 		
@@ -68,34 +71,18 @@ public class DisplayTurtle {
 		return this.lineColor;
 	}
 	public void makeTurtle() {
-		turtle = new ImageView(setImage(r.getString("image")));
-		//gc = myCanvas.getGraphicsContext2D();
-		//gc.getChildren().add(turtle);
-		gc = myCanvas.getGraphicsContext2D();
-		gc.setFill(Color.GREEN);
-		gc.fillRect(0, 0, 500, 500);
-		//System.out.println("Filling color green");
 		Image image = setImage(r.getString("image"));
-		double xpos = Double.parseDouble(r.getString("xPos"));
-		double ypos = Double.parseDouble(r.getString("yPos"));
 		double width = image.getWidth();
 		double height = image.getHeight();
+		gc = myCanvas.getGraphicsContext2D();
+		gc.setFill(Color.GREEN);
+		gc.fillRect(0, 0, 500, 500);		
+		double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width/2;
+		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height/2;
+		
 		gc.drawImage(image, xpos, ypos);
-		System.out.println("Image height = " + height);
-		//gc.clearRect(xpos, ypos, width, height);
-		//gc.drawImage(setImage(r.getString("image")), 300, 300);
 
-		//turtle.setX(Double.parseDouble(r.getString("xPos")));
-		//turtle.setY(Double.parseDouble(r.getString("yPos")));
-		//turtle.setX(200);
-		//turtle.setY(200);
-		System.out.println(turtle.getX());
-		System.out.println(turtle.getY());
 		root.getChildren().add(myCanvas);
-		//myCanvas.toBack();
-	
-		//root.setStyle("-fx-background-color: #000000;");
-		//pane.setBackground(new Background(new BackgroundFill(Color.web("0x0000ff"), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	public Image setImage(String s) {
