@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
-public class Turtle {
+public class Turtle implements CoordinateInterface{
 	private double x, y;
 	private double angle;
 	private boolean visible, penDown;
