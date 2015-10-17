@@ -1,4 +1,7 @@
 package commands;
+
+import javafx.geometry.Point2D;
+
 public class Forward extends Command {
 	public Forward() {
 		paramCode = "e";
@@ -12,11 +15,11 @@ public class Forward extends Command {
 		
 		double x1 = x0 + length * Math.cos(Math.toRadians(angle));
 		double y1 = y0 + length * Math.sin(Math.toRadians(angle));
-
+				
 		myTurtle.setX(x1);
 		myTurtle.setY(y1);
 		myTurtle.addPoint(x1, y1);
-
+		
 		return length;
 	}
 }

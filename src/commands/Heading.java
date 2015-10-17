@@ -5,6 +5,6 @@ public class Heading extends Command {
 	}
 	
 	public double execute() {
-		return ((360 - myTurtle.getAngle()) % 360);
+		return ((450 - myTurtle.getAngle()) % 360);
 	}
 }

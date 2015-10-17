@@ -29,6 +29,10 @@ public class Parser {
 		}
 		return val;
 	}
+	
+	public void processLanguage(String language) {
+		
+	}
 
 	public double evaluateCommands(List<String> inputList) throws CommandInputException {
 		double result = Double.MAX_VALUE;

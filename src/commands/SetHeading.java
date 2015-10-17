@@ -6,7 +6,7 @@ public class SetHeading extends Command {
 
 	public double execute() {
 		double oldAngle = myTurtle.getAngle();
-		double newAngle = 360 - myParameters[0];
+		double newAngle = 450 - myParameters[0];
 		newAngle = newAngle % 360;
 		myTurtle.setAngle(newAngle);
 
