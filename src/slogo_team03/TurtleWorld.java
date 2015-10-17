@@ -43,7 +43,7 @@ public class TurtleWorld implements ReceiveString {
 
 	@Override
 	public void receiveCommand(String s) {
-		System.out.println(s);
+		//System.out.println(s);
 		processInput(s);
 	}
 

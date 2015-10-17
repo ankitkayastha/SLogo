@@ -6,7 +6,7 @@ public class Right extends Command {
 
 	public double execute() {
 		double angle = myTurtle.getAngle();
-		angle -= myParameters[0];
+		angle += myParameters[0];
 		myTurtle.setAngle(angle % 360);
 		return myParameters[0];
 	}

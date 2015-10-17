@@ -4,6 +4,7 @@ package controller;
 import java.util.*;
 
 import UserInterface.CenterPane.CustomLine;
+import UserInterface.CenterPane.DisplayTurtle;
 import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
 import javafx.collections.ObservableList;
@@ -14,25 +15,25 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import slogo_team03.AngleInterface;
+import slogo_team03.CoordinateInterface;
+import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
-//import slogo_team03.SendString;
+import slogo_team03.VisibleInterface;
 
 public class BottomPane {
 	private List<String> commandHistory;
 	private LeftContent left;
 	private CommandHistory rightPane;
-	public BottomPane(LeftContent leftCont, CommandHistory right) {
+	private DisplayTurtle display;
+	public BottomPane(LeftContent leftCont, CommandHistory right, DisplayTurtle display) {
 		this.commandHistory = new ArrayList<String>();
 		this.left = leftCont;
 		this.rightPane = right;
+		this.display = display;
 	}
 	
 	public void clearButtonAction(TextArea field, Group root) {
-		Line line = new Line(50,50, 100, 100);
-		line.setStroke(Color.RED);
-		
-		//CustomLine line = new CustomLine(200, 200, 300, 300, Color.RED);
-		root.getChildren().add(line);
 		field.clear();
 		
 	}
@@ -71,7 +72,7 @@ public class BottomPane {
 		}
 	}
 	
-	public void runButtonAction(TextArea field, ReceiveString rs) {
+	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		ListView<String> list = rightPane.getListView();
 		ListView<String> listViewObjs = left.getListView(1);
 		ObservableList<String> vars = left.getListViewObservable(1);
@@ -84,6 +85,7 @@ public class BottomPane {
 		vars.add(command);
 		listViewObjs.setItems(vars);
 		rs.receiveCommand(command);
+		display.move(ci, ai, pi, vi);
 		field.clear();
 	}
 
