@@ -43,27 +43,27 @@ public class DisplayTurtle {
 		else
 			turtle.setVisible(true);
 		List<Point2D> pointList = ci.getPointList();
-		for (Point2D point: pointList) {
+		for (int i = 0; i < pointList.size(); i++) {
 			/*System.out.println("Point is " + point.toString());
 			System.out.println("Starting X is: " + turtle.getX());
 			System.out.println("Ending X is: " + point.getX());
 			System.out.println("Starting Y is: " + turtle.getY());
 			System.out.println("Ending Y is: " + point.getY()); */
-			turtle.setX(point.getX());
-			turtle.setY(-1*point.getY());
-			turtle.setRotate(ai.getAngle() - 90);
-			if (pi.isPenDown()) {
-				System.out.println("Pen is down");
-				drawLine(turtle.getX(), turtle.getY(), point.getX(), point.getY(), getLineColor());
-				
-			}
+			turtle.setX(-1*pointList.get(i).getX());
+			turtle.setY(-1*pointList.get(i).getY());
+			turtle.setRotate(ai.getAngle() + 90);
+			if (i != pointList.size() - 1)
+				drawLine(pointList.get(i).getX(), pointList.get(i).getY(), pointList.get(i + 1).getX(), pointList.get(i + 1).getY(), getLineColor());
+
 		}
+	
 	}
 		
 		private void drawLine(double startX, double startY, double endX, double endY, Color color) {
-			Line line = new Line(startX, startY, endX, endY);
-			line.setStroke(color);
-			root.getChildren().add(line);
+			//Line line = new Line(startX, startY, endX, endY);
+		//	line.setStroke(color);
+			gc.strokeLine(startX, startY, endX, endY);
+			gc.setStroke(color);
 		}
 		//draw lines
 		
