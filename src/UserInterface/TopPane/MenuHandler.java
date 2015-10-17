@@ -28,6 +28,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import slogo_team03.ReceiveString;
 import slogo_team03.Turtle;
 
 public class MenuHandler {
@@ -44,7 +45,7 @@ public class MenuHandler {
 		return this.root;
 	}
 	
-	public void makeMenuBar(TopPane c) {
+	public void makeMenuBar(TopPane c, ReceiveString rs) {
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
 		
@@ -72,14 +73,14 @@ public class MenuHandler {
 		});
 		
 		Menu language = new Menu(r.getString("languageTitle"));
-		addItems(language, new String[] {r.getString("languageItem1"),
+		addLanguageItems(language, new String[] {r.getString("languageItem1"),
 						r.getString("languageItem2"),
 						r.getString("languageItem3"),
 						r.getString("languageItem4"),
 						r.getString("languageItem5"),
 						r.getString("languageItem6"),
 						r.getString("languageItem7"),
-						r.getString("languageItem8")});
+						r.getString("languageItem8")}, c, rs);
 		
 		menuBar.getMenus().addAll(backgroundColor, image, penColor, language);
 		root.getChildren().add(menuBar);
@@ -101,6 +102,16 @@ public class MenuHandler {
 	private Menu addItems(Menu menu, String[] options) {
 		for (String s:options) {
 			menu.getItems().add(new MenuItem(s));
+		}
+		return menu;
+	}
+	
+	
+	private Menu addLanguageItems(Menu menu, String[] options, TopPane controller, ReceiveString rs) {
+		for (String s:options) {
+			MenuItem m = new MenuItem(s);
+			m.setOnAction((event) -> controller.changeLanguage(s, rs));
+			menu.getItems().add(m);
 		}
 		return menu;
 	}

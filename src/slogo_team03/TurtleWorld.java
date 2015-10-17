@@ -50,6 +50,7 @@ public class TurtleWorld implements ReceiveString {
 
 	@Override
 	public void receiveLanguage(String language) {
+		System.out.println(language);
 		parser.processLanguage(language);
 	}
 

@@ -91,7 +91,7 @@ public class DisplayTurtle {
 		double height = image.getHeight();
 		gc.drawImage(image, xpos, ypos);
 		System.out.println("Image height = " + height);
-		gc.clearRect(xpos, ypos, width, height);
+		//gc.clearRect(xpos, ypos, width, height);
 		//gc.drawImage(setImage(r.getString("image")), 300, 300);
 
 		//turtle.setX(Double.parseDouble(r.getString("xPos")));
@@ -101,7 +101,7 @@ public class DisplayTurtle {
 		System.out.println(turtle.getX());
 		System.out.println(turtle.getY());
 		root.getChildren().add(myCanvas);
-		myCanvas.toBack();
+		//myCanvas.toBack();
 	
 		//root.setStyle("-fx-background-color: #000000;");
 		//pane.setBackground(new Background(new BackgroundFill(Color.web("0x0000ff"), CornerRadii.EMPTY, Insets.EMPTY)));
