@@ -76,5 +76,4 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

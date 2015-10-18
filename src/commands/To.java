@@ -7,11 +7,10 @@ public class To extends SpecialCommand {
 	
 	public To() {
 		runList = new ArrayList<String>();
-		paramCode = "n[v][c]";
+		paramCode = "n[p][c]";
 	}
 
 	public double execute() {
-		
 		
 		
 		
