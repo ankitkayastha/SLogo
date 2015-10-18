@@ -80,7 +80,7 @@ public class DisplayTurtle {
 		return this.lineColor;
 	}
 	public void makeTurtle() {
-		Image image = setImage(r.getString("image"));
+		Image image = changeImage(r.getString("image"));
 		double width = image.getWidth();
 		double height = image.getHeight();
 		gc = myCanvas.getGraphicsContext2D();
@@ -94,9 +94,12 @@ public class DisplayTurtle {
 		root.getChildren().add(myCanvas);
 	}
 	
-	public Image setImage(String s) {
-		Image image = new Image(getClass().getClassLoader().getResourceAsStream(s));
-		return image;
+	private Image changeImage(String s) {
+		return new Image(getClass().getClassLoader().getResourceAsStream(s));
+	}
+	public void setImage(String s) {
+		Image i = new Image(getClass().getClassLoader().getResourceAsStream(s));
+		this.image = i;
 	}
 	public Image getImage() {
 		System.out.println(image.toString());
