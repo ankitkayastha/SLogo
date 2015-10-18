@@ -7,30 +7,39 @@ import java.util.Map;
 
 import commands.Command;
 
-public class TurtleWorld implements ReceiveString {
+public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	private Turtle turtle;
 	private Parser parser;
-	private Map<String, List<String>> userDefinedCommands;
-	private Map<String, Double> variables;
+	private UserDefinedCommands userDefinedCommands;
+	private UserDefinedVariables variables;
 	private TurtleMap turtles;
 
 	public TurtleWorld() {
 		turtle = new Turtle();
 		parser = new Parser();
-		userDefinedCommands = new HashMap<String, List<String>>();
-		variables = new HashMap<String, Double>();
+		userDefinedCommands = new UserDefinedCommands();
+		variables = new UserDefinedVariables();
 		turtles = new TurtleMap();
 		turtles.addTurtle(turtle);
 		Command.setMaps(userDefinedCommands, variables);
 	}
 
 
-	public void processInput(String input) throws CommandInputException {
+	public void processInput(String input) throws CommandInputException{
 		String[] inputArray = input.trim().split("\\s+");
 		List<String>inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();
+		try {
+//		System.out.println(parser.processInput(inputList));
 		parser.processInput(inputList);
-
+		} catch (CommandInputException e) {
+			System.out.println("Invalid Input!");
+			return;
+		}
+	}
+	
+	public double getAngle() {
+		return turtle.angleToRotate();
 	}
 
 	private void setParser() {
@@ -50,8 +59,20 @@ public class TurtleWorld implements ReceiveString {
 
 	@Override
 	public void receiveLanguage(String language) {
-
 		parser.processLanguage(language);
+	}
+
+
+	@Override
+	public Map<String, Double> getVariableMap() {
+		return variables.getVariableMap();
+	}
+
+
+	@Override
+	public Map<String, String> getUserDefinedCommands() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

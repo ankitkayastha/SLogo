@@ -11,6 +11,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	private double angle;
 	private boolean visible, penDown;
 	private List<Line> lineList;
+	private List<Double> angleRotateList;
 	private DecimalFormat df;
 	private int myID;
 	private static int ID = 0;
@@ -24,8 +25,21 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		penDown = Boolean.parseBoolean(r.getString("penDown"));
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>();
+		angleRotateList = new ArrayList<Double>();
 		myID = ID;
 		ID++;
+	}
+	
+	public double angleToRotate() {
+		double sum = 0;
+		while (angleRotateList.size() > 0) {
+			sum += angleRotateList.remove(0);
+		}
+		return sum % 360;
+	}
+	
+	public void addAngle(double angle) {
+		angleRotateList.add(angle);
 	}
 	
 	public void addLine(double x0, double y0, double x1, double y1) {

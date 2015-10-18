@@ -6,35 +6,29 @@ public class Towards extends Command {
 	}
 
 	public double execute() {
-		double oldAngle = myTurtle.getAngle();
-		double newAngle; // Not correct
+		double startAngle = myTurtle.getAngle();
 
 		double startX = myTurtle.getX();
 		double startY = myTurtle.getY();
 		double endX = myParameters[0];
 		double endY = myParameters[1];
-		
-		
-//		if ((endX - startX) != 0) {
-//			
-//		}
-		
+
+		if (startX == endX && startY == endY) {
+			return 0;
+		}
+
 		double slope = (endY - startY) / (endX - startX);
-		return Math.atan(slope);
+		double endAngle = Math.toDegrees(Math.atan(slope));
 
-		// if (startY == endY) {
-		// if (startX < endX) {
-		// myTurtle.setAngle(0);
-		// }
-		// }
+		if (startX > endX) {
+			endAngle += 180;
+		}
+		
+		double difference = (360 + startAngle - endAngle) % 360;
+		myTurtle.addAngle(difference);
 
-		// // Need to calculate newAngle
-		// newAngle = 0;
-		//
-		// double difference = Math.abs(oldAngle - newAngle);
-		// if (difference > 180) {
-		// return 360 - difference;
-		// }
-		// return difference;
+		System.out.println((endAngle + 360)% 360);
+
+		return difference;
 	}
 }
