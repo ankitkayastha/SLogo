@@ -10,14 +10,14 @@ import commands.Command;
 public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	private Turtle turtle;
 	private Parser parser;
-	private Map<String, List<String>> userDefinedCommands;
+	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
 	private TurtleMap turtles;
 
 	public TurtleWorld() {
 		turtle = new Turtle();
 		parser = new Parser();
-		userDefinedCommands = new HashMap<String, List<String>>();
+		userDefinedCommands = new UserDefinedCommands();
 		variables = new UserDefinedVariables();
 		turtles = new TurtleMap();
 		turtles.addTurtle(turtle);

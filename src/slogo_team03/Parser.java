@@ -9,7 +9,7 @@ import commands.SpecialCommand;
 
 public class Parser {
 	private CommandFactory factory;
-	private Map<String, List<String>> userDefinedCommands;
+	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
 	private Turtle currentTurtle;
 
@@ -134,7 +134,7 @@ public class Parser {
 		return command == null;
 	}
 
-	public void setUserDefinedCommands(Map<String, List<String>> commands) {
+	public void setUserDefinedCommands(UserDefinedCommands commands) {
 		userDefinedCommands = commands;
 	}
 
