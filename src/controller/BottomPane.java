@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import slogo_team03.AngleInterface;
 import slogo_team03.CommandInputException;
 import slogo_team03.CoordinateInterface;
+import slogo_team03.PassToFrontInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
 import slogo_team03.VisibleInterface;
@@ -67,9 +68,9 @@ public class BottomPane {
 		}
 	}
 
-	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) throws CommandInputException {
+	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) throws CommandInputException {
 		ListView<String> list = rightPane.getListView();
-	
+		
 		//ObservableList<String> variables = listViewObjs.get
 		ObservableList<String> myObsList = rightPane.getObs();
 		String command = field.getText();
@@ -77,6 +78,22 @@ public class BottomPane {
 		myObsList.add(field.getText());
 		list.setItems(myObsList);
 		rs.receiveCommand(command);
+		
+		List<ListView<String>> myLists = left.getListViewObs();
+		ListView<String> variableNames = myLists.get(1);
+		ObservableList<String> varNames = left.getListViewObservable(1);
+		ListView<String> variableVals = myLists.get(2);
+		ObservableList<String> varObs = left.getListViewObservable(2);
+		Map<String, Double> updatedMap = pf.getVariableMap();
+		varObs.clear();
+		varNames.clear();
+		for (String s: updatedMap.keySet()) {
+			varObs.add(updatedMap.get(s).toString());
+			varNames.add(s);
+		}
+		variableVals.setItems(varObs);
+		variableNames.setItems(varNames);
+		
 		display.move(ci, ai, pi, vi);
 		field.clear();
 	}

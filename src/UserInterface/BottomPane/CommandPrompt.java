@@ -9,6 +9,7 @@ import javafx.scene.control.TextArea;
 import slogo_team03.AngleInterface;
 import slogo_team03.CommandInputException;
 import slogo_team03.CoordinateInterface;
+import slogo_team03.PassToFrontInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
 import slogo_team03.VisibleInterface;
@@ -34,7 +35,7 @@ public class CommandPrompt {
 		return field;
 	}
 	
-	public void makeCommandPromptArea(BottomPane bottomController, DisplayTurtle display, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+	public void makeCommandPromptArea(BottomPane bottomController, DisplayTurtle display, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) {
 		ButtonHandler buttonHandler = new ButtonHandler();
 		Button[] buttonArr;
 		field.setPrefSize(Double.parseDouble(r.getString("inputBoxWidth")), Double.parseDouble(r.getString("inputBoxHeight")));
@@ -53,7 +54,7 @@ public class CommandPrompt {
 		run.setOnAction((event) -> {
 			
 			try {
-				bottomController.runButtonAction(field, rs, ci, ai, pi, vi);
+				bottomController.runButtonAction(field, rs, ci, ai, pi, vi, pf);
 			} catch (CommandInputException e) {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("Error");
