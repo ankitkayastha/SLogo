@@ -113,6 +113,26 @@ public class Parser {
 			}
 		} else if (inputType == 'n') {
 			return isCommandName(current);
+		} else if (inputType == 'p') {
+			List<String> tempList = new ArrayList<String>();
+			if (current.equals("]")) {
+				return false;
+			}
+			while (inputList.size() >= 0) {
+				if (!isVariable(current)) {
+					throw new CommandInputException();
+				}
+				tempList.add(current);
+				if (inputList.get(0).equals("]")) {		// Add remove
+					command.addListOfCommands(tempList);
+					return true;
+				}
+				if (inputList.size() == 0)
+					throw new CommandInputException();
+				current = inputList.remove(0);
+			}
+			return false;
+		
 		} else {
 			return false;
 		}
