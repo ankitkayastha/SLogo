@@ -18,22 +18,19 @@ import slogo_team03.VisibleInterface;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 public class DisplayTurtle {
 	private Canvas myCanvas;
 	private Group root;
 	private GraphicsContext gc;
-	private ImageView turtle;
 	private Color lineColor;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
+	private Image image = new Image(r.getString("image"));
 	
 	public DisplayTurtle() {
 		myCanvas = new Canvas(500, 500);
 		myCanvas.setTranslateX(0);
 		myCanvas.setTranslateY(0);
 		root = new Group();
-
 	}
 	
 	private void rotate(GraphicsContext gc, double angle, double pivotX, double pivotY) {
@@ -42,7 +39,7 @@ public class DisplayTurtle {
 	}
 	/*use point list */
 	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
-		Image image = setImage(r.getString("image"));
+		Image image = getImage();
 		gc.fillRect(0, 0, 500, 500);
 		//System.out.println("Turtle visibility from front " + vi.isVisible());
 		
@@ -102,8 +99,9 @@ public class DisplayTurtle {
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(s));
 		return image;
 	}
-	public ImageView getImageView() {
-		return turtle;
+	public Image getImage() {
+		System.out.println(image.toString());
+		return this.image;
 	}
 	public GraphicsContext getGC() {
 		return this.gc;

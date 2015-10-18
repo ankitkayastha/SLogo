@@ -10,8 +10,12 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import slogo_team03.AngleInterface;
+import slogo_team03.CoordinateInterface;
+import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
 import slogo_team03.Turtle;
+import slogo_team03.VisibleInterface;
 
 public class TopPane {
 	private DisplayTurtle turtle;
@@ -22,16 +26,25 @@ public class TopPane {
 	
 	
 	
+
 	public void changeImage(String s, GraphicsContext gc) {
-		turtle.getImageView().setImage(new Image(s));
+		//turtle.getImageView().setImage(new Image(s));
 		//gc.drawImage(setImage(s), x, y);
+
+	public void changeImage(String s) {
+		//Image i = turtle.getImage();
+		turtle.setImage(s);
+		//turtle.getImageView().setImage(new Image(s));
+>>>>>>> ded97f1bcfddaeda1352efa1b3f0921a881262e3
 	}
-	public void changeBackgroundAction(Color c) {
+	public void changeBackgroundAction(Color c, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		//StackPane s = turtle.getPane();
 		//System.out.println(c.toString().substring(0, 8));
 		//turtle.getPane().setStyle("{-fx-background-color: #" + c.toString().substring(0, 8) + ";}");
 		turtle.getGC().setFill(c);
 		turtle.getGC().fillRect(0, 0, 500, 500);
+
+		turtle.move(ci, ai, pi, vi);
 		//turtle.getPane().setBackground(new Background(new BackgroundFill(Color.web(c.toString().substring(0, 8)), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
