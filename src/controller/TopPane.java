@@ -31,7 +31,6 @@ public class TopPane {
 		//turtle.getPane().setStyle("{-fx-background-color: #" + c.toString().substring(0, 8) + ";}");
 		turtle.getGC().setFill(c);
 		turtle.getGC().fillRect(0, 0, 500, 500);
-
 		//turtle.getPane().setBackground(new Background(new BackgroundFill(Color.web(c.toString().substring(0, 8)), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	

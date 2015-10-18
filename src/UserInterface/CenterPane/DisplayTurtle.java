@@ -55,7 +55,6 @@ public class DisplayTurtle {
 		System.out.println("x coor is " + ci.getX());
 		double ypos = 250 - ci.getY() - image.getHeight()/2;
 		if (vi.isVisible()) {
-			System.out.println(ai.getAngle());
 			drawRotatedImage(gc, image, (90 - ai.getAngle()) % 360, xpos, ypos);
 		}
 	}
