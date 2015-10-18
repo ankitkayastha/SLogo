@@ -70,20 +70,24 @@ public class BottomPane {
 
 	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) throws CommandInputException {
 		ListView<String> list = rightPane.getListView();
-		
-		//ObservableList<String> variables = listViewObjs.get
-		ObservableList<String> myObsList = rightPane.getObs();
-		String command = field.getText();
-		commandHistory.add(command);
-		myObsList.add(field.getText());
-		list.setItems(myObsList);
-		rs.receiveCommand(command);
-		
 		List<ListView<String>> myLists = left.getListViewObs();
 		ListView<String> variableNames = myLists.get(1);
 		ObservableList<String> varNames = left.getListViewObservable(1);
 		ListView<String> variableVals = myLists.get(2);
 		ObservableList<String> varObs = left.getListViewObservable(2);
+		ObservableList<String> myObsList = rightPane.getObs();
+		String command = field.getText();
+		commandHistory.add(command);
+		myObsList.add(field.getText());
+		list.setItems(myObsList);
+		for (int i = 0; i < varNames.size(); i++) {
+			rs.receiveCommand("make " + varNames.get(i) + " " + Double.parseDouble(varObs.get(i)));
+		}
+		
+		rs.receiveCommand(command);
+		//pass updated variables
+		
+		
 		Map<String, Double> updatedMap = pf.getVariableMap();
 		varObs.clear();
 		varNames.clear();
