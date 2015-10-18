@@ -30,7 +30,7 @@ public class TurtleView {
 		history.makeListView(prompt.getField());
 		TopPane topController = new TopPane(turtleDisplay);
 		MenuHandler menu = new MenuHandler();
-		menu.makeMenuBar(topController, world);
+		menu.makeMenuBar(topController, world, world.getTurtle(), world.getTurtle(),world.getTurtle(),world.getTurtle());
 		turtleDisplay.makeTurtle();
 		myPane.setCenter(turtleDisplay.getPane());
 		myPane.setLeft(left.makeScrollablePanes());
