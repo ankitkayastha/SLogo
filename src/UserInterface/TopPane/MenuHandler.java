@@ -64,7 +64,7 @@ public class MenuHandler {
 			
 		Menu image = new Menu(r.getString("imageTitle"));
 		addImageItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")}, 
-				c);
+				c, ci, ai,pi,vi);
 		//image.setOnAction((event) -> c.changeImage(image.getItems().));
 		Menu penColor = new Menu(r.getString("penTitle"));
 		ColorPicker cp1 = new ColorPicker();
@@ -120,10 +120,10 @@ public class MenuHandler {
 		return menu;
 	}
 	
-	private Menu addImageItems(Menu menu, String[] options, TopPane controller) {
+	private Menu addImageItems(Menu menu, String[] options, TopPane controller, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		for (String s:options) {
 			MenuItem m = new MenuItem(s);
-			m.setOnAction((event) -> controller.changeImage(s));
+			m.setOnAction((event) -> controller.changeImageAction(s, ci, ai, pi, vi));
 			menu.getItems().add(m);
 		}
 		return menu;
