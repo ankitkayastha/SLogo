@@ -5,5 +5,4 @@ public interface ReceiveString {
 	
 	public void receiveLanguage(String s);
 	
-	public void receiveUpdatedVariables();
 }
