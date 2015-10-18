@@ -96,10 +96,10 @@ public class DisplayTurtle {
 	}
 	
 	private Image changeImage(String s) {
-		return new Image(getClass().getClassLoader().getResourceAsStream(s));
+		return new Image(getClass().getClassLoader().getResourceAsStream(s), 40, 40, false, false);
 	}
 	public void setImage(String s) {
-		Image i = new Image(getClass().getClassLoader().getResourceAsStream(s));
+		Image i = new Image(getClass().getClassLoader().getResourceAsStream(s), 40, 40, false, false);
 		this.image = i;
 	}
 	public Image getImage() {
