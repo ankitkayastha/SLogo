@@ -2,6 +2,8 @@ package UserInterface.BottomPane;
 
 import controller.BottomPane;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import slogo_team03.AngleInterface;
@@ -54,8 +56,11 @@ public class CommandPrompt {
 				bottomController.runButtonAction(field, rs, ci, ai, pi, vi);
 			} catch (CommandInputException e) {
 				
-				//Put up a dialog box here
-				System.out.println("Input error");
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Error");
+				alert.setHeaderText("Invalid Input");
+				alert.setContentText("Please check your spelling of " + field.getText());
+				alert.showAndWait();
 			}
 		});
 	}

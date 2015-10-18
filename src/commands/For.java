@@ -18,12 +18,12 @@ public class For extends SpecialCommand {
 //		}
 
 		for (int i = (int) myParameters[2]; i <= myParameters[3]; i += myParameters[4]) {
-			variableMap.put(myVariable, (double) i);
+			variableMap.addVariable(myVariable, (double) i);
 			List<String> runList = new ArrayList<String>(commandLists.get(0));
 //			result = myParser.evaluateCommands(runList);
 		}
 
-		variableMap.remove(myVariable);
+		variableMap.removeVariable(myVariable);
 		return -1;
 	}
 }

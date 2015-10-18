@@ -6,6 +6,7 @@ import java.util.Map;
 
 import slogo_team03.CommandInputException;
 import slogo_team03.Turtle;
+import slogo_team03.UserDefinedVariables;
 
 public abstract class Command {
 	protected double[] myParameters = new double[10];
@@ -15,14 +16,14 @@ public abstract class Command {
 
 	protected List<List<String>> commandLists = new ArrayList<List<String>>();
 	protected static Map<String, List<String>> userDefinedCommands;
-	protected static Map<String, Double> variableMap;
+	protected static UserDefinedVariables variableMap;
 
 	public Command() {
 	}
 
 	public abstract double execute();
 
-	public static void setMaps(Map<String, List<String>> uMap, Map<String, Double> vMap) {
+	public static void setMaps(Map<String, List<String>> uMap, UserDefinedVariables vMap) {
 		userDefinedCommands = uMap;
 		variableMap = vMap;
 	}
