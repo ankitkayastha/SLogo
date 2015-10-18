@@ -36,7 +36,6 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 			System.out.println("Invalid Input!");
 			return;
 		}
-		System.out.println(getAngle());
 	}
 	
 	public double getAngle() {
