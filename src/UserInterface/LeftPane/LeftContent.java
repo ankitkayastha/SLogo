@@ -30,7 +30,6 @@ public class LeftContent {
 		myListViewObservable = myListViewHandler.getObsList();
 		ListView<String> variableValueList = myListViewObjects.get(2);
 		variableValueList.setEditable(true);
-		ObservableList<String> variables = myListViewObservable.get(1);
 		variableValueList.setCellFactory(TextFieldListCell.forListView());
 
 		String[] titles = {r.getString("topTitle"), r.getString("bottomTitle")};

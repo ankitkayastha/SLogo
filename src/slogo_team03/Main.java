@@ -19,6 +19,11 @@ public class Main extends Application {
 		stage.show();
 		Scanner scan = new Scanner(System.in);
 
+
+		/*while (true) {
+			world.processInput(scan.nextLine());
+		} */
+
 //		while (true) {
 //			world.processInput(scan.nextLine());
 //		}
