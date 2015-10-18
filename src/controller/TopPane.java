@@ -14,7 +14,6 @@ import slogo_team03.AngleInterface;
 import slogo_team03.CoordinateInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
-import slogo_team03.Turtle;
 import slogo_team03.VisibleInterface;
 
 public class TopPane {
@@ -24,13 +23,6 @@ public class TopPane {
 		this.turtle = t;
 	}
 	
-	
-	
-	public void changeImage(String s) {
-		//Image i = turtle.getImage();
-		turtle.setImage(s);
-		//turtle.getImageView().setImage(new Image(s));
-	}
 	public void changeBackgroundAction(Color c, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		//StackPane s = turtle.getPane();
 		//System.out.println(c.toString().substring(0, 8));
@@ -47,7 +39,8 @@ public class TopPane {
 	public void changeLanguage(String s, ReceiveString rs) {
 		rs.receiveLanguage(s);
 	}
-	public void changeImageAction(String s) {
+	public void changeImageAction(String s,CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		turtle.setImage(s);
+		turtle.move(ci, ai, pi, vi);
 	}
 }
