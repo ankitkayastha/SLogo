@@ -45,10 +45,10 @@ public class DisplayTurtle {
 			drawLine(line, getLineColor());
 		}
 		double xpos = 250 + ci.getX() - image.getWidth()/2;
-		System.out.println("x coor is " + ci.getX());
 		double ypos = 250 - ci.getY() - image.getHeight()/2;
 		if (vi.isVisible()) {
-			drawRotatedImage(gc, image, (90 - ai.getAngle()) % 360, xpos, ypos);
+			double absoluteAngle = ai.absoluteAngleFrontend();
+			drawRotatedImage(gc, image, absoluteAngle, xpos, ypos);
 		}
 	}
 	
@@ -62,7 +62,6 @@ public class DisplayTurtle {
 	
 	private void drawLine(Line line, Color color) {
 		gc.setStroke(color);
-		System.out.println(line.toString());
 		gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(), line.getEndX() + 250, 250 - line.getEndY());
 	}
 

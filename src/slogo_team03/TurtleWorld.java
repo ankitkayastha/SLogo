@@ -40,7 +40,7 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	}
 	
 	public double getAngle() {
-		return turtle.angleToRotate();
+		return turtle.absoluteAngleFrontend();
 	}
 
 	private void setParser() {
