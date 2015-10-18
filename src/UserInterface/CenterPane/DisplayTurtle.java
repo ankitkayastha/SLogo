@@ -47,8 +47,7 @@ public class DisplayTurtle {
 		double xpos = 250 + ci.getX() - image.getWidth()/2;
 		double ypos = 250 - ci.getY() - image.getHeight()/2;
 		if (vi.isVisible()) {
-			double absoluteAngle = ai.absoluteAngleFrontend();
-			drawRotatedImage(gc, image, absoluteAngle, xpos, ypos);
+			drawRotatedImage(gc, image, ai.absoluteAngleFrontend(), xpos, ypos);
 		}
 	}
 	
