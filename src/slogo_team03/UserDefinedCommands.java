@@ -4,35 +4,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import commands.UserCommand;
+
 public class UserDefinedCommands {
-	private Map<String, List<String>> commandsMap;
+	private Map<String, UserCommand> commandsMap;
 	
 	public UserDefinedCommands() {
-		commandsMap = new HashMap<String, List<String>>();
+		commandsMap = new HashMap<String, UserCommand>();
 	}
 	
 	public List<String> getCommandDefiniton(String name) {
-		return commandsMap.get(name);
+		return commandsMap.get(name).getDefinition();
 	}
 	
-	public void addCommandDefinition(String name, List<String> definition) {
-		commandsMap.put(name, definition);
+	public void addCommand(UserCommand object) {
+		commandsMap.put(object.toString(), object);
 	}
 	
-	public List<String> removeCommandDefinition(String name) {
+	public UserCommand removeCommandDefinition(String name) {
 		return commandsMap.remove(name);
 	}
 	
-	public Map<String, String> getCommandsMap() {
-		HashMap<String, String> mapForFront = new HashMap<String, String>();
-		for (String command : commandsMap.keySet()) {
-			StringBuilder rebuiltDefinition = new StringBuilder();
-			for (String definition : commandsMap.get(command)) {
-				rebuiltDefinition.append(definition);
-				rebuiltDefinition.append(" ");
-			}
-			mapForFront.put(command, rebuiltDefinition.toString());
-		}
-		return mapForFront;
-	}
+//	public Map<String, String> getCommandsMap() {
+//		HashMap<String, String> mapForFront = new HashMap<String, String>();
+//		for (String command : commandsMap.keySet()) {
+//			StringBuilder rebuiltDefinition = new StringBuilder();
+//			for (String definition : commandsMap.get(command)) {
+//				rebuiltDefinition.append(definition);
+//				rebuiltDefinition.append(" ");
+//			}
+//			mapForFront.put(command, rebuiltDefinition.toString());
+//		}
+//		return mapForFront;
+//	}
 }
