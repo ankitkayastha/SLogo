@@ -55,7 +55,6 @@ public class CommandPrompt {
 			try {
 				bottomController.runButtonAction(field, rs, ci, ai, pi, vi);
 			} catch (CommandInputException e) {
-				
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("Error");
 				alert.setHeaderText("Invalid Input");

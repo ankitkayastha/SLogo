@@ -28,8 +28,12 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import slogo_team03.AngleInterface;
+import slogo_team03.CoordinateInterface;
+import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
 import slogo_team03.Turtle;
+import slogo_team03.VisibleInterface;
 
 public class MenuHandler {
 	private Group root;
@@ -45,7 +49,7 @@ public class MenuHandler {
 		return this.root;
 	}
 	
-	public void makeMenuBar(TopPane c, ReceiveString rs) {
+	public void makeMenuBar(TopPane c, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
 		
@@ -55,7 +59,7 @@ public class MenuHandler {
 		changeColor.setGraphic(cp);
 		backgroundColor.getItems().add(changeColor);
 		cp.setOnAction((event) -> {
-			c.changeBackgroundAction(cp.getValue());
+			c.changeBackgroundAction(cp.getValue(), ci, ai, pi, vi);
 		}); 
 			
 		Menu image = new Menu(r.getString("imageTitle"));
