@@ -6,7 +6,7 @@ public class Make extends Command {
 	}
 
 	public double execute() {
-		variableMap.put(myVariable, myParameters[1]);
+		variableMap.addVariable(myVariable, myParameters[1]);
 		System.out.println(variableMap);
 		return myParameters[1];
 	}
