@@ -29,6 +29,7 @@ public class UserDefinedCommands {
 			StringBuilder rebuiltDefinition = new StringBuilder();
 			for (String definition : commandsMap.get(command)) {
 				rebuiltDefinition.append(definition);
+				rebuiltDefinition.append(" ");
 			}
 			mapForFront.put(command, rebuiltDefinition.toString());
 		}
