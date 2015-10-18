@@ -1,6 +1,4 @@
 package controller;
-
-
 import java.util.*;
 
 import UserInterface.CenterPane.DisplayTurtle;
@@ -80,14 +78,13 @@ public class BottomPane {
 		commandHistory.add(command);
 		myObsList.add(field.getText());
 		list.setItems(myObsList);
+		
+		//pass updated variables
 		for (int i = 0; i < varNames.size(); i++) {
 			rs.receiveCommand("make " + varNames.get(i) + " " + Double.parseDouble(varObs.get(i)));
 		}
 		
 		rs.receiveCommand(command);
-		//pass updated variables
-		
-		
 		Map<String, Double> updatedMap = pf.getVariableMap();
 		varObs.clear();
 		varNames.clear();

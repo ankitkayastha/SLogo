@@ -17,10 +17,10 @@ public class LeftContent {
 	private List<ListView<String>> myListViewObjects;
 	public LeftContent() {
 		myListViewHandler = new ListViewHandler();
-		root = makeScrollablePanes();
+		root = makeListViews();
 	}
 	
-	public Group makeScrollablePanes() {
+	public Group makeListViews() {
 		TextHandler myTextHandler = new TextHandler();
 		double[] prefWidth = {Double.parseDouble(r.getString("prefTopWidth")), Double.parseDouble(r.getString("prefBottomWidth")), Double.parseDouble(r.getString("prefBottomWidth"))};
 		double[] prefHeight = {Double.parseDouble(r.getString("prefHeight")), Double.parseDouble(r.getString("prefHeight")), Double.parseDouble(r.getString("prefHeight"))};

@@ -10,7 +10,6 @@ public class SetHeading extends Command {
 		double endAngle = 450 - myParameters[0];
 		endAngle = endAngle % 360;
 		myTurtle.setAngle(endAngle);
-		myTurtle.addAngle((360 + startAngle - endAngle) % 360);
 
 		double difference = Math.abs(startAngle - endAngle);
 		if (difference > 180) {
