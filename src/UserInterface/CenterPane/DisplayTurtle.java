@@ -1,12 +1,9 @@
 package UserInterface.CenterPane;
 
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
@@ -37,11 +34,10 @@ public class DisplayTurtle {
 		Rotate rot = new Rotate(angle, pivotX, pivotY);
 		gc.setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
 	}
-	/*use point list */
+
 	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		Image image = getImage();
 		gc.fillRect(0, 0, 500, 500);
-		//System.out.println("Turtle visibility from front " + vi.isVisible());
 		
 		List<Line> lineList = ci.getLineList();
 		for (int i = 0; i < lineList.size(); i++) {
@@ -69,11 +65,7 @@ public class DisplayTurtle {
 		System.out.println(line.toString());
 		gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(), line.getEndX() + 250, 250 - line.getEndY());
 	}
-		//draw lines
-		
-		//true-pen down - draw lines
-		//if false, pen up, only need final location (last point in point list)
-		//true  -if visible
+
 	public void setLineColor(Color color) {
 		this.lineColor = color;
 	}

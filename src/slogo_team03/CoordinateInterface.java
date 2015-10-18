@@ -2,7 +2,6 @@ package slogo_team03;
 
 import java.util.List;
 
-import javafx.geometry.Point2D;
 import javafx.scene.shape.Line;
 
 public interface CoordinateInterface {

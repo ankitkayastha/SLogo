@@ -2,26 +2,16 @@ package UserInterface.TopPane;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import java.util.ResourceBundle;
-import javafx.geometry.Insets;
-import UserInterface.TurtleView;
-import UserInterface.CenterPane.DisplayTurtle;
 import controller.TopPane;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
@@ -32,19 +22,12 @@ import slogo_team03.AngleInterface;
 import slogo_team03.CoordinateInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
-import slogo_team03.Turtle;
 import slogo_team03.VisibleInterface;
 
 public class MenuHandler {
 	private Group root;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.TopPane/TopResource");
-	//private TopPane control;
-	
-	public MenuHandler() {
-		//root = new Group();
-		//this.control = controller;
-	}
-	
+
 	public Group getRoot() {
 		return this.root;
 	}
@@ -65,14 +48,12 @@ public class MenuHandler {
 		Menu image = new Menu(r.getString("imageTitle"));
 		addImageItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")}, 
 				c, ci, ai,pi,vi);
-		//image.setOnAction((event) -> c.changeImage(image.getItems().));
 		Menu penColor = new Menu(r.getString("penTitle"));
 		ColorPicker cp1 = new ColorPicker();
 		MenuItem changeColor1 = new MenuItem();
 		changeColor1.setGraphic(cp1);
 		penColor.getItems().add(changeColor1);
 		cp1.setOnAction((event) -> {
-			//Turtle.setPenColor(cp1.getValue());
 			c.changePenColorAction(cp1.getValue());
 		});
 		
