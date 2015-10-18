@@ -2,7 +2,6 @@ package slogo_team03;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +29,8 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 		List<String> inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();
 		try {
-			parser.processInput(inputList);
-//			 System.out.println(parser.processInput(inputList));
+			// parser.processInput(inputList);
+			System.out.println(parser.processInput(inputList));
 			parser.processInput(inputList);
 		} catch (CommandInputException e) {
 			System.out.println("Invalid Input!");
@@ -40,7 +39,7 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	}
 
 	public double getAngle() {
-		return turtle.angleToRotate();
+		return turtle.absoluteAngleFrontend();
 	}
 
 	private void setParser() {

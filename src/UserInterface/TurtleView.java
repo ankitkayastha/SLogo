@@ -10,7 +10,6 @@ import controller.BottomPane;
 import controller.TopPane;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import slogo_team03.Turtle;
 import slogo_team03.TurtleWorld;
 
 
@@ -26,14 +25,14 @@ public class TurtleView {
 		CommandPrompt prompt = new CommandPrompt();
 		DisplayTurtle turtleDisplay = new DisplayTurtle();
 		BottomPane bottomController = new BottomPane(left, history, turtleDisplay);
-		prompt.makeCommandPromptArea(bottomController, turtleDisplay, world, world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle());
+		prompt.makeCommandPromptArea(bottomController, turtleDisplay, world, world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle(), world);
 		history.makeListView(prompt.getField());
 		TopPane topController = new TopPane(turtleDisplay);
 		MenuHandler menu = new MenuHandler();
 		menu.makeMenuBar(topController, world, world.getTurtle(), world.getTurtle(),world.getTurtle(),world.getTurtle());
 		turtleDisplay.makeTurtle();
 		myPane.setCenter(turtleDisplay.getPane());
-		myPane.setLeft(left.makeScrollablePanes());
+		myPane.setLeft(left.makeListViews());
 		myPane.setRight(history.getRoot());
 		myPane.setTop(menu.getRoot());
 		myPane.setBottom(prompt.getRoot());

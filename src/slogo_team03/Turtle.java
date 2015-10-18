@@ -30,12 +30,8 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		ID++;
 	}
 	
-	public double angleToRotate() {
-		double sum = 0;
-		while (angleRotateList.size() > 0) {
-			sum += angleRotateList.remove(0);
-		}
-		return sum % 360;
+	public double absoluteAngleFrontend() {
+		return (90 - getAngle()) % 360;
 	}
 	
 	public void addAngle(double angle) {

@@ -17,10 +17,10 @@ public class LeftContent {
 	private List<ListView<String>> myListViewObjects;
 	public LeftContent() {
 		myListViewHandler = new ListViewHandler();
-		root = makeScrollablePanes();
+		root = makeListViews();
 	}
 	
-	public Group makeScrollablePanes() {
+	public Group makeListViews() {
 		TextHandler myTextHandler = new TextHandler();
 		double[] prefWidth = {Double.parseDouble(r.getString("prefTopWidth")), Double.parseDouble(r.getString("prefBottomWidth")), Double.parseDouble(r.getString("prefBottomWidth"))};
 		double[] prefHeight = {Double.parseDouble(r.getString("prefHeight")), Double.parseDouble(r.getString("prefHeight")), Double.parseDouble(r.getString("prefHeight"))};
@@ -30,7 +30,6 @@ public class LeftContent {
 		myListViewObservable = myListViewHandler.getObsList();
 		ListView<String> variableValueList = myListViewObjects.get(2);
 		variableValueList.setEditable(true);
-		ObservableList<String> variables = myListViewObservable.get(1);
 		variableValueList.setCellFactory(TextFieldListCell.forListView());
 
 		String[] titles = {r.getString("topTitle"), r.getString("bottomTitle")};

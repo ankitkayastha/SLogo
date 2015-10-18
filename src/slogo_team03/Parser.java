@@ -2,7 +2,6 @@ package slogo_team03;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import commands.Command;
 import commands.SpecialCommand;
@@ -26,7 +25,7 @@ public class Parser {
 		}
 		while (list.size() > 0) {
 			val = evaluateCommands(list);
-			System.out.println(val);
+			// System.out.println(val);
 		}
 		return val;
 	}
@@ -38,11 +37,11 @@ public class Parser {
 	public double evaluateCommands(List<String> inputList) throws CommandInputException {
 		double result = Double.MAX_VALUE;
 		String commandName = inputList.remove(0);
-		System.out.print("Command: " + commandName + ", InputList:");
-		for (int i = 0; i < inputList.size(); i++) {
-			System.out.print(" " + inputList.get(i));
-		}
-		System.out.println();
+		// System.out.print("Command: " + commandName + ", InputList:");
+		// for (int i = 0; i < inputList.size(); i++) {
+		// System.out.print(" " + inputList.get(i));
+		// }
+		// System.out.println();
 
 		// System.out.println(commandName);
 
@@ -94,7 +93,7 @@ public class Parser {
 		} else if (command instanceof SpecialCommand) { // result == -1 NEED TO
 														// CHANGE THIS
 			result = processInput(((SpecialCommand) command).getRunList());
-			System.out.println(((SpecialCommand) command).getRunList());
+			// System.out.println(((SpecialCommand) command).getRunList());
 		}
 		return result;
 	}

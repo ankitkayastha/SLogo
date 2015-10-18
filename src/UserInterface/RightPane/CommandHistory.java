@@ -1,6 +1,5 @@
 package UserInterface.RightPane;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -33,13 +32,8 @@ public class CommandHistory {
 		
 		root.getChildren().add(title);
 		root.getChildren().add(myListView);
-		/*myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldString, String newString) {
-				field.setText(newString);
-			}
-		});*/
-		myListView.getSelectionModel().selectedItemProperty().addListener((ov, o, n) -> field.setText(n));
+		//use lambda
+		myListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> field.setText(newVal));
 	}
 	public Group getRoot() {
 		return root;

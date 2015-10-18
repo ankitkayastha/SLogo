@@ -1,12 +1,9 @@
 package UserInterface.CenterPane;
 
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Rotate;
@@ -37,11 +34,10 @@ public class DisplayTurtle {
 		Rotate rot = new Rotate(angle, pivotX, pivotY);
 		gc.setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
 	}
-	/*use point list */
+
 	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		Image image = getImage();
 		gc.fillRect(0, 0, 500, 500);
-		//System.out.println("Turtle visibility from front " + vi.isVisible());
 		
 		List<Line> lineList = ci.getLineList();
 		for (int i = 0; i < lineList.size(); i++) {
@@ -49,11 +45,9 @@ public class DisplayTurtle {
 			drawLine(line, getLineColor());
 		}
 		double xpos = 250 + ci.getX() - image.getWidth()/2;
-		System.out.println("x coor is " + ci.getX());
 		double ypos = 250 - ci.getY() - image.getHeight()/2;
 		if (vi.isVisible()) {
-			System.out.println(ai.getAngle());
-			drawRotatedImage(gc, image, (90 - ai.getAngle()) % 360, xpos, ypos);
+			drawRotatedImage(gc, image, ai.absoluteAngleFrontend(), xpos, ypos);
 		}
 	}
 	
@@ -62,17 +56,14 @@ public class DisplayTurtle {
 		gc.save(); //saves current state on stack
 		rotate(gc, angle, tlx + image.getWidth() / 2, tly + image.getHeight() / 2); 
 		gc.drawImage(image, tlx, tly);
+		gc.restore();
 	}
 	
 	private void drawLine(Line line, Color color) {
 		gc.setStroke(color);
 		gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(), line.getEndX() + 250, 250 - line.getEndY());
 	}
-		//draw lines
-		
-		//true-pen down - draw lines
-		//if false, pen up, only need final location (last point in point list)
-		//true  -if visible
+
 	public void setLineColor(Color color) {
 		this.lineColor = color;
 	}
@@ -95,10 +86,10 @@ public class DisplayTurtle {
 	}
 	
 	private Image changeImage(String s) {
-		return new Image(getClass().getClassLoader().getResourceAsStream(s));
+		return new Image(getClass().getClassLoader().getResourceAsStream(s), 40, 40, false, false);
 	}
 	public void setImage(String s) {
-		Image i = new Image(getClass().getClassLoader().getResourceAsStream(s));
+		Image i = new Image(getClass().getClassLoader().getResourceAsStream(s), 40, 40, false, false);
 		this.image = i;
 	}
 	public Image getImage() {
