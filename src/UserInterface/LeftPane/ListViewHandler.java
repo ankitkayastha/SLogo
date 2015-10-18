@@ -21,7 +21,6 @@ public class ListViewHandler {
 			list.setPrefSize(prefWidth[i], prefHeight[i]);
 			list.setTranslateY(translateY[i]);
 			list.setTranslateX(translateX[i]);
-			//list.setId(Integer.toString(i));
 			obsList.add(observable);
 			list.setItems(obsList.get(i));
 			myList.add(list);

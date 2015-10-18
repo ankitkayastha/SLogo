@@ -26,7 +26,7 @@ public class TurtleView {
 		CommandPrompt prompt = new CommandPrompt();
 		DisplayTurtle turtleDisplay = new DisplayTurtle();
 		BottomPane bottomController = new BottomPane(left, history, turtleDisplay);
-		prompt.makeCommandPromptArea(bottomController, turtleDisplay, world, world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle());
+		prompt.makeCommandPromptArea(bottomController, turtleDisplay, world, world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle(), world);
 		history.makeListView(prompt.getField());
 		TopPane topController = new TopPane(turtleDisplay);
 		MenuHandler menu = new MenuHandler();
