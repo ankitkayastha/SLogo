@@ -10,7 +10,7 @@ public class Repeat extends SpecialCommand {
 
 	public double execute() {
 		for (int i = 0; i < myParameters[0]; i++) {
-			runList.addAll(commandLists.get(0));
+			runList.addAll(myCommandLists.get(0));
 		}
 		return -1;
 	}

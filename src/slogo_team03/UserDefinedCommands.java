@@ -13,6 +13,10 @@ public class UserDefinedCommands {
 		commandsMap = new HashMap<String, UserCommand>();
 	}
 	
+	public boolean containsKey(String key) {
+		return commandsMap.containsKey(key);
+	}
+	
 	public List<String> getCommandDefiniton(String name) {
 		return commandsMap.get(name).getDefinition();
 	}

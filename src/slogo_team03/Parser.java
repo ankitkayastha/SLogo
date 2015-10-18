@@ -5,6 +5,8 @@ import java.util.List;
 
 import commands.Command;
 import commands.SpecialCommand;
+import commands.To;
+import commands.UserCommand;
 
 public class Parser {
 	private CommandFactory factory;
@@ -18,12 +20,16 @@ public class Parser {
 
 	public double processInput(List<String> list) throws CommandInputException {
 		double val = Double.MAX_VALUE;
+		for (int i = 0; i < list.size(); i++) {
+
+		}
 		while (list.size() > 0) {
-			val = evaluateCommands(list);	
+			val = evaluateCommands(list);
+			// System.out.println(val);
 		}
 		return val;
 	}
-	
+
 	public void processLanguage(String language) {
 		factory.receiveLanguage(language);
 	}
@@ -31,11 +37,23 @@ public class Parser {
 	public double evaluateCommands(List<String> inputList) throws CommandInputException {
 		double result = Double.MAX_VALUE;
 		String commandName = inputList.remove(0);
+		// System.out.print("Command: " + commandName + ", InputList:");
+		// for (int i = 0; i < inputList.size(); i++) {
+		// System.out.print(" " + inputList.get(i));
+		// }
+		// System.out.println();
 
-//		if (userDefinedCommands.containsKey(commandName)) {
-//			inputList.addAll(0, userDefinedCommands.get(commandName));
-//			commandName = inputList.remove(0);
-//		}
+		// System.out.println(commandName);
+
+		// if (commandName.length() == 0) {
+		//// System.out.println("White space");
+		// return 0;
+		// }
+
+		// if (userDefinedCommands.containsKey(commandName)) {
+		// inputList.addAll(0, userDefinedCommands.get(commandName));
+		// commandName = inputList.remove(0);
+		// }
 
 		Command command = factory.createCommand(commandName);
 		if (command == null) {
@@ -45,13 +63,37 @@ public class Parser {
 		String paramTypes = command.getParamCode();
 		int paramsNeeded = paramTypes.length();
 		for (int i = 0; i < paramsNeeded; i++) {
+			// System.out.println(paramTypes.charAt(i));
 			setValidParameter(inputList, paramTypes.charAt(i), command, i);
 		}
 		command.setTurtle(currentTurtle);
-		result = command.format();
+		result = command.executeAndFormat();
+
+		// if (command instanceof UserCommand) {
+		// result = processInput(((UserCommand) command).getDefinition());
+		// }
 
 		if (command instanceof SpecialCommand) {
+			// System.out.print("RunList: ");
+			// List<String> myRunList = new ArrayList<String>(((SpecialCommand)
+			// command).getRunList());
+			// for (int i = 0; i < myRunList.size(); i++) {
+			// System.out.print(" " + myRunList.get(i));
+			// }
+			// System.out.println();
+		}
+
+		if (command instanceof To) {
+			try {
+				processInput(((SpecialCommand) command).getRunList());
+			} catch (CommandInputException e) {
+				return 0;
+			}
+			return 1;
+		} else if (command instanceof SpecialCommand) { // result == -1 NEED TO
+														// CHANGE THIS
 			result = processInput(((SpecialCommand) command).getRunList());
+			// System.out.println(((SpecialCommand) command).getRunList());
 		}
 		return result;
 	}
@@ -63,6 +105,12 @@ public class Parser {
 		}
 
 		String current = inputList.remove(0);
+
+		// System.out.print("Parameter: " + current + ", InputList:");
+		// for (int j = 0; j < inputList.size(); j++) {
+		// System.out.print(" " + inputList.get(j));
+		// }
+		// System.out.println();
 
 		if (inputType == '[') {
 			return current.equals("[");
@@ -81,15 +129,33 @@ public class Parser {
 				return false;
 			}
 
+			int leftCount = 1;
+
 			while (inputList.size() >= 0) {
 				tempList.add(current);
+				if (inputList.get(0).equals("[")) {
+					leftCount++;
+				}
 				if (inputList.get(0).equals("]")) {
-					command.addListOfCommands(tempList);
-					return true;
+					leftCount--;
+					if (leftCount == 0) {
+						command.addListOfCommands(tempList);
+						return true;
+					}
 				}
 				if (inputList.size() == 0)
 					return false;
+
 				current = inputList.remove(0);
+				// System.out.print("Parameter: " + current + ", InputList:");
+				// for (int j = 0; j < inputList.size(); j++) {
+				// System.out.print(" " + inputList.get(j));
+				// }
+				// System.out.println();
+
+				// System.out.println("Command: " + command + ", Param: " +
+				// current);
+
 			}
 			return false;
 		} else if (inputType == 'e') {
@@ -97,7 +163,12 @@ public class Parser {
 				command.setParameter(i, Double.parseDouble(current));
 				return true;
 			} else if (isVariable(current)) {
-				command.setParameter(i, variables.getVariable(current));
+				if (variables.getVariableMap().containsKey(current)) {
+					command.setParameter(i, variables.getVariable(current));
+				} else {
+					variables.addVariable(current, 0);
+					command.setParameter(i, 0);
+				}
 				return true;
 			} else {
 				inputList.add(0, current);
@@ -111,7 +182,32 @@ public class Parser {
 				return false;
 			}
 		} else if (inputType == 'n') {
-			return isCommandName(current);
+			if (isCommandName(current)) {
+				((To) command).createUserDefinedCommand(current);
+				return true;
+			} else {
+				throw new CommandInputException();
+			}
+		} else if (inputType == 'p') {
+			List<String> tempList = new ArrayList<String>();
+			if (current.equals("]")) {
+				return true;
+			}
+			while (inputList.size() >= 0) {
+				if (!isVariable(current)) {
+					throw new CommandInputException();
+				}
+				tempList.add(current);
+				if (inputList.get(0).equals("]")) {
+					command.addVariable(current);
+					return true;
+				}
+				if (inputList.size() == 0)
+					throw new CommandInputException();
+				current = inputList.remove(0);
+			}
+			return false;
+
 		} else {
 			return false;
 		}

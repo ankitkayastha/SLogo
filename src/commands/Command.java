@@ -14,8 +14,19 @@ public abstract class Command {
 	protected Turtle myTurtle;
 	protected String myVariable;
 	protected String paramCode;
+	
+	
+	protected List<String> variableList = new ArrayList<String>();
+	public void addVariable(String var) {
+		variableList.add(var);
+	}
+	public List<String> getVariableList() {
+		return variableList;
+	}
 
-	protected List<List<String>> commandLists = new ArrayList<List<String>>();
+
+	
+	protected List<List<String>> myCommandLists = new ArrayList<List<String>>();
 	protected static UserDefinedCommands userDefinedCommands;
 	protected static UserDefinedVariables variableMap;
 
@@ -30,7 +41,7 @@ public abstract class Command {
 	}
 
 	public void addListOfCommands(List<String> cList) {
-		commandLists.add(cList);
+		myCommandLists.add(cList);
 	}
 
 	public void setParameter(int i, double param) {
@@ -45,7 +56,7 @@ public abstract class Command {
 		myVariable = s;
 	}
 
-	public double format() throws NumberFormatException, CommandInputException {
+	public double executeAndFormat() throws NumberFormatException, CommandInputException {
 		DecimalFormat df = new DecimalFormat("#.#####");
 		double value = Double.valueOf(df.format(execute()));
 		if (Double.valueOf(df.format(value)) == 0.00000)

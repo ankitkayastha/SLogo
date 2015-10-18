@@ -10,7 +10,7 @@ public class For extends SpecialCommand {
 	}
 	
 	public double execute() {
-		List<String> tempList = new ArrayList<String>(commandLists.get(0));
+		List<String> tempList = new ArrayList<String>(myCommandLists.get(0));
 		
 		if (tempList.size() == 0) {
 			return 0;
