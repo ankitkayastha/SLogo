@@ -3,7 +3,6 @@ package controller;
 
 import java.util.*;
 
-import UserInterface.CenterPane.CustomLine;
 import UserInterface.CenterPane.DisplayTurtle;
 import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
@@ -12,9 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
+
 import slogo_team03.AngleInterface;
 import slogo_team03.CommandInputException;
 import slogo_team03.CoordinateInterface;
@@ -38,9 +35,6 @@ public class BottomPane {
 		field.clear();
 
 	}
-
-	//TODO pass language through language handler
-
 
 	public void handleKeyInput(KeyCode code, TextArea field) {
 		if (code.equals(KeyCode.UP)) {
@@ -75,6 +69,7 @@ public class BottomPane {
 
 	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) throws CommandInputException {
 		ListView<String> list = rightPane.getListView();
+	
 		//ObservableList<String> variables = listViewObjs.get
 		ObservableList<String> myObsList = rightPane.getObs();
 		String command = field.getText();
