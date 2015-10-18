@@ -2,7 +2,7 @@ package controller;
 
 import UserInterface.CenterPane.DisplayTurtle;
 import javafx.geometry.Insets;
-
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -22,8 +22,9 @@ public class TopPane {
 	
 	
 	
-	public void changeImage(String s) {
-		turtle.getImageView().setImage(new Image(s));;
+	public void changeImage(String s, GraphicsContext gc) {
+		turtle.getImageView().setImage(new Image(s));
+		//gc.drawImage(setImage(s), x, y);
 	}
 	public void changeBackgroundAction(Color c) {
 		//StackPane s = turtle.getPane();
