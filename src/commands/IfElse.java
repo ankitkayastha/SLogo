@@ -9,12 +9,12 @@ public class IfElse extends SpecialCommand {
 	}
 
 	public double execute() {
-		if (commandLists.get(0).size() != 0) {
+		if (myCommandLists.get(0).size() != 0) {
 			if (myParameters[0] != 0) {
-				runList.addAll(commandLists.get(0));
+				runList.addAll(myCommandLists.get(0));
 				return -1;
 			} else {
-				runList.addAll(commandLists.get(1));
+				runList.addAll(myCommandLists.get(1));
 				return -1;
 			}
 		}

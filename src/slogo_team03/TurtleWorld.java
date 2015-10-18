@@ -1,4 +1,5 @@
 package slogo_team03;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,22 +25,20 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 		Command.setMaps(userDefinedCommands, variables);
 	}
 
-
-	public void processInput(String input) throws CommandInputException{
+	public void processInput(String input) throws CommandInputException {
 		String[] inputArray = input.trim().split("\\s+");
-		List<String>inputList = new ArrayList<String>(Arrays.asList(inputArray));
+		List<String> inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();
-		parser.processInput(inputList);
-//		
-//		try {
-////		System.out.println(parser.processInput(inputList));
-//		parser.processInput(inputList);
-//		} catch (CommandInputException e) {
-//			System.out.println("Invalid Input!");
-//			return;
-//		}
+		try {
+			parser.processInput(inputList);
+//			 System.out.println(parser.processInput(inputList));
+			parser.processInput(inputList);
+		} catch (CommandInputException e) {
+			System.out.println("Invalid Input!");
+			return;
+		}
 	}
-	
+
 	public double getAngle() {
 		return turtle.angleToRotate();
 	}
@@ -49,7 +48,7 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 		parser.setUserDefinedCommands(userDefinedCommands);
 		parser.setVariables(variables);
 	}
-	
+
 	public Turtle getTurtle() {
 		return turtle;
 	}
@@ -64,12 +63,10 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 		parser.processLanguage(language);
 	}
 
-
 	@Override
 	public Map<String, Double> getVariableMap() {
 		return variables.getVariableMap();
 	}
-
 
 	@Override
 	public Map<String, String> getUserDefinedCommands() {

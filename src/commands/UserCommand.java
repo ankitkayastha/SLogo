@@ -1,14 +1,36 @@
 package commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserCommand extends Command {
 	private String myName;
 	private List<String> myDefinition;
-	private int numberOfParameters;
-	
+
 	public UserCommand(String name) {
 		myName = name;
+		myDefinition = new ArrayList<String>();
+	}
+	
+	public List<String> assignValuesToCommandList(double ... params) {
+		List<String> tempList = new ArrayList<String>();
+		for (int i = 0; i < myDefinition.size(); i++) {
+			String current = myDefinition.get(0);
+			if (isVariable(current)) {
+				int index = variableList.indexOf(current);				
+				tempList.add(Double.toString(params[index]));
+			} else {
+				tempList.add(current);
+			}
+		}
+		return myDefinition;
+	}
+	
+	private void setParamCode(int numParams) {
+		paramCode = "";
+		for (int i = 0; i < numParams; i++) {
+			paramCode += "e";
+		}
 	}
 	
 	@Override
@@ -17,8 +39,15 @@ public class UserCommand extends Command {
 		return 0;
 	}
 	
+	public int numberOfParameters() {
+		return paramCode.length();
+	}
+	
 	public List<String> getDefinition() {
 		return myDefinition;
 	}
-
+	
+	public boolean isVariable(String s) {
+		return s.matches(":[a-zA-Z_]+");
+	}
 }

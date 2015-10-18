@@ -57,8 +57,8 @@ public class CommandFactory {
 		language = ResourceBundle.getBundle("resources.languages/English");
 	}
 	
-	public void receiveLanguage(String l) {
-		language = ResourceBundle.getBundle("resources.languages/" + l);
+	public void receiveLanguage(String language) {
+		this.language = ResourceBundle.getBundle("resources.languages/" + language);
 	}
 	
 	public Command createCommand(String name)  {

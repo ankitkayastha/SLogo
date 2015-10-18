@@ -9,8 +9,8 @@ public class If extends SpecialCommand {
 	}
 
 	public double execute() {
-		if (myParameters[0] != 0 && commandLists.get(0).size() != 0) {
-			runList.addAll(commandLists.get(0));
+		if (myParameters[0] != 0 && myCommandLists.get(0).size() != 0) {
+			runList.addAll(myCommandLists.get(0));
 			return -1;
 		}
 		return 0;
