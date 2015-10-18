@@ -23,11 +23,10 @@ public class Towards extends Command {
 		if (startX > endX) {
 			endAngle += 180;
 		}
+				
+		myTurtle.setAngle(endAngle);
 		
 		double difference = (360 + startAngle - endAngle) % 360;
-		myTurtle.addAngle(difference);
-
-		System.out.println((endAngle + 360)% 360);
 
 		return difference;
 	}

@@ -8,7 +8,6 @@ public class Right extends Command {
 		double startAngle = myTurtle.getAngle();
 		double endAngle = startAngle - myParameters[0];
 		myTurtle.setAngle(endAngle % 360);
-		myTurtle.addAngle((360 + startAngle - endAngle) % 360);
 		return myParameters[0];
 	}
 }
