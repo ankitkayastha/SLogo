@@ -29,7 +29,7 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 
 	public void processInput(String input) throws CommandInputException {
 		String processedInput = "";
-		for (int i = 0; i + 1 < input.length(); i++) {
+		for (int i = 0; i + 1 <= input.length(); i++) {
 			if (input.substring(i, i + 1).equals("#")) {
 				i++;
 				while (i + 1 < input.length() && !input.substring(i, i + 1).equals("\n")) {
@@ -39,13 +39,15 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 				processedInput += input.substring(i, i + 1);
 			}
 		}
+		
+		System.out.println(processedInput);
 
 		String[] inputArray = processedInput.trim().split("\\s+");
 		List<String> inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();
 		try {
-			parser.processInput(inputList);
-			// System.out.println(parser.processInput(inputList));
+//			parser.processInput(inputList);
+			 System.out.println(parser.processInput(inputList));
 			parser.processInput(inputList);
 		} catch (CommandInputException e) {
 			System.out.println("Invalid Input!");
