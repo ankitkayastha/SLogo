@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class RandomCommand extends Command {
 	public RandomCommand() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {

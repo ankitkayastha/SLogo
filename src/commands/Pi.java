@@ -1,7 +1,7 @@
 package commands;
 public class Pi extends Command {
 	public Pi() {
-		paramCode = "";
+		parameterCode = "";
 	}
 
 	public double execute() {

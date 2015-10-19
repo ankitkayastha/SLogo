@@ -2,7 +2,7 @@ package commands;
 
 public class Forward extends Command {
 	public Forward() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {

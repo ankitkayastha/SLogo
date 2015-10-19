@@ -1,7 +1,7 @@
 package commands;
 public class Log extends Command {
 	public Log() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {

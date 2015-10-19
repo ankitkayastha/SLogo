@@ -1,7 +1,7 @@
 package commands;
 public class Tan extends Command {
 	public Tan() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {

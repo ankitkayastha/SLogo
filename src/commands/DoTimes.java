@@ -6,7 +6,7 @@ import java.util.List;
 public class DoTimes extends SpecialCommand {
 	public DoTimes() {
 		runList = new ArrayList<String>();
-		paramCode = "[ve][c]";
+		parameterCode = "[ve][c]";
 	}
 
 	public double execute() {

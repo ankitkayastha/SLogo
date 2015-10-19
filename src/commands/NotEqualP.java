@@ -1,7 +1,7 @@
 package commands;
 public class NotEqualP extends Command {
 	public NotEqualP() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

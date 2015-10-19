@@ -1,7 +1,7 @@
 package commands;
 public class ShowingP extends Command {
 	public ShowingP() {
-		paramCode = "";
+		parameterCode = "";
 	}
 	
 	public double execute() {

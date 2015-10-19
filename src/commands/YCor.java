@@ -1,7 +1,7 @@
 package commands;
 public class YCor extends Command {
 	public YCor() {
-		paramCode = "";
+		parameterCode = "";
 	}
 	
 	public double execute() {

@@ -1,7 +1,7 @@
 package commands;
 public class Quotient extends Command {
 	public Quotient() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

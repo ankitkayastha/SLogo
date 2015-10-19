@@ -1,7 +1,7 @@
 package commands;
 public class PenUp extends Command {
 	public PenUp() {
-		paramCode = "";
+		parameterCode = "";
 	}
 
 	public double execute() {

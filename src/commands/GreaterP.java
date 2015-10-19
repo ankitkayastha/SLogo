@@ -1,7 +1,7 @@
 package commands;
 public class GreaterP extends Command {
 	public GreaterP() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

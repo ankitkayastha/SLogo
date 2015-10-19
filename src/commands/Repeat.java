@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Repeat extends SpecialCommand {
 	public Repeat() {
 		runList = new ArrayList<String>();
-		paramCode = "e[c]";
+		parameterCode = "e[c]";
 	}
 
 	public double execute() {

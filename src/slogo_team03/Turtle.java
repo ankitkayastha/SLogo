@@ -18,6 +18,15 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
 	
 	public Turtle() {
+		myID = ID++;
+		initialize();
+	}
+	
+	public void reset() {
+		initialize();
+	}
+
+	private void initialize() {
 		x = Integer.parseInt(r.getString("startX"));
 		y = Integer.parseInt(r.getString("startY"));
 		angle = Integer.parseInt(r.getString("startAngle"));
@@ -26,8 +35,6 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>();
 		angleRotateList = new ArrayList<Double>();
-		myID = ID;
-		ID++;
 	}
 	
 	public double absoluteAngleFrontend() {

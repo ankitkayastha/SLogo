@@ -9,7 +9,7 @@ public class To extends SpecialCommand {
 	
 	public To() {
 		runList = new ArrayList<String>();
-		paramCode = "n[p][c]";
+		parameterCode = "n[p][c]";
 	}
 	
 	public void createUserDefinedCommand(String name) {

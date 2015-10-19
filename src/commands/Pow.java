@@ -1,7 +1,7 @@
 package commands;
 public class Pow extends Command {
 	public Pow() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

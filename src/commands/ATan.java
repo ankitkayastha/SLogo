@@ -1,7 +1,7 @@
 package commands;
 public class ATan extends Command {
 	public ATan() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {

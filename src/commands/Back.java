@@ -1,7 +1,7 @@
 package commands;
 public class Back extends Command {
 	public Back() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {

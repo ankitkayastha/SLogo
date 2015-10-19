@@ -1,7 +1,7 @@
 package commands;
 public class Or extends Command {
 	public Or() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

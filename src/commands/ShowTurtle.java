@@ -1,7 +1,7 @@
 package commands;
 public class ShowTurtle extends Command {
 	public ShowTurtle() {
-		paramCode = "";
+		parameterCode = "";
 	}
 	
 	public double execute() {

@@ -1,7 +1,7 @@
 package commands;
 public class Left extends Command {
 	public Left() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {
