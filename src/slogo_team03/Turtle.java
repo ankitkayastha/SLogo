@@ -22,7 +22,58 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		myID = ++ID;
 		initialize();
 	}
-	
+
+	public void updatePalette(int index, int red, int green, int blue) {
+		pen.updatePalette(index, red, green, blue);
+	}
+
+	public double stamp() {
+		// Stamp stamp = pen.stamp();
+		// stamp.setLocation(x, y);
+		// stamp.setHeading(angle);
+		// stampList.add(stamp);
+		// return stamp.getMyShape();
+		Stamp s = new Stamp(x, y, angle);
+		pen.addStamp(s);
+		return s.getMyShape();
+	}
+
+	public double clearStamps() {
+		return pen.clearStampList();
+	}
+
+	public List<Stamp> getStampList() {
+		return pen.getStampList();
+	}
+
+	public void setBackground(int index) {
+		pen.setBackgroundColor(index);
+	}
+
+	public int getPenColor() {
+		return pen.getPenColor();
+	}
+
+	public void setPenColor(int index) {
+		pen.setPenColor(index);
+	}
+
+	public void setPenSize(int pixels) {
+		pen.setPenSize(pixels);
+	}
+
+	public int getShape() {
+		return pen.getShape();
+	}
+
+	public void setShape(int index) {
+		pen.setShape(index);
+	}
+
+	public static int getNumTurtles() {
+		return ID;
+	}
+
 	public void setTurtle(Turtle copyTurtle) {
 		x = copyTurtle.getX();
 		y = copyTurtle.getY();
@@ -30,8 +81,9 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		visible = copyTurtle.isVisible();
 		pen.setPenDown(copyTurtle.isPenDown());
 		df = new DecimalFormat("#.#####");
-		lineList = new ArrayList<Line>();
-	 }
+		lineList = new ArrayList<Line>(copyTurtle.getLineList());
+		stampList = new ArrayList<Stamp>(copyTurtle.getStampList());
+	}
 
 	public void reset() {
 		initialize();
@@ -42,6 +94,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		y = Integer.parseInt(r.getString("startY"));
 		angle = Integer.parseInt(r.getString("startAngle"));
 		visible = Boolean.parseBoolean(r.getString("visible"));
+		pen = new Pen();
 		pen.setPenDown(Boolean.parseBoolean(r.getString("penDown")));
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>();
@@ -113,9 +166,5 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		if (Double.valueOf(df.format(d)) == 0.00000)
 			return 0;
 		return Double.valueOf(df.format(d));
-	}
-	
-	public static int getNumTurtles() {
-		return ID;
 	}
 }
