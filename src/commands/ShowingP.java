@@ -2,7 +2,7 @@ package commands;
 
 public class ShowingP extends Command {
 	public ShowingP() {
-		parameterCode = "";
+		super();
 	}
 
 	public double execute() {
@@ -10,5 +10,10 @@ public class ShowingP extends Command {
 			return 1;
 		else
 			return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "IsShowing";
 	}
 }

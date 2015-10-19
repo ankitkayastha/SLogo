@@ -2,7 +2,7 @@ package commands;
 
 public class Quotient extends Command {
 	public Quotient() {
-		parameterCode = "ee";
+		super();
 	}
 
 	public double execute() {
@@ -10,5 +10,10 @@ public class Quotient extends Command {
 			return 0;
 		}
 		return (int) (myParameters[0] / myParameters[1]);
+	}
+	
+	@Override
+	public String toString() {
+		return "Quotient";
 	}
 }

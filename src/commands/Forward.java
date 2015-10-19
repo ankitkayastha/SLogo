@@ -2,7 +2,7 @@ package commands;
 
 public class Forward extends Command {
 	public Forward() {
-		parameterCode = "e";
+		super();
 	}
 
 	public double execute() {
@@ -19,5 +19,10 @@ public class Forward extends Command {
 		myTurtle.addLine(x0, y0, x1, y1);
 
 		return length;
+	}
+	
+	@Override
+	public String toString() {
+		return "Forward";
 	}
 }

@@ -9,4 +9,9 @@ public class Reset extends ClearScreen {
 		myTurtle.reset();
 		return super.execute();
 	}
+	
+	@Override
+	public String toString() {
+		return "Reset";
+	}
 }

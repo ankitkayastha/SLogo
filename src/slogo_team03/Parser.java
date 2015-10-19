@@ -82,11 +82,14 @@ public class Parser {
 
 		String current = inputList.remove(0);
 
-		// System.out.print("Parameter: " + current + ", InputList:");
-		// for (int j = 0; j < inputList.size(); j++) {
-		// System.out.print(" " + inputList.get(j));
-		// }
-		// System.out.println();
+		if (command.toString().equals("MakeUserInstruction") ) {
+			System.out.print("Command: TO, ");
+			System.out.print("Parameter: " + current + ", InputList:");
+			for (int j = 0; j < inputList.size(); j++) {
+				System.out.print(" " + inputList.get(j));
+			}
+			System.out.println();
+		}
 
 		if (inputType == '[') {
 			return current.equals("[");

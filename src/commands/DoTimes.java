@@ -5,8 +5,7 @@ import java.util.List;
 
 public class DoTimes extends SpecialCommand {
 	public DoTimes() {
-		runList = new ArrayList<String>();
-		parameterCode = "[ve][c]";
+		super();
 	}
 
 	public double execute() {
@@ -26,5 +25,10 @@ public class DoTimes extends SpecialCommand {
 			}
 		}
 		return -1;
+	}
+	
+	@Override
+	public String toString() {
+		return "DoTimes";
 	}
 }

@@ -5,8 +5,7 @@ import java.util.List;
 
 public class For extends SpecialCommand {
 	public For() {
-		runList = new ArrayList<String>();
-		parameterCode = "[veee][c]";
+		super();
 	}
 
 	public double execute() {
@@ -26,5 +25,10 @@ public class For extends SpecialCommand {
 			}
 		}
 		return -1;
+	}
+	
+	@Override
+	public String toString() {
+		return "For";
 	}
 }

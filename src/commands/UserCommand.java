@@ -18,10 +18,11 @@ public class UserCommand extends SpecialCommand {
 			String current = myDefinition.get(i);
 			if (isVariable(current)) {
 				if (variableMap.containsKey(current)) {
-					tempList.add(current);				//Need to resolve issue with variables already defined
-//					tempList.add(Double.toString(variableMap.getVariable(current)));
+					tempList.add(current); // Need to resolve issue with
+											// variables already defined
+					// tempList.add(Double.toString(variableMap.getVariable(current)));
 				} else {
-					int index = variableList.indexOf(current);
+					int index = myVariableList.indexOf(current);
 					tempList.add(Double.toString(params[index]));
 				}
 			} else {
@@ -32,9 +33,9 @@ public class UserCommand extends SpecialCommand {
 	}
 
 	public void setParameterCode(int numParams) {
-		parameterCode = "";
+		myParameterCode = "";
 		for (int i = 0; i < numParams; i++) {
-			parameterCode += "e";
+			myParameterCode += "e";
 		}
 	}
 
@@ -49,8 +50,14 @@ public class UserCommand extends SpecialCommand {
 		return -1;
 	}
 
+	@Override
+	public String getParamCode() {
+		System.out.println(myParameterCode);
+		return myParameterCode;
+	}
+
 	public int getNumberOfParameters() {
-		return parameterCode.length();
+		return myParameterCode.length();
 	}
 
 	public List<String> getDefinition() {
@@ -69,9 +76,13 @@ public class UserCommand extends SpecialCommand {
 	private boolean isVariable(String s) {
 		return s.matches(":[a-zA-Z_]+");
 	}
+	
+	public String getName() {
+		return myName;
+	}
 
 	@Override
 	public String toString() {
-		return myName;
+		return "UserCommand";
 	}
 }

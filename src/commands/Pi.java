@@ -2,10 +2,15 @@ package commands;
 
 public class Pi extends Command {
 	public Pi() {
-		parameterCode = "";
+		super();
 	}
 
 	public double execute() {
 		return Math.PI;
+	}
+	
+	@Override
+	public String toString() {
+		return "Pi";
 	}
 }
