@@ -53,9 +53,11 @@ import commands.YCor;
 
 public class CommandFactory {
 	private ResourceBundle language;
+	private UserDefinedCommands userDefinedCommands;
 
-	public CommandFactory() {
+	public CommandFactory(UserDefinedCommands userDefinedCommands) {
 		language = ResourceBundle.getBundle("resources.languages/English");
+		this.userDefinedCommands = userDefinedCommands;
 	}
 
 	public void receiveLanguage(String language) {
@@ -165,6 +167,10 @@ public class CommandFactory {
 			return new IfElse();
 		} else if (name.matches(language.getString("MakeUserInstruction"))) {
 			return new To();
+		}
+		// User Defined Commands
+		else if (userDefinedCommands.containsKey(name)) {
+			return userDefinedCommands.getUserCommand(name);
 		}
 		// Custom Commands
 		else if (name.matches(language.getString("Reset"))) {

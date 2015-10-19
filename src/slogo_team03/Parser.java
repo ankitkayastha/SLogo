@@ -13,19 +13,19 @@ public class Parser {
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
 	private Turtle currentTurtle;
+	private Turtle copyTurtle;
 
-	public Parser() {
-		factory = new CommandFactory();
+	public Parser(UserDefinedCommands commands, UserDefinedVariables vars) {
+		userDefinedCommands = commands;
+		variables = vars;
+		factory = new CommandFactory(userDefinedCommands);
+		copyTurtle = new Turtle();
 	}
 
 	public double processInput(List<String> list) throws CommandInputException {
 		double val = Double.MAX_VALUE;
-		for (int i = 0; i < list.size(); i++) {
-
-		}
 		while (list.size() > 0) {
 			val = evaluateCommands(list);
-			// System.out.println(val);
 		}
 		return val;
 	}
@@ -37,66 +37,38 @@ public class Parser {
 	public double evaluateCommands(List<String> inputList) throws CommandInputException {
 		double result = Double.MAX_VALUE;
 		String commandName = inputList.remove(0);
-		// System.out.print("Command: "
-		// + commandName + ",
-		// InputList:");
+		// System.out.print("Command: " + commandName + ", InputList:");
 		// for (int i = 0; i < inputList.size(); i++) {
 		// System.out.print(" " + inputList.get(i));
 		// }
 		// System.out.println();
 
-		// System.out.println(commandName);
-
-		// if (commandName.length() == 0) {
-		//// System.out.println("White space");
-		// return 0;
-		// }
-
-		// if (userDefinedCommands.containsKey(commandName)) {
-		// inputList.addAll(0, userDefinedCommands.get(commandName));
-		// commandName = inputList.remove(0);
-		// }
-
 		Command command = factory.createCommand(commandName);
 		if (command == null) {
+			System.out.println(commandName + " command not found.");
 			throw new CommandInputException();
 		}
 
 		String paramTypes = command.getParamCode();
 		int paramsNeeded = paramTypes.length();
 		for (int i = 0; i < paramsNeeded; i++) {
-			// System.out.println(paramTypes.charAt(i));
 			setValidParameter(inputList, paramTypes.charAt(i), command, i);
 		}
 		command.setTurtle(currentTurtle);
 		result = command.executeAndFormat();
 
-		// if (command instanceof UserCommand) {
-		// result = processInput(((UserCommand) command).getDefinition());
-		// }
-
-		if (command instanceof SpecialCommand) {
-			// System.out.print("RunList: ");
-			// List<String> myRunList = new ArrayList<String>(((SpecialCommand)
-			// command).getRunList());
-			// for (int i = 0; i < myRunList.size(); i++) {
-			// System.out.print(" " + myRunList.get(i));
-			// }
-			// System.out.println();
-		}
-
 		if (command instanceof To) {
 			try {
+				copyTurtle.setTurtle(currentTurtle);
 				processInput(((SpecialCommand) command).getRunList());
 			} catch (CommandInputException e) {
-				return 0;
+				// return 0;
 			}
+			currentTurtle.setTurtle(copyTurtle);
+			userDefinedCommands.addCommand(((To) command).getUserCommand());
 			return 1;
-		} else if (command instanceof SpecialCommand) { // result == -1 NEED TO
-														// CHANGE THIS
+		} else if (command instanceof SpecialCommand && result == -1) {
 			result = processInput(((SpecialCommand) command).getRunList());
-			// System.out.println("RunList: " + ((SpecialCommand)
-			// command).getRunList());
 		}
 		return result;
 	}
@@ -104,6 +76,7 @@ public class Parser {
 	public boolean setValidParameter(List<String> inputList, char inputType, Command command, int i)
 			throws CommandInputException {
 		if (inputList.size() == 0) {
+			System.out.println("Empty inputList");
 			throw new CommandInputException();
 		}
 
@@ -120,6 +93,7 @@ public class Parser {
 		} else if (inputType == ']') {
 			return current.equals("]");
 		} else if (inputType == 'v') {
+			// System.out.println("CURRENT: " + current);
 			if (isVariable(current)) {
 				command.setVariable(current);
 				return true;
@@ -129,6 +103,7 @@ public class Parser {
 		} else if (inputType == 'c') {
 			List<String> tempList = new ArrayList<String>();
 			if (current.equals("]")) {
+				inputList.add(0, current);
 				return false;
 			}
 
@@ -143,6 +118,11 @@ public class Parser {
 					leftCount--;
 					if (leftCount == 0) {
 						command.addListOfCommands(tempList);
+						// System.out.print("Command Definition:");
+						// for (int z = 0; z < tempList.size(); z++) {
+						// System.out.print(" " + tempList.get(z));
+						// }
+						// System.out.println();
 						return true;
 					}
 				}
@@ -150,7 +130,7 @@ public class Parser {
 					return false;
 
 				current = inputList.remove(0);
-				// System.out.print("Parameter: " + current + ", InputList:");
+				// System.out.print("cParameter: " + current + ", InputList:");
 				// for (int j = 0; j < inputList.size(); j++) {
 				// System.out.print(" " + inputList.get(j));
 				// }
@@ -186,27 +166,30 @@ public class Parser {
 			}
 		} else if (inputType == 'n') {
 			if (isCommandName(current)) {
+				System.out.println("Calling createUserDefinedCommand(" + current + ")");
 				((To) command).createUserDefinedCommand(current);
 				return true;
 			} else {
+				System.out.println("CURRENT: " + current);
 				throw new CommandInputException();
 			}
 		} else if (inputType == 'p') {
-			List<String> tempList = new ArrayList<String>();
 			if (current.equals("]")) {
+				inputList.add(0, current);
 				return true;
 			}
 			while (inputList.size() >= 0) {
 				if (!isVariable(current)) {
+					System.out.println("CURRENT: " + current);
 					throw new CommandInputException();
 				}
-				tempList.add(current);
-				if (inputList.get(0).equals("]")) {
-					command.addVariable(current);
+				command.addVariable(current);
+				if (inputList.get(0).equals("]"))
 					return true;
-				}
-				if (inputList.size() == 0)
+				if (inputList.size() == 0) {
+					System.out.println("While getting parameters for UDC, reached end of list without ]");
 					throw new CommandInputException();
+				}
 				current = inputList.remove(0);
 			}
 			return false;
@@ -225,19 +208,9 @@ public class Parser {
 	}
 
 	public boolean isCommandName(String s) {
-		if (!s.matches("[a-zA-Z_]+")) {
-			return false;
-		}
-		Command command = factory.createCommand(s);
-		return command == null;
-	}
-
-	public void setUserDefinedCommands(UserDefinedCommands commands) {
-		userDefinedCommands = commands;
-	}
-
-	public void setVariables(UserDefinedVariables vars) {
-		variables = vars;
+		return s.matches("[a-zA-Z_]+");
+		// Need to check that its not already
+		// a command
 	}
 
 	public void setTurtle(Turtle turtle) {

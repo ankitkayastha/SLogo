@@ -11,8 +11,12 @@ public class UserDefinedVariables {
 		variableMap = new HashMap<String, Double>();
 	}
 
-	public double getVariable(String name) {
-		return variableMap.get(name);
+	public boolean containsKey(String key) {
+		return variableMap.containsKey(key);
+	}
+
+	public double getVariable(String key) {
+		return variableMap.get(key);
 	}
 
 	public void addVariable(String name, double value) {
