@@ -1,4 +1,5 @@
 package commands;
+
 public class GreaterP extends Command {
 	public GreaterP() {
 		parameterCode = "ee";

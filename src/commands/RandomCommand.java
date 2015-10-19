@@ -1,4 +1,5 @@
 package commands;
+
 import java.util.Random;
 
 public class RandomCommand extends Command {

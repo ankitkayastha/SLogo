@@ -1,4 +1,5 @@
 package slogo_team03;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,12 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	private int myID;
 	private static int ID = 0;
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
-	
+
 	public Turtle() {
 		myID = ID++;
 		initialize();
 	}
-	
+
 	public void reset() {
 		initialize();
 	}
@@ -36,35 +37,37 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		lineList = new ArrayList<Line>();
 		angleRotateList = new ArrayList<Double>();
 	}
-	
+
 	public double absoluteAngleFrontend() {
 		return (90 - getAngle()) % 360;
 	}
-	
+
 	public void addAngle(double angle) {
 		angleRotateList.add(angle);
 	}
-	
+
 	public void addLine(double x0, double y0, double x1, double y1) {
 		if (penDown) {
 			lineList.add(new Line(format(x0), format(y0), format(x1), format(y1)));
 		}
 	}
-	
+
 	public void resetLineList() {
 		lineList.clear();
 	}
-	
+
 	public List<Line> getLineList() {
-		//System.out.println("Ending X from turtle is" + pointList.get(1).getX());
-		//System.out.println("Ending Y from turtle is" + pointList.get(1).getY());
+		// System.out.println("Ending X from turtle is" +
+		// pointList.get(1).getX());
+		// System.out.println("Ending Y from turtle is" +
+		// pointList.get(1).getY());
 		return lineList;
 	}
-	
+
 	public int getID() {
 		return myID;
 	}
-	
+
 	public double getX() {
 		return x;
 	}
@@ -90,7 +93,6 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	}
 
 	public boolean isVisible() {
-		System.out.println("Turtle visibility from Turtle object is " + visible);
 		return visible;
 	}
 
@@ -105,7 +107,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	public void setPenDown(boolean penDown) {
 		this.penDown = penDown;
 	}
-	
+
 	private double format(double d) {
 		if (Double.valueOf(df.format(d)) == 0.00000)
 			return 0;

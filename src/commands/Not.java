@@ -1,4 +1,5 @@
 package commands;
+
 public class Not extends Command {
 	public Not() {
 		parameterCode = "e";

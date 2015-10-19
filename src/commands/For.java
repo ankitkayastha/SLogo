@@ -8,14 +8,14 @@ public class For extends SpecialCommand {
 		runList = new ArrayList<String>();
 		parameterCode = "[veee][c]";
 	}
-	
+
 	public double execute() {
 		List<String> tempList = new ArrayList<String>(myCommandLists.get(0));
-		
+
 		if (tempList.size() == 0) {
 			return 0;
 		}
-		
+
 		for (int i = (int) myParameters[2]; i <= myParameters[3]; i += myParameters[4]) {
 			for (int j = 0; j < tempList.size(); j++) {
 				if (tempList.get(j).equals(myVariable)) {

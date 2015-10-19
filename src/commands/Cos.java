@@ -1,4 +1,5 @@
 package commands;
+
 public class Cos extends Command {
 	public Cos() {
 		parameterCode = "e";

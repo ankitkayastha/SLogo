@@ -1,4 +1,5 @@
 package commands;
+
 public class Pow extends Command {
 	public Pow() {
 		parameterCode = "ee";

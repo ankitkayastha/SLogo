@@ -1,4 +1,5 @@
 package commands;
+
 public class And extends Command {
 	public And() {
 		parameterCode = "ee";
