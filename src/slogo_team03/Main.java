@@ -13,15 +13,16 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws CommandInputException {
-		TurtleView view = new TurtleView();
-		stage.setScene(view.getScene());
-		stage.show();
-		Scanner scan = new Scanner(System.in);
+		 TurtleView view = new TurtleView();
+		 stage.setScene(view.getScene());
+		 stage.show();
 
+		// Scanner scan = new Scanner(System.in);
 		// TurtleWorld world = new TurtleWorld();
 		// while (true) {
-		// String s = scan.nextLine() + "\n" + scan.nextLine() + "\n" +
+		// String s = scan.nextLine(); // + "\n" + scan.nextLine() + "\n" +
 		// scan.nextLine() + "\n" + scan.nextLine();
 		// world.processInput(s);
+		// }
 	}
 }
