@@ -39,20 +39,19 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 				processedInput += input.substring(i, i + 1);
 			}
 		}
-		
-		System.out.println(processedInput);
 
 		String[] inputArray = processedInput.trim().split("\\s+");
 		List<String> inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();
-		try {
+//		try {
 //			parser.processInput(inputList);
-			 System.out.println(parser.processInput(inputList));
-			parser.processInput(inputList);
-		} catch (CommandInputException e) {
-			System.out.println("Invalid Input!");
-			return;
-		}
+//			// System.out.println(parser.processInput(inputList));
+//			parser.processInput(inputList);
+//		} catch (CommandInputException e) {
+//			System.out.println("Invalid Input!");
+//			return;
+//		}
+		parser.processInput(inputList);
 	}
 
 	public double getAngle() {

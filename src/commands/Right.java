@@ -1,4 +1,5 @@
 package commands;
+
 public class Right extends Command {
 	public Right() {
 		parameterCode = "e";

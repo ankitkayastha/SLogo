@@ -1,4 +1,5 @@
 package commands;
+
 public class EqualP extends Command {
 	public EqualP() {
 		parameterCode = "ee";

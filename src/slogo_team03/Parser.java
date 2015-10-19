@@ -95,7 +95,8 @@ public class Parser {
 		} else if (command instanceof SpecialCommand) { // result == -1 NEED TO
 														// CHANGE THIS
 			result = processInput(((SpecialCommand) command).getRunList());
-//			System.out.println("RunList: " + ((SpecialCommand) command).getRunList());
+			// System.out.println("RunList: " + ((SpecialCommand)
+			// command).getRunList());
 		}
 		return result;
 	}
@@ -108,11 +109,11 @@ public class Parser {
 
 		String current = inputList.remove(0);
 
-//		System.out.print("Parameter: " + current + ", InputList:");
-//		for (int j = 0; j < inputList.size(); j++) {
-//			System.out.print(" " + inputList.get(j));
-//		}
-//		System.out.println();
+		// System.out.print("Parameter: " + current + ", InputList:");
+		// for (int j = 0; j < inputList.size(); j++) {
+		// System.out.print(" " + inputList.get(j));
+		// }
+		// System.out.println();
 
 		if (inputType == '[') {
 			return current.equals("[");
@@ -149,13 +150,14 @@ public class Parser {
 					return false;
 
 				current = inputList.remove(0);
-//				System.out.print("Parameter: " + current + ", InputList:");
-//				for (int j = 0; j < inputList.size(); j++) {
-//					System.out.print(" " + inputList.get(j));
-//				}
-//				System.out.println();
-//
-//				System.out.println("Command: " + command + ", Param: " + current);
+				// System.out.print("Parameter: " + current + ", InputList:");
+				// for (int j = 0; j < inputList.size(); j++) {
+				// System.out.print(" " + inputList.get(j));
+				// }
+				// System.out.println();
+				//
+				// System.out.println("Command: " + command + ", Param: " +
+				// current);
 
 			}
 			return false;

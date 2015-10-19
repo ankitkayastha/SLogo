@@ -1,4 +1,5 @@
 package commands;
+
 public class Difference extends Command {
 	public Difference() {
 		parameterCode = "ee";

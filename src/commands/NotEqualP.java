@@ -1,4 +1,5 @@
 package commands;
+
 public class NotEqualP extends Command {
 	public NotEqualP() {
 		parameterCode = "ee";

@@ -1,9 +1,8 @@
 package commands;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import slogo_team03.CommandInputException;
 import slogo_team03.Turtle;
 import slogo_team03.UserDefinedCommands;
@@ -27,10 +26,11 @@ public abstract class Command {
 	public void addVariable(String var) {
 		variableList.add(var);
 	}
+
 	public List<String> getVariableList() {
 		return variableList;
 	}
-	
+
 	public static void setMaps(UserDefinedCommands uMap, UserDefinedVariables vMap) {
 		userDefinedCommands = uMap;
 		variableMap = vMap;

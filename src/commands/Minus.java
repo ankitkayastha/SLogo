@@ -1,4 +1,5 @@
 package commands;
+
 public class Minus extends Command {
 	public Minus() {
 		parameterCode = "e";

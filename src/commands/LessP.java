@@ -1,4 +1,5 @@
 package commands;
+
 public class LessP extends Command {
 	public LessP() {
 		parameterCode = "ee";

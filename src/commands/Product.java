@@ -1,4 +1,5 @@
 package commands;
+
 public class Product extends Command {
 	public Product() {
 		parameterCode = "ee";

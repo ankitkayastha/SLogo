@@ -1,4 +1,5 @@
 package commands;
+
 public class ATan extends Command {
 	public ATan() {
 		parameterCode = "e";
