@@ -18,26 +18,32 @@ import slogo_team03.VisibleInterface;
 
 public class TopPane {
 	private DisplayTurtle turtle;
-	
+
 	public TopPane(DisplayTurtle t) {
 		this.turtle = t;
 	}
-	
-	public void changeBackgroundAction(Color c, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+
+	public void changeBackgroundAction(Color c, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi,
+			VisibleInterface vi) {
 		turtle.getGC().setFill(c);
 		turtle.getGC().fillRect(0, 0, 500, 500);
 
 		turtle.move(ci, ai, pi, vi);
-		//turtle.getPane().setBackground(new Background(new BackgroundFill(Color.web(c.toString().substring(0, 8)), CornerRadii.EMPTY, Insets.EMPTY)));
+		// turtle.getPane().setBackground(new Background(new
+		// BackgroundFill(Color.web(c.toString().substring(0, 8)),
+		// CornerRadii.EMPTY, Insets.EMPTY)));
 	}
-	
+
 	public void changePenColorAction(Color c) {
 		turtle.setLineColor(c);
 	}
+
 	public void changeLanguage(String s, ReceiveString rs) {
 		rs.receiveLanguage(s);
 	}
-	public void changeImageAction(String s,CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+
+	public void changeImageAction(String s, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi,
+			VisibleInterface vi) {
 		turtle.setImage(s);
 		turtle.move(ci, ai, pi, vi);
 	}

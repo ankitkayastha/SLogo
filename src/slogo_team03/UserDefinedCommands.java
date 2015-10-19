@@ -1,5 +1,6 @@
 package slogo_team03;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,16 +18,24 @@ public class UserDefinedCommands {
 		return commandsMap.containsKey(key);
 	}
 
+	public UserCommand getUserCommand(String key) {
+		return commandsMap.get(key);
+	}
+
+	public void addCommand(UserCommand object) {
+		commandsMap.put(object.toString().toLowerCase(), object);
+	}
+
 	public List<String> getCommandDefiniton(String name) {
 		return commandsMap.get(name).getDefinition();
 	}
 
-	public void addCommand(UserCommand object) {
-		commandsMap.put(object.toString(), object);
-	}
-
 	public UserCommand removeCommandDefinition(String name) {
 		return commandsMap.remove(name);
+	}
+
+	public Map<String, UserCommand> getCommandMap() {
+		return Collections.unmodifiableMap(commandsMap);
 	}
 
 	// public Map<String, String> getCommandsMap() {

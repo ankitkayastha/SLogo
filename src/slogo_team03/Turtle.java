@@ -22,6 +22,17 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		myID = ID++;
 		initialize();
 	}
+	
+	public void setTurtle(Turtle copyTurtle) {
+		x = copyTurtle.getX();
+		y = copyTurtle.getY();
+		angle = copyTurtle.getAngle();
+		visible = copyTurtle.isVisible();
+		penDown = copyTurtle.isPenDown();
+		df = new DecimalFormat("#.#####");
+		lineList = new ArrayList<Line>();
+		angleRotateList = new ArrayList<Double>();
+	 }
 
 	public void reset() {
 		initialize();
@@ -57,10 +68,6 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	}
 
 	public List<Line> getLineList() {
-		// System.out.println("Ending X from turtle is" +
-		// pointList.get(1).getX());
-		// System.out.println("Ending Y from turtle is" +
-		// pointList.get(1).getY());
 		return lineList;
 	}
 

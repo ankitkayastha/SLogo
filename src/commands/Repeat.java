@@ -12,6 +12,10 @@ public class Repeat extends SpecialCommand {
 		for (int i = 0; i < myParameters[0]; i++) {
 			runList.addAll(myCommandLists.get(0));
 		}
+//		System.out.print("RepeatList:");
+//		for (int i = 0; i < runList.size(); i++) {
+//			System.out.print(" " + runList.get(i));
+//		} System.out.println();
 		return -1;
 	}
 }

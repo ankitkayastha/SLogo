@@ -1,8 +1,5 @@
 package slogo_team03;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,16 +9,16 @@ import commands.Command;
 
 public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	private Turtle turtle;
-	private Parser parser;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
+	private Parser parser;
 	private TurtleMap turtles;
 
 	public TurtleWorld() {
-		turtle = new Turtle();
-		parser = new Parser();
 		userDefinedCommands = new UserDefinedCommands();
 		variables = new UserDefinedVariables();
+		parser = new Parser(userDefinedCommands, variables);
+		turtle = new Turtle();
 		turtles = new TurtleMap();
 		turtles.addTurtle(turtle);
 		Command.setMaps(userDefinedCommands, variables);
@@ -42,26 +39,14 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 
 		String[] inputArray = processedInput.trim().split("\\s+");
 		List<String> inputList = new ArrayList<String>(Arrays.asList(inputArray));
-		setParser();
-//		try {
-//			parser.processInput(inputList);
-//			// System.out.println(parser.processInput(inputList));
-//			parser.processInput(inputList);
-//		} catch (CommandInputException e) {
-//			System.out.println("Invalid Input!");
-//			return;
-//		}
+		parser.setTurtle(turtle);
 		parser.processInput(inputList);
+//		System.out.println("Variables: " + variables.getVariableMap());
+		System.out.println("(TW) UserDefinedCommands: " + userDefinedCommands.getCommandMap());
 	}
 
 	public double getAngle() {
 		return turtle.absoluteAngleFrontend();
-	}
-
-	private void setParser() {
-		parser.setTurtle(turtle);
-		parser.setUserDefinedCommands(userDefinedCommands);
-		parser.setVariables(variables);
 	}
 
 	public Turtle getTurtle() {
