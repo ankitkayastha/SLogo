@@ -10,16 +10,16 @@ import javafx.scene.shape.Line;
 public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInterface, VisibleInterface {
 	private double x, y;
 	private double angle;
-	private boolean visible, penDown;
+	private boolean visible;
+	private static Pen pen;
 	private List<Line> lineList;
-	private List<Double> angleRotateList;
 	private DecimalFormat df;
 	private int myID;
-	private static int ID = 0;
+	private static int ID = -1;
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
 
 	public Turtle() {
-		myID = ID++;
+		myID = ++ID;
 		initialize();
 	}
 	
@@ -28,10 +28,9 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		y = copyTurtle.getY();
 		angle = copyTurtle.getAngle();
 		visible = copyTurtle.isVisible();
-		penDown = copyTurtle.isPenDown();
+		pen.setPenDown(copyTurtle.isPenDown());
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>();
-		angleRotateList = new ArrayList<Double>();
 	 }
 
 	public void reset() {
@@ -43,22 +42,17 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		y = Integer.parseInt(r.getString("startY"));
 		angle = Integer.parseInt(r.getString("startAngle"));
 		visible = Boolean.parseBoolean(r.getString("visible"));
-		penDown = Boolean.parseBoolean(r.getString("penDown"));
+		pen.setPenDown(Boolean.parseBoolean(r.getString("penDown")));
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>();
-		angleRotateList = new ArrayList<Double>();
 	}
 
 	public double absoluteAngleFrontend() {
 		return (90 - getAngle()) % 360;
 	}
 
-	public void addAngle(double angle) {
-		angleRotateList.add(angle);
-	}
-
 	public void addLine(double x0, double y0, double x1, double y1) {
-		if (penDown) {
+		if (pen.isPenDown()) {
 			lineList.add(new Line(format(x0), format(y0), format(x1), format(y1)));
 		}
 	}
@@ -108,16 +102,20 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	}
 
 	public boolean isPenDown() {
-		return penDown;
+		return pen.isPenDown();
 	}
 
 	public void setPenDown(boolean penDown) {
-		this.penDown = penDown;
+		pen.setPenDown(penDown);
 	}
 
 	private double format(double d) {
 		if (Double.valueOf(df.format(d)) == 0.00000)
 			return 0;
 		return Double.valueOf(df.format(d));
+	}
+	
+	public static int getNumTurtles() {
+		return ID;
 	}
 }

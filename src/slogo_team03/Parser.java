@@ -215,8 +215,4 @@ public class Parser {
 		// Need to check that its not already
 		// a command
 	}
-
-	public void setTurtle(Turtle turtle) {
-		currentTurtle = turtle;
-	}
 }

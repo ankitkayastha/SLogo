@@ -11,8 +11,8 @@ import java.util.ResourceBundle;
 
 public abstract class Command {
 	protected final ResourceBundle ParameterCode = ResourceBundle.getBundle("commands/ParameterCode");;
-//	protected String myName;
 	protected double[] myParameters = new double[10];
+	protected List<Turtle> myTurtleList = new ArrayList<Turtle>();
 	protected Turtle myTurtle;
 	protected String myVariable;
 	protected String myParameterCode;
