@@ -1,7 +1,7 @@
 package commands;
 public class SetXY extends Command {
 	public SetXY() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

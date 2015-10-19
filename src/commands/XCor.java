@@ -1,7 +1,7 @@
 package commands;
 public class XCor extends Command {
 	public XCor() {
-		paramCode = "";
+		parameterCode = "";
 	}
 	
 	public double execute() {

@@ -1,7 +1,7 @@
 package commands;
 public class Sin extends Command {
 	public Sin() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {

@@ -1,7 +1,7 @@
 package commands;
 public class And extends Command {
 	public And() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

@@ -1,7 +1,7 @@
 package commands;
 public class EqualP extends Command {
 	public EqualP() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

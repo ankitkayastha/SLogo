@@ -2,7 +2,7 @@ package commands;
 
 public class SetHeading extends Command {
 	public SetHeading() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {

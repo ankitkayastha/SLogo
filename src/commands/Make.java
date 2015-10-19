@@ -2,7 +2,7 @@ package commands;
 
 public class Make extends Command {
 	public Make() {
-		paramCode = "ve";
+		parameterCode = "ve";
 	}
 
 	public double execute() {

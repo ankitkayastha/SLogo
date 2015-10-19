@@ -1,7 +1,7 @@
 package commands;
 public class Sum extends Command {
 	public Sum() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 	
 	public double execute() {

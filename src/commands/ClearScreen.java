@@ -1,7 +1,7 @@
 package commands;
 public class ClearScreen extends Command {
 	public ClearScreen() {
-		paramCode = "";
+		parameterCode = "";
 	}
 	
 	public double execute() {

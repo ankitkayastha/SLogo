@@ -1,7 +1,7 @@
 package commands;
 public class Heading extends Command {
 	public Heading() {
-		paramCode = "";
+		parameterCode = "";
 	}
 	
 	public double execute() {

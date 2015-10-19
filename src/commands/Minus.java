@@ -1,7 +1,7 @@
 package commands;
 public class Minus extends Command {
 	public Minus() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {

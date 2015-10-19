@@ -1,7 +1,7 @@
 package commands;
 public class LessP extends Command {
 	public LessP() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

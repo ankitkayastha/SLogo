@@ -2,7 +2,7 @@ package commands;
 
 public class Towards extends Command {
 	public Towards() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

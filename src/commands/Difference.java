@@ -1,7 +1,7 @@
 package commands;
 public class Difference extends Command {
 	public Difference() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

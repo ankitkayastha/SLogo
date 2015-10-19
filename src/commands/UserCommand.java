@@ -27,9 +27,9 @@ public class UserCommand extends Command {
 	}
 	
 	private void setParamCode(int numParams) {
-		paramCode = "";
+		parameterCode = "";
 		for (int i = 0; i < numParams; i++) {
-			paramCode += "e";
+			parameterCode += "e";
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class UserCommand extends Command {
 	}
 	
 	public int numberOfParameters() {
-		return paramCode.length();
+		return parameterCode.length();
 	}
 	
 	public List<String> getDefinition() {

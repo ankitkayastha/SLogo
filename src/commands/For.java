@@ -6,7 +6,7 @@ import java.util.List;
 public class For extends SpecialCommand {
 	public For() {
 		runList = new ArrayList<String>();
-		paramCode = "[veee][c]";
+		parameterCode = "[veee][c]";
 	}
 	
 	public double execute() {

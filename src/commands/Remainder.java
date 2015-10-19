@@ -1,7 +1,8 @@
 package commands;
+
 public class Remainder extends Command {
 	public Remainder() {
-		paramCode = "ee";
+		parameterCode = "ee";
 	}
 
 	public double execute() {

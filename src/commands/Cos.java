@@ -1,7 +1,7 @@
 package commands;
 public class Cos extends Command {
 	public Cos() {
-		paramCode = "e";
+		parameterCode = "e";
 	}
 
 	public double execute() {

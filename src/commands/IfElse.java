@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class IfElse extends SpecialCommand {
 	public IfElse() {
 		runList = new ArrayList<String>();
-		paramCode = "e[c][c]";
+		parameterCode = "e[c][c]";
 	}
 
 	public double execute() {
