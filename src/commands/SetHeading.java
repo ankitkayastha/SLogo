@@ -2,7 +2,7 @@ package commands;
 
 public class SetHeading extends Command {
 	public SetHeading() {
-		parameterCode = "e";
+		super();
 	}
 
 	public double execute() {
@@ -16,5 +16,10 @@ public class SetHeading extends Command {
 			return 360 - difference;
 		}
 		return difference;
+	}
+	
+	@Override
+	public String toString() {
+		return "SetHeading";
 	}
 }

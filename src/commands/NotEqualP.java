@@ -2,7 +2,7 @@ package commands;
 
 public class NotEqualP extends Command {
 	public NotEqualP() {
-		parameterCode = "ee";
+		super();
 	}
 
 	public double execute() {
@@ -10,5 +10,10 @@ public class NotEqualP extends Command {
 			return 1;
 		else
 			return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "NotEqual";
 	}
 }

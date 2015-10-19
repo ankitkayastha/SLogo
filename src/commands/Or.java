@@ -2,7 +2,7 @@ package commands;
 
 public class Or extends Command {
 	public Or() {
-		parameterCode = "ee";
+		super();
 	}
 
 	public double execute() {
@@ -10,5 +10,10 @@ public class Or extends Command {
 			return 1;
 		else
 			return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "Or";
 	}
 }

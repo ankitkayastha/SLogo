@@ -1,11 +1,8 @@
 package commands;
 
-import java.util.ArrayList;
-
 public class If extends SpecialCommand {
 	public If() {
-		runList = new ArrayList<String>();
-		parameterCode = "e[c]";
+		super();
 	}
 
 	public double execute() {
@@ -14,5 +11,10 @@ public class If extends SpecialCommand {
 			return -1;
 		}
 		return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "If";
 	}
 }

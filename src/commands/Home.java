@@ -2,7 +2,7 @@ package commands;
 
 public class Home extends Command {
 	public Home() {
-		parameterCode = "";
+		super();
 	}
 
 	public double execute() {
@@ -17,5 +17,10 @@ public class Home extends Command {
 		myTurtle.addLine(x0, y0, x1, y1);
 
 		return Math.sqrt(x0 * x0 + y0 * y0);
+	}
+	
+	@Override
+	public String toString() {
+		return "Home";
 	}
 }

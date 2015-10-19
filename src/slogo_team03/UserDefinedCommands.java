@@ -23,7 +23,7 @@ public class UserDefinedCommands {
 	}
 
 	public void addCommand(UserCommand object) {
-		commandsMap.put(object.toString().toLowerCase(), object);
+		commandsMap.put(object.getName().toLowerCase(), object);
 	}
 
 	public List<String> getCommandDefiniton(String name) {

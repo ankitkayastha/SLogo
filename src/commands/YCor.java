@@ -2,10 +2,15 @@ package commands;
 
 public class YCor extends Command {
 	public YCor() {
-		parameterCode = "";
+		super();
 	}
 
 	public double execute() {
 		return myTurtle.getY();
+	}
+	
+	@Override
+	public String toString() {
+		return "YCoordinate";
 	}
 }

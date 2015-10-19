@@ -1,15 +1,12 @@
 package commands;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class To extends SpecialCommand {
-	// private boolean wellDefined;
 	private UserCommand userCommand;
 
 	public To() {
-		runList = new ArrayList<String>();
-		parameterCode = "n[p][c]";
+		super();
 	}
 
 	public void createUserDefinedCommand(String name) {
@@ -22,7 +19,7 @@ public class To extends SpecialCommand {
 
 	@Override
 	public void addVariable(String var) {
-		variableList.add(var);
+		myVariableList.add(var);
 		userCommand.addVariable(var);
 	}
 
@@ -49,5 +46,10 @@ public class To extends SpecialCommand {
 		// System.out.print(" " + runList.get(z));
 		// } System.out.println();
 		return -1;
+	}
+
+	@Override
+	public String toString() {
+		return "MakeUserInstruction";
 	}
 }
