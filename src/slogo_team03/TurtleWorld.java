@@ -1,5 +1,8 @@
 package slogo_team03;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,12 +28,24 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	}
 
 	public void processInput(String input) throws CommandInputException {
-		String[] inputArray = input.trim().split("\\s+");
+		String processedInput = "";
+		for (int i = 0; i + 1 < input.length(); i++) {
+			if (input.substring(i, i + 1).equals("#")) {
+				i++;
+				while (i + 1 < input.length() && !input.substring(i, i + 1).equals("\n")) {
+					i++;
+				}
+			} else {
+				processedInput += input.substring(i, i + 1);
+			}
+		}
+
+		String[] inputArray = processedInput.trim().split("\\s+");
 		List<String> inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		setParser();
 		try {
-			// parser.processInput(inputList);
-			System.out.println(parser.processInput(inputList));
+			parser.processInput(inputList);
+			// System.out.println(parser.processInput(inputList));
 			parser.processInput(inputList);
 		} catch (CommandInputException e) {
 			System.out.println("Invalid Input!");
@@ -69,7 +84,6 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 
 	@Override
 	public Map<String, String> getUserDefinedCommands() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
