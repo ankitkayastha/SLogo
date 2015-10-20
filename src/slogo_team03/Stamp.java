@@ -26,21 +26,6 @@ public class Stamp {
 		myShape = shape;
 	}
 
-	// public Stamp(Color color, int penSize, int shape) {
-	// myColor = color;
-	// myPenSize = penSize;
-	// myShape = shape;
-	// }
-	//
-	// public void setLocation(double x, double y) {
-	// myX = x;
-	// myY = y;
-	// }
-	//
-	// public void setHeading(double angle) {
-	// myAngle = angle;
-	// }
-
 	public Color getMyColor() {
 		return myColor;
 	}
@@ -63,5 +48,16 @@ public class Stamp {
 
 	public double getMyAngle() {
 		return myAngle;
+	}
+	
+	public String toString() {
+		return "Color " + myColor.toString();
+		
+//		private Color myColor;
+//		private int myPenSize;
+//		private int myShape;
+//		private double myX;
+//		private double myY;
+//		private double myAngle;
 	}
 }
