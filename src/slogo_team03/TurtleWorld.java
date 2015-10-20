@@ -40,7 +40,8 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 		String[] inputArray = processedInput.trim().split("\\s+");
 		List<String> inputList = new ArrayList<String>(Arrays.asList(inputArray));
 		parser.setTurtle(turtle);
-		System.out.println(parser.processInput(inputList));
+		parser.processInput(inputList);
+		// System.out.println(parser.processInput(inputList));
 		// System.out.println("Variables: " + variables.getVariableMap());
 		// System.out.println("UserDefinedCommands: " +
 		// userDefinedCommands.getCommandMap());

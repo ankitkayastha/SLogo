@@ -28,11 +28,6 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	}
 
 	public double stamp() {
-		// Stamp stamp = pen.stamp();
-		// stamp.setLocation(x, y);
-		// stamp.setHeading(angle);
-		// stampList.add(stamp);
-		// return stamp.getMyShape();
 		Stamp s = new Stamp(x, y, angle);
 		pen.addStamp(s);
 		return s.getMyShape();
@@ -82,7 +77,6 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		pen.setPenDown(copyTurtle.isPenDown());
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>(copyTurtle.getLineList());
-		stampList = new ArrayList<Stamp>(copyTurtle.getStampList());
 	}
 
 	public void reset() {

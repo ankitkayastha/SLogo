@@ -42,11 +42,11 @@ public class Parser {
 		// System.out.print(" " + inputList.get(i));
 		// }
 		// System.out.println();
-
+		
 		Command command = factory.createCommand(commandName);
 		if (command == null) {
-			// System.out.println(commandName + " command not found.");
-			throw new CommandInputException();
+			// System.out.prin tln(commandName + " command not found.");
+			throw new CommandInputException(commandName);
 		}
 
 		String paramTypes = command.getParamCode();
@@ -58,6 +58,7 @@ public class Parser {
 		result = command.executeAndFormat();
 
 		if (command instanceof To) {
+			//Add while loop and catch dividebyzeroexceptions, not commandinputexceptions
 			try {
 				copyTurtle.setTurtle(currentTurtle);
 				processInput(((SpecialCommand) command).getRunList());
@@ -77,7 +78,7 @@ public class Parser {
 			throws CommandInputException {
 		if (inputList.size() == 0) {
 			// System.out.println("Empty inputList");
-			throw new CommandInputException();
+			throw new CommandInputException("");
 		}
 
 		String current = inputList.remove(0);
@@ -175,7 +176,7 @@ public class Parser {
 				return true;
 			} else {
 				// System.out.println("CURRENT: " + current);
-				throw new CommandInputException();
+				throw new CommandInputException(current);
 			}
 		} else if (inputType == 'p') {
 			if (current.equals("]")) {
@@ -185,7 +186,7 @@ public class Parser {
 			while (inputList.size() >= 0) {
 				if (!isVariable(current)) {
 					// System.out.println("CURRENT: " + current);
-					throw new CommandInputException();
+					throw new CommandInputException(current);
 				}
 				command.addVariable(current);
 				if (inputList.get(0).equals("]"))
@@ -193,7 +194,7 @@ public class Parser {
 				if (inputList.size() == 0) {
 					// System.out.println("While getting parameters for UDC,
 					// reached end of list without ]");
-					throw new CommandInputException();
+					throw new CommandInputException("");
 				}
 				current = inputList.remove(0);
 			}
@@ -217,6 +218,8 @@ public class Parser {
 		// Need to check that its not already
 		// a command
 	}
+	
+	
 
 	public void setTurtle(Turtle turtle) {
 		currentTurtle = turtle;

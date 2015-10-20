@@ -32,10 +32,17 @@ public class Pen {
 
 	public double clearStampList() {
 		if (stampList.size() > 0) {
+			printStampList();
 			stampList.clear();
 			return 1;
 		} else {
 			return 0;
+		}
+	}
+	
+	private void printStampList() {
+		for (int i = 0; i < stampList.size(); i++) {
+			System.out.println(stampList.get(i).toString());
 		}
 	}
 	
