@@ -50,6 +50,20 @@ import commands.To;
 import commands.Towards;
 import commands.XCor;
 import commands.YCor;
+import newCommands.Ask;
+import newCommands.AskWith;
+import newCommands.ClearStamps;
+import newCommands.ID;
+import newCommands.PenColor;
+import newCommands.SetBackground;
+import newCommands.SetPalette;
+import newCommands.SetPenColor;
+import newCommands.SetPenSize;
+import newCommands.SetShape;
+import newCommands.Shape;
+import newCommands.StampCommand;
+import newCommands.Tell;
+import newCommands.Turtles;
 
 public class CommandFactory {
 	private ResourceBundle language;
@@ -167,6 +181,37 @@ public class CommandFactory {
 			return new IfElse();
 		} else if (name.matches(language.getString("MakeUserInstruction"))) {
 			return new To();
+			// Display Commands
+		} else if (name.matches(language.getString("SetBackground"))) {
+			return new SetBackground();
+		} else if (name.matches(language.getString("SetPenColor"))) {
+			return new SetPenColor();
+		} else if (name.matches(language.getString("SetPenSize"))) {
+			return new SetPenSize();
+		} else if (name.matches(language.getString("SetShape"))) {
+			return new SetShape();
+		} else if (name.matches(language.getString("SetPalette"))) {
+			return new SetPalette();
+		} else if (name.matches(language.getString("GetPenColor"))) {
+			return new PenColor();
+		} else if (name.matches(language.getString("GetShape"))) {
+			return new Shape();
+		} else if (name.matches(language.getString("Stamp"))) {
+			return new StampCommand();
+		} else if (name.matches(language.getString("ClearStamps"))) {
+			return new ClearStamps();
+		}
+		// Multiple Turtle Commands
+		else if (name.matches(language.getString("ID"))) {
+			return new ID();
+		} else if (name.matches(language.getString("Turtles"))) {
+			return new Turtles();
+		} else if (name.matches(language.getString("Tell"))) {
+			return new Tell();
+		} else if (name.matches(language.getString("Ask"))) {
+			return new Ask();
+		} else if (name.matches(language.getString("AskWith"))) {
+			return new AskWith();
 		}
 		// User Defined Commands
 		else if (userDefinedCommands.containsKey(name)) {
