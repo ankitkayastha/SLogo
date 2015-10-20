@@ -1,12 +1,17 @@
 package commands;
+
 public class HideTurtle extends Command {
 	public HideTurtle() {
-		paramCode = "";
+		super();
 	}
-	
+
 	public double execute() {
 		myTurtle.setVisible(false);
-		System.out.println("Turtle visibility from command is " + myTurtle.isVisible());
 		return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "HideTurtle";
 	}
 }

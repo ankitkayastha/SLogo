@@ -1,7 +1,8 @@
 package commands;
+
 public class Remainder extends Command {
 	public Remainder() {
-		paramCode = "ee";
+		super();
 	}
 
 	public double execute() {
@@ -10,5 +11,10 @@ public class Remainder extends Command {
 		else {
 			return myParameters[0] % myParameters[1];
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Remainder";
 	}
 }

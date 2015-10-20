@@ -1,7 +1,8 @@
 package commands;
+
 public class Not extends Command {
 	public Not() {
-		paramCode = "e";
+		super();
 	}
 
 	public double execute() {
@@ -9,5 +10,10 @@ public class Not extends Command {
 			return 1;
 		else
 			return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "Not";
 	}
 }

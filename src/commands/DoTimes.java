@@ -5,17 +5,16 @@ import java.util.List;
 
 public class DoTimes extends SpecialCommand {
 	public DoTimes() {
-		runList = new ArrayList<String>();
-		paramCode = "[ve][c]";
+		super();
 	}
 
 	public double execute() {
-		List<String> tempList = new ArrayList<String>(commandLists.get(0));
-		
+		List<String> tempList = new ArrayList<String>(myCommandLists.get(0));
+
 		if (tempList.size() == 0) {
 			return 0;
 		}
-		
+
 		for (int i = 1; i <= myParameters[2]; i++) {
 			for (int j = 0; j < tempList.size(); j++) {
 				if (tempList.get(j).equals(myVariable)) {
@@ -26,5 +25,10 @@ public class DoTimes extends SpecialCommand {
 			}
 		}
 		return -1;
+	}
+	
+	@Override
+	public String toString() {
+		return "DoTimes";
 	}
 }

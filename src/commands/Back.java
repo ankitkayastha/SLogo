@@ -1,7 +1,8 @@
 package commands;
+
 public class Back extends Command {
 	public Back() {
-		paramCode = "e";
+		super();
 	}
 
 	public double execute() {
@@ -18,5 +19,10 @@ public class Back extends Command {
 		myTurtle.addLine(x0, y0, x1, y1);
 
 		return length;
+	}
+	
+	@Override
+	public String toString() {
+		return "Backward";
 	}
 }

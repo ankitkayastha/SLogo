@@ -1,0 +1,19 @@
+package newCommands;
+
+import commands.Command;
+
+public class PenColor extends Command {
+	public PenColor() {
+		super();
+	}
+
+	@Override
+	public double execute() {
+		return myTurtle.getPenColor();
+	}
+
+	@Override
+	public String toString() {
+		return "GetPenColor";
+	}
+}

@@ -1,2 +1,4 @@
 package slogo_team03;
-public class CommandInputException extends Exception {}
+
+public class CommandInputException extends Exception {
+}

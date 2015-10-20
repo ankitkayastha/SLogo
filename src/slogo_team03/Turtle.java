@@ -1,4 +1,5 @@
 package slogo_team03;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,55 +10,118 @@ import javafx.scene.shape.Line;
 public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInterface, VisibleInterface {
 	private double x, y;
 	private double angle;
-	private boolean visible, penDown;
+	private boolean visible;
+	private static Pen pen;
 	private List<Line> lineList;
-	private List<Double> angleRotateList;
 	private DecimalFormat df;
 	private int myID;
-	private static int ID = 0;
+	private static int ID = -1;
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
-	
+
 	public Turtle() {
+		myID = ++ID;
+		initialize();
+	}
+
+	public void updatePalette(int index, int red, int green, int blue) {
+		pen.updatePalette(index, red, green, blue);
+	}
+
+	public double stamp() {
+		// Stamp stamp = pen.stamp();
+		// stamp.setLocation(x, y);
+		// stamp.setHeading(angle);
+		// stampList.add(stamp);
+		// return stamp.getMyShape();
+		Stamp s = new Stamp(x, y, angle);
+		pen.addStamp(s);
+		return s.getMyShape();
+	}
+
+	public double clearStamps() {
+		return pen.clearStampList();
+	}
+
+	public List<Stamp> getStampList() {
+		return pen.getStampList();
+	}
+
+	public void setBackground(int index) {
+		pen.setBackgroundColor(index);
+	}
+
+	public int getPenColor() {
+		return pen.getPenColor();
+	}
+
+	public void setPenColor(int index) {
+		pen.setPenColor(index);
+	}
+
+	public void setPenSize(int pixels) {
+		pen.setPenSize(pixels);
+	}
+
+	public int getShape() {
+		return pen.getShape();
+	}
+
+	public void setShape(int index) {
+		pen.setShape(index);
+	}
+
+	public static int getNumTurtles() {
+		return ID;
+	}
+
+	public void setTurtle(Turtle copyTurtle) {
+		x = copyTurtle.getX();
+		y = copyTurtle.getY();
+		angle = copyTurtle.getAngle();
+		visible = copyTurtle.isVisible();
+		pen.setPenDown(copyTurtle.isPenDown());
+		df = new DecimalFormat("#.#####");
+		lineList = new ArrayList<Line>(copyTurtle.getLineList());
+		stampList = new ArrayList<Stamp>(copyTurtle.getStampList());
+	}
+
+	public void reset() {
+		initialize();
+	}
+
+	private void initialize() {
 		x = Integer.parseInt(r.getString("startX"));
 		y = Integer.parseInt(r.getString("startY"));
 		angle = Integer.parseInt(r.getString("startAngle"));
 		visible = Boolean.parseBoolean(r.getString("visible"));
-		penDown = Boolean.parseBoolean(r.getString("penDown"));
+		pen = new Pen();
+		pen.setPenDown(Boolean.parseBoolean(r.getString("penDown")));
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>();
-		angleRotateList = new ArrayList<Double>();
-		myID = ID;
-		ID++;
 	}
-	
+
 	public double absoluteAngleFrontend() {
 		return (90 - getAngle()) % 360;
 	}
-	
-	public void addAngle(double angle) {
-		angleRotateList.add(angle);
-	}
-	
+
 	public void addLine(double x0, double y0, double x1, double y1) {
-		if (penDown) {
+		if (pen.isPenDown()) {
 			lineList.add(new Line(format(x0), format(y0), format(x1), format(y1)));
 		}
 	}
-	
+
 	public void resetLineList() {
 		lineList.clear();
 	}
-	
+
 	public List<Line> getLineList() {
-		//System.out.println("Ending X from turtle is" + pointList.get(1).getX());
-		//System.out.println("Ending Y from turtle is" + pointList.get(1).getY());
 		return lineList;
 	}
-	
+
 	public int getID() {
 		return myID;
 	}
-	
+
 	public double getX() {
 		return x;
 	}
@@ -83,7 +147,6 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	}
 
 	public boolean isVisible() {
-		System.out.println("Turtle visibility from Turtle object is " + visible);
 		return visible;
 	}
 
@@ -92,13 +155,13 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	}
 
 	public boolean isPenDown() {
-		return penDown;
+		return pen.isPenDown();
 	}
 
 	public void setPenDown(boolean penDown) {
-		this.penDown = penDown;
+		pen.setPenDown(penDown);
 	}
-	
+
 	private double format(double d) {
 		if (Double.valueOf(df.format(d)) == 0.00000)
 			return 0;

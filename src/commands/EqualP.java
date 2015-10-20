@@ -1,7 +1,8 @@
 package commands;
+
 public class EqualP extends Command {
 	public EqualP() {
-		paramCode = "ee";
+		super();
 	}
 
 	public double execute() {
@@ -9,5 +10,10 @@ public class EqualP extends Command {
 			return 1;
 		else
 			return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "Equal";
 	}
 }

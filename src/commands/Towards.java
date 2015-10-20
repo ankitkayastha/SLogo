@@ -2,7 +2,7 @@ package commands;
 
 public class Towards extends Command {
 	public Towards() {
-		paramCode = "ee";
+		super();
 	}
 
 	public double execute() {
@@ -23,11 +23,16 @@ public class Towards extends Command {
 		if (startX > endX) {
 			endAngle += 180;
 		}
-				
+
 		myTurtle.setAngle(endAngle);
-		
+
 		double difference = (360 + startAngle - endAngle) % 360;
 
 		return difference;
+	}
+	
+	@Override
+	public String toString() {
+		return "SetTowards";
 	}
 }

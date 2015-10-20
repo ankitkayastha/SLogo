@@ -1,10 +1,16 @@
 package commands;
+
 public class Pi extends Command {
 	public Pi() {
-		paramCode = "";
+		super();
 	}
 
 	public double execute() {
 		return Math.PI;
+	}
+	
+	@Override
+	public String toString() {
+		return "Pi";
 	}
 }

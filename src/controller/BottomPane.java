@@ -1,4 +1,5 @@
 package controller;
+
 import java.util.*;
 
 import UserInterface.CenterPane.DisplayTurtle;
@@ -23,6 +24,7 @@ public class BottomPane {
 	private LeftContent left;
 	private CommandHistory rightPane;
 	private DisplayTurtle display;
+
 	public BottomPane(LeftContent leftCont, CommandHistory right, DisplayTurtle display) {
 		this.commandHistory = new ArrayList<String>();
 		this.left = leftCont;
@@ -37,25 +39,28 @@ public class BottomPane {
 
 	public void handleKeyInput(KeyCode code, TextArea field) {
 		if (code.equals(KeyCode.UP)) {
-			//empty text area, which means should load last command
+			// empty text area, which means should load last command
 			if (field.getText().equals("")) {
 				field.setText(commandHistory.get(commandHistory.size() - 1));
-			}
-			else if (commandHistory.contains(field.getText())) { //text area has command previously stored in list
-				//first command, continue to show first command
+			} else if (commandHistory.contains(field.getText())) { // text area
+																	// has
+																	// command
+																	// previously
+																	// stored in
+																	// list
+				// first command, continue to show first command
 				if (commandHistory.indexOf(field.getText()) == 0) {
 					field.setText(commandHistory.get(0));
 				}
-				//command is somehwere else in list, show previous command
+				// command is somehwere else in list, show previous command
 				String command = field.getText();
 				int index = commandHistory.indexOf(command);
 				if (index - 1 >= 0)
 					field.setText(commandHistory.get(index - 1));
 
 			}
-		}
-		else if (code.equals(KeyCode.DOWN)) {
-			if (!field.getText().equals("")) {	
+		} else if (code.equals(KeyCode.DOWN)) {
+			if (!field.getText().equals("")) {
 				String command = field.getText();
 				int index = commandHistory.indexOf(command);
 				if (index + 1 < commandHistory.size())
@@ -66,7 +71,8 @@ public class BottomPane {
 		}
 	}
 
-	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) throws CommandInputException {
+	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai,
+			PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) throws CommandInputException {
 		ListView<String> list = rightPane.getListView();
 		List<ListView<String>> myLists = left.getListViewObs();
 		ListView<String> variableNames = myLists.get(1);
@@ -78,28 +84,27 @@ public class BottomPane {
 		commandHistory.add(command);
 		myObsList.add(field.getText());
 		list.setItems(myObsList);
-		
-		//pass updated variables
+
+		// pass updated variables
+
 		for (int i = 0; i < varNames.size(); i++) {
 			rs.receiveCommand("make " + varNames.get(i) + " " + Double.parseDouble(varObs.get(i)));
 		}
-		
+
 		rs.receiveCommand(command);
+
 		Map<String, Double> updatedMap = pf.getVariableMap();
 		varObs.clear();
 		varNames.clear();
-		for (String s: updatedMap.keySet()) {
+		for (String s : updatedMap.keySet()) {
 			varObs.add(updatedMap.get(s).toString());
 			varNames.add(s);
 		}
 		variableVals.setItems(varObs);
 		variableNames.setItems(varNames);
-		
+
 		display.move(ci, ai, pi, vi);
 		field.clear();
 	}
-
-
-
 
 }
