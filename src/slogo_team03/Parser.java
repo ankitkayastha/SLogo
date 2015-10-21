@@ -52,7 +52,7 @@ public class Parser {
 		String paramTypes = command.getParameterCode();
 		int paramsNeeded = paramTypes.length();
 		for (int i = 0; i < paramsNeeded; i++) {
-			setValidParameter(inputList, paramTypes.charAt(i), command, i);
+			setValidParameter(inputList, paramTypes.charAt(i), command);
 		}
 		command.setTurtle(currentTurtle);
 		result = command.executeAndFormat();
@@ -75,7 +75,7 @@ public class Parser {
 		return result;
 	}
 
-	public boolean setValidParameter(List<String> inputList, char inputType, Command command, int i)
+	public boolean setValidParameter(List<String> inputList, char inputType, Command command)
 			throws CommandInputException {
 		if (inputList.size() == 0) {
 			throw new CommandInputException("");
@@ -104,9 +104,16 @@ public class Parser {
 			} else {
 				throw new CommandInputException(current);
 			}
+			// } else if (inputType == 'i') {
+			// if (isInteger(current)) {
+			// command.addParameter(Double.parseDouble(current));
+			// return true;
+			// } else {
+			// throw new CommandInputException(current);
+			// }
 		} else if (inputType == 'v') {
 			if (isVariable(current)) {
-				command.addVariable(current);;
+				command.addVariable(current);
 				return true;
 			} else {
 				throw new CommandInputException(current);
@@ -153,29 +160,30 @@ public class Parser {
 
 			}
 			throw new CommandInputException(current);
-		} else if (inputType == 'e') {
+		} else if (inputType == 'e' || inputType == 'i') {
+			double value;
 			if (isNumeric(current)) {
-				command.addParameter(Double.parseDouble(current));
-				return true;
+				value = Double.parseDouble(current);
 			} else if (isVariable(current)) {
 				if (variables.getVariableMap().containsKey(current)) {
-					command.addParameter(variables.getVariable(current));
+					value = variables.getVariable(current);
 				} else {
 					variables.addVariable(current, 0);
-					command.addParameter(0);
+					value = 0;
 				}
-				return true;
 			} else {
 				inputList.add(0, current);
-				double value = evaluateCommands(inputList);
-				command.addParameter(value);
+				value = evaluateCommands(inputList);
 			}
+			if (inputType == 'i' && !isInteger(value)) {
+				throw new CommandInputException(current);
+			}
+			command.addParameter(value);
 		} else if (inputType == 'n') {
 			if (isCommandName(current)) {
 				((To) command).createUserDefinedCommand(current);
 				return true;
 			} else {
-				// System.out.println("CURRENT: " + current);
 				throw new CommandInputException(current);
 			}
 		} else if (inputType == 'p') {
@@ -203,6 +211,10 @@ public class Parser {
 			throw new CommandInputException("");
 		}
 		return true;
+	}
+
+	private boolean isInteger(double d) {
+		return d == Math.floor(d);
 	}
 
 	public boolean isNumeric(String s) {

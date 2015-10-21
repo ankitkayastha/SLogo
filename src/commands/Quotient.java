@@ -7,9 +7,9 @@ public class Quotient extends Command {
 
 	public double execute() {
 		if (myParameters.get(1) == 0) {
-			return 0;
+			return 0;	//Change to throw exception
 		}
-		return (int) (myParameters.get(0) / myParameters.get(1));
+		return (myParameters.get(0) / myParameters.get(1));
 	}
 
 	@Override
