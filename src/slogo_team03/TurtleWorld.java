@@ -25,6 +25,7 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	}
 
 	public void processInput(String input) throws CommandInputException {
+		Command.setMaps(userDefinedCommands, variables);
 		String processedInput = "";
 		for (int i = 0; i + 1 <= input.length(); i++) {
 			if (input.substring(i, i + 1).equals("#")) {
