@@ -6,12 +6,12 @@ public class Quotient extends Command {
 	}
 
 	public double execute() {
-		if (myParameters[1] == 0) {
+		if (myParameters.get(1) == 0) {
 			return 0;
 		}
-		return (int) (myParameters[0] / myParameters[1]);
+		return (int) (myParameters.get(0) / myParameters.get(1));
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Quotient";

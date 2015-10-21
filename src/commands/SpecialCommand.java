@@ -11,11 +11,7 @@ public abstract class SpecialCommand extends Command {
 		runList = new ArrayList<String>();
 	}
 
-	public abstract double execute();
-
 	public List<String> getRunList() {
 		return runList;
 	}
-	
-	
 }

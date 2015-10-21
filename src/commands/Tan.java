@@ -6,7 +6,7 @@ public class Tan extends Command {
 	}
 
 	public double execute() {
-		return Math.tan(Math.toRadians(myParameters[0]));
+		return Math.tan(Math.toRadians(myParameters.get(0)));
 	}
 
 	@Override

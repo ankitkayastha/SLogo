@@ -10,8 +10,8 @@ public class Towards extends Command {
 
 		double startX = myTurtle.getX();
 		double startY = myTurtle.getY();
-		double endX = myParameters[0];
-		double endY = myParameters[1];
+		double endX = myParameters.get(0);
+		double endY = myParameters.get(1);
 
 		if (startX == endX && startY == endY) {
 			return 0;
@@ -30,7 +30,7 @@ public class Towards extends Command {
 
 		return difference;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "SetTowards";

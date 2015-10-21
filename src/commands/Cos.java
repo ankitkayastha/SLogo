@@ -6,7 +6,7 @@ public class Cos extends Command {
 	}
 
 	public double execute() {
-		return Math.cos(Math.toRadians(myParameters[0]));
+		return Math.cos(Math.toRadians(myParameters.get(0)));
 	}
 
 	@Override

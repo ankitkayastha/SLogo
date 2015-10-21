@@ -49,7 +49,7 @@ public class Parser {
 			throw new CommandInputException(commandName);
 		}
 
-		String paramTypes = command.getParamCode();
+		String paramTypes = command.getParameterCode();
 		int paramsNeeded = paramTypes.length();
 		for (int i = 0; i < paramsNeeded; i++) {
 			setValidParameter(inputList, paramTypes.charAt(i), command, i);
@@ -106,7 +106,7 @@ public class Parser {
 			}
 		} else if (inputType == 'v') {
 			if (isVariable(current)) {
-				command.setVariable(current);
+				command.addVariable(current);;
 				return true;
 			} else {
 				throw new CommandInputException(current);
@@ -155,20 +155,20 @@ public class Parser {
 			throw new CommandInputException(current);
 		} else if (inputType == 'e') {
 			if (isNumeric(current)) {
-				command.setParameter(i, Double.parseDouble(current));
+				command.addParameter(Double.parseDouble(current));
 				return true;
 			} else if (isVariable(current)) {
 				if (variables.getVariableMap().containsKey(current)) {
-					command.setParameter(i, variables.getVariable(current));
+					command.addParameter(variables.getVariable(current));
 				} else {
 					variables.addVariable(current, 0);
-					command.setParameter(i, 0);
+					command.addParameter(0);
 				}
 				return true;
 			} else {
 				inputList.add(0, current);
 				double value = evaluateCommands(inputList);
-				command.setParameter(i, value);
+				command.addParameter(value);
 			}
 		} else if (inputType == 'n') {
 			if (isCommandName(current)) {

@@ -7,7 +7,7 @@ public class IfElse extends SpecialCommand {
 
 	public double execute() {
 		if (myCommandLists.get(0).size() != 0) {
-			if (myParameters[0] != 0) {
+			if (myParameters.get(0) != 0) {
 				runList.addAll(myCommandLists.get(0));
 				return -1;
 			} else {
@@ -17,7 +17,7 @@ public class IfElse extends SpecialCommand {
 		}
 		return 0;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "IfElse";

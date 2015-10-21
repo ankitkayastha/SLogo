@@ -6,7 +6,7 @@ public class Forward extends Command {
 	}
 
 	public double execute() {
-		double length = myParameters[0];
+		double length = myParameters.get(0);
 		double x0 = myTurtle.getX();
 		double y0 = myTurtle.getY();
 		double angle = myTurtle.getAngle();
@@ -20,7 +20,7 @@ public class Forward extends Command {
 
 		return length;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Forward";

@@ -6,9 +6,9 @@ public class Log extends Command {
 	}
 
 	public double execute() {
-		return Math.log(myParameters[0]);
+		return Math.log(myParameters.get(0));
 	}
-	
+
 	@Override
 	public String toString() {
 		return "NaturalLog";

@@ -15,9 +15,9 @@ public class DoTimes extends SpecialCommand {
 			return 0;
 		}
 
-		for (int i = 1; i <= myParameters[2]; i++) {
+		for (int i = 1; i <= myParameters.get(0); i++) {
 			for (int j = 0; j < tempList.size(); j++) {
-				if (tempList.get(j).equals(myVariable)) {
+				if (tempList.get(j).equals(myVariables.get(0))) {
 					runList.add(Integer.toString(i));
 				} else {
 					runList.add(tempList.get(j));
@@ -26,7 +26,7 @@ public class DoTimes extends SpecialCommand {
 		}
 		return -1;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "DoTimes";
