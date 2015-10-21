@@ -7,11 +7,11 @@ public class Left extends Command {
 
 	public double execute() {
 		double startAngle = myTurtle.getAngle();
-		double endAngle = startAngle + myParameters[0];
+		double endAngle = startAngle + myParameters.get(0);
 		myTurtle.setAngle(endAngle % 360);
-		return myParameters[0];
+		return myParameters.get(0);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Left";

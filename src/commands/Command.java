@@ -10,56 +10,50 @@ import slogo_team03.UserDefinedVariables;
 import java.util.ResourceBundle;
 
 public abstract class Command {
-	protected final ResourceBundle ParameterCode = ResourceBundle.getBundle("commands/ParameterCode");;
-	protected double[] myParameters = new double[10];
-	protected List<Turtle> myTurtleList = new ArrayList<Turtle>();
 	protected Turtle myTurtle;
-	protected String myVariable;
 	protected String myParameterCode;
-	protected List<String> myVariableList = new ArrayList<String>();
+	protected List<Double> myParameters = new ArrayList<Double>();
+	protected List<String> myVariables = new ArrayList<String>();
 	protected List<List<String>> myCommandLists = new ArrayList<List<String>>();
 	protected static UserDefinedCommands userDefinedCommands;
 	protected static UserDefinedVariables variableMap;
+	protected final ResourceBundle ParameterCode = ResourceBundle.getBundle("commands/ParameterCode");;
 
 	public Command() {
 		myParameterCode = ParameterCode.getString(toString());
 	}
-	
+
 	public abstract String toString();
-	
-	public String getParamCode() {
-		return myParameterCode;
-	}
-	
+
 	public abstract double execute();
-
-	public void addVariable(String var) {
-		myVariableList.add(var);
-	}
-
-	public List<String> getVariableList() {
-		return myVariableList;
-	}
 
 	public static void setMaps(UserDefinedCommands uMap, UserDefinedVariables vMap) {
 		userDefinedCommands = uMap;
 		variableMap = vMap;
 	}
 
+	public String getParameterCode() {
+		return myParameterCode;
+	}
+	
+	public void addParameter(double param) {
+		myParameters.add(param);
+	}
+
+	public void addVariable(String var) {
+		myVariables.add(var);
+	}
+
+	public List<String> getVariableList() {
+		return myVariables;
+	}
+
 	public void addListOfCommands(List<String> cList) {
 		myCommandLists.add(cList);
 	}
 
-	public void setParameter(int i, double param) {
-		myParameters[i] = param;
-	}
-
 	public void setTurtle(Turtle turtle) {
 		myTurtle = turtle;
-	}
-
-	public void setVariable(String s) {
-		myVariable = s;
 	}
 
 	public double executeAndFormat() throws NumberFormatException, CommandInputException {

@@ -19,7 +19,7 @@ public class To extends SpecialCommand {
 
 	@Override
 	public void addVariable(String var) {
-		myVariableList.add(var);
+		myVariables.add(var);
 		userCommand.addVariable(var);
 	}
 

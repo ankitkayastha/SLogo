@@ -6,10 +6,10 @@ public class Make extends Command {
 	}
 
 	public double execute() {
-		variableMap.addVariable(myVariable, myParameters[1]);
-		return myParameters[1];
+		variableMap.addVariable(myVariables.get(0), myParameters.get(0));
+		return myParameters.get(0);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "MakeVariable";
