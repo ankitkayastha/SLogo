@@ -17,6 +17,7 @@ import slogo_team03.CoordinateInterface;
 import slogo_team03.PassToFrontInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
+import slogo_team03.TrigonometricException;
 import slogo_team03.VisibleInterface;
 
 public class BottomPane {
@@ -72,7 +73,7 @@ public class BottomPane {
 	}
 
 	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai,
-			PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) throws CommandInputException {
+			PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) throws CommandInputException, TrigonometricException {
 		ListView<String> list = rightPane.getListView();
 		List<ListView<String>> myLists = left.getListViewObs();
 		ListView<String> variableNames = myLists.get(1);
