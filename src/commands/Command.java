@@ -26,7 +26,7 @@ public abstract class Command {
 
 	public abstract String toString();
 
-	public abstract double execute() throws TrigonometricException;
+	public abstract double execute() throws CommandInputException, TrigonometricException;
 
 	public static void setMaps(UserDefinedCommands uMap, UserDefinedVariables vMap) {
 		userDefinedCommands = uMap;

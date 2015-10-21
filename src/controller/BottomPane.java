@@ -73,7 +73,8 @@ public class BottomPane {
 	}
 
 	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai,
-			PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) throws CommandInputException, TrigonometricException {
+			PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf)
+					throws CommandInputException, TrigonometricException {
 		ListView<String> list = rightPane.getListView();
 		List<ListView<String>> myLists = left.getListViewObs();
 		ListView<String> variableNames = myLists.get(1);

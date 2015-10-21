@@ -16,6 +16,7 @@ public class Parser {
 	private Turtle currentTurtle;
 	private Turtle copyTurtle;
 	private List<Turtle> turtleList;
+	private boolean evaluating;
 
 	public Parser(UserDefinedCommands commands, UserDefinedVariables vars) {
 		userDefinedCommands = commands;
@@ -23,6 +24,7 @@ public class Parser {
 		factory = new CommandFactory(userDefinedCommands);
 		copyTurtle = new Turtle();
 		turtleList = new ArrayList<Turtle>();
+		evaluating = false;
 	}
 
 	public double processInput(List<String> list) throws CommandInputException, TrigonometricException {
@@ -48,6 +50,7 @@ public class Parser {
 
 		if (command instanceof TurtleCommand) {
 			for (int i = 0; i < turtleList.size(); i++) {
+				setTurtle(turtleList.get(i));
 				List<String> copyOfInputList = new ArrayList<String>(inputList);
 				result = evaluateCommand(inputList, command);
 				inputList = new ArrayList<String>(copyOfInputList);
@@ -60,22 +63,41 @@ public class Parser {
 
 	private double evaluateCommand(List<String> inputList, Command command)
 			throws CommandInputException, TrigonometricException {
-		double result;
+		double result = Double.MAX_VALUE;
 		setParameters(inputList, command);
 		command.setTurtle(currentTurtle);
-		result = command.executeAndFormat();
+
+		if (evaluating) {
+			try {
+				result = command.executeAndFormat();
+			} catch (TrigonometricException e) {
+				result = 1;
+			} catch (ArithmeticException e) {
+				result = 1;
+			}
+		} else {
+			result = command.executeAndFormat();
+		}
 
 		if (command instanceof To) {
+			evaluating = true;
 			// Add while loop and catch dividebyzeroexceptions, not
 			// commandinputexceptions
-			try {
-				copyTurtle.setTurtle(currentTurtle);
-				processInput(((SpecialCommand) command).getRunList());
-			} catch (CommandInputException e) {
-				// return 0;
+
+			List<String> runList = ((SpecialCommand) command).getRunList();
+			while (!runList.isEmpty()) {
+				try {
+					copyTurtle.setTurtle(currentTurtle);
+					processInput(((SpecialCommand) command).getRunList());
+				} catch (CommandInputException e) {
+					evaluating = false;
+					return 0;
+				}
 			}
+
 			currentTurtle.setTurtle(copyTurtle);
 			userDefinedCommands.addCommand(((To) command).getUserCommand());
+			evaluating = false;
 			return 1;
 		} else if (command instanceof SpecialCommand && result == -1) {
 			result = processInput(((SpecialCommand) command).getRunList());
@@ -129,11 +151,6 @@ public class Parser {
 						leftCount--;
 						if (leftCount == 0) {
 							command.addListOfCommands(tempList);
-							// System.out.print("Command Definition:");
-							// for (int z = 0; z < tempList.size(); z++) {
-							// System.out.print(" " + tempList.get(z));
-							// }
-							// System.out.println();
 							succesfullyEndedCommandList = true;
 							break;
 						}
@@ -219,9 +236,11 @@ public class Parser {
 	}
 
 	public boolean isCommandName(String s) {
+		Command command = factory.createCommand(s);
+		if (command != null && !userDefinedCommands.containsKey(s)) {
+			return false;
+		}
 		return s.matches("[a-zA-Z_]+");
-		// Need to check that its not already
-		// a command
 	}
 
 	public void setTurtle(Turtle turtle) {
