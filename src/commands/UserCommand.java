@@ -3,6 +3,8 @@ package commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import slogo_team03.CommandInputException;
+
 public class UserCommand extends SpecialCommand {
 	private String myName;
 	private List<String> myDefinition;
@@ -12,18 +14,18 @@ public class UserCommand extends SpecialCommand {
 		myDefinition = new ArrayList<String>();
 	}
 
-	public List<String> assignValuesToCommandList(double... params) {
+	public List<String> assignValuesToCommandList(double... params) throws CommandInputException {
 		List<String> tempList = new ArrayList<String>();
 		for (int i = 0; i < myDefinition.size(); i++) {
 			String current = myDefinition.get(i);
 			if (isVariable(current)) {
-				if (variableMap.containsKey(current)) {
-					tempList.add(current); // Need to resolve issue with
-											// variables already defined
-					// tempList.add(Double.toString(variableMap.getVariable(current)));
-				} else {
+				if (myVariables.contains(current)) {
 					int index = myVariables.indexOf(current);
 					tempList.add(Double.toString(params[index]));
+				} else if (variableMap.containsKey(current)) {
+					tempList.add(current);
+				} else {
+					throw new CommandInputException(current);
 				}
 			} else {
 				tempList.add(current);
@@ -33,7 +35,7 @@ public class UserCommand extends SpecialCommand {
 	}
 
 	@Override
-	public double execute() {
+	public double execute() throws CommandInputException {
 		double[] params = new double[getNumberOfParameters()];
 		for (int i = 0; i < params.length; i++) {
 			params[i] = myParameters.remove(0);

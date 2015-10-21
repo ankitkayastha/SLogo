@@ -9,9 +9,8 @@ public class SetBackground extends Command {
 
 	@Override
 	public double execute() {
-		int param0 = (int) myParameters[0];
-		myTurtle.setBackground(param0);
-		return param0;
+		myTurtle.setBackground(myParameters.get(0));
+		return myParameters.get(0);
 	}
 
 	@Override
