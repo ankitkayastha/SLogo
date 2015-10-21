@@ -42,7 +42,7 @@ public class Parser {
 		// System.out.print(" " + inputList.get(i));
 		// }
 		// System.out.println();
-		
+
 		Command command = factory.createCommand(commandName);
 		if (command == null) {
 			// System.out.prin tln(commandName + " command not found.");
@@ -58,7 +58,8 @@ public class Parser {
 		result = command.executeAndFormat();
 
 		if (command instanceof To) {
-			//Add while loop and catch dividebyzeroexceptions, not commandinputexceptions
+			// Add while loop and catch dividebyzeroexceptions, not
+			// commandinputexceptions
 			try {
 				copyTurtle.setTurtle(currentTurtle);
 				processInput(((SpecialCommand) command).getRunList());
@@ -77,7 +78,6 @@ public class Parser {
 	public boolean setValidParameter(List<String> inputList, char inputType, Command command, int i)
 			throws CommandInputException {
 		if (inputList.size() == 0) {
-			// System.out.println("Empty inputList");
 			throw new CommandInputException("");
 		}
 
@@ -93,22 +93,29 @@ public class Parser {
 		// }
 
 		if (inputType == '[') {
-			return current.equals("[");
+			if (current.equals("[")) {
+				return true;
+			} else {
+				throw new CommandInputException(current);
+			}
 		} else if (inputType == ']') {
-			return current.equals("]");
+			if (current.equals("]")) {
+				return true;
+			} else {
+				throw new CommandInputException(current);
+			}
 		} else if (inputType == 'v') {
-			// System.out.println("CURRENT: " + current);
 			if (isVariable(current)) {
 				command.setVariable(current);
 				return true;
 			} else {
-				return false;
+				throw new CommandInputException(current);
 			}
 		} else if (inputType == 'c') {
 			List<String> tempList = new ArrayList<String>();
 			if (current.equals("]")) {
 				inputList.add(0, current);
-				return false;
+				return true;
 			}
 
 			int leftCount = 1;
@@ -130,8 +137,9 @@ public class Parser {
 						return true;
 					}
 				}
-				if (inputList.size() == 0)
-					return false;
+				if (inputList.size() == 0) {
+					throw new CommandInputException("");
+				}
 
 				current = inputList.remove(0);
 				// System.out.print("cParameter: " + current + ", InputList:");
@@ -144,7 +152,7 @@ public class Parser {
 				// current);
 
 			}
-			return false;
+			throw new CommandInputException(current);
 		} else if (inputType == 'e') {
 			if (isNumeric(current)) {
 				command.setParameter(i, Double.parseDouble(current));
@@ -159,19 +167,11 @@ public class Parser {
 				return true;
 			} else {
 				inputList.add(0, current);
-
 				double value = evaluateCommands(inputList);
-
-				if (value != Double.MAX_VALUE) {
-					command.setParameter(i, value);
-					return true;
-				}
-				return false;
+				command.setParameter(i, value);
 			}
 		} else if (inputType == 'n') {
 			if (isCommandName(current)) {
-				// System.out.println("Calling createUserDefinedCommand(" +
-				// current + ")");
 				((To) command).createUserDefinedCommand(current);
 				return true;
 			} else {
@@ -198,11 +198,11 @@ public class Parser {
 				}
 				current = inputList.remove(0);
 			}
-			return false;
-
+			throw new CommandInputException(current);
 		} else {
-			return false;
+			throw new CommandInputException("");
 		}
+		return true;
 	}
 
 	public boolean isNumeric(String s) {
@@ -218,8 +218,6 @@ public class Parser {
 		// Need to check that its not already
 		// a command
 	}
-	
-	
 
 	public void setTurtle(Turtle turtle) {
 		currentTurtle = turtle;
