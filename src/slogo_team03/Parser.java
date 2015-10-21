@@ -6,6 +6,7 @@ import java.util.List;
 import commands.Command;
 import commands.SpecialCommand;
 import commands.To;
+import commands.TurtleCommand;
 import commands.UserCommand;
 
 public class Parser {
@@ -14,18 +15,20 @@ public class Parser {
 	private UserDefinedVariables variables;
 	private Turtle currentTurtle;
 	private Turtle copyTurtle;
+	private List<Turtle> turtleList;
 
 	public Parser(UserDefinedCommands commands, UserDefinedVariables vars) {
 		userDefinedCommands = commands;
 		variables = vars;
 		factory = new CommandFactory(userDefinedCommands);
 		copyTurtle = new Turtle();
+		turtleList = new ArrayList<Turtle>();
 	}
 
 	public double processInput(List<String> list) throws CommandInputException, TrigonometricException {
 		double val = Double.MAX_VALUE;
 		while (list.size() > 0) {
-			val = evaluateCommand(list);
+			val = runCommand(list);
 		}
 		return val;
 	}
@@ -34,7 +37,7 @@ public class Parser {
 		factory.receiveLanguage(language);
 	}
 
-	public double evaluateCommand(List<String> inputList) throws CommandInputException, TrigonometricException {
+	public double runCommand(List<String> inputList) throws CommandInputException, TrigonometricException {
 		double result = Double.MAX_VALUE;
 		String commandName = inputList.remove(0);
 
@@ -43,14 +46,22 @@ public class Parser {
 			throw new CommandInputException(commandName);
 		}
 
-		// If command instanceof TurtleCommand, loop over the rest of the method
-		// for each turtle. Otherwise, just execute it once.
+		if (command instanceof TurtleCommand) {
+			for (int i = 0; i < turtleList.size(); i++) {
+				List<String> copyOfInputList = new ArrayList<String>(inputList);
+				result = evaluateCommand(inputList, command);
+				inputList = new ArrayList<String>(copyOfInputList);
+			}
+		} else {
+			result = evaluateCommand(inputList, command);
+		}
+		return result;
+	}
 
-		String paramTypes = command.getParameterCode();
-		int paramsNeeded = paramTypes.length();
-
+	private double evaluateCommand(List<String> inputList, Command command)
+			throws CommandInputException, TrigonometricException {
+		double result;
 		setParameters(inputList, command);
-
 		command.setTurtle(currentTurtle);
 		result = command.executeAndFormat();
 
@@ -151,7 +162,7 @@ public class Parser {
 					}
 				} else {
 					inputList.add(0, current);
-					value = evaluateCommand(inputList);
+					value = runCommand(inputList);
 				}
 				if (parameterType == 'i' && !isInteger(value)) {
 					throw new CommandInputException(current);
