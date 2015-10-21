@@ -59,7 +59,11 @@ public class CommandPrompt {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("Error");
 				alert.setHeaderText("Invalid Input");
-				alert.setContentText("Please check your spelling of \"" + field.getText() + "\".");
+				if (e.getMyBadInput().isEmpty()) {
+					alert.setContentText("Not enough parameters!");
+				} else {
+					alert.setContentText("Please check your spelling of \"" + e.getMyBadInput() + "\".");
+				}
 				alert.showAndWait();
 			}
 		});
