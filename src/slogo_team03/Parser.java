@@ -104,9 +104,16 @@ public class Parser {
 			} else {
 				throw new CommandInputException(current);
 			}
+		} else if (inputType == 'i') {
+			if (isInteger(current)) {
+				command.addParameter(Double.parseDouble(current));
+				return true;
+			} else {
+				throw new CommandInputException(current);
+			}
 		} else if (inputType == 'v') {
 			if (isVariable(current)) {
-				command.addVariable(current);;
+				command.addVariable(current);
 				return true;
 			} else {
 				throw new CommandInputException(current);
@@ -154,22 +161,29 @@ public class Parser {
 			}
 			throw new CommandInputException(current);
 		} else if (inputType == 'e') {
+			double value;
+			
 			if (isNumeric(current)) {
-				command.addParameter(Double.parseDouble(current));
-				return true;
+				value = Double.parseDouble(current);
+//				return true;
 			} else if (isVariable(current)) {
 				if (variables.getVariableMap().containsKey(current)) {
-					command.addParameter(variables.getVariable(current));
+					value = variables.getVariable(current);
 				} else {
 					variables.addVariable(current, 0);
 					command.addParameter(0);
 				}
-				return true;
+//				return true;
 			} else {
 				inputList.add(0, current);
-				double value = evaluateCommands(inputList);
+				value = evaluateCommands(inputList);
 				command.addParameter(value);
 			}
+			
+			
+			command.addParameter(Double.parseDouble(current));
+
+			
 		} else if (inputType == 'n') {
 			if (isCommandName(current)) {
 				((To) command).createUserDefinedCommand(current);
@@ -203,6 +217,16 @@ public class Parser {
 			throw new CommandInputException("");
 		}
 		return true;
+	}
+
+	private boolean isInteger(String s) {
+		if (isNumeric(s)) {
+			double d = Double.valueOf(s);
+			if (d == Math.floor(d)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean isNumeric(String s) {
