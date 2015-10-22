@@ -9,9 +9,8 @@ public class SetPenSize extends Command {
 
 	@Override
 	public double execute() {
-		int param0 = (int) myParameters[0];
-		myTurtle.setPenSize(param0);
-		return param0;
+		myTurtle.setPenSize(myParameters.get(0));
+		return myParameters.get(0);
 	}
 
 	@Override

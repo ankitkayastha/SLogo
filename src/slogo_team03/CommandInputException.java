@@ -2,17 +2,12 @@ package slogo_team03;
 
 public class CommandInputException extends Exception {
 	private String myBadInput;
-	
+
 	public CommandInputException(String badInput) {
-		setMyBadInput(badInput);
+		myBadInput = badInput;
 	}
 
-	public String getMyBadInput() {
+	public String getBadInput() {
 		return myBadInput;
 	}
-
-	private void setMyBadInput(String myBadInput) {
-		this.myBadInput = myBadInput;
-	}
-	
 }

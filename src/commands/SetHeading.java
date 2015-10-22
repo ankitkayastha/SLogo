@@ -7,7 +7,7 @@ public class SetHeading extends Command {
 
 	public double execute() {
 		double startAngle = myTurtle.getAngle();
-		double endAngle = 450 - myParameters[0];
+		double endAngle = 450 - myParameters.get(0);
 		endAngle = endAngle % 360;
 		myTurtle.setAngle(endAngle);
 
@@ -17,7 +17,7 @@ public class SetHeading extends Command {
 		}
 		return difference;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "SetHeading";

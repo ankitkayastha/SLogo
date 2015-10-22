@@ -11,6 +11,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	private double x, y;
 	private double angle;
 	private boolean visible;
+	private boolean active;
 	private static Pen pen;
 	private List<Line> lineList;
 	private DecimalFormat df;
@@ -23,7 +24,20 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		initialize();
 	}
 
-	public void updatePalette(int index, int red, int green, int blue) {
+	// public Turtle(int ID) {
+	// myID = ID;
+	// initialize();
+	// }
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean b) {
+		active = b;
+	}
+
+	public void updatePalette(double index, int red, int green, int blue) {
 		pen.updatePalette(index, red, green, blue);
 	}
 
@@ -41,27 +55,27 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		return pen.getStampList();
 	}
 
-	public void setBackground(int index) {
+	public void setBackground(double index) {
 		pen.setBackgroundColor(index);
 	}
 
-	public int getPenColor() {
-		return pen.getPenColor();
+	public double getPenColor() {
+		return pen.getPenColorIndex();
 	}
 
-	public void setPenColor(int index) {
+	public void setPenColor(double index) {
 		pen.setPenColor(index);
 	}
 
-	public void setPenSize(int pixels) {
+	public void setPenSize(double pixels) {
 		pen.setPenSize(pixels);
 	}
 
-	public int getShape() {
+	public double getShape() {
 		return pen.getShape();
 	}
 
-	public void setShape(int index) {
+	public void setShape(double index) {
 		pen.setShape(index);
 	}
 
@@ -74,6 +88,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		y = copyTurtle.getY();
 		angle = copyTurtle.getAngle();
 		visible = copyTurtle.isVisible();
+		active = copyTurtle.isActive();
 		pen.setPenDown(copyTurtle.isPenDown());
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>(copyTurtle.getLineList());
@@ -88,6 +103,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		y = Integer.parseInt(r.getString("startY"));
 		angle = Integer.parseInt(r.getString("startAngle"));
 		visible = Boolean.parseBoolean(r.getString("visible"));
+		active = false;
 		pen = new Pen();
 		pen.setPenDown(Boolean.parseBoolean(r.getString("penDown")));
 		df = new DecimalFormat("#.#####");
@@ -100,7 +116,10 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 
 	public void addLine(double x0, double y0, double x1, double y1) {
 		if (pen.isPenDown()) {
-			lineList.add(new Line(format(x0), format(y0), format(x1), format(y1)));
+			Line line = new Line(format(x0), format(y0), format(x1), format(y1));
+			line.setFill(pen.getPenColor());
+			line.setStrokeWidth(pen.getPenSize());
+			lineList.add(line);
 		}
 	}
 

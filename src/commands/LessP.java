@@ -6,12 +6,12 @@ public class LessP extends Command {
 	}
 
 	public double execute() {
-		if (myParameters[0] < myParameters[1])
+		if (myParameters.get(0) < myParameters.get(1))
 			return 1;
 		else
 			return 0;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "LessThan";

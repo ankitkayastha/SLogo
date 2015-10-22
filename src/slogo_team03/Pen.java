@@ -5,84 +5,118 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+
 public class Pen {
 	private boolean penDown;
-	private int backgroundColor;
-	private int penColor;
-	private int penSize;
-	private int shape;
-	private Map<Integer, Color> palette;
+	private Color backgroundColor;
+	private Color penColor;
+	private double penSize;
+	private double shape;
+	private Map<Double, Color> palette;
 	private List<Stamp> stampList;
+	private List<Line> lineList;
+	private double backgroundColorIndex;
+	private double penColorIndex;
 
 	public Pen() {
-		backgroundColor = 0;
-		penColor = 0;
+		palette = new HashMap<Double, Color>();
+		updatePalette(0, 1, 2, 3);
+		updatePalette(1, 69, 0, 45);
+		backgroundColorIndex = 0;
+		penColorIndex = 1;
+		penColor = palette.get(1);
 		penSize = 1;
 		shape = 4;
-		palette = new HashMap<Integer, Color>();
 		stampList = new ArrayList<Stamp>();
+		lineList = new ArrayList<Line>();
+	}
+
+	public void addToLineList(List<Line> list) {
+		lineList.addAll(list);
+	}
+
+	public void clearLineList() {
+		lineList.clear();
+	}
+
+	public List<Line> getLineList() {
+		return new ArrayList<Line>(lineList);
 	}
 
 	public void addStamp(Stamp stamp) {
-		stamp.setColor(palette.get(penColor));
-		stamp.setPenSize(penSize);
+		stamp.setColor(palette.get(penColorIndex));
 		stamp.setShape(shape);
 		stampList.add(stamp);
 	}
 
 	public double clearStampList() {
 		if (stampList.size() > 0) {
-			printStampList();
+			// printStampList();
 			stampList.clear();
 			return 1;
 		} else {
 			return 0;
 		}
 	}
-	
-	private void printStampList() {
-		for (int i = 0; i < stampList.size(); i++) {
-			System.out.println(stampList.get(i).toString());
-		}
-	}
-	
+
+	// private void printStampList() {
+	// for (int i = 0; i < stampList.size(); i++) {
+	// System.out.println(stampList.get(i).toString());
+	// }
+	// }
+
 	public List<Stamp> getStampList() {
 		return stampList;
 	}
 
-	public void updatePalette(int index, int red, int green, int blue) {
-		palette.put(index, new Color(red, green, blue));
+	public void updatePalette(double index, int red, int green, int blue) {
+		double dRed = red;
+		double dGreen = green;
+		double dBlue = blue;
+		palette.put(index, new Color(dRed / 255, dGreen / 255, dBlue / 255, 1));
 	}
 
-	public int getBackgroundColor() {
+	public Color getBackgroundColor() {
 		return backgroundColor;
 	}
 
-	public void setBackgroundColor(int index) {
-		backgroundColor = index;
+	public double getBackgroundColorIndex() {
+		return backgroundColorIndex;
 	}
 
-	public int getPenColor() {
+	public void setBackgroundColor(double index) {
+		backgroundColorIndex = index;
+		backgroundColor = palette.get(index);
+	}
+
+	public Color getPenColor() {
 		return penColor;
 	}
 
-	public void setPenColor(int index) {
-		penColor = index;
+	public double getPenColorIndex() {
+		return penColorIndex;
 	}
 
-	public int getPenSize() {
+	public void setPenColor(double index) {
+		penColorIndex = index;
+		penColor = palette.get(index);
+	}
+
+	public double getPenSize() {
 		return penSize;
 	}
 
-	public void setPenSize(int pixels) {
+	public void setPenSize(double pixels) {
 		penSize = pixels;
 	}
 
-	public int getShape() {
+	public double getShape() {
 		return shape;
 	}
 
-	public void setShape(int index) {
+	public void setShape(double index) {
 		shape = index;
 	}
 

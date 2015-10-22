@@ -24,8 +24,13 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 		Command.setMaps(userDefinedCommands, variables);
 	}
 
-	public void processInput(String input) throws CommandInputException {
+	public void interpretInput(List<String> inputList) throws CommandInputException, TrigonometricException {
 		Command.setMaps(userDefinedCommands, variables);
+		parser.setTurtle(turtle); // Should this be here?
+		parser.processInput(inputList);
+	}
+
+	private List<String> removeCommentsAndWhitespace(String input) {
 		String processedInput = "";
 		for (int i = 0; i + 1 <= input.length(); i++) {
 			if (input.substring(i, i + 1).equals("#")) {
@@ -37,15 +42,9 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 				processedInput += input.substring(i, i + 1);
 			}
 		}
-
 		String[] inputArray = processedInput.trim().split("\\s+");
 		List<String> inputList = new ArrayList<String>(Arrays.asList(inputArray));
-		parser.setTurtle(turtle);
-		parser.processInput(inputList);
-		// System.out.println(parser.processInput(inputList));
-		// System.out.println("Variables: " + variables.getVariableMap());
-		// System.out.println("UserDefinedCommands: " +
-		// userDefinedCommands.getCommandMap());
+		return inputList;
 	}
 
 	public double getAngle() {
@@ -57,8 +56,8 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	}
 
 	@Override
-	public void receiveCommand(String s) throws CommandInputException {
-		processInput(s);
+	public void receiveCommand(String input) throws CommandInputException, TrigonometricException {
+		interpretInput(removeCommentsAndWhitespace(input));
 	}
 
 	@Override

@@ -8,7 +8,7 @@ public class YCor extends Command {
 	public double execute() {
 		return myTurtle.getY();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "YCoordinate";

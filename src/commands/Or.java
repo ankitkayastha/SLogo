@@ -6,12 +6,12 @@ public class Or extends Command {
 	}
 
 	public double execute() {
-		if (myParameters[0] != 0 || myParameters[1] != 0)
+		if (myParameters.get(0) != 0 || myParameters.get(1) != 0)
 			return 1;
 		else
 			return 0;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Or";

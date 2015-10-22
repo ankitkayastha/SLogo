@@ -12,6 +12,7 @@ import slogo_team03.CoordinateInterface;
 import slogo_team03.PassToFrontInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveString;
+import slogo_team03.TrigonometricException;
 import slogo_team03.VisibleInterface;
 
 import java.util.ResourceBundle;
@@ -59,13 +60,21 @@ public class CommandPrompt {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("Error");
 				alert.setHeaderText("Invalid Input");
-				if (e.getMyBadInput().isEmpty()) {
+				if (e.getBadInput().isEmpty()) {
 					alert.setContentText("Not enough parameters!");
 				} else {
-					alert.setContentText("Please check your spelling of \"" + e.getMyBadInput() + "\".");
+					alert.setContentText("Please check your spelling of \"" + e.getBadInput() + "\".");
 				}
 				alert.showAndWait();
 			}
+			catch (TrigonometricException e) {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Error");
+				alert.setHeaderText("Trigonometric Function Undefined");
+				alert.setContentText(e.getBadFunction());
+				alert.showAndWait();
+			}
+			
 		});
 	}
 	
