@@ -22,8 +22,13 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		myID = ++ID;
 		initialize();
 	}
+	
+//	public Turtle(int ID) {
+//		myID = ID;
+//		initialize();
+//	}
 
-	public void updatePalette(int index, int red, int green, int blue) {
+	public void updatePalette(double index, int red, int green, int blue) {
 		pen.updatePalette(index, red, green, blue);
 	}
 
@@ -41,27 +46,27 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		return pen.getStampList();
 	}
 
-	public void setBackground(int index) {
+	public void setBackground(double index) {
 		pen.setBackgroundColor(index);
 	}
 
-	public int getPenColor() {
-		return pen.getPenColor();
+	public double getPenColor() {
+		return pen.getPenColorIndex();
 	}
 
-	public void setPenColor(int index) {
+	public void setPenColor(double index) {
 		pen.setPenColor(index);
 	}
 
-	public void setPenSize(int pixels) {
+	public void setPenSize(double pixels) {
 		pen.setPenSize(pixels);
 	}
 
-	public int getShape() {
+	public double getShape() {
 		return pen.getShape();
 	}
 
-	public void setShape(int index) {
+	public void setShape(double index) {
 		pen.setShape(index);
 	}
 
@@ -100,7 +105,10 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 
 	public void addLine(double x0, double y0, double x1, double y1) {
 		if (pen.isPenDown()) {
-			lineList.add(new Line(format(x0), format(y0), format(x1), format(y1)));
+			Line line = new Line(format(x0), format(y0), format(x1), format(y1));
+			line.setFill(pen.getPenColor());
+			line.setStrokeWidth(pen.getPenSize());
+			lineList.add(line);
 		}
 	}
 

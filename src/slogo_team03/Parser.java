@@ -14,7 +14,7 @@ public class Parser {
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
 	private Turtle currentTurtle;
-	private Turtle copyTurtle;
+	private Turtle copyOfTurtle;
 	private List<Turtle> turtleList;
 	private boolean evaluating;
 
@@ -22,7 +22,7 @@ public class Parser {
 		userDefinedCommands = commands;
 		variables = vars;
 		factory = new CommandFactory(userDefinedCommands);
-		copyTurtle = new Turtle();
+		copyOfTurtle = new Turtle();
 		turtleList = new ArrayList<Turtle>();
 		evaluating = false;
 	}
@@ -81,13 +81,10 @@ public class Parser {
 
 		if (command instanceof To) {
 			evaluating = true;
-			// Add while loop and catch dividebyzeroexceptions, not
-			// commandinputexceptions
-
 			List<String> runList = ((SpecialCommand) command).getRunList();
 			while (!runList.isEmpty()) {
 				try {
-					copyTurtle.setTurtle(currentTurtle);
+					copyOfTurtle.setTurtle(currentTurtle);
 					processInput(((SpecialCommand) command).getRunList());
 				} catch (CommandInputException e) {
 					evaluating = false;
@@ -95,7 +92,7 @@ public class Parser {
 				}
 			}
 
-			currentTurtle.setTurtle(copyTurtle);
+			currentTurtle.setTurtle(copyOfTurtle);
 			userDefinedCommands.addCommand(((To) command).getUserCommand());
 			evaluating = false;
 			return 1;
