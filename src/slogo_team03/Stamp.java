@@ -44,6 +44,7 @@ public class Stamp {
 	}
 
 	public String toString() {
-		return "Color: (" + myColor.getRed() + ", " + myColor.getGreen() + ", " + myColor.getBlue() + ") Shape: " + myShape + ", X: " + myX + ", Y: " + myY + ", Angle: " + myAngle;
-	} 
+		return "Color: (" + myColor.getRed() + ", " + myColor.getGreen() + ", " + myColor.getBlue() + ") Shape: "
+				+ myShape + ", X: " + myX + ", Y: " + myY + ", Angle: " + myAngle;
+	}
 }

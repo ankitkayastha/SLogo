@@ -32,15 +32,15 @@ public class Pen {
 		stampList = new ArrayList<Stamp>();
 		lineList = new ArrayList<Line>();
 	}
-	
+
 	public void addToLineList(List<Line> list) {
 		lineList.addAll(list);
 	}
-	
+
 	public void clearLineList() {
 		lineList.clear();
 	}
-	
+
 	public List<Line> getLineList() {
 		return new ArrayList<Line>(lineList);
 	}
@@ -53,7 +53,7 @@ public class Pen {
 
 	public double clearStampList() {
 		if (stampList.size() > 0) {
-			printStampList();
+			// printStampList();
 			stampList.clear();
 			return 1;
 		} else {
@@ -61,11 +61,11 @@ public class Pen {
 		}
 	}
 
-	private void printStampList() {
-		for (int i = 0; i < stampList.size(); i++) {
-			System.out.println(stampList.get(i).toString());
-		}
-	}
+	// private void printStampList() {
+	// for (int i = 0; i < stampList.size(); i++) {
+	// System.out.println(stampList.get(i).toString());
+	// }
+	// }
 
 	public List<Stamp> getStampList() {
 		return stampList;

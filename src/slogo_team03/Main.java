@@ -13,7 +13,6 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws CommandInputException {
-		System.out.println(Math.tan(Math.PI / 2));
 		TurtleView view = new TurtleView();
 		stage.setScene(view.getScene());
 		stage.show();
