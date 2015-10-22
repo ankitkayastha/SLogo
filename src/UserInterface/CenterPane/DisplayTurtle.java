@@ -22,14 +22,14 @@ public class DisplayTurtle {
 	private Color lineColor;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 	private Image image = new Image(r.getString("image"));
-	
+
 	public DisplayTurtle() {
 		myCanvas = new Canvas(500, 500);
 		myCanvas.setTranslateX(0);
 		myCanvas.setTranslateY(0);
 		root = new Group();
 	}
-	
+
 	private void rotate(GraphicsContext gc, double angle, double pivotX, double pivotY) {
 		Rotate rot = new Rotate(angle, pivotX, pivotY);
 		gc.setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
@@ -38,70 +38,81 @@ public class DisplayTurtle {
 	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		Image image = getImage();
 		gc.fillRect(0, 0, 500, 500);
-		
+
 		List<Line> lineList = ci.getLineList();
 		for (int i = 0; i < lineList.size(); i++) {
 			Line line = lineList.get(i);
-			drawLine(line, getLineColor());
+			drawLine(line);
 		}
-		double xpos = 250 + ci.getX() - image.getWidth()/2;
-		double ypos = 250 - ci.getY() - image.getHeight()/2;
+		double xpos = 250 + ci.getX() - image.getWidth() / 2;
+		double ypos = 250 - ci.getY() - image.getHeight() / 2;
 		if (vi.isVisible()) {
 			drawRotatedImage(gc, image, ai.absoluteAngleFrontend(), xpos, ypos);
 		}
 	}
-	
-	
+
 	private void drawRotatedImage(GraphicsContext gc, Image image, double angle, double tlx, double tly) {
-		gc.save(); //saves current state on stack
-		rotate(gc, angle, tlx + image.getWidth() / 2, tly + image.getHeight() / 2); 
+		gc.save(); // saves current state on stack
+		rotate(gc, angle, tlx + image.getWidth() / 2, tly + image.getHeight() / 2);
 		gc.drawImage(image, tlx, tly);
 		gc.restore();
 	}
-	
-	private void drawLine(Line line, Color color) {
-		gc.setStroke(color);
+	// OLD VERSION OF METHOD:
+	// private void drawLine(Line line, Color color) {
+	// gc.setStroke(color);
+	// gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(),
+	// line.getEndX() + 250, 250 - line.getEndY());
+	// }
+
+	private void drawLine(Line line) {
+		gc.setStroke(line.getFill());
+		gc.setLineWidth(line.getStrokeWidth());
 		gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(), line.getEndX() + 250, 250 - line.getEndY());
 	}
 
 	public void setLineColor(Color color) {
 		this.lineColor = color;
 	}
+
 	public Color getLineColor() {
 		return this.lineColor;
 	}
+
 	public void makeTurtle() {
 		Image image = changeImage(r.getString("image"));
 		double width = image.getWidth();
 		double height = image.getHeight();
 		gc = myCanvas.getGraphicsContext2D();
 		gc.setFill(Color.GREEN);
-		gc.fillRect(0, 0, 500, 500);		
-		double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width/2;
-		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height/2;
-		
+		gc.fillRect(0, 0, 500, 500);
+		double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width / 2;
+		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
+
 		gc.drawImage(image, xpos, ypos);
 
 		root.getChildren().add(myCanvas);
 	}
-	
+
 	private Image changeImage(String s) {
 		return new Image(getClass().getClassLoader().getResourceAsStream(s), 40, 40, false, false);
 	}
+
 	public void setImage(String s) {
 		Image i = new Image(getClass().getClassLoader().getResourceAsStream(s), 40, 40, false, false);
 		this.image = i;
 	}
+
 	public Image getImage() {
 		System.out.println(image.toString());
 		return this.image;
 	}
+
 	public GraphicsContext getGC() {
 		return this.gc;
 	}
-	
+
 	public Group getPane() {
 		return this.root;
 	}
-	
+
 }

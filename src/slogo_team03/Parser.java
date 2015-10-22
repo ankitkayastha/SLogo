@@ -211,6 +211,7 @@ public class Parser {
 				}
 				if (succesfullyEndedParamList) {
 					continue;
+
 				} else {
 					throw new CommandInputException(current);
 				}

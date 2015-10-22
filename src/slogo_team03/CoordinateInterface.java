@@ -6,8 +6,8 @@ import javafx.scene.shape.Line;
 
 public interface CoordinateInterface {
 	public double getX();
-	
+
 	public double getY();
-	
+
 	public List<Line> getLineList();
 }
