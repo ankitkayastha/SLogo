@@ -1,9 +1,10 @@
 package slogo_team03;
 
+import javafx.scene.paint.Color;
+
 public class Stamp {
 	private Color myColor;
-	private int myPenSize;
-	private int myShape;
+	private double myShape;
 	private double myX;
 	private double myY;
 	private double myAngle;
@@ -18,11 +19,7 @@ public class Stamp {
 		myColor = color;
 	}
 
-	public void setPenSize(int penSize) {
-		myPenSize = penSize;
-	}
-
-	public void setShape(int shape) {
+	public void setShape(double shape) {
 		myShape = shape;
 	}
 
@@ -30,11 +27,7 @@ public class Stamp {
 		return myColor;
 	}
 
-	public int getMyPenSize() {
-		return myPenSize;
-	}
-
-	public int getMyShape() {
+	public double getMyShape() {
 		return myShape;
 	}
 
@@ -49,15 +42,8 @@ public class Stamp {
 	public double getMyAngle() {
 		return myAngle;
 	}
-	
+
 	public String toString() {
-		return "Color " + myColor.toString();
-		
-//		private Color myColor;
-//		private int myPenSize;
-//		private int myShape;
-//		private double myX;
-//		private double myY;
-//		private double myAngle;
-	}
+		return "Color: (" + myColor.getRed() + ", " + myColor.getGreen() + ", " + myColor.getBlue() + ") Shape: " + myShape + ", X: " + myX + ", Y: " + myY + ", Angle: " + myAngle;
+	} 
 }

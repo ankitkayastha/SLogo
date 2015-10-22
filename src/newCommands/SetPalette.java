@@ -9,11 +9,11 @@ public class SetPalette extends Command {
 
 	@Override
 	public double execute() {
-		int param0 = (int) myParameters[0];
-		int param1 = (int) myParameters[1];
-		int param2 = (int) myParameters[2];
-		int param3 = (int) myParameters[3];
-		myTurtle.updatePalette(param0, param1, param2, param3);
+		double param0 = myParameters.get(0);
+		double param1 = myParameters.get(1);
+		double param2 = myParameters.get(2);
+		double param3 = myParameters.get(3);
+		myTurtle.updatePalette(param0, (int) param1, (int) param2, (int) param3);
 		return param0;
 	}
 
