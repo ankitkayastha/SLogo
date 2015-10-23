@@ -57,9 +57,7 @@ public class CommandPrompt {
 			try {
 				bottomController.runButtonAction(field, rs, ci, ai, pi, vi, pf);
 			} catch (CommandInputException e) {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("Error");
-				alert.setHeaderText("Invalid Input");
+				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, "Error", "Invalid Input");
 				if (e.getBadInput().isEmpty()) {
 					alert.setContentText("Not enough parameters!");
 				} else {
@@ -68,10 +66,8 @@ public class CommandPrompt {
 				alert.showAndWait();
 			}
 			catch (TrigonometricException e) {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("Error");
-				alert.setHeaderText("Trigonometric Function Undefined");
-				alert.setContentText(e.getBadFunction());
+				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, "Error", "Trigonometric Function Undefined");
+				alert.setContentText(e.getBadFunction()); 
 				alert.showAndWait();
 			}
 			

@@ -75,17 +75,23 @@ public class BottomPane {
 	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai,
 			PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf)
 					throws CommandInputException, TrigonometricException {
-		ListView<String> list = rightPane.getListView();
+		
+		ListView<String> history = rightPane.getListView();
 		List<ListView<String>> myLists = left.getListViewObs();
+		ListView<String> userDefinedNames = myLists.get(0);
+		ObservableList<String> userDefined = left.getListViewObservable(0);
+		
+		
+		
 		ListView<String> variableNames = myLists.get(1);
 		ObservableList<String> varNames = left.getListViewObservable(1);
 		ListView<String> variableVals = myLists.get(2);
 		ObservableList<String> varObs = left.getListViewObservable(2);
-		ObservableList<String> myObsList = rightPane.getObs();
+		ObservableList<String> commandHist = rightPane.getObs();
 		String command = field.getText();
 		commandHistory.add(command);
-		myObsList.add(field.getText());
-		list.setItems(myObsList);
+		commandHist.add(field.getText());
+		history.setItems(commandHist);
 
 		// pass updated variables
 
@@ -94,7 +100,15 @@ public class BottomPane {
 		}
 
 		rs.receiveCommand(command);
-
+		
+		/*Map<String, String> userCommands = pf.getUserDefinedCommands();
+		System.out.println(userCommands.toString());
+		userDefined.clear();
+		for (String s: userCommands.keySet()) {
+			userDefined.add(userCommands.get(s));
+		}
+		userDefinedNames.setItems(userDefined); */
+		
 		Map<String, Double> updatedMap = pf.getVariableMap();
 		varObs.clear();
 		varNames.clear();
