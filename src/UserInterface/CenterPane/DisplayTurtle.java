@@ -3,15 +3,11 @@ package UserInterface.CenterPane;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
 import slogo_team03.AngleInterface;
 import slogo_team03.CoordinateInterface;
 import slogo_team03.PenUpDownInterface;
@@ -43,8 +39,7 @@ public class DisplayTurtle {
 
 	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		tip.update(ci, ai, pi, vi, rect);
-		Image image = getImage();
-		gc.fillRect(0, 0, 500, 500);
+		gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 
 		List<Line> lineList = ci.getLineList();
 		for (int i = 0; i < lineList.size(); i++) {
@@ -84,14 +79,10 @@ public class DisplayTurtle {
 		gc = myCanvas.getGraphicsContext2D();
 		gc.setFill(Color.GREEN);
 		gc.fillRect(0, 0, 500, 500);
-
-
 		double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width / 2;
 		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
 		rect.setX(xpos);
 		rect.setY(ypos);
-		
-
 		root.getChildren().add(myCanvas);
 		root.getChildren().add(rect);
 	}

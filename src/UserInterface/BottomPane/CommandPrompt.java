@@ -2,11 +2,9 @@ package UserInterface.BottomPane;
 
 import controller.BottomPane;
 import javafx.scene.Group;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Tooltip;
 import slogo_team03.AngleInterface;
 import slogo_team03.CommandInputException;
 import slogo_team03.CoordinateInterface;
