@@ -10,7 +10,7 @@ import slogo_team03.CommandInputException;
 import slogo_team03.CoordinateInterface;
 import slogo_team03.PassToFrontInterface;
 import slogo_team03.PenUpDownInterface;
-import slogo_team03.ReceiveString;
+import slogo_team03.ReceiveFromFront;
 import slogo_team03.TrigonometricException;
 import slogo_team03.VisibleInterface;
 
@@ -35,7 +35,7 @@ public class CommandPrompt {
 		return field;
 	}
 	
-	public void makeCommandPromptArea(BottomPane bottomController, DisplayTurtle display, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) {
+	public void makeCommandPromptArea(BottomPane bottomController, DisplayTurtle display, ReceiveFromFront rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) {
 		ButtonHandler buttonHandler = new ButtonHandler();
 		Button[] buttonArr;
 		field.setPrefSize(Double.parseDouble(r.getString("inputBoxWidth")), Double.parseDouble(r.getString("inputBoxHeight")));

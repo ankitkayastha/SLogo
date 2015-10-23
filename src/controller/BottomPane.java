@@ -16,7 +16,7 @@ import slogo_team03.CommandInputException;
 import slogo_team03.CoordinateInterface;
 import slogo_team03.PassToFrontInterface;
 import slogo_team03.PenUpDownInterface;
-import slogo_team03.ReceiveString;
+import slogo_team03.ReceiveFromFront;
 import slogo_team03.TrigonometricException;
 import slogo_team03.VisibleInterface;
 
@@ -72,27 +72,27 @@ public class BottomPane {
 		}
 	}
 
-	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai,
+	public void runButtonAction(TextArea field, ReceiveFromFront rs, CoordinateInterface ci, AngleInterface ai,
 			PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf)
 					throws CommandInputException, TrigonometricException {
 		
-		ListView<String> history = rightPane.getListView();
-		List<ListView<String>> myLists = left.getListViewObs();
-		ListView<String> userDefinedNames = myLists.get(0);
+		List<ListView<String>> history = rightPane.getListView();
+		ListView<String> userDefinedNames = left.getListView(0); 
 		ObservableList<String> userDefined = left.getListViewObservable(0);
 		
 		
 		
-		ListView<String> variableNames = myLists.get(1);
+		ListView<String> variableNames = left.getListView(1); //myLists.get(1);
 		ObservableList<String> varNames = left.getListViewObservable(1);
-		ListView<String> variableVals = myLists.get(2);
+		ListView<String> variableVals = left.getListView(2); 
 		ObservableList<String> varObs = left.getListViewObservable(2);
-		ObservableList<String> commandHist = rightPane.getObs();
+		List<ObservableList<String>> commandHist = rightPane.getObs();
 		String command = field.getText();
 		commandHistory.add(command);
-		commandHist.add(field.getText());
-		history.setItems(commandHist);
-
+		for (int i = 0; i < history.size(); i++) {
+			commandHist.get(i).add(field.getText());
+			history.get(i).setItems(commandHist.get(i));
+		}
 		// pass updated variables
 
 		for (int i = 0; i < varNames.size(); i++) {

@@ -6,22 +6,29 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+
 import java.util.ResourceBundle;
 import controller.TopPane;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import slogo_team03.AngleInterface;
 import slogo_team03.CoordinateInterface;
 import slogo_team03.PenUpDownInterface;
-import slogo_team03.ReceiveString;
+import slogo_team03.ReceiveFromFront;
 import slogo_team03.VisibleInterface;
 
 public class MenuHandler {
@@ -32,14 +39,36 @@ public class MenuHandler {
 		return this.root;
 	}
 	
-	public void makeMenuBar(TopPane c, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+	public void makeMenuBar(TopPane c, ReceiveFromFront rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
-		
+		HBox box = new HBox();
 		Menu backgroundColor = new Menu(r.getString("backgroundTitle"));
+		
+		ListView<String> list = new ListView<String>();
+		list.setPrefSize(120, 200);
+		ListView<Integer> indeces = new ListView<Integer>();
+		indeces.setPrefSize(50,  200);
+		ObservableList<Integer> ind = FXCollections.observableArrayList();
+		for (int i = 0; i < 10; i++) {
+			ind.add(i);
+		}
+		ObservableList<String> obs = FXCollections.observableArrayList("salmon", "green", "blue", "red", 
+				"chocolate", "yellow", "pink", "purple", "orange");
+		list.setItems(obs);
+		indeces.setItems(ind);
+		list.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+			@Override
+			public ListCell<String> call (ListView<String> list) {
+				return new ColorRectCell();
+			}
+		}
+		);
+		box.getChildren().addAll(indeces, list);
 		ColorPicker cp = new ColorPicker(Color.WHITE);
 		MenuItem changeColor = new MenuItem();
-		changeColor.setGraphic(cp);
+		//changeColor.setGraphic(cp);
+		changeColor.setGraphic(box);
 		backgroundColor.getItems().add(changeColor);
 		cp.setOnAction((event) -> {
 			c.changeBackgroundAction(cp.getValue(), ci, ai, pi, vi);
@@ -92,7 +121,7 @@ public class MenuHandler {
 	}
 	
 	
-	private Menu addLanguageItems(Menu menu, String[] options, TopPane controller, ReceiveString rs) {
+	private Menu addLanguageItems(Menu menu, String[] options, TopPane controller, ReceiveFromFront rs) {
 		for (String s:options) {
 			MenuItem m = new MenuItem(s);
 			m.setOnAction((event) -> controller.changeLanguage(s, rs));

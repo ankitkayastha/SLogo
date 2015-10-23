@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import slogo_team03.AngleInterface;
 import slogo_team03.CoordinateInterface;
 import slogo_team03.PenUpDownInterface;
-import slogo_team03.ReceiveString;
+import slogo_team03.ReceiveFromFront;
 import slogo_team03.VisibleInterface;
 
 public class TopPane {
@@ -26,7 +26,7 @@ public class TopPane {
 		turtle.setLineColor(c);
 	}
 
-	public void changeLanguage(String s, ReceiveString rs) {
+	public void changeLanguage(String s, ReceiveFromFront rs) {
 		rs.receiveLanguage(s);
 	}
 

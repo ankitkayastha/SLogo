@@ -23,14 +23,13 @@ public class TurtleView {
 		LeftContent left = new LeftContent();
 		CommandHistory history = new CommandHistory();
 		CommandPrompt prompt = new CommandPrompt();
-		DisplayTurtle turtleDisplay = new DisplayTurtle();
+		DisplayTurtle turtleDisplay = new DisplayTurtle(world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle());
 		BottomPane bottomController = new BottomPane(left, history, turtleDisplay);
 		prompt.makeCommandPromptArea(bottomController, turtleDisplay, world, world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle(), world);
 		history.makeListView(prompt.getField());
 		TopPane topController = new TopPane(turtleDisplay);
 		MenuHandler menu = new MenuHandler();
 		menu.makeMenuBar(topController, world, world.getTurtle(), world.getTurtle(),world.getTurtle(),world.getTurtle());
-		turtleDisplay.makeTurtle(world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle());
 		myPane.setCenter(turtleDisplay.getGroup());
 		myPane.setLeft(left.makeListViews());
 		myPane.setRight(history.getRoot());

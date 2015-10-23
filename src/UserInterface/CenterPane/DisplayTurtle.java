@@ -26,16 +26,14 @@ public class DisplayTurtle {
 	private Image image = new Image(r.getString("image"));
 	private CreateTooltip tip;
 	
-	public DisplayTurtle() {
+	public DisplayTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		myCanvas = new Canvas(Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 		myCanvas.setTranslateX(Double.parseDouble(r.getString("canvasTranslateX")));
 		myCanvas.setTranslateY(Double.parseDouble(r.getString("canvasTranslateY")));
-		root = new Group();
 		rect = new Rectangle(40, 40);
 		tip = new CreateTooltip();
-	
+		root = makeTurtle(ci, ai, pi, vi);
 	}
-
 
 	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		tip.update(ci, ai, pi, vi, rect);
@@ -69,7 +67,8 @@ public class DisplayTurtle {
 		return this.lineColor;
 	}
 	
-	public void makeTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+	private Group makeTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+		Group root = new Group();
 		Image image = changeImage(r.getString("image"));
 		tip.update(ci, ai, pi, vi, rect);
 		rect.setFill(new ImagePattern(image));
@@ -85,6 +84,7 @@ public class DisplayTurtle {
 		rect.setY(ypos);
 		root.getChildren().add(myCanvas);
 		root.getChildren().add(rect);
+		return root;
 	}
 
 	private Image changeImage(String s) {
@@ -96,7 +96,6 @@ public class DisplayTurtle {
 		Image i = new Image(getClass().getClassLoader().getResourceAsStream(s), 40, 40, false, false);
 		this.image = i;
 		rect.setFill(new ImagePattern(this.image));
-		
 	}
 
 	public Image getImage() {
