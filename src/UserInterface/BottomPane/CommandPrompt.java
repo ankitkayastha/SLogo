@@ -51,7 +51,7 @@ public class CommandPrompt {
 		field.setOnKeyPressed(event -> bottomController.handleKeyInput(event.getCode(), field));
 		
 		clear.setOnAction((event) -> {
-			bottomController.clearButtonAction(field, display.getPane());
+			bottomController.clearButtonAction(field, display.getGroup());
 		}); 
 		addToRoot(field, buttonArr, root);
 		run.setOnAction((event) -> {

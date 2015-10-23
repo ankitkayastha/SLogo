@@ -25,23 +25,25 @@ public class DisplayTurtle {
 	private Group root;
 	private GraphicsContext gc;
 	private Color lineColor;
-	private StackPane stack;
 	private Rectangle rect;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 	private Image image = new Image(r.getString("image"));
-
+	private CreateTooltip tip;
+	
 	public DisplayTurtle() {
-		myCanvas = new Canvas(500, 500);
-		myCanvas.setTranslateX(0);
-		myCanvas.setTranslateY(0);
+		myCanvas = new Canvas(Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
+		myCanvas.setTranslateX(Double.parseDouble(r.getString("canvasTranslateX")));
+		myCanvas.setTranslateY(Double.parseDouble(r.getString("canvasTranslateY")));
 		root = new Group();
-		stack = new StackPane();
+		rect = new Rectangle(40, 40);
+		tip = new CreateTooltip();
+	
 	}
 
 
 	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+		tip.update(ci, ai, pi, vi, rect);
 		Image image = getImage();
-		
 		gc.fillRect(0, 0, 500, 500);
 
 		List<Line> lineList = ci.getLineList();
@@ -51,9 +53,6 @@ public class DisplayTurtle {
 		}
 		double xpos = 250 + ci.getX() - rect.getWidth() / 2;
 		double ypos = 250 - ci.getY() - rect.getHeight() / 2;
-		System.out.println("XPos" + xpos);
-		System.out.println("YPos" + ypos);
-
 		if (vi.isVisible()) {
 			rect.setX(xpos);
 			rect.setY(ypos);
@@ -74,13 +73,12 @@ public class DisplayTurtle {
 	public Color getLineColor() {
 		return this.lineColor;
 	}
-
-	public void makeTurtle() {
+	
+	public void makeTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		Image image = changeImage(r.getString("image"));
-		rect = new Rectangle(40, 40);
+		tip.update(ci, ai, pi, vi, rect);
 		rect.setFill(new ImagePattern(image));
-		Tooltip t = new Tooltip("Turtle X Coordinate: ");
-		Tooltip.install(rect, t);
+
 		double width = image.getWidth();
 		double height = image.getHeight();
 		gc = myCanvas.getGraphicsContext2D();
@@ -90,14 +88,11 @@ public class DisplayTurtle {
 
 		double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width / 2;
 		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
-		System.out.println(xpos);
-		System.out.println(ypos);
 		rect.setX(xpos);
 		rect.setY(ypos);
 		
 
-		stack.getChildren().add(myCanvas);
-		root.getChildren().add(stack);
+		root.getChildren().add(myCanvas);
 		root.getChildren().add(rect);
 	}
 
@@ -121,7 +116,7 @@ public class DisplayTurtle {
 		return this.gc;
 	}
 
-	public Group getPane() {
+	public Group getGroup() {
 		return this.root;
 	}
 
