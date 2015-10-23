@@ -28,7 +28,7 @@ public class TopPane {
 		turtle.getGC().setFill(c);
 		turtle.getGC().fillRect(0, 0, 500, 500);
 
-		turtle.move(ci, ai, pi, vi);
+		//turtle.move(ci, ai, pi, vi);
 		// turtle.getPane().setBackground(new Background(new
 		// BackgroundFill(Color.web(c.toString().substring(0, 8)),
 		// CornerRadii.EMPTY, Insets.EMPTY)));
@@ -45,6 +45,6 @@ public class TopPane {
 	public void changeImageAction(String s, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi,
 			VisibleInterface vi) {
 		turtle.setImage(s);
-		turtle.move(ci, ai, pi, vi);
+		//turtle.move(ci, ai, pi, vi);
 	}
 }

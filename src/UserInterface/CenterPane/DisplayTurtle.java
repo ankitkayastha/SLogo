@@ -3,9 +3,14 @@ package UserInterface.CenterPane;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import slogo_team03.AngleInterface;
 import slogo_team03.CoordinateInterface;
@@ -20,6 +25,8 @@ public class DisplayTurtle {
 	private Group root;
 	private GraphicsContext gc;
 	private Color lineColor;
+	private StackPane stack;
+	private Rectangle rect;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 	private Image image = new Image(r.getString("image"));
 
@@ -28,15 +35,13 @@ public class DisplayTurtle {
 		myCanvas.setTranslateX(0);
 		myCanvas.setTranslateY(0);
 		root = new Group();
+		stack = new StackPane();
 	}
 
-	private void rotate(GraphicsContext gc, double angle, double pivotX, double pivotY) {
-		Rotate rot = new Rotate(angle, pivotX, pivotY);
-		gc.setTransform(rot.getMxx(), rot.getMyx(), rot.getMxy(), rot.getMyy(), rot.getTx(), rot.getTy());
-	}
 
 	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		Image image = getImage();
+		
 		gc.fillRect(0, 0, 500, 500);
 
 		List<Line> lineList = ci.getLineList();
@@ -44,25 +49,17 @@ public class DisplayTurtle {
 			Line line = lineList.get(i);
 			drawLine(line);
 		}
-		double xpos = 250 + ci.getX() - image.getWidth() / 2;
-		double ypos = 250 - ci.getY() - image.getHeight() / 2;
+		double xpos = 250 + ci.getX() - rect.getWidth() / 2;
+		double ypos = 250 - ci.getY() - rect.getHeight() / 2;
+		System.out.println("XPos" + xpos);
+		System.out.println("YPos" + ypos);
+
 		if (vi.isVisible()) {
-			drawRotatedImage(gc, image, ai.absoluteAngleFrontend(), xpos, ypos);
+			rect.setX(xpos);
+			rect.setY(ypos);
+			rect.setRotate(ai.absoluteAngleFrontend());
 		}
 	}
-
-	private void drawRotatedImage(GraphicsContext gc, Image image, double angle, double tlx, double tly) {
-		gc.save(); // saves current state on stack
-		rotate(gc, angle, tlx + image.getWidth() / 2, tly + image.getHeight() / 2);
-		gc.drawImage(image, tlx, tly);
-		gc.restore();
-	}
-	// OLD VERSION OF METHOD:
-	// private void drawLine(Line line, Color color) {
-	// gc.setStroke(color);
-	// gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(),
-	// line.getEndX() + 250, 250 - line.getEndY());
-	// }
 
 	private void drawLine(Line line) {
 		gc.setStroke(line.getFill());
@@ -80,17 +77,28 @@ public class DisplayTurtle {
 
 	public void makeTurtle() {
 		Image image = changeImage(r.getString("image"));
+		rect = new Rectangle(40, 40);
+		rect.setFill(new ImagePattern(image));
+		Tooltip t = new Tooltip("Turtle X Coordinate: ");
+		Tooltip.install(rect, t);
 		double width = image.getWidth();
 		double height = image.getHeight();
 		gc = myCanvas.getGraphicsContext2D();
 		gc.setFill(Color.GREEN);
 		gc.fillRect(0, 0, 500, 500);
+
+
 		double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width / 2;
 		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
+		System.out.println(xpos);
+		System.out.println(ypos);
+		rect.setX(xpos);
+		rect.setY(ypos);
+		
 
-		gc.drawImage(image, xpos, ypos);
-
-		root.getChildren().add(myCanvas);
+		stack.getChildren().add(myCanvas);
+		root.getChildren().add(stack);
+		root.getChildren().add(rect);
 	}
 
 	private Image changeImage(String s) {
@@ -98,12 +106,14 @@ public class DisplayTurtle {
 	}
 
 	public void setImage(String s) {
+		rect.setFill(Color.WHITE);
 		Image i = new Image(getClass().getClassLoader().getResourceAsStream(s), 40, 40, false, false);
 		this.image = i;
+		rect.setFill(new ImagePattern(this.image));
+		
 	}
 
 	public Image getImage() {
-		System.out.println(image.toString());
 		return this.image;
 	}
 

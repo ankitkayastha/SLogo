@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import slogo_team03.AngleInterface;
 import slogo_team03.CommandInputException;
 import slogo_team03.CoordinateInterface;
@@ -46,6 +47,7 @@ public class CommandPrompt {
 		buttonArr = buttonHandler.makeButtons(2, titles, translateX, translateY);
 		Button clear = buttonArr[1];
 		Button run = buttonArr[0];
+
 		field.setOnKeyPressed(event -> bottomController.handleKeyInput(event.getCode(), field));
 		
 		clear.setOnAction((event) -> {
@@ -57,16 +59,16 @@ public class CommandPrompt {
 			try {
 				bottomController.runButtonAction(field, rs, ci, ai, pi, vi, pf);
 			} catch (CommandInputException e) {
-				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, "Error", "Invalid Input");
+				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, r.getString("errorString"), r.getString("invalid"));
 				if (e.getBadInput().isEmpty()) {
-					alert.setContentText("Not enough parameters!");
+					alert.setContentText(r.getString("parameters"));
 				} else {
 					alert.setContentText("Please check your spelling of \"" + e.getBadInput() + "\".");
 				}
 				alert.showAndWait();
 			}
 			catch (TrigonometricException e) {
-				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, "Error", "Trigonometric Function Undefined");
+				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, r.getString("errorString"), r.getString("trig"));
 				alert.setContentText(e.getBadFunction()); 
 				alert.showAndWait();
 			}
