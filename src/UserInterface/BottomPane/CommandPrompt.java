@@ -2,7 +2,6 @@ package UserInterface.BottomPane;
 
 import controller.BottomPane;
 import javafx.scene.Group;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -46,10 +45,11 @@ public class CommandPrompt {
 		buttonArr = buttonHandler.makeButtons(2, titles, translateX, translateY);
 		Button clear = buttonArr[1];
 		Button run = buttonArr[0];
+
 		field.setOnKeyPressed(event -> bottomController.handleKeyInput(event.getCode(), field));
 		
 		clear.setOnAction((event) -> {
-			bottomController.clearButtonAction(field, display.getPane());
+			bottomController.clearButtonAction(field, display.getGroup());
 		}); 
 		addToRoot(field, buttonArr, root);
 		run.setOnAction((event) -> {
@@ -57,21 +57,17 @@ public class CommandPrompt {
 			try {
 				bottomController.runButtonAction(field, rs, ci, ai, pi, vi, pf);
 			} catch (CommandInputException e) {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("Error");
-				alert.setHeaderText("Invalid Input");
+				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, r.getString("errorString"), r.getString("invalid"));
 				if (e.getBadInput().isEmpty()) {
-					alert.setContentText("Not enough parameters!");
+					alert.setContentText(r.getString("parameters"));
 				} else {
 					alert.setContentText("Please check your spelling of \"" + e.getBadInput() + "\".");
 				}
 				alert.showAndWait();
 			}
 			catch (TrigonometricException e) {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("Error");
-				alert.setHeaderText("Trigonometric Function Undefined");
-				alert.setContentText(e.getBadFunction());
+				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, r.getString("errorString"), r.getString("trig"));
+				alert.setContentText(e.getBadFunction()); 
 				alert.showAndWait();
 			}
 			

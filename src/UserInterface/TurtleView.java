@@ -30,8 +30,8 @@ public class TurtleView {
 		TopPane topController = new TopPane(turtleDisplay);
 		MenuHandler menu = new MenuHandler();
 		menu.makeMenuBar(topController, world, world.getTurtle(), world.getTurtle(),world.getTurtle(),world.getTurtle());
-		turtleDisplay.makeTurtle();
-		myPane.setCenter(turtleDisplay.getPane());
+		turtleDisplay.makeTurtle(world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle());
+		myPane.setCenter(turtleDisplay.getGroup());
 		myPane.setLeft(left.makeListViews());
 		myPane.setRight(history.getRoot());
 		myPane.setTop(menu.getRoot());
