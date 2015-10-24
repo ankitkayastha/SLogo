@@ -63,6 +63,7 @@ public class CommandPrompt {
 			try {
 				bottomController.runButtonAction(field, rs, pf);
 				display.move(ci, ai, pi, vi);
+				
 			} catch (CommandInputException e) {
 				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, r.getString("errorString"), r.getString("invalid"));
 				if (e.getBadInput().isEmpty()) {
