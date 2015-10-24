@@ -49,9 +49,6 @@ public class LeftContent {
 		return myListViewObjects.get(index);
 	}
 	
-	public List<ListView<String>> getListViewObs() {
-		return myListViewObjects;
-	}
 	private void addToRoot(List<ListView<String>> listView, Text[] textArr, Group root) {
 		for (ListView<String> list: listView) {
 			root.getChildren().add(list);

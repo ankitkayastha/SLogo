@@ -7,7 +7,7 @@ import java.util.Map;
 
 import commands.Command;
 
-public class TurtleWorld implements ReceiveString, PassToFrontInterface {
+public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 	private Turtle turtle;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
