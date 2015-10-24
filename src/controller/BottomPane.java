@@ -72,8 +72,7 @@ public class BottomPane {
 		}
 	}
 
-	public void runButtonAction(TextArea field, ReceiveFromFront rs, CoordinateInterface ci, AngleInterface ai,
-			PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf)
+	public void runButtonAction(TextArea field, ReceiveFromFront rs, PassToFrontInterface pf)
 					throws CommandInputException, TrigonometricException {
 		
 		List<ListView<String>> history = rightPane.getListView();
@@ -119,7 +118,6 @@ public class BottomPane {
 		variableVals.setItems(varObs);
 		variableNames.setItems(varNames);
 
-		display.move(ci, ai, pi, vi);
 		field.clear();
 	}
 

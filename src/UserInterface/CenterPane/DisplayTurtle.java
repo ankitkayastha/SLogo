@@ -1,6 +1,7 @@
 package UserInterface.CenterPane;
 
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -13,8 +14,8 @@ import slogo_team03.CoordinateInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.VisibleInterface;
 
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*; 
+
 
 public class DisplayTurtle {
 	private Canvas myCanvas;
@@ -82,8 +83,7 @@ public class DisplayTurtle {
 		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
 		rect.setX(xpos);
 		rect.setY(ypos);
-		root.getChildren().add(myCanvas);
-		root.getChildren().add(rect);
+		root.getChildren().addAll(myCanvas, rect);
 		return root;
 	}
 

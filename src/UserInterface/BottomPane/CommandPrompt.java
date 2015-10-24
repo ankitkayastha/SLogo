@@ -2,6 +2,7 @@ package UserInterface.BottomPane;
 
 import controller.BottomPane;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -14,6 +15,8 @@ import slogo_team03.ReceiveFromFront;
 import slogo_team03.TrigonometricException;
 import slogo_team03.VisibleInterface;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import UserInterface.CenterPane.DisplayTurtle;
@@ -22,7 +25,6 @@ public class CommandPrompt {
 	private Group root;
 	private TextArea field;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.BottomPane/bottomResource");
-	
 	public CommandPrompt() {
 		root = new Group();
 		field = new TextArea();
@@ -51,11 +53,16 @@ public class CommandPrompt {
 		clear.setOnAction((event) -> {
 			bottomController.clearButtonAction(field, display.getGroup());
 		}); 
-		addToRoot(field, buttonArr, root);
+		List<Node> nodeList = new ArrayList<Node>();
+		nodeList.add(field);
+		for (Button button: buttonArr)
+			nodeList.add(button);
+		root.getChildren().addAll(nodeList);
 		run.setOnAction((event) -> {
 			
 			try {
-				bottomController.runButtonAction(field, rs, ci, ai, pi, vi, pf);
+				bottomController.runButtonAction(field, rs, pf);
+				display.move(ci, ai, pi, vi);
 			} catch (CommandInputException e) {
 				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, r.getString("errorString"), r.getString("invalid"));
 				if (e.getBadInput().isEmpty()) {
@@ -74,10 +81,4 @@ public class CommandPrompt {
 		});
 	}
 	
-	private void addToRoot(TextArea field, Button[] buttonArr, Group root) {
-		for (int i = 0; i < buttonArr.length; i++) {
-			root.getChildren().add(buttonArr[i]);
-		}
-		root.getChildren().add(field);
-	}
 }
