@@ -10,7 +10,7 @@ import controller.BottomPane;
 import controller.TopPane;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import slogo_team03.TurtleWorld;
+import slogo_team03.TurtleModel;
 
 
 public class TurtleView {
@@ -18,7 +18,7 @@ public class TurtleView {
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface/TurtleViewResource");
 	
 	public TurtleView() {
-		TurtleWorld world = new TurtleWorld();
+		TurtleModel world = new TurtleModel();
 		BorderPane myPane = new BorderPane();
 		LeftContent left = new LeftContent();
 		CommandHistory history = new CommandHistory();

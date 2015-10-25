@@ -1,77 +1,88 @@
 package slogo_team03;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.Stack;
 
 import commands.Command;
+import javafx.scene.shape.Line;
 
-public class TurtleWorld implements ReceiveString, PassToFrontInterface {
-	private Turtle turtle;
-	private UserDefinedCommands userDefinedCommands;
-	private UserDefinedVariables variables;
-	private Parser parser;
-	private TurtleMap turtles;
+public class TurtleWorld {
+	private List<Turtle> myTurtleList;
+	private List<Integer> myActiveList;
+	private List<Integer> myTemporaryList;
+	private List<Line> myLineList;
+	private Stack<List<Integer>> temporaryListStack;
 
 	public TurtleWorld() {
-		userDefinedCommands = new UserDefinedCommands();
-		variables = new UserDefinedVariables();
-		parser = new Parser(userDefinedCommands, variables);
-		turtle = new Turtle();
-		turtles = new TurtleMap();
-		turtles.addTurtle(turtle);
-		Command.setMaps(userDefinedCommands, variables);
+		Turtle turtle = new Turtle();
+		myTurtleList = new ArrayList<Turtle>();
+		myTurtleList.add(turtle);
+		myActiveList = new ArrayList<Integer>();
+		myTemporaryList = new ArrayList<Integer>();
+		temporaryListStack = new Stack<List<Integer>>();
 	}
 
-	public void interpretInput(List<String> inputList) throws CommandInputException, TrigonometricException {
-		Command.setMaps(userDefinedCommands, variables);
-		parser.setTurtle(turtle); // Should this be here?
-		parser.processInput(inputList);
+	public Turtle firstTurtle() {
+		return myTurtleList.get(0);
 	}
 
-	private List<String> removeCommentsAndWhitespace(String input) {
-		String processedInput = "";
-		for (int i = 0; i + 1 <= input.length(); i++) {
-			if (input.substring(i, i + 1).equals("#")) {
-				i++;
-				while (i + 1 < input.length() && !input.substring(i, i + 1).equals("\n")) {
-					i++;
-				}
-			} else {
-				processedInput += input.substring(i, i + 1);
-			}
+	public void setActiveList(List<Integer> activeList) {
+		myActiveList = new ArrayList<Integer>(activeList);
+	}
+
+	public void setTemporaryList(List<Integer> temporaryList) {
+		if (temporaryListStack.isEmpty()) {
+			myTemporaryList = new ArrayList<Integer>(temporaryList);
+		} else {
+			temporaryListStack.push(new ArrayList<Integer>(myTemporaryList));
+			myTemporaryList = new ArrayList<Integer>(temporaryList);
 		}
-		String[] inputArray = processedInput.trim().split("\\s+");
-		List<String> inputList = new ArrayList<String>(Arrays.asList(inputArray));
-		return inputList;
 	}
 
-	public double getAngle() {
-		return turtle.absoluteAngleFrontend();
+	public void deleteTemporaryList() {
+		if (temporaryListStack.isEmpty()) {
+			myTemporaryList.clear();
+		} else {
+			myTemporaryList = new ArrayList<Integer>(temporaryListStack.pop());
+		}
 	}
 
-	public Turtle getTurtle() {
-		return turtle;
+	public List<Line> getLineList() {
+		myLineList.clear();
+		for (Turtle t : myTurtleList) {
+			myLineList.addAll(t.getLineList());
+		}
+		return myLineList;
 	}
 
-	@Override
-	public void receiveCommand(String input) throws CommandInputException, TrigonometricException {
-		interpretInput(removeCommentsAndWhitespace(input));
+	// public void executeActiveTurtles(Command command) {
+	// if (command instanceof TurtleCommand) {
+	//
+	// }
+	// List<Turtle> turtleList = getTurtleList(myActiveList);
+	// for
+	//
+	// }
+
+	public List<Turtle> getActiveList() {
+		List<Turtle> turtleList = new ArrayList<Turtle>();
+		for (Integer I : myActiveList) {
+			turtleList.add(myTurtleList.get(I));
+		}
+		return turtleList;
 	}
 
-	@Override
-	public void receiveLanguage(String language) {
-		parser.processLanguage(language);
+	public List<Turtle> getTurtleList() {
+		return myTurtleList;
 	}
 
-	@Override
-	public Map<String, Double> getVariableMap() {
-		return variables.getVariableMap();
+	public List<Turtle> createTurtleList(List<Integer> turtleIndexList) {
+		List<Turtle> turtleList = new ArrayList<Turtle>();
+		for (int i = 0; i < turtleIndexList.size(); i++) {
+			turtleList.add(myTurtleList.get(turtleIndexList.get(i)));
+		}
+		return turtleList;
 	}
 
-	@Override
-	public Map<String, String> getUserDefinedCommands() {
-		return null;
-	}
 }

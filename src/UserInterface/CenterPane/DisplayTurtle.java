@@ -40,10 +40,10 @@ public class DisplayTurtle {
 		gc.fillRect(0, 0, 500, 500);
 
 		List<Line> lineList = ci.getLineList();
-		for (int i = 0; i < lineList.size(); i++) {
-			Line line = lineList.get(i);
-			drawLine(line);
-		}
+//		for (int i = 0; i < lineList.size(); i++) {
+//			Line line = lineList.get(i);
+//			drawLine(line);
+//		} System.out.println();
 		double xpos = 250 + ci.getX() - image.getWidth() / 2;
 		double ypos = 250 - ci.getY() - image.getHeight() / 2;
 		if (vi.isVisible()) {
@@ -67,6 +67,7 @@ public class DisplayTurtle {
 	private void drawLine(Line line) {
 		gc.setStroke(line.getFill());
 		gc.setLineWidth(line.getStrokeWidth());
+		System.out.print(line.getFill() + ", ");
 		gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(), line.getEndX() + 250, 250 - line.getEndY());
 	}
 

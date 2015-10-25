@@ -23,61 +23,69 @@ public class CommandPrompt {
 	private Group root;
 	private TextArea field;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.BottomPane/bottomResource");
-	
+
 	public CommandPrompt() {
 		root = new Group();
 		field = new TextArea();
 	}
+
 	public Group getRoot() {
 		return root;
 	}
-	
+
 	public TextArea getField() {
 		return field;
 	}
-	
-	public void makeCommandPromptArea(BottomPane bottomController, DisplayTurtle display, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) {
+
+	public void makeCommandPromptArea(BottomPane bottomController, DisplayTurtle display, ReceiveString rs,
+			CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi,
+			PassToFrontInterface pf) {
 		ButtonHandler buttonHandler = new ButtonHandler();
 		Button[] buttonArr;
-		field.setPrefSize(Double.parseDouble(r.getString("inputBoxWidth")), Double.parseDouble(r.getString("inputBoxHeight")));
-		String[] titles = {r.getString("runTitle"), r.getString("clearTitle")};
-		double[] translateX = {Double.parseDouble(r.getString("runTranslateX")), Double.parseDouble(r.getString("clearTranslateX"))};
-		double[] translateY = {Double.parseDouble(r.getString("runTranslateY")), Double.parseDouble(r.getString("clearTranslateY"))};
+		field.setPrefSize(Double.parseDouble(r.getString("inputBoxWidth")),
+				Double.parseDouble(r.getString("inputBoxHeight")));
+		String[] titles = { r.getString("runTitle"), r.getString("clearTitle") };
+		double[] translateX = { Double.parseDouble(r.getString("runTranslateX")),
+				Double.parseDouble(r.getString("clearTranslateX")) };
+		double[] translateY = { Double.parseDouble(r.getString("runTranslateY")),
+				Double.parseDouble(r.getString("clearTranslateY")) };
 		buttonArr = buttonHandler.makeButtons(2, titles, translateX, translateY);
 		Button clear = buttonArr[1];
 		Button run = buttonArr[0];
 		field.setOnKeyPressed(event -> bottomController.handleKeyInput(event.getCode(), field));
-		
+
 		clear.setOnAction((event) -> {
 			bottomController.clearButtonAction(field, display.getPane());
-		}); 
+		});
 		addToRoot(field, buttonArr, root);
 		run.setOnAction((event) -> {
-			
-			try {
-				bottomController.runButtonAction(field, rs, ci, ai, pi, vi, pf);
-			} catch (CommandInputException e) {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("Error");
-				alert.setHeaderText("Invalid Input");
-				if (e.getBadInput().isEmpty()) {
-					alert.setContentText("Not enough parameters!");
-				} else {
-					alert.setContentText("Please check your spelling of \"" + e.getBadInput() + "\".");
-				}
-				alert.showAndWait();
-			}
-			catch (TrigonometricException e) {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("Error");
-				alert.setHeaderText("Trigonometric Function Undefined");
-				alert.setContentText(e.getBadFunction());
-				alert.showAndWait();
-			}
-			
+			runAndCheckForErrors(bottomController, rs, ci, ai, pi, vi, pf);
 		});
 	}
-	
+
+	private void runAndCheckForErrors(BottomPane bottomController, ReceiveString rs, CoordinateInterface ci,
+			AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) {
+		try {
+			bottomController.runButtonAction(field, rs, ci, ai, pi, vi, pf);
+		} catch (CommandInputException e) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Invalid Input");
+			if (e.getBadInput().isEmpty()) {
+				alert.setContentText("Not enough parameters!");
+			} else {
+				alert.setContentText("Please check your spelling of \"" + e.getBadInput() + "\".");
+			}
+			alert.showAndWait();
+		} catch (TrigonometricException e) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Trigonometric Function Undefined");
+			alert.setContentText(e.getBadFunction());
+			alert.showAndWait();
+		}
+	}
+
 	private void addToRoot(TextArea field, Button[] buttonArr, Group root) {
 		for (int i = 0; i < buttonArr.length; i++) {
 			root.getChildren().add(buttonArr[i]);

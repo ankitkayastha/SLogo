@@ -20,6 +20,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
 
 	public Turtle() {
+		pen = new Pen();
 		myID = ++ID;
 		initialize();
 	}
@@ -104,7 +105,6 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		angle = Integer.parseInt(r.getString("startAngle"));
 		visible = Boolean.parseBoolean(r.getString("visible"));
 		active = false;
-		pen = new Pen();
 		pen.setPenDown(Boolean.parseBoolean(r.getString("penDown")));
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>();
