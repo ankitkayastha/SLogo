@@ -7,6 +7,7 @@ import UserInterface.BottomPane.CommandPrompt;
 import UserInterface.CenterPane.DisplayTurtle;
 import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
+import UserInterface.TopPane.MenuHandler;
 import UserInterface.TopPane.TopContent;
 import controller.BottomPane;
 import controller.IFront;
@@ -38,7 +39,7 @@ public class TurtleView {
 		
 		prompt.makeCommandPromptArea(bottomController, world, world);
 		history.makeListView(prompt.getField());
-		menu.makeMenuBar(topController, world, world.getTurtle(), world.getTurtle(),world.getTurtle(),world.getTurtle());
+		menu.makeMenuBar(topController, world);
 		myPane.setCenter(turtleDisplay.getGroup());
 		myPane.setLeft(left.makeListViews());
 		myPane.setRight(history.getRoot());

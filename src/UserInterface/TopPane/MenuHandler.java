@@ -38,7 +38,7 @@ public class MenuHandler {
 		return this.root;
 	}
 	
-	public void makeMenuBar(TopPane c, ReceiveFromFront rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+	public void makeMenuBar(TopPane c, ReceiveFromFront rs) {
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
 		HBox box = new HBox();
@@ -70,12 +70,12 @@ public class MenuHandler {
 		changeColor.setGraphic(box);
 		backgroundColor.getItems().add(changeColor);
 		cp.setOnAction((event) -> {
-			c.changeBackgroundAction(cp.getValue(), ci, ai, pi, vi);
+			c.changeBackgroundAction(cp.getValue());
 		}); 
 			
 		Menu image = new Menu(r.getString("imageTitle"));
 		addImageItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")}, 
-				c, ci, ai,pi,vi);
+				c);
 		Menu penColor = new Menu(r.getString("penTitle"));
 		ColorPicker cp1 = new ColorPicker();
 		MenuItem changeColor1 = new MenuItem();
@@ -129,10 +129,10 @@ public class MenuHandler {
 		return menu;
 	}
 	
-	private Menu addImageItems(Menu menu, String[] options, TopPane controller, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+	private Menu addImageItems(Menu menu, String[] options, TopPane controller) {
 		for (String s:options) {
 			MenuItem m = new MenuItem(s);
-			m.setOnAction((event) -> controller.changeImageAction(s, ci, ai, pi, vi));
+			m.setOnAction((event) -> controller.changeImageAction(s));
 			menu.getItems().add(m);
 		}
 		return menu;
