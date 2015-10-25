@@ -5,7 +5,6 @@ import java.util.*;
 import UserInterface.CenterPane.DisplayTurtle;
 import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
-import javafx.scene.Group;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 
@@ -58,13 +57,6 @@ public class BottomPane {
 		}
 	}
 
-	/*public void runButtonAction(TextArea field, ReceiveFromFront rs) throws CommandInputException, TrigonometricException {
-		
-		String command = field.getText();
-		commandHistory.add(command);
-		rs.receiveCommand(command);
-		field.clear();
-	}*/
 	public void runButtonAction(String command, List<IFront> list, ReceiveFromFront rs) throws CommandInputException, TrigonometricException {
 		rs.receiveCommand(command);
 		for (IFront pane: list) {
