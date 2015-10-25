@@ -21,16 +21,23 @@ public class Pen {
 	private double penColorIndex;
 
 	public Pen() {
-		palette = new HashMap<Double, Color>();
-		updatePalette(0, 1, 2, 3);
-		updatePalette(1, 69, 0, 45);
+		createPalette();
 		backgroundColorIndex = 0;
-		penColorIndex = 1;
-		penColor = palette.get(1);
+		penColorIndex = 0;
+		penColor = palette.get(penColorIndex);
 		penSize = 1;
 		shape = 4;
 		stampList = new ArrayList<Stamp>();
 		lineList = new ArrayList<Line>();
+	}
+
+	private void createPalette() {
+		palette = new HashMap<Double, Color>();
+		updatePalette(0, 0, 0, 0);
+		updatePalette(1, 255, 255, 255);
+		updatePalette(2, 255, 0, 0);
+		updatePalette(3, 0, 255, 0);
+		updatePalette(4, 0, 0, 255);
 	}
 
 	public void addToLineList(List<Line> list) {
@@ -72,10 +79,7 @@ public class Pen {
 	}
 
 	public void updatePalette(double index, int red, int green, int blue) {
-		double dRed = red;
-		double dGreen = green;
-		double dBlue = blue;
-		palette.put(index, new Color(dRed / 255, dGreen / 255, dBlue / 255, 1));
+		palette.put(index, Color.rgb(red, green, blue));
 	}
 
 	public Color getBackgroundColor() {
@@ -101,7 +105,7 @@ public class Pen {
 
 	public void setPenColor(double index) {
 		penColorIndex = index;
-		penColor = palette.get(index);
+		penColor = palette.get(penColorIndex);
 	}
 
 	public double getPenSize() {

@@ -17,9 +17,11 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	private DecimalFormat df;
 	private int myID;
 	private static int ID = -1;
+	private LineSplitter lineSplitter = new LineSplitter();
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
 
 	public Turtle() {
+		pen = new Pen();
 		myID = ++ID;
 		initialize();
 	}
@@ -104,7 +106,6 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		angle = Integer.parseInt(r.getString("startAngle"));
 		visible = Boolean.parseBoolean(r.getString("visible"));
 		active = false;
-		pen = new Pen();
 		pen.setPenDown(Boolean.parseBoolean(r.getString("penDown")));
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>();
@@ -119,7 +120,8 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 			Line line = new Line(format(x0), format(y0), format(x1), format(y1));
 			line.setFill(pen.getPenColor());
 			line.setStrokeWidth(pen.getPenSize());
-			lineList.add(line);
+			lineList.add((line));
+			// lineList.addAll(lineSplitter.split(line));
 		}
 	}
 

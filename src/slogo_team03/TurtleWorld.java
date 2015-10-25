@@ -2,6 +2,7 @@ package slogo_team03;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import commands.Command;
 import commands.UserCommand;
 
 public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
+	private TurtleManager turtleManager;
 	private Turtle turtle;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
@@ -16,9 +18,10 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 	private TurtleMap turtles;
 
 	public TurtleWorld() {
+		turtleManager = new TurtleManager();
 		userDefinedCommands = new UserDefinedCommands();
 		variables = new UserDefinedVariables();
-		parser = new Parser(userDefinedCommands, variables);
+		parser = new Parser(userDefinedCommands, variables, turtleManager);
 		turtle = new Turtle();
 		turtles = new TurtleMap();
 		turtles.addTurtle(turtle);
@@ -27,7 +30,6 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 
 	public void interpretInput(List<String> inputList) throws CommandInputException, TrigonometricException {
 		Command.setMaps(userDefinedCommands, variables);
-		parser.setTurtle(turtle); // Should this be here?
 		parser.processInput(inputList);
 	}
 
@@ -53,7 +55,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 	}
 
 	public Turtle getTurtle() {
-		return turtle;
+		return turtleManager.firstTurtle();
 	}
 
 	@Override
@@ -72,14 +74,12 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 	}
 
 	@Override
-	public Map<String, UserCommand> getUserDefinedCommands() {
-		return userDefinedCommands.getCommandMap();
-	}
-
-	@Override
 	public String getLastCommand() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public Map<String, UserCommand> getUserDefinedCommands() {
+		return userDefinedCommands.getCommandMap();
+	}
 }

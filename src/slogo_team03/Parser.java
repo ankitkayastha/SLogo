@@ -8,22 +8,26 @@ import commands.SpecialCommand;
 import commands.To;
 import commands.TurtleCommand;
 import commands.UserCommand;
+import newCommands.MultipleTurtleCommand;
+import newCommands.Tell;
 
 public class Parser {
 	private CommandFactory factory;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
+	private TurtleManager myTurtleManager;
 	private Turtle currentTurtle;
 	private Turtle copyOfTurtle;
-	private List<Turtle> turtleList;
 	private boolean evaluating;
 
-	public Parser(UserDefinedCommands commands, UserDefinedVariables vars) {
+	public Parser(UserDefinedCommands commands, UserDefinedVariables vars, TurtleManager TW) {
 		userDefinedCommands = commands;
 		variables = vars;
+		myTurtleManager= TW;
+		currentTurtle = myTurtleManager.firstTurtle();
 		factory = new CommandFactory(userDefinedCommands);
 		copyOfTurtle = new Turtle();
-		turtleList = new ArrayList<Turtle>();
+		// turtleList = new ArrayList<Turtle>();
 		evaluating = false;
 	}
 
@@ -35,22 +39,21 @@ public class Parser {
 		return val;
 	}
 
-	public void processLanguage(String language) {
-		factory.receiveLanguage(language);
+	public double runCommand(List<String> inputList) throws CommandInputException, TrigonometricException {
+		String commandName = inputList.remove(0);
+		Command command = factory.createCommand(commandName);
+		return checkCommandAndEvaluate(inputList, commandName, command);
 	}
 
-	public double runCommand(List<String> inputList) throws CommandInputException, TrigonometricException {
+	private double checkCommandAndEvaluate(List<String> inputList, String commandName, Command command)
+			throws CommandInputException, TrigonometricException {
 		double result = Double.MAX_VALUE;
-		String commandName = inputList.remove(0);
-
-		Command command = factory.createCommand(commandName);
 		if (command == null) {
 			throw new CommandInputException(commandName);
-		}
-
-		if (command instanceof TurtleCommand) {
+		} else if (command instanceof TurtleCommand) {
+			List<Turtle> turtleList = myTurtleManager.getActiveList();
 			for (int i = 0; i < turtleList.size(); i++) {
-				setTurtle(turtleList.get(i));
+				currentTurtle = turtleList.get(i);
 				List<String> copyOfInputList = new ArrayList<String>(inputList);
 				result = evaluateCommand(inputList, command);
 				inputList = new ArrayList<String>(copyOfInputList);
@@ -58,6 +61,7 @@ public class Parser {
 		} else {
 			result = evaluateCommand(inputList, command);
 		}
+		myTurtleManager.deleteTemporaryList();
 		return result;
 	}
 
@@ -66,8 +70,8 @@ public class Parser {
 		double result = Double.MAX_VALUE;
 		setParameters(inputList, command);
 		command.setTurtle(currentTurtle);
-
-		if (evaluating) {
+		if (evaluating) { // When testing validity of User Defined Commands,
+							// don't throw exceptions.
 			try {
 				result = command.executeAndFormat();
 			} catch (TrigonometricException e) {
@@ -79,6 +83,20 @@ public class Parser {
 			result = command.executeAndFormat();
 		}
 
+		if (command instanceof MultipleTurtleCommand) {
+			if (command instanceof Tell) {
+				myTurtleManager.setActiveList(((MultipleTurtleCommand) command).getTurtleList());
+			} else {
+				myTurtleManager.setTemporaryList(((MultipleTurtleCommand) command).getTurtleList());
+			}
+		}
+
+		result = runExtraCommands(command, result);
+		return result;
+	}
+
+	private double runExtraCommands(Command command, double result)
+			throws TrigonometricException, CommandInputException {
 		if (command instanceof To) {
 			evaluating = true;
 			List<String> runList = ((SpecialCommand) command).getRunList();
@@ -220,6 +238,10 @@ public class Parser {
 			}
 		}
 	}
+	
+	public void processLanguage(String language) {
+		factory.receiveLanguage(language);
+	}
 
 	private boolean isInteger(double d) {
 		return d == Math.floor(d);
@@ -239,9 +261,5 @@ public class Parser {
 			return false;
 		}
 		return s.matches("[a-zA-Z_]+");
-	}
-
-	public void setTurtle(Turtle turtle) {
-		currentTurtle = turtle;
 	}
 }
