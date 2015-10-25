@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInterface, VisibleInterface {
@@ -24,6 +25,10 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		pen = new Pen();
 		myID = ++ID;
 		initialize();
+	}
+	
+	public Pen getPen() {
+		return pen;
 	}
 
 	// public Turtle(int ID) {
@@ -181,5 +186,9 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		if (Double.valueOf(df.format(d)) == 0.00000)
 			return 0;
 		return Double.valueOf(df.format(d));
+	}
+	
+	public Color getBackgroundColor() {
+		return pen.getBackgroundColor();
 	}
 }

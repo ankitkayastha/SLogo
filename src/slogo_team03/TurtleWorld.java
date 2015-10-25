@@ -8,6 +8,7 @@ import java.util.Map;
 
 import commands.Command;
 import commands.UserCommand;
+import javafx.scene.paint.Color;
 
 public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 	private TurtleManager turtleManager;
@@ -82,4 +83,16 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 	public Map<String, UserCommand> getUserDefinedCommands() {
 		return userDefinedCommands.getCommandMap();
 	}
+
+	@Override
+	public Color getUpdatedBackgroundColor() {
+		return turtle.getBackgroundColor();
+	}
+
+	@Override
+	public Map<Double, Color> getPalette() {
+		return turtle.getPen().getPalette();
+	}
+
+
 }

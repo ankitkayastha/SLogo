@@ -17,8 +17,12 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import UserInterface.CenterPane.DisplayTurtle;
 import controller.IFront;
 import controller.toppane.UpdateBackgroundColor;
 import javafx.collections.FXCollections;
@@ -32,6 +36,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import slogo_team03.AngleInterface;
 import slogo_team03.CoordinateInterface;
+import slogo_team03.PassToFrontInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveFromFront;
 import slogo_team03.VisibleInterface;
@@ -39,16 +44,25 @@ import slogo_team03.VisibleInterface;
 public class MenuHandler implements IFront {
 	private Group root;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.TopPane/TopResource");
-
+	private DisplayTurtle display;
+	private ReceiveFromFront rf;
+	private PassToFrontInterface pf;
+	public MenuHandler(DisplayTurtle disp, ReceiveFromFront receive, PassToFrontInterface pass) {
+		this.display = disp;
+		this.rf = receive;
+		this.pf = pass;
+	}
+	
 	public Group getRoot() {
 		return this.root;
 	}
 	
-	private Rectangle[] makeColorNodes(String[] options) {
+	private Rectangle[] makeColorNodes(Color[] options) {
 		Rectangle[] rects = new Rectangle[options.length];
 		for (int i = 0; i < rects.length; i++) {
 			Rectangle rect = new Rectangle(50,10);
-			rect.setFill(Color.web(options[i]));
+			//System.out.println(options[i].toString());
+			rect.setFill(options[i]);
 			rects[i] = rect;
 		}
 		return rects;
@@ -69,10 +83,18 @@ public class MenuHandler implements IFront {
 		root = new Group();
 		
 		Menu backgroundColor = new Menu(r.getString("backgroundTitle"));
-		String[] backgroundOptions = {"salmon", "green", "blue", "red", 
-				"chocolate", "yellow", "pink", "purple", "orange"};
-		Rectangle[] backgroundColors = makeColorNodes(backgroundOptions);
-		String[] indices = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+		Map<Double, Color> backgroundColorMap = pf.getPalette();
+		Color[] colors = new Color[backgroundColorMap.keySet().size()];
+		List<String> indices = new ArrayList<String>();
+
+		for (int i = 0; i < backgroundColorMap.keySet().size(); i++) {
+			System.out.println(backgroundColorMap.get((double) i).getBlue());
+			indices.add(Double.toString(i));
+			colors[i] = backgroundColorMap.get(i);
+		}
+
+		Rectangle[] backgroundColors = makeColorNodes(colors);
+
 		addMenuItem(backgroundColor, indices, backgroundColors);
 		
 		
@@ -80,15 +102,15 @@ public class MenuHandler implements IFront {
 		Menu penColor = new Menu(r.getString("penTitle"));
 		String[] penOptions = {"salmon", "green", "blue", "red", 
 				"chocolate", "yellow", "pink", "purple", "orange"};
-		Rectangle[] penColors = makeColorNodes(penOptions);
+//		Rectangle[] penColors = makeColorNodes(penOptions);
 		String[] penIndices = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-		addMenuItem(penColor, penIndices, penColors);
+//		addMenuItem(penColor, penIndices, penColors);
 		
 		
 		Menu image = new Menu(r.getString("imageTitle"));
 		String[] imageOptions = {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")};
 		Rectangle[] imageRects = makeImageNodes(imageOptions, 50, 50);
-		addMenuItem(image, imageOptions, imageRects);
+//		addMenuItem(image, imageOptions, imageRects);
 		
 		
 		Menu language = new Menu(r.getString("languageTitle"));
@@ -109,7 +131,7 @@ public class MenuHandler implements IFront {
 				r.getString("languageFlag7"),
 				r.getString("languageFlag8")};
 		Rectangle[] flagRects = makeImageNodes(flagOptions, 75, 50);
-		addMenuItem(language, languageOptions, flagRects);
+//		addMenuItem(language, languageOptions, flagRects);
 		
 		Menu penProperties = new Menu(r.getString("penPropertyTitle"));
 		
@@ -117,19 +139,19 @@ public class MenuHandler implements IFront {
 		String[] penUpDownOptions = {r.getString("penUp"), r.getString("penDown")};
 		String[] arrowOptions = {r.getString("penUpImage"), r.getString("penDownImage")};
 		Rectangle[] arrowRects = makeImageNodes(arrowOptions, 10,10);
-		addMenuItem(penUpDown, penUpDownOptions, arrowRects);
+//		addMenuItem(penUpDown, penUpDownOptions, arrowRects);
 		
 		Menu penThickness = new Menu(r.getString("penThickness"));
 		String[] penThicknessOptions = {r.getString("thickness1"), r.getString("thickness2"), r.getString("thickness3"), r.getString("thickness4")};
 		String[] penThicknessImage = {r.getString("thicknessImage"), r.getString("thicknessImage"), r.getString("thicknessImage"), r.getString("thicknessImage")};
 		Rectangle[] penThicknessRects = makeImageNodes(penThicknessImage, 25, 25);
-		addMenuItem(penThickness, penThicknessOptions, penThicknessRects);
+//		addMenuItem(penThickness, penThicknessOptions, penThicknessRects);
 		
 		Menu penType = new Menu(r.getString("penLineType"));
 		String[] lineTypes = {r.getString("lineType1"), r.getString("lineType2"), r.getString("lineType3")};
 		String[] lineTypeImage = {r.getString("lineImage1"), r.getString("lineImage2"), r.getString("lineImage3")};
 		Rectangle[] lineRects = makeImageNodes(lineTypeImage, 60, 60);
-		addMenuItem(penType, lineTypes, lineRects);
+//		addMenuItem(penType, lineTypes, lineRects);
 		
 		penProperties.getItems().addAll(penUpDown, penThickness, penType);
 		
@@ -137,7 +159,7 @@ public class MenuHandler implements IFront {
 		String[] helpOptions = {r.getString("helpLink1"), r.getString("helpLink2")};
 		String[] helpImages = {r.getString("linkImage1"), r.getString("linkImage2")};
 		Rectangle[] helpRects = makeImageNodes(helpImages, 20, 20);
-		addMenuItem(help, helpOptions, helpRects);
+//		addMenuItem(help, helpOptions, helpRects);
 		
 		
 		
@@ -176,10 +198,11 @@ public class MenuHandler implements IFront {
 		newStage.show();
 	}
 	
-	public Menu addMenuItem(Menu menu, String[] options, Node[] images) {
-		for (int i = 0; i < options.length; i++) {
-			MenuItem m = new MenuItem(options[i], images[i]);
-			//m.setOnAction(event);
+	public Menu addMenuItem(Menu menu, List<String> options, Node[] images) {
+		for (int i = 0; i < options.size(); i++) {
+			MenuItem m = new MenuItem(options.get(i), images[i]);
+			EventHandler<ActionEvent> update = new UpdateBackgroundColor(display, rf, pf,  m.getText());
+			m.setOnAction(update);
 			menu.getItems().add(m);
 		}
 		return menu;

@@ -33,9 +33,9 @@ public class TurtleView {
 		myFrontObjects.add(turtleDisplay);
 		CommandPrompt prompt = new CommandPrompt(myFrontObjects);
 		BottomPane bottomController = new BottomPane(left, history, turtleDisplay);
-		MenuHandler menu = new MenuHandler();
+		MenuHandler menu = new MenuHandler(turtleDisplay, world, world);
 
-		UpdateBackgroundColor topController = new UpdateBackgroundColor(turtleDisplay);
+		//UpdateBackgroundColor topController = new UpdateBackgroundColor(turtleDisplay);
 		
 		prompt.makeCommandPromptArea(bottomController, world, world);
 		history.makeListView(prompt.getField());
