@@ -64,7 +64,7 @@ public class MenuHandler implements IFront {
 		return rects;
 	}
 	
-	public void makeMenuBar(TopPane c, ReceiveFromFront rs) {
+	public void makeMenuBar() {
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
 		
@@ -111,6 +111,28 @@ public class MenuHandler implements IFront {
 		Rectangle[] flagRects = makeImageNodes(flagOptions, 75, 50);
 		addMenuItem(language, languageOptions, flagRects);
 		
+		Menu penProperties = new Menu(r.getString("penPropertyTitle"));
+		
+		Menu penUpDown = new Menu(r.getString("penUpDown"));
+		String[] penUpDownOptions = {r.getString("penUp"), r.getString("penDown")};
+		String[] arrowOptions = {r.getString("penUpImage"), r.getString("penDownImage")};
+		Rectangle[] arrowRects = makeImageNodes(arrowOptions, 10,10);
+		addMenuItem(penUpDown, penUpDownOptions, arrowRects);
+		
+		Menu penThickness = new Menu(r.getString("penThickness"));
+		String[] penThicknessOptions = {r.getString("thickness1"), r.getString("thickness2"), r.getString("thickness3"), r.getString("thickness4")};
+		String[] penThicknessImage = {r.getString("thicknessImage"), r.getString("thicknessImage"), r.getString("thicknessImage"), r.getString("thicknessImage")};
+		Rectangle[] penThicknessRects = makeImageNodes(penThicknessImage, 25, 25);
+		addMenuItem(penThickness, penThicknessOptions, penThicknessRects);
+		
+		Menu penType = new Menu(r.getString("penLineType"));
+		String[] lineTypes = {r.getString("lineType1"), r.getString("lineType2"), r.getString("lineType3")};
+		String[] lineTypeImage = {r.getString("lineImage1"), r.getString("lineImage2"), r.getString("lineImage3")};
+		Rectangle[] lineRects = makeImageNodes(lineTypeImage, 60, 60);
+		addMenuItem(penType, lineTypes, lineRects);
+		
+		penProperties.getItems().addAll(penUpDown, penThickness, penType);
+		
 		Menu help = new Menu(r.getString("helpTitle"));
 		String[] helpOptions = {r.getString("helpLink1"), r.getString("helpLink2")};
 		String[] helpImages = {r.getString("linkImage1"), r.getString("linkImage2")};
@@ -119,7 +141,7 @@ public class MenuHandler implements IFront {
 		
 		
 		
-		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, help);
+		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, penProperties, help);
 		root.getChildren().add(menuBar);
 		
 		

@@ -39,7 +39,7 @@ public class TurtleView {
 		
 		prompt.makeCommandPromptArea(bottomController, world, world);
 		history.makeListView(prompt.getField());
-		menu.makeMenuBar(topController, world);
+		menu.makeMenuBar();
 		myPane.setCenter(turtleDisplay.getGroup());
 		myPane.setLeft(left.makeListViews());
 		myPane.setRight(history.getRoot());
