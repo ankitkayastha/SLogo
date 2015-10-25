@@ -11,7 +11,7 @@ import UserInterface.TopPane.MenuHandler;
 import UserInterface.TopPane.TopContent;
 import controller.BottomPane;
 import controller.IFront;
-import controller.TopPane;
+import controller.toppane.UpdateBackgroundColor;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import slogo_team03.TurtleWorld;
@@ -35,7 +35,7 @@ public class TurtleView {
 		BottomPane bottomController = new BottomPane(left, history, turtleDisplay);
 		MenuHandler menu = new MenuHandler();
 
-		TopPane topController = new TopPane(turtleDisplay);
+		UpdateBackgroundColor topController = new UpdateBackgroundColor(turtleDisplay);
 		
 		prompt.makeCommandPromptArea(bottomController, world, world);
 		history.makeListView(prompt.getField());
