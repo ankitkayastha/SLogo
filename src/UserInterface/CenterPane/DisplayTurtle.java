@@ -13,10 +13,12 @@ import slogo_team03.CoordinateInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.VisibleInterface;
 
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
-public class DisplayTurtle {
+import controller.IFront; 
+
+
+public class DisplayTurtle implements IFront {
 	private Canvas myCanvas;
 	private Group root;
 	private GraphicsContext gc;
@@ -25,6 +27,11 @@ public class DisplayTurtle {
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 	private Image image = new Image(r.getString("image"));
 	private CreateTooltip tip;
+	private CoordinateInterface cInterface;
+	private AngleInterface aInterface;
+	private PenUpDownInterface pInterface;
+	private VisibleInterface vInterface;
+	
 	
 	public DisplayTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		myCanvas = new Canvas(Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
@@ -33,23 +40,28 @@ public class DisplayTurtle {
 		rect = new Rectangle(40, 40);
 		tip = new CreateTooltip();
 		root = makeTurtle(ci, ai, pi, vi);
+		cInterface = ci;
+		aInterface = ai;
+		pInterface = pi;
+		vInterface = vi;
 	}
 
-	public void move(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
-		tip.update(ci, ai, pi, vi, rect);
+	public void update() {
+		tip.update(cInterface, aInterface, pInterface, vInterface, rect);
 		gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 
-		List<Line> lineList = ci.getLineList();
+		List<Line> lineList = cInterface.getLineList();
 		for (int i = 0; i < lineList.size(); i++) {
 			Line line = lineList.get(i);
 			drawLine(line);
 		}
-		double xpos = 250 + ci.getX() - rect.getWidth() / 2;
-		double ypos = 250 - ci.getY() - rect.getHeight() / 2;
-		if (vi.isVisible()) {
+		double xpos = 250 + cInterface.getX() - rect.getWidth() / 2;
+		double ypos = 250 - cInterface.getY() - rect.getHeight() / 2;
+		rect.setVisible(vInterface.isVisible());
+		if (vInterface.isVisible()) {
 			rect.setX(xpos);
 			rect.setY(ypos);
-			rect.setRotate(ai.absoluteAngleFrontend());
+			rect.setRotate(aInterface.absoluteAngleFrontend());
 		}
 	}
 
@@ -82,8 +94,7 @@ public class DisplayTurtle {
 		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
 		rect.setX(xpos);
 		rect.setY(ypos);
-		root.getChildren().add(myCanvas);
-		root.getChildren().add(rect);
+		root.getChildren().addAll(myCanvas, rect);
 		return root;
 	}
 

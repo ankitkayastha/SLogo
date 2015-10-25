@@ -1,31 +1,31 @@
 package UserInterface.RightPane;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+import slogo_team03.PassToFrontInterface;
 import javafx.scene.control.TextArea;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import UserInterface.LeftPane.ListViewHandler;
 
-public class CommandHistory {
-	private List<ListView<String>> myListView;
-	private ObservableList<String> myObsList;
+import UserInterface.LeftPane.ListViewHandler;
+import controller.IFront;
+
+public class CommandHistory implements IFront {
+	
 	private ListViewHandler listViewHandler;
 	private List<ListView<String>> commandHist;
-	
+	private PassToFrontInterface pInterface;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.RightPane/RightResource");
 	private Group root;
-	public CommandHistory() {
-		myListView = new ArrayList<ListView<String>>();
-		myObsList = FXCollections.observableArrayList();
+	
+	public CommandHistory(PassToFrontInterface pf) {
 		root = new Group();
 		listViewHandler = new ListViewHandler();
+		this.pInterface = pf;
 	}
 	
 	public void makeListView(TextArea field) {
@@ -35,29 +35,27 @@ public class CommandHistory {
 		title.setTranslateY(Double.parseDouble(r.getString("translateY")));
 		double[] prefWidth = {Double.parseDouble(r.getString("prefWidth"))};
 		double[] prefHeight = {Double.parseDouble(r.getString("prefHeight"))};
-		
 		double[] translateY = {Double.parseDouble(r.getString("historyTranslateY"))};
 		double[] translateX = {Double.parseDouble(r.getString("historyTranslateX"))};
 		commandHist = listViewHandler.createListView(1, prefWidth, prefHeight, translateY, translateX);
-		
-		
 		for (ListView<String> list: commandHist) {
 			list.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> field.setText(newVal));
 			root.getChildren().add(list);
 		}
 		root.getChildren().add(title);
-		//use lambda
-	//	myListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> field.setText(newVal));
 	}
 	public Group getRoot() {
 		return root;
 	}
-	public List<ObservableList<String>> getObs() {
-		return listViewHandler.getObsList();
-	}
-	
-	public List<ListView<String>> getListView() {
-		return commandHist;
+
+	@Override
+	public void update() {
+		String lastCommand = pInterface.getLastCommand();
+		for (int i = 0; i < listViewHandler.getObsList().size(); i++) {
+			ObservableList<String> obs = listViewHandler.getObsList().get(i); 
+			obs.add(lastCommand);
+			commandHist.get(i).setItems(obs);
+		}
 	}
 
 }
