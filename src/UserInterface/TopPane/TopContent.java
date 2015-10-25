@@ -1,12 +1,14 @@
 package UserInterface.TopPane;
 
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Hyperlink;
 
@@ -38,7 +40,7 @@ public class TopContent {
 	}
 	
 	
-	public Group makeTopContent(TopPane c, ReceiveString rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+	public Group makeTopContent(TopPane c, ReceiveString rs) {
 		
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
@@ -46,10 +48,17 @@ public class TopContent {
 		Menu backgroundColor = new Menu(r.getString("backgroundTitle"));
 		String[] backgroundO = {"salmon", "green", "blue", "red", 
 				"chocolate", "yellow", "pink", "purple", "orange"};
-		List<String> backgroundOptions = getOptions(backgroundO);
-		mh.addMenuItem(backgroundColor, backgroundOptions, c, ci, ai, pi, vi, 
-				(event) -> System.out.println("I work!"), Color.web(backgroundO[0]));
-				
+		Rectangle[] rects = new Rectangle[backgroundO.length];
+		for (int i = 0; i < rects.length; i++) {
+			Rectangle rect = new Rectangle(10,10);
+			rect.setFill(Color.web(backgroundO[i]));
+			rects[i] = rect;
+		}
+		String[] indices = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+		
+		addMenuItem(backgroundColor, indices, rects);
+		
+		
 		
 		
 //		Menu backgroundColor = new Menu(r.getString("backgroundTitle"));
@@ -62,6 +71,8 @@ public class TopContent {
 //		}); 
 			
 		Menu image = new Menu(r.getString("imageTitle"));
+		
+		
 		addImageItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")}, 
 				c, ci, ai,pi,vi);
 		
@@ -151,5 +162,14 @@ public class TopContent {
 		newStage.initModality(Modality.NONE);
 		newStage.setTitle("Command List");
 		newStage.show();
+	}
+	
+	public Menu addMenuItem(Menu menu, String[] options, Node[] images) {
+		for (int i = 0; i < options.length; i++) {
+			MenuItem m = new MenuItem(options[i], images[i]);
+			//m.setOnAction(event);
+			menu.getItems().add(m);
+		}
+		
 	}
 }
