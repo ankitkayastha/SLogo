@@ -44,8 +44,8 @@ public class CommandPrompt implements IFront {
 		double[] translateX = {Double.parseDouble(r.getString("runTranslateX")), Double.parseDouble(r.getString("clearTranslateX"))};
 		double[] translateY = {Double.parseDouble(r.getString("runTranslateY")), Double.parseDouble(r.getString("clearTranslateY"))};
 		buttonArr = buttonHandler.makeButtons(2, titles, translateX, translateY);
-		Button clear = buttonArr[1];
-		Button run = buttonArr[0];
+		Button clear = buttonArr[Integer.parseInt(r.getString("clearButtonIndex"))];
+		Button run = buttonArr[Integer.parseInt(r.getString("runButtonIndex"))];
 
 		field.setOnKeyPressed(event -> bottomController.handleKeyInput(event.getCode(), field));
 		

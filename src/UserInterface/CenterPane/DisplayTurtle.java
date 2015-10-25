@@ -17,7 +17,6 @@ import java.util.*;
 
 import controller.IFront; 
 
-
 public class DisplayTurtle implements IFront {
 	private Canvas myCanvas;
 	private Group root;
@@ -31,7 +30,7 @@ public class DisplayTurtle implements IFront {
 	private AngleInterface aInterface;
 	private PenUpDownInterface pInterface;
 	private VisibleInterface vInterface;
-	
+	private InitialTurtle initial;
 	
 	public DisplayTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		myCanvas = new Canvas(Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
@@ -39,7 +38,9 @@ public class DisplayTurtle implements IFront {
 		myCanvas.setTranslateY(Double.parseDouble(r.getString("canvasTranslateY")));
 		rect = new Rectangle(40, 40);
 		tip = new CreateTooltip();
-		root = makeTurtle(ci, ai, pi, vi);
+		initial = new InitialTurtle();
+		gc = myCanvas.getGraphicsContext2D();
+		root = initial.makeTurtle(ci, ai, pi, vi, rect, tip, myCanvas, gc);
 		cInterface = ci;
 		aInterface = ai;
 		pInterface = pi;
@@ -79,28 +80,6 @@ public class DisplayTurtle implements IFront {
 		return this.lineColor;
 	}
 	
-	private Group makeTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
-		Group root = new Group();
-		Image image = changeImage(r.getString("image"));
-		tip.update(ci, ai, pi, vi, rect);
-		rect.setFill(new ImagePattern(image));
-
-		double width = image.getWidth();
-		double height = image.getHeight();
-		gc = myCanvas.getGraphicsContext2D();
-		gc.setFill(Color.GREEN);
-		gc.fillRect(0, 0, 500, 500);
-		double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width / 2;
-		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
-		rect.setX(xpos);
-		rect.setY(ypos);
-		root.getChildren().addAll(myCanvas, rect);
-		return root;
-	}
-
-	private Image changeImage(String s) {
-		return new Image(getClass().getClassLoader().getResourceAsStream(s), 40, 40, false, false);
-	}
 
 	public void setImage(String s) {
 		rect.setFill(Color.WHITE);
