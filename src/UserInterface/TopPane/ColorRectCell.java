@@ -14,4 +14,5 @@ public class ColorRectCell extends ListCell<String> {
 			setGraphic(rect);
 		}
 	}
+
 }

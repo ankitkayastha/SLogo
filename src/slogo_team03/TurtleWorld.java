@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import commands.Command;
+import commands.UserCommand;
 
-public class TurtleWorld implements ReceiveString, PassToFrontInterface {
+public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 	private Turtle turtle;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
@@ -71,7 +72,14 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	}
 
 	@Override
-	public Map<String, String> getUserDefinedCommands() {
+	public Map<String, UserCommand> getUserDefinedCommands() {
+		return userDefinedCommands.getCommandMap();
+	}
+
+	@Override
+	public String getLastCommand() {
+		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
