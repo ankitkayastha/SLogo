@@ -15,17 +15,16 @@ public class Parser {
 	private CommandFactory factory;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
-	private TurtleWorld myTurtleWorld;
+	private TurtleManager myTurtleManager;
 	private Turtle currentTurtle;
 	private Turtle copyOfTurtle;
-	// private List<Turtle> turtleList;
 	private boolean evaluating;
 
-	public Parser(UserDefinedCommands commands, UserDefinedVariables vars, TurtleWorld TW) {
+	public Parser(UserDefinedCommands commands, UserDefinedVariables vars, TurtleManager TW) {
 		userDefinedCommands = commands;
 		variables = vars;
-		myTurtleWorld = TW;
-		currentTurtle = myTurtleWorld.firstTurtle();
+		myTurtleManager= TW;
+		currentTurtle = myTurtleManager.firstTurtle();
 		factory = new CommandFactory(userDefinedCommands);
 		copyOfTurtle = new Turtle();
 		// turtleList = new ArrayList<Turtle>();
@@ -52,7 +51,7 @@ public class Parser {
 		if (command == null) {
 			throw new CommandInputException(commandName);
 		} else if (command instanceof TurtleCommand) {
-			List<Turtle> turtleList = myTurtleWorld.getActiveList();
+			List<Turtle> turtleList = myTurtleManager.getActiveList();
 			for (int i = 0; i < turtleList.size(); i++) {
 				currentTurtle = turtleList.get(i);
 				List<String> copyOfInputList = new ArrayList<String>(inputList);
@@ -62,7 +61,7 @@ public class Parser {
 		} else {
 			result = evaluateCommand(inputList, command);
 		}
-		myTurtleWorld.deleteTemporaryList();
+		myTurtleManager.deleteTemporaryList();
 		return result;
 	}
 
@@ -86,9 +85,9 @@ public class Parser {
 
 		if (command instanceof MultipleTurtleCommand) {
 			if (command instanceof Tell) {
-				myTurtleWorld.setActiveList(((MultipleTurtleCommand) command).getTurtleList());
+				myTurtleManager.setActiveList(((MultipleTurtleCommand) command).getTurtleList());
 			} else {
-				myTurtleWorld.setTemporaryList(((MultipleTurtleCommand) command).getTurtleList());
+				myTurtleManager.setTemporaryList(((MultipleTurtleCommand) command).getTurtleList());
 			}
 		}
 

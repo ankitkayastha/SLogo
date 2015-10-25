@@ -5,37 +5,23 @@ import java.util.*;
 import UserInterface.CenterPane.DisplayTurtle;
 import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 
-import slogo_team03.AngleInterface;
 import slogo_team03.CommandInputException;
-import slogo_team03.CoordinateInterface;
-import slogo_team03.PassToFrontInterface;
-import slogo_team03.PenUpDownInterface;
-import slogo_team03.ReceiveString;
+import slogo_team03.ReceiveFromFront;
 import slogo_team03.TrigonometricException;
-import slogo_team03.VisibleInterface;
 
 public class BottomPane {
 	private List<String> commandHistory;
-	private LeftContent left;
-	private CommandHistory rightPane;
-	private DisplayTurtle display;
 
 	public BottomPane(LeftContent leftCont, CommandHistory right, DisplayTurtle display) {
 		this.commandHistory = new ArrayList<String>();
-		this.left = leftCont;
-		this.rightPane = right;
-		this.display = display;
 	}
 
-	public void clearButtonAction(TextArea field, Group root) {
+	public void clearButtonAction(TextArea field) {
 		field.clear();
-
 	}
 
 	public void handleKeyInput(KeyCode code, TextArea field) {
@@ -72,41 +58,17 @@ public class BottomPane {
 		}
 	}
 
-	public void runButtonAction(TextArea field, ReceiveString rs, CoordinateInterface ci, AngleInterface ai,
-			PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf)
-					throws CommandInputException, TrigonometricException {
-		ListView<String> list = rightPane.getListView();
-		List<ListView<String>> myLists = left.getListViewObs();
-		ListView<String> variableNames = myLists.get(1);
-		ObservableList<String> varNames = left.getListViewObservable(1);
-		ListView<String> variableVals = myLists.get(2);
-		ObservableList<String> varObs = left.getListViewObservable(2);
-		ObservableList<String> myObsList = rightPane.getObs();
+	/*public void runButtonAction(TextArea field, ReceiveFromFront rs) throws CommandInputException, TrigonometricException {
+		
 		String command = field.getText();
 		commandHistory.add(command);
-		myObsList.add(field.getText());
-		list.setItems(myObsList);
-
-		// pass updated variables
-
-		for (int i = 0; i < varNames.size(); i++) {
-			rs.receiveCommand("make " + varNames.get(i) + " " + Double.parseDouble(varObs.get(i)));
-		}
-
 		rs.receiveCommand(command);
-
-		Map<String, Double> updatedMap = pf.getVariableMap();
-		varObs.clear();
-		varNames.clear();
-		for (String s : updatedMap.keySet()) {
-			varObs.add(updatedMap.get(s).toString());
-			varNames.add(s);
-		}
-		variableVals.setItems(varObs);
-		variableNames.setItems(varNames);
-
-		display.move(ci, ai, pi, vi);
 		field.clear();
+	}*/
+	public void runButtonAction(String command, List<IFront> list, ReceiveFromFront rs) throws CommandInputException, TrigonometricException {
+		rs.receiveCommand(command);
+		for (IFront pane: list) {
+			pane.update();
+		}
 	}
-
 }

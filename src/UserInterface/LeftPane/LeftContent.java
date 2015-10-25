@@ -5,22 +5,28 @@ import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.text.Text;
+import slogo_team03.PassToFrontInterface;
+import controller.IFront;
 
-import java.util.ResourceBundle;
 import java.util.*;
 
-public class LeftContent {
+import commands.UserCommand;
+
+public class LeftContent implements IFront {
 	private Group root;
 	private ListViewHandler myListViewHandler;
 	private List<ObservableList<String>> myListViewObservable;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.LeftPane/LeftResource");
 	private List<ListView<String>> myListViewObjects;
-	public LeftContent() {
-		myListViewHandler = new ListViewHandler();
-		root = makeListViews();
+	private PassToFrontInterface pInterface;
+	
+	public LeftContent(PassToFrontInterface pf) {
+		this.root = makeListViews();
+		this.pInterface = pf;
 	}
 	
 	public Group makeListViews() {
+		myListViewHandler = new ListViewHandler();
 		TextHandler myTextHandler = new TextHandler();
 		double[] prefWidth = {Double.parseDouble(r.getString("prefTopWidth")), Double.parseDouble(r.getString("prefBottomWidth")), Double.parseDouble(r.getString("prefBottomWidth"))};
 		double[] prefHeight = {Double.parseDouble(r.getString("prefHeight")), Double.parseDouble(r.getString("prefHeight")), Double.parseDouble(r.getString("prefHeight"))};
@@ -42,16 +48,13 @@ public class LeftContent {
 
 		return root;
 	}
-	public ObservableList<String> getListViewObservable(int index) {
+	private ObservableList<String> getListViewObservable(int index) {
 		return myListViewObservable.get(index);
 	}
-	public ListView<String> getListView(int index) {
+	private ListView<String> getListView(int index) {
 		return myListViewObjects.get(index);
 	}
 	
-	public List<ListView<String>> getListViewObs() {
-		return myListViewObjects;
-	}
 	private void addToRoot(List<ListView<String>> listView, Text[] textArr, Group root) {
 		for (ListView<String> list: listView) {
 			root.getChildren().add(list);
@@ -59,5 +62,32 @@ public class LeftContent {
 		for (Text text: textArr) {
 			root.getChildren().add(text);
 		}
+	}
+
+	@Override
+	public void update() {
+		ListView<String> variableNames = this.getListView(1);
+		ObservableList<String> varNames = this.getListViewObservable(1);
+		ListView<String> variableVals = this.getListView(2); 
+		ObservableList<String> varObs = this.getListViewObservable(2);
+		Map<String, Double> updatedMap = pInterface.getVariableMap();
+		varObs.clear();
+		varNames.clear();
+		for (String s : updatedMap.keySet()) {
+			varObs.add(updatedMap.get(s).toString());
+			varNames.add(s);
+		}
+		variableVals.setItems(varObs);
+		variableNames.setItems(varNames);
+		
+		
+		ListView<String> userDefinedNames = this.getListView(0); 
+		ObservableList<String> userDefined = this.getListViewObservable(0);
+		Map<String, UserCommand> userCommands = pInterface.getUserDefinedCommands();
+		userDefined.clear();
+		for (String s: userCommands.keySet()) {
+			userDefined.add(s);
+		}
+		userDefinedNames.setItems(userDefined); 
 	}
 }

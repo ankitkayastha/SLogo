@@ -1,4 +1,6 @@
 package UserInterface;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import UserInterface.BottomPane.CommandPrompt;
@@ -7,31 +9,37 @@ import UserInterface.LeftPane.LeftContent;
 import UserInterface.RightPane.CommandHistory;
 import UserInterface.TopPane.MenuHandler;
 import controller.BottomPane;
+import controller.IFront;
 import controller.TopPane;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import slogo_team03.TurtleModel;
+import slogo_team03.TurtleWorld;
 
 
 public class TurtleView {
 	private Scene myScene;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface/TurtleViewResource");
-	
+	private List<IFront> myFrontObjects;
 	public TurtleView() {
-		TurtleModel world = new TurtleModel();
+		myFrontObjects = new ArrayList<IFront>();
+		TurtleWorld world = new TurtleWorld();
 		BorderPane myPane = new BorderPane();
-		LeftContent left = new LeftContent();
-		CommandHistory history = new CommandHistory();
-		CommandPrompt prompt = new CommandPrompt();
-		DisplayTurtle turtleDisplay = new DisplayTurtle();
+		LeftContent left = new LeftContent(world);
+		CommandHistory history = new CommandHistory(world);
+		DisplayTurtle turtleDisplay = new DisplayTurtle(world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle());
+		myFrontObjects.add(left);
+		myFrontObjects.add(history);
+		myFrontObjects.add(turtleDisplay);
+		CommandPrompt prompt = new CommandPrompt(world, myFrontObjects);
 		BottomPane bottomController = new BottomPane(left, history, turtleDisplay);
-		prompt.makeCommandPromptArea(bottomController, turtleDisplay, world, world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle(), world);
-		history.makeListView(prompt.getField());
-		TopPane topController = new TopPane(turtleDisplay);
 		MenuHandler menu = new MenuHandler();
+
+		TopPane topController = new TopPane(turtleDisplay);
+		
+		prompt.makeCommandPromptArea(bottomController, world, world);
+		history.makeListView(prompt.getField());
 		menu.makeMenuBar(topController, world, world.getTurtle(), world.getTurtle(),world.getTurtle(),world.getTurtle());
-		turtleDisplay.makeTurtle();
-		myPane.setCenter(turtleDisplay.getPane());
+		myPane.setCenter(turtleDisplay.getGroup());
 		myPane.setLeft(left.makeListViews());
 		myPane.setRight(history.getRoot());
 		myPane.setTop(menu.getRoot());
