@@ -31,7 +31,7 @@ public class TurtleView {
 		myFrontObjects.add(left);
 		myFrontObjects.add(history);
 		myFrontObjects.add(turtleDisplay);
-		CommandPrompt prompt = new CommandPrompt(world, myFrontObjects);
+		CommandPrompt prompt = new CommandPrompt(myFrontObjects);
 		BottomPane bottomController = new BottomPane(left, history, turtleDisplay);
 		MenuHandler menu = new MenuHandler();
 

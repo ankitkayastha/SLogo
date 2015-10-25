@@ -7,34 +7,23 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import slogo_team03.AngleInterface;
 import slogo_team03.CommandInputException;
-import slogo_team03.CoordinateInterface;
 import slogo_team03.PassToFrontInterface;
-import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveFromFront;
 import slogo_team03.TrigonometricException;
-import slogo_team03.VisibleInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import UserInterface.CenterPane.DisplayTurtle;
-import UserInterface.LeftPane.LeftContent;
-import UserInterface.RightPane.CommandHistory;
-import UserInterface.TopPane.MenuHandler;
 
 public class CommandPrompt implements IFront {
 	private Group root;
 	private TextArea field;
 
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.BottomPane/bottomResource");
-	private ReceiveFromFront receiveInterface;
 	private List<IFront> frontObjects;
-	public CommandPrompt(ReceiveFromFront rf, List<IFront> front) {
+	public CommandPrompt(List<IFront> front) {
 		field = new TextArea();
-		receiveInterface = rf;
 		frontObjects = front;
 	}
 	public Group getRoot() {
@@ -55,8 +44,8 @@ public class CommandPrompt implements IFront {
 		double[] translateX = {Double.parseDouble(r.getString("runTranslateX")), Double.parseDouble(r.getString("clearTranslateX"))};
 		double[] translateY = {Double.parseDouble(r.getString("runTranslateY")), Double.parseDouble(r.getString("clearTranslateY"))};
 		buttonArr = buttonHandler.makeButtons(2, titles, translateX, translateY);
-		Button clear = buttonArr[1];
-		Button run = buttonArr[0];
+		Button clear = buttonArr[Integer.parseInt(r.getString("clearButtonIndex"))];
+		Button run = buttonArr[Integer.parseInt(r.getString("runButtonIndex"))];
 
 		field.setOnKeyPressed(event -> bottomController.handleKeyInput(event.getCode(), field));
 		
@@ -94,10 +83,7 @@ public class CommandPrompt implements IFront {
 	}
 	@Override
 	public void update() {
-		field.clear();
-		
-		// TODO Auto-generated method stub
-		
+		field.clear();		
 	}
 	
 }
