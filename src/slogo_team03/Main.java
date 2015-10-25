@@ -19,7 +19,7 @@ public class Main extends Application {
 
 		// Scanner scan = new Scanner(System.in);
 		// TurtleWorld world = new TurtleWorld();
-		// while (true) {
+		// while (true) 		{
 		// String s = scan.nextLine();
 		// // + "\n" + scan.nextLine() + "\n" +
 		// // scan.nextLine() + "\n" + scan.nextLine();
