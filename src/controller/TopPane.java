@@ -16,8 +16,7 @@ public class TopPane {
 		this.turtle = t;
 	}
 
-	public void changeBackgroundAction(Color c, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi,
-			VisibleInterface vi) {
+	public void changeBackgroundAction(Color c) {
 		turtle.getGC().setFill(c);
 		turtle.getGC().fillRect(0, 0, 500, 500);
 	}
@@ -30,9 +29,7 @@ public class TopPane {
 		rs.receiveLanguage(s);
 	}
 
-	public void changeImageAction(String s, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi,
-			VisibleInterface vi) {
+	public void changeImageAction(String s) {
 		turtle.setImage(s);
-		//turtle.move(ci, ai, pi, vi);
 	}
 }

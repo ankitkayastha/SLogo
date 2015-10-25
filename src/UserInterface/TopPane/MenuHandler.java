@@ -1,19 +1,25 @@
 package UserInterface.TopPane;
 
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
 import java.util.ResourceBundle;
+
+import controller.IFront;
 import controller.TopPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,7 +36,7 @@ import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveFromFront;
 import slogo_team03.VisibleInterface;
 
-public class MenuHandler {
+public class MenuHandler implements IFront {
 	private Group root;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.TopPane/TopResource");
 
@@ -38,64 +44,104 @@ public class MenuHandler {
 		return this.root;
 	}
 	
-	public void makeMenuBar(TopPane c, ReceiveFromFront rs, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+	private Rectangle[] makeColorNodes(String[] options) {
+		Rectangle[] rects = new Rectangle[options.length];
+		for (int i = 0; i < rects.length; i++) {
+			Rectangle rect = new Rectangle(50,10);
+			rect.setFill(Color.web(options[i]));
+			rects[i] = rect;
+		}
+		return rects;
+	}
+	
+	private Rectangle[] makeImageNodes(String[] options, int width, int length) {
+		Rectangle[] rects = new Rectangle[options.length];
+		for (int i = 0; i < rects.length; i++) {
+			Rectangle rect = new Rectangle(width,length);
+			rect.setFill(new ImagePattern(new Image(getClass().getClassLoader().getResourceAsStream(options[i]))));
+			rects[i] = rect;
+		}
+		return rects;
+	}
+	
+	public void makeMenuBar() {
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
-		HBox box = new HBox();
-		Menu backgroundColor = new Menu(r.getString("backgroundTitle"));
 		
-		ListView<String> list = new ListView<String>();
-		list.setPrefSize(120, 200);
-		ListView<Integer> indeces = new ListView<Integer>();
-		indeces.setPrefSize(50,  200);
-		ObservableList<Integer> ind = FXCollections.observableArrayList();
-		for (int i = 0; i < 10; i++) {
-			ind.add(i);
-		}
-		ObservableList<String> obs = FXCollections.observableArrayList("salmon", "green", "blue", "red", 
-				"chocolate", "yellow", "pink", "purple", "orange");
-		list.setItems(obs);
-		indeces.setItems(ind);
-		list.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-			@Override
-			public ListCell<String> call (ListView<String> list) {
-				return new ColorRectCell();
-			}
-		}
-		);
-		box.getChildren().addAll(indeces, list);
-		ColorPicker cp = new ColorPicker(Color.WHITE);
-		MenuItem changeColor = new MenuItem();
-		//changeColor.setGraphic(cp);
-		changeColor.setGraphic(box);
-		backgroundColor.getItems().add(changeColor);
-		cp.setOnAction((event) -> {
-			c.changeBackgroundAction(cp.getValue(), ci, ai, pi, vi);
-		}); 
-			
-		Menu image = new Menu(r.getString("imageTitle"));
-		addImageItems(image, new String[] {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")}, 
-				c, ci, ai,pi,vi);
+		Menu backgroundColor = new Menu(r.getString("backgroundTitle"));
+		String[] backgroundOptions = {"salmon", "green", "blue", "red", 
+				"chocolate", "yellow", "pink", "purple", "orange"};
+		Rectangle[] backgroundColors = makeColorNodes(backgroundOptions);
+		String[] indices = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+		addMenuItem(backgroundColor, indices, backgroundColors);
+		
+		
+		
 		Menu penColor = new Menu(r.getString("penTitle"));
-		ColorPicker cp1 = new ColorPicker();
-		MenuItem changeColor1 = new MenuItem();
-		changeColor1.setGraphic(cp1);
-		penColor.getItems().add(changeColor1);
-		cp1.setOnAction((event) -> {
-			c.changePenColorAction(cp1.getValue());
-		});
+		String[] penOptions = {"salmon", "green", "blue", "red", 
+				"chocolate", "yellow", "pink", "purple", "orange"};
+		Rectangle[] penColors = makeColorNodes(penOptions);
+		String[] penIndices = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+		addMenuItem(penColor, penIndices, penColors);
+		
+		
+		Menu image = new Menu(r.getString("imageTitle"));
+		String[] imageOptions = {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")};
+		Rectangle[] imageRects = makeImageNodes(imageOptions, 50, 50);
+		addMenuItem(image, imageOptions, imageRects);
+		
 		
 		Menu language = new Menu(r.getString("languageTitle"));
-		addLanguageItems(language, new String[] {r.getString("languageItem1"),
-						r.getString("languageItem2"),
-						r.getString("languageItem3"),
-						r.getString("languageItem4"),
-						r.getString("languageItem5"),
-						r.getString("languageItem6"),
-						r.getString("languageItem7"),
-						r.getString("languageItem8")}, c, rs);
+		String[] languageOptions = {r.getString("languageItem1"),
+				r.getString("languageItem2"),
+				r.getString("languageItem3"),
+				r.getString("languageItem4"),
+				r.getString("languageItem5"),
+				r.getString("languageItem6"),
+				r.getString("languageItem7"),
+				r.getString("languageItem8")};
+		String[] flagOptions = {r.getString("languageFlag1"),
+				r.getString("languageFlag2"),
+				r.getString("languageFlag3"),
+				r.getString("languageFlag4"),
+				r.getString("languageFlag5"),
+				r.getString("languageFlag6"),
+				r.getString("languageFlag7"),
+				r.getString("languageFlag8")};
+		Rectangle[] flagRects = makeImageNodes(flagOptions, 75, 50);
+		addMenuItem(language, languageOptions, flagRects);
 		
-		menuBar.getMenus().addAll(backgroundColor, image, penColor, language);
+		Menu penProperties = new Menu(r.getString("penPropertyTitle"));
+		
+		Menu penUpDown = new Menu(r.getString("penUpDown"));
+		String[] penUpDownOptions = {r.getString("penUp"), r.getString("penDown")};
+		String[] arrowOptions = {r.getString("penUpImage"), r.getString("penDownImage")};
+		Rectangle[] arrowRects = makeImageNodes(arrowOptions, 10,10);
+		addMenuItem(penUpDown, penUpDownOptions, arrowRects);
+		
+		Menu penThickness = new Menu(r.getString("penThickness"));
+		String[] penThicknessOptions = {r.getString("thickness1"), r.getString("thickness2"), r.getString("thickness3"), r.getString("thickness4")};
+		String[] penThicknessImage = {r.getString("thicknessImage"), r.getString("thicknessImage"), r.getString("thicknessImage"), r.getString("thicknessImage")};
+		Rectangle[] penThicknessRects = makeImageNodes(penThicknessImage, 25, 25);
+		addMenuItem(penThickness, penThicknessOptions, penThicknessRects);
+		
+		Menu penType = new Menu(r.getString("penLineType"));
+		String[] lineTypes = {r.getString("lineType1"), r.getString("lineType2"), r.getString("lineType3")};
+		String[] lineTypeImage = {r.getString("lineImage1"), r.getString("lineImage2"), r.getString("lineImage3")};
+		Rectangle[] lineRects = makeImageNodes(lineTypeImage, 60, 60);
+		addMenuItem(penType, lineTypes, lineRects);
+		
+		penProperties.getItems().addAll(penUpDown, penThickness, penType);
+		
+		Menu help = new Menu(r.getString("helpTitle"));
+		String[] helpOptions = {r.getString("helpLink1"), r.getString("helpLink2")};
+		String[] helpImages = {r.getString("linkImage1"), r.getString("linkImage2")};
+		Rectangle[] helpRects = makeImageNodes(helpImages, 20, 20);
+		addMenuItem(help, helpOptions, helpRects);
+		
+		
+		
+		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, penProperties, help);
 		root.getChildren().add(menuBar);
 		
 		
@@ -111,32 +157,7 @@ public class MenuHandler {
 		});
 		root.getChildren().addAll(link);
 	}
-	
-	private Menu addItems(Menu menu, String[] options) {
-		for (String s:options) {
-			menu.getItems().add(new MenuItem(s));
-		}
-		return menu;
-	}
-	
-	
-	private Menu addLanguageItems(Menu menu, String[] options, TopPane controller, ReceiveFromFront rs) {
-		for (String s:options) {
-			MenuItem m = new MenuItem(s);
-			m.setOnAction((event) -> controller.changeLanguage(s, rs));
-			menu.getItems().add(m);
-		}
-		return menu;
-	}
-	
-	private Menu addImageItems(Menu menu, String[] options, TopPane controller, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
-		for (String s:options) {
-			MenuItem m = new MenuItem(s);
-			m.setOnAction((event) -> controller.changeImageAction(s, ci, ai, pi, vi));
-			menu.getItems().add(m);
-		}
-		return menu;
-	}
+
 	
 	private Hyperlink addLink(String s, double translateX) {
 		Hyperlink link = new Hyperlink(s);
@@ -154,4 +175,28 @@ public class MenuHandler {
 		newStage.setTitle("Command List");
 		newStage.show();
 	}
+	
+	public Menu addMenuItem(Menu menu, String[] options, Node[] images) {
+		for (int i = 0; i < options.length; i++) {
+			MenuItem m = new MenuItem(options[i], images[i]);
+			//m.setOnAction(event);
+			menu.getItems().add(m);
+		}
+		return menu;
+	}
+
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+		
+	}
+	
+	private class penAction implements EventHandler<ActionEvent> {
+        @Override      
+        public void handle (ActionEvent event) {       
+                 
+        }      
+    }
 }
