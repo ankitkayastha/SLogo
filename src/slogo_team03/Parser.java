@@ -31,7 +31,7 @@ public class Parser {
 		evaluating = false;
 	}
 
-	public double processInput(List<String> list) throws CommandInputException, TrigonometricException {
+	public double processInput(List<String> list) throws CommandInputException, MathException {
 		double val = Double.MAX_VALUE;
 		while (list.size() > 0) {
 			val = runCommand(list);
@@ -39,14 +39,14 @@ public class Parser {
 		return val;
 	}
 
-	public double runCommand(List<String> inputList) throws CommandInputException, TrigonometricException {
+	public double runCommand(List<String> inputList) throws CommandInputException, MathException {
 		String commandName = inputList.remove(0);
 		Command command = factory.createCommand(commandName);
 		return checkCommandAndEvaluate(inputList, commandName, command);
 	}
 
 	private double checkCommandAndEvaluate(List<String> inputList, String commandName, Command command)
-			throws CommandInputException, TrigonometricException {
+			throws CommandInputException, MathException {
 		double result = Double.MAX_VALUE;
 		if (command == null) {
 			throw new CommandInputException(commandName);
@@ -66,7 +66,7 @@ public class Parser {
 	}
 
 	private double evaluateCommand(List<String> inputList, Command command)
-			throws CommandInputException, TrigonometricException {
+			throws CommandInputException, MathException {
 		double result = Double.MAX_VALUE;
 		setParameters(inputList, command);
 		command.setTurtle(currentTurtle);
@@ -74,7 +74,7 @@ public class Parser {
 							// don't throw exceptions.
 			try {
 				result = command.executeAndFormat();
-			} catch (TrigonometricException e) {
+			} catch (MathException e) {
 				result = 1;
 			} catch (ArithmeticException e) {
 				result = 1;
@@ -96,7 +96,7 @@ public class Parser {
 	}
 
 	private double runExtraCommands(Command command, double result)
-			throws TrigonometricException, CommandInputException {
+			throws MathException, CommandInputException {
 		if (command instanceof To) {
 			evaluating = true;
 			List<String> runList = ((SpecialCommand) command).getRunList();
@@ -121,7 +121,7 @@ public class Parser {
 	}
 
 	public void setParameters(List<String> inputList, Command command)
-			throws CommandInputException, TrigonometricException {
+			throws CommandInputException, MathException {
 		String parameterCode = command.getParameterCode();
 		for (int i = 0; i < parameterCode.length(); i++) {
 			if (inputList.size() == 0) {

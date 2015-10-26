@@ -36,7 +36,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		myInput = "";
 	}
 
-	public void interpretInput(List<String> inputList) throws CommandInputException, TrigonometricException {
+	public void interpretInput(List<String> inputList) throws CommandInputException, MathException {
 		Command.setMaps(userDefinedCommands, variables);
 		parser.processInput(inputList);
 	}
@@ -58,16 +58,12 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		return inputList;
 	}
 
-	public double getAngle() {
-		return turtle.absoluteAngleFrontend();
-	}
-
 	public Turtle getTurtle() {
 		return turtleManager.firstTurtle();
 	}
 
 	@Override
-	public void receiveCommand(String input) throws CommandInputException, TrigonometricException {
+	public void receiveCommand(String input) throws CommandInputException, MathException {
 		myInput = input;
 		interpretInput(removeCommentsAndWhitespace(input));
 	}

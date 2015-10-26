@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import slogo_team03.CommandInputException;
-import slogo_team03.TrigonometricException;
+import slogo_team03.MathException;
 import slogo_team03.Turtle;
 import slogo_team03.UserDefinedCommands;
 import slogo_team03.UserDefinedVariables;
@@ -26,7 +26,7 @@ public abstract class Command {
 
 	public abstract String toString();
 
-	public abstract double execute() throws CommandInputException, TrigonometricException;
+	public abstract double execute() throws CommandInputException, MathException;
 
 	public static void setMaps(UserDefinedCommands uMap, UserDefinedVariables vMap) {
 		userDefinedCommands = uMap;
@@ -57,7 +57,7 @@ public abstract class Command {
 		myTurtle = turtle;
 	}
 
-	public double executeAndFormat() throws CommandInputException, TrigonometricException {
+	public double executeAndFormat() throws CommandInputException, MathException {
 		DecimalFormat df = new DecimalFormat("#.#####");
 		double value = Double.valueOf(df.format(execute()));
 		try {
