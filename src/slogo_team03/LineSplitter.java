@@ -20,6 +20,10 @@ public class LineSplitter {
 		pS = new Point2D(line.getStartX(), line.getStartY());
 		pE = new Point2D(line.getEndX(), line.getEndY());
 		double length = distance(pS, pE);
+		if (length == 0) {
+			lineList.add(line);
+			return lineList;
+		}
 		m = (pE.getY() - pS.getY()) / (pE.getX() - pS.getX());
 		if (pE.getX() < pS.getX()) {
 			angle = ((Math.toDegrees(Math.atan(m))) + 180) % 360;
