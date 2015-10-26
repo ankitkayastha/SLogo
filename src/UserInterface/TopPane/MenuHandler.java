@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import UserInterface.TurtleView;
 import UserInterface.CenterPane.DisplayTurtle;
 import controller.IFront;
 import controller.toppane.UpdateBackgroundColor;
@@ -36,6 +37,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import slogo_team03.FileInterface;
+import slogo_team03.Main;
 import slogo_team03.PassToFrontInterface;
 import slogo_team03.ReceiveFromFront;
 
@@ -216,9 +218,6 @@ public class MenuHandler implements IFront {
 			m.setOnAction((event) -> updateHelp.openPage(m.getText()));
 		}
 		
-		
-		
-		
 		/*Menu file = new Menu(r.getString("fileTitle"));
 		List<String> fileOptions = new ArrayList<String>();
 		List<String> fileImages = new ArrayList<String>();
@@ -240,43 +239,33 @@ public class MenuHandler implements IFront {
 		}
 		*/
 
-
-		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, penProperties, help);
+		Menu newWorkspace = new Menu(r.getString("newWorkspaceTitle"));
+		List<String> workspaceItems = new ArrayList<String>();
+		workspaceItems.add(r.getString("addWorkspace"));
+		List<String> workspaceImages = new ArrayList<String>();
+		workspaceImages.add(r.getString("plus"));
+		Rectangle[] workspaceRects = makeImageNodes(workspaceImages, 20, 20);
+		addMenuItem(newWorkspace, workspaceItems, workspaceRects);
+		for (MenuItem m : newWorkspace.getItems()) {
+			m.setOnAction((event) -> 
+			{
+				Stage stage = new Stage();
+				TurtleView view = new TurtleView();
+				stage.setScene(view.getScene());
+				stage.show();
+				}
+			);
+		}
+		
+		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, penProperties, help, newWorkspace);
 		root.getChildren().add(menuBar);
 
-
-		Hyperlink link = addLink("Help page", 830);
-		WebView browser = new WebView();
-		WebEngine webEngine = browser.getEngine();
-		link.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				createPopup(browser);
-				webEngine.load("http://www.cs.duke.edu/courses/cps108/current/assign/03_slogo/commands.php");
-			}
-		});
-		root.getChildren().addAll(link);
 	}
-
-
-	private Hyperlink addLink(String s, double translateX) {
-		Hyperlink link = new Hyperlink(s);
-		link.setTranslateX(translateX);
-		return link;
-	}
-
-	private void createPopup(WebView w) {
-		FlowPane pane = new FlowPane();
-		pane.getChildren().add(w);
-		Scene s = new Scene(pane, 800, 600);
-		Stage newStage = new Stage();
-		newStage.setScene(s);
-		newStage.initModality(Modality.NONE);
-		newStage.setTitle("Command List");
-		newStage.show();
-	}
-
-	public void addMenuItem(Menu menu, List<String> options, Node[] graphics) {
+	
+	
+	
+	
+	private void addMenuItem(Menu menu, List<String> options, Node[] graphics) {
 		for (int i = 0; i < options.size(); i++) {
 			MenuItem m = new MenuItem(options.get(i), graphics[i]);
 			menu.getItems().add(m);
