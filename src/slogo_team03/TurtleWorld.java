@@ -7,12 +7,14 @@ import java.util.Map;
 
 import commands.Command;
 
-public class TurtleWorld implements ReceiveString, PassToFrontInterface {
+public class TurtleWorld implements ReceiveString, PassToFrontInterface, FileInterface {
 	private Turtle turtle;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
 	private Parser parser;
 	private TurtleMap turtles;
+	private XmlWriter xmlCreator;
+	private XmlReader xmlReader;
 
 	public TurtleWorld() {
 		userDefinedCommands = new UserDefinedCommands();
@@ -22,6 +24,8 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 		turtles = new TurtleMap();
 		turtles.addTurtle(turtle);
 		Command.setMaps(userDefinedCommands, variables);
+		xmlCreator = new XmlWriter(userDefinedCommands, variables);
+		xmlReader = new XmlReader(variables, userDefinedCommands);
 	}
 
 	public void interpretInput(List<String> inputList) throws CommandInputException, TrigonometricException {
@@ -63,6 +67,27 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	@Override
 	public void receiveLanguage(String language) {
 		parser.processLanguage(language);
+		for (String c : userDefinedCommands.getCommandMap().keySet()) {
+			System.out.println(c);
+			System.out.println(userDefinedCommands.getCommandMap().get(c).getDefinition());
+			System.out.println(userDefinedCommands.getCommandMap().get(c).getParameterCode());
+		}
+		
+		for (String v : variables.getVariableMap().keySet()) {
+			System.out.println(v);
+			System.out.println(variables.getVariableMap().get(v));
+		}
+		xmlReader.readFile("D:\\Daniel\\Duke University\\2015 - 2016\\Compsci 308\\SLogo\\slogo_team03\\File.xml");
+		for (String c : userDefinedCommands.getCommandMap().keySet()) {
+			System.out.println(c);
+			System.out.println(userDefinedCommands.getCommandMap().get(c).getDefinition());
+			System.out.println(userDefinedCommands.getCommandMap().get(c).getParameterCode());
+		}
+		
+		for (String v : variables.getVariableMap().keySet()) {
+			System.out.println(v);
+			System.out.println(variables.getVariableMap().get(v));
+		}
 	}
 
 	@Override
@@ -73,5 +98,13 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface {
 	@Override
 	public Map<String, String> getUserDefinedCommands() {
 		return null;
+	}
+	
+	public void readXmlFile(String path) {
+		xmlReader.readFile(path);
+	}
+	
+	public void writeXmlFile(String path) {
+		xmlCreator.writeXmlFile(path);
 	}
 }

@@ -13,6 +13,12 @@ public class UserCommand extends SpecialCommand {
 		myName = name;
 		myDefinition = new ArrayList<String>();
 	}
+	
+	public UserCommand(String name, String paramCode, ArrayList<String> definition) {
+		myName = name;
+		myParameterCode = paramCode;
+		myDefinition = definition;
+	}
 
 	public List<String> assignValuesToCommandList(double... params) throws CommandInputException {
 		List<String> tempList = new ArrayList<String>();
