@@ -34,12 +34,8 @@ public class UpdateBackgroundColor implements EventHandler<ActionEvent> {
 		rs.receiveLanguage(s);
 	}
 
-	public void changeImageAction(String s) {
-		turtle.setImage(s);
-	}
 
-	@Override
-	public void handle(ActionEvent event) {
+	public void handle(ActionEvent event, String index) {
 		try {
 			rf.receiveCommand("setbg " + index);
 			changeBackgroundAction(pf.getUpdatedBackgroundColor());
@@ -47,5 +43,10 @@ public class UpdateBackgroundColor implements EventHandler<ActionEvent> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void handle(ActionEvent event) {
+		//handle(event, )
 	}
 }

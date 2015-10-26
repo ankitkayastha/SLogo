@@ -8,14 +8,10 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,21 +21,15 @@ import java.util.ResourceBundle;
 import UserInterface.CenterPane.DisplayTurtle;
 import controller.IFront;
 import controller.toppane.UpdateBackgroundColor;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import slogo_team03.AngleInterface;
-import slogo_team03.CoordinateInterface;
 import slogo_team03.PassToFrontInterface;
-import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveFromFront;
-import slogo_team03.VisibleInterface;
+
 
 public class MenuHandler implements IFront {
 	private Group root;
@@ -61,8 +51,8 @@ public class MenuHandler implements IFront {
 		Rectangle[] rects = new Rectangle[options.length];
 		for (int i = 0; i < rects.length; i++) {
 			Rectangle rect = new Rectangle(50,10);
-			//System.out.println(options[i].toString());
 			rect.setFill(options[i]);
+			//System.out.println(rect.getFill().);
 			rects[i] = rect;
 		}
 		return rects;
@@ -86,15 +76,12 @@ public class MenuHandler implements IFront {
 		Map<Double, Color> backgroundColorMap = pf.getPalette();
 		Color[] colors = new Color[backgroundColorMap.keySet().size()];
 		List<String> indices = new ArrayList<String>();
-
+	//	UpdateBackgroundColor update = new UpdateBackgroundColor(display, rf, pf, );
 		for (int i = 0; i < backgroundColorMap.keySet().size(); i++) {
-			System.out.println(backgroundColorMap.get((double) i).getBlue());
 			indices.add(Double.toString(i));
-			colors[i] = backgroundColorMap.get(i);
+			colors[i] = backgroundColorMap.get((double) i);
 		}
-
 		Rectangle[] backgroundColors = makeColorNodes(colors);
-
 		addMenuItem(backgroundColor, indices, backgroundColors);
 		
 		
@@ -136,10 +123,13 @@ public class MenuHandler implements IFront {
 		Menu penProperties = new Menu(r.getString("penPropertyTitle"));
 		
 		Menu penUpDown = new Menu(r.getString("penUpDown"));
-		String[] penUpDownOptions = {r.getString("penUp"), r.getString("penDown")};
+		List<String> penUpDownOptions = new ArrayList<String>();
+		penUpDownOptions.add(r.getString("penUp"));
+		penUpDownOptions.add(r.getString("penDown"));
+		//String[] penUpDownOptions = {r.getString("penUp"), r.getString("penDown")};
 		String[] arrowOptions = {r.getString("penUpImage"), r.getString("penDownImage")};
 		Rectangle[] arrowRects = makeImageNodes(arrowOptions, 10,10);
-//		addMenuItem(penUpDown, penUpDownOptions, arrowRects);
+		addMenuItem(penUpDown, penUpDownOptions, arrowRects);
 		
 		Menu penThickness = new Menu(r.getString("penThickness"));
 		String[] penThicknessOptions = {r.getString("thickness1"), r.getString("thickness2"), r.getString("thickness3"), r.getString("thickness4")};
@@ -198,11 +188,11 @@ public class MenuHandler implements IFront {
 		newStage.show();
 	}
 	
-	public Menu addMenuItem(Menu menu, List<String> options, Node[] images) {
+	public Menu addMenuItem(Menu menu, List<String> options, Node[] graphics, EventHandler<ActionEvent> event) {
 		for (int i = 0; i < options.size(); i++) {
-			MenuItem m = new MenuItem(options.get(i), images[i]);
-			EventHandler<ActionEvent> update = new UpdateBackgroundColor(display, rf, pf,  m.getText());
-			m.setOnAction(update);
+			MenuItem m = new MenuItem(options.get(i), graphics[i]);
+			//m.setOnAction(update);
+			m.setOnAction(event);
 			menu.getItems().add(m);
 		}
 		return menu;
