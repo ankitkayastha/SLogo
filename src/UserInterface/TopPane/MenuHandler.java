@@ -238,7 +238,17 @@ public class MenuHandler implements IFront {
 			}
 		}
 		*/
-
+		
+		
+		Menu changeShape = new Menu(r.getString("changeShape"));
+		List<String> shapeItems = new ArrayList<String>();
+		shapeItems.add(r.getString("circle"));
+		List<String> shapeImages = new ArrayList<String>();
+		shapeImages.add(r.getString("circleImage"));
+		Rectangle[] shapeRects = makeImageNodes(shapeImages, 20, 20);
+		addMenuItem(changeShape, shapeItems, shapeRects);
+		
+		
 		Menu newWorkspace = new Menu(r.getString("newWorkspaceTitle"));
 		List<String> workspaceItems = new ArrayList<String>();
 		workspaceItems.add(r.getString("addWorkspace"));
@@ -257,7 +267,7 @@ public class MenuHandler implements IFront {
 			);
 		}
 		
-		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, penProperties, help, newWorkspace);
+		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, penProperties, changeShape, help, newWorkspace);
 		root.getChildren().add(menuBar);
 
 	}
