@@ -42,7 +42,8 @@ public class Stamp {
 	public double getMyAngle() {
 		return myAngle;
 	}
-
+	
+	@Override
 	public String toString() {
 		return "Color: (" + myColor.getRed() + ", " + myColor.getGreen() + ", " + myColor.getBlue() + ") Shape: "
 				+ myShape + ", X: " + myX + ", Y: " + myY + ", Angle: " + myAngle;

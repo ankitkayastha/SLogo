@@ -31,8 +31,8 @@ public class InitialTurtle {
 		gc.fillRect(0, 0, 500, 500);
 		double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width / 2;
 		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
-		rect.setX(xpos);
-		rect.setY(ypos);
+		((Rectangle) rect).setX(xpos);
+		((Rectangle) rect).setY(ypos);
 		root.getChildren().addAll(myCanvas, rect);
 		return root;
 		
