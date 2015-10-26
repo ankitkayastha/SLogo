@@ -1,7 +1,8 @@
-package controller;
+package controller.toppane;
 
 import UserInterface.CenterPane.DisplayTurtle;
-
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
 import slogo_team03.AngleInterface;
 import slogo_team03.CoordinateInterface;
@@ -9,10 +10,10 @@ import slogo_team03.PenUpDownInterface;
 import slogo_team03.ReceiveFromFront;
 import slogo_team03.VisibleInterface;
 
-public class TopPane {
+public class UpdateBackgroundColor implements EventHandler<ActionEvent> {
 	private DisplayTurtle turtle;
 
-	public TopPane(DisplayTurtle t) {
+	public UpdateBackgroundColor(DisplayTurtle t) {
 		this.turtle = t;
 	}
 
@@ -31,5 +32,10 @@ public class TopPane {
 
 	public void changeImageAction(String s) {
 		turtle.setImage(s);
+	}
+
+	@Override
+	public void handle(ActionEvent event) {
+		changeBackgroundAction(Color.PURPLE);
 	}
 }

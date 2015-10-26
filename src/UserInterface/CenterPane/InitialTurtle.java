@@ -26,7 +26,6 @@ public class InitialTurtle {
 
 		double width = image.getWidth();
 		double height = image.getHeight();
-		System.out.println("Hi");
 		gc = myCanvas.getGraphicsContext2D();
 		gc.setFill(Color.GREEN);
 		gc.fillRect(0, 0, 500, 500);

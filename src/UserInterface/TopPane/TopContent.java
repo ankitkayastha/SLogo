@@ -15,8 +15,8 @@ import javafx.scene.control.Hyperlink;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import controller.TopPane;
 
+import controller.toppane.UpdateBackgroundColor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
@@ -40,7 +40,7 @@ public class TopContent {
 	}
 	
 	
-	public Group makeTopContent(TopPane c, ReceiveString rs) {
+	public Group makeTopContent(UpdateBackgroundColor c, ReceiveString rs) {
 		
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
@@ -129,7 +129,7 @@ public class TopContent {
 	}
 	
 	
-	private Menu addLanguageItems(Menu menu, String[] options, TopPane controller, ReceiveString rs) {
+	private Menu addLanguageItems(Menu menu, String[] options, UpdateBackgroundColor controller, ReceiveString rs) {
 		for (String s:options) {
 			MenuItem m = new MenuItem(s);
 			m.setOnAction((event) -> controller.changeLanguage(s, rs));
@@ -138,7 +138,7 @@ public class TopContent {
 		return menu;
 	}
 	
-	private Menu addImageItems(Menu menu, String[] options, TopPane controller, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+	private Menu addImageItems(Menu menu, String[] options, UpdateBackgroundColor controller, CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
 		for (String s:options) {
 			MenuItem m = new MenuItem(s);
 			m.setOnAction((event) -> controller.changeImageAction(s, ci, ai, pi, vi));
