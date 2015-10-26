@@ -10,13 +10,16 @@ import commands.Command;
 import commands.UserCommand;
 import javafx.scene.paint.Color;
 
-public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
-	private TurtleManager turtleManager;
+
+public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, FileInterface {
 	private Turtle turtle;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
 	private Parser parser;
 	private TurtleMap turtles;
+	private TurtleManager turtleManager;
+	private XmlWriter xmlWriter;
+	private XmlReader xmlReader;
 
 	public TurtleWorld() {
 		turtleManager = new TurtleManager();
@@ -27,6 +30,8 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 		turtles = new TurtleMap();
 		turtles.addTurtle(turtle);
 		Command.setMaps(userDefinedCommands, variables);
+		xmlWriter = new XmlWriter(userDefinedCommands, variables);
+		xmlReader = new XmlReader(variables, userDefinedCommands);
 	}
 
 	public void interpretInput(List<String> inputList) throws CommandInputException, TrigonometricException {
@@ -62,11 +67,14 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 	@Override
 	public void receiveCommand(String input) throws CommandInputException, TrigonometricException {
 		interpretInput(removeCommentsAndWhitespace(input));
+		xmlWriter.writeXmlFile("D:\\Daniel\\Duke University\\2015 - 2016\\Compsci 308\\SLogo\\slogo_team03\\File.xml");
 	}
 
 	@Override
 	public void receiveLanguage(String language) {
 		parser.processLanguage(language);
+		xmlReader.readFile("D:\\Daniel\\Duke University\\2015 - 2016\\Compsci 308\\SLogo\\slogo_team03\\File.xml");
+		
 	}
 
 	@Override
@@ -94,5 +102,12 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface {
 		return turtle.getPen().getPalette();
 	}
 
-
+	
+	public void readXmlFile(String path) {
+		xmlReader.readFile(path);
+	}
+	
+	public void writeXmlFile(String path) {
+		xmlWriter.writeXmlFile(path);
+	}
 }
