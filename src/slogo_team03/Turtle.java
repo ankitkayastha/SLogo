@@ -26,7 +26,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		myID = ++ID;
 		initialize();
 	}
-	
+
 	public Pen getPen() {
 		return pen;
 	}
@@ -121,17 +121,18 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	}
 
 	public void addLine(double x0, double y0, double x1, double y1) {
-		if (pen.isPenDown()) {
-			Line line = new Line(format(x0), format(y0), format(x1), format(y1));
-			line.setFill(pen.getPenColor());
-			line.setStrokeWidth(pen.getPenSize());
-//			lineList.add((line));
-			lineList.addAll(lineSplitter.split(line));
-		}
-		
-		Line lastLine = lineList.get(lineList.size()-1);
+		Line line = new Line(format(x0), format(y0), format(x1), format(y1));
+		line.setFill(pen.getPenColor());
+		line.setStrokeWidth(pen.getPenSize());
+		List<Line> tempList = lineSplitter.split(line);
+
+		Line lastLine = tempList.get(tempList.size() - 1);
 		x = lastLine.getEndX();
-		y = lastLine.getEndY();
+		y = lastLine.getEndY();		
+		
+		if (pen.isPenDown()) {
+			lineList.addAll(tempList);
+		}
 	}
 
 	public void resetLineList() {
@@ -191,7 +192,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 			return 0;
 		return Double.valueOf(df.format(d));
 	}
-	
+
 	public Color getBackgroundColor() {
 		return pen.getBackgroundColor();
 	}
