@@ -4,17 +4,21 @@ import UserInterface.CenterPane.DisplayTurtle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
-import slogo_team03.AngleInterface;
-import slogo_team03.CoordinateInterface;
-import slogo_team03.PenUpDownInterface;
+import slogo_team03.CommandInputException;
+import slogo_team03.PassToFrontInterface;
 import slogo_team03.ReceiveFromFront;
-import slogo_team03.VisibleInterface;
+import slogo_team03.TrigonometricException;
 
 public class UpdateBackgroundColor implements EventHandler<ActionEvent> {
 	private DisplayTurtle turtle;
-
-	public UpdateBackgroundColor(DisplayTurtle t) {
+	private ReceiveFromFront rf;
+	private String index;
+	private PassToFrontInterface pf;
+	public UpdateBackgroundColor(DisplayTurtle t, ReceiveFromFront receive, PassToFrontInterface pass, String ind) {
 		this.turtle = t;
+		rf = receive;
+		index = ind;
+		pf = pass;
 	}
 
 	public void changeBackgroundAction(Color c) {
@@ -30,12 +34,19 @@ public class UpdateBackgroundColor implements EventHandler<ActionEvent> {
 		rs.receiveLanguage(s);
 	}
 
-	public void changeImageAction(String s) {
-		turtle.setImage(s);
+
+	public void handle(ActionEvent event, String index) {
+		try {
+			rf.receiveCommand("setbg " + index);
+			changeBackgroundAction(pf.getUpdatedBackgroundColor());
+		} catch (CommandInputException | TrigonometricException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void handle(ActionEvent event) {
-		changeBackgroundAction(Color.PURPLE);
+		//handle(event, )
 	}
 }

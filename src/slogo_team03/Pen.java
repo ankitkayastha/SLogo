@@ -30,6 +30,10 @@ public class Pen {
 		stampList = new ArrayList<Stamp>();
 		lineList = new ArrayList<Line>();
 	}
+	
+	public Map<Double, Color> getPalette() {
+		return palette;
+	}
 
 	private void createPalette() {
 		palette = new HashMap<Double, Color>();
