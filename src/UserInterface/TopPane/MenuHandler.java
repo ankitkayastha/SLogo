@@ -13,6 +13,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Hyperlink;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ import java.util.ResourceBundle;
 import UserInterface.CenterPane.DisplayTurtle;
 import controller.IFront;
 import controller.toppane.UpdateBackgroundColor;
+import controller.toppane.UpdateFile;
+import controller.toppane.UpdateHelpPage;
 import controller.toppane.UpdateImage;
 import controller.toppane.UpdateLanguage;
 import controller.toppane.UpdatePenColor;
@@ -32,6 +35,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import slogo_team03.FileInterface;
 import slogo_team03.PassToFrontInterface;
 import slogo_team03.ReceiveFromFront;
 
@@ -42,6 +46,7 @@ public class MenuHandler implements IFront {
 	private DisplayTurtle display;
 	private ReceiveFromFront rf;
 	private PassToFrontInterface pf;
+	private FileInterface fi;
 	private Menu backgroundColor;
 	private Menu penColor;
 	private Menu image;
@@ -54,11 +59,11 @@ public class MenuHandler implements IFront {
 		this.rf = receive;
 		this.pf = pass;
 	}
-	
+
 	public Group getRoot() {
 		return this.root;
 	}
-	
+
 	private Rectangle[] makeColorNodes(Color[] options) {
 		Rectangle[] rects = new Rectangle[options.length];
 		for (int i = 0; i < rects.length; i++) {
@@ -69,7 +74,7 @@ public class MenuHandler implements IFront {
 		}
 		return rects;
 	}
-	
+
 	private Rectangle[] makeImageNodes(List<String> options, int width, int length) {
 		Rectangle[] rects = new Rectangle[options.size()];
 		for (int i = 0; i < rects.length; i++) {
@@ -79,11 +84,11 @@ public class MenuHandler implements IFront {
 		}
 		return rects;
 	}
-	
+
 	public void makeMenuBar() {
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
-		
+
 		backgroundColor = new Menu(r.getString("backgroundTitle"));
 		Map<Double, Color> backgroundColorMap = pf.getPalette();
 		Color[] colors = new Color[backgroundColorMap.keySet().size()];
@@ -98,8 +103,8 @@ public class MenuHandler implements IFront {
 		for (MenuItem m: backgroundColor.getItems()) {
 			m.setOnAction((event) -> update.changeBackgroundAction(m.getText()));
 		}
-		
-		
+
+
 		penColor = new Menu(r.getString("penTitle"));
 
 		UpdatePenColor updatePen = new UpdatePenColor(rf);
@@ -108,7 +113,7 @@ public class MenuHandler implements IFront {
 		for (MenuItem m: penColor.getItems()) {
 			m.setOnAction((event) -> updatePen.changePenColorAction(m.getText()));
 		}
-		
+
 		image = new Menu(r.getString("imageTitle"));
 		List<String> imageOptions = new ArrayList<String>();
 		imageOptions.add(r.getString("imageItem1"));
@@ -120,11 +125,11 @@ public class MenuHandler implements IFront {
 		for (MenuItem m : image.getItems()) {
 			m.setOnAction((event) -> imageChanger.refreshImage(m.getText()));
 		}
-			
-		
+
+
 		Menu language = new Menu(r.getString("languageTitle"));
 		UpdateLanguage updateLang = new UpdateLanguage(rf);
-		
+
 		List<String> languageOptions = new ArrayList<String>();
 		List<String> flagOptions = new ArrayList<String>();
 
@@ -138,14 +143,15 @@ public class MenuHandler implements IFront {
 		for (MenuItem m: language.getItems()) {
 			m.setOnAction((event) -> updateLang.changeLanguage(m.getText()));
 		}
-		
-		
-		
+
+
+
 		Menu penProperties = new Menu(r.getString("penPropertyTitle"));
 		penUpDown = new Menu(r.getString("penUpDown"));
 		List<String> penUpDownOptions = new ArrayList<String>();
 		penUpDownOptions.add(r.getString("penUp"));
 		penUpDownOptions.add(r.getString("penDown"));
+
 		List<String> arrowOptions = new ArrayList<String>();
 		arrowOptions.add(r.getString("penUpImage"));
 		arrowOptions.add( r.getString("penDownImage"));
@@ -195,18 +201,50 @@ public class MenuHandler implements IFront {
 		
 		penProperties.getItems().addAll(penUpDown, penSize, penType);
 		
+
 		Menu help = new Menu(r.getString("helpTitle"));
-		String[] helpOptions = {r.getString("helpLink1"), r.getString("helpLink2")};
-		String[] helpImages = {r.getString("linkImage1"), r.getString("linkImage2")};
-//		Rectangle[] helpRects = makeImageNodes(helpImages, 20, 20);
-//		addMenuItem(help, helpOptions, helpRects);
+		List<String> helpOptions = new ArrayList<String>();
+		List<String> helpPics = new ArrayList<String>();
+		helpOptions.add(r.getString("link1"));
+		helpOptions.add(r.getString("link2"));
+		helpPics.add(r.getString("linkImage1"));
+		helpPics.add(r.getString("linkImage2"));
+		Rectangle[] helpRects = makeImageNodes(helpPics, 20, 20);
+		addMenuItem(help, helpOptions, helpRects);
+		UpdateHelpPage updateHelp = new UpdateHelpPage();
+		for (MenuItem m: help.getItems()) {
+			m.setOnAction((event) -> updateHelp.openPage(m.getText()));
+		}
 		
 		
 		
+		
+		/*Menu file = new Menu(r.getString("fileTitle"));
+		List<String> fileOptions = new ArrayList<String>();
+		List<String> fileImages = new ArrayList<String>();
+		fileOptions.add(r.getString("saveFile"));
+		fileOptions.add(r.getString("loadFile"));
+		fileImages.add(r.getString("saveImage"));
+		fileImages.add(r.getString("loadImage"));
+		UpdateFile updateFile = new UpdateFile(fi);
+		Rectangle[] fImages = makeImageNodes(fileImages, 20, 20);
+		addMenuItem(file, fileOptions, fImages);
+
+		for (int i = 0; i < fileOptions.size(); i++) {
+			if (i == 0) {
+				file.getItems().get(i).setOnAction((event) -> updateFile.saveFile());
+			}
+			else {
+				file.getItems().get(i).setOnAction((event) -> updateFile.loadFile());
+			}
+		}
+		*/
+
+
 		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, penProperties, help);
 		root.getChildren().add(menuBar);
-		
-		
+
+
 		Hyperlink link = addLink("Help page", 830);
 		WebView browser = new WebView();
 		WebEngine webEngine = browser.getEngine();
@@ -220,13 +258,13 @@ public class MenuHandler implements IFront {
 		root.getChildren().addAll(link);
 	}
 
-	
+
 	private Hyperlink addLink(String s, double translateX) {
 		Hyperlink link = new Hyperlink(s);
 		link.setTranslateX(translateX);
 		return link;
 	}
-	
+
 	private void createPopup(WebView w) {
 		FlowPane pane = new FlowPane();
 		pane.getChildren().add(w);
@@ -237,7 +275,7 @@ public class MenuHandler implements IFront {
 		newStage.setTitle("Command List");
 		newStage.show();
 	}
-	
+
 	public void addMenuItem(Menu menu, List<String> options, Node[] graphics) {
 		for (int i = 0; i < options.size(); i++) {
 			MenuItem m = new MenuItem(options.get(i), graphics[i]);
@@ -258,8 +296,8 @@ public class MenuHandler implements IFront {
 			rect.setFill(colorMap.get((double) i));
 			penRect.setFill(colorMap.get((double) i));
 		}
-	
-			
+
+
 	}
-		
+
 }
