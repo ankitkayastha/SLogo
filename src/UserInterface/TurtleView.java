@@ -21,20 +21,22 @@ public class TurtleView {
 	private Scene myScene;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface/TurtleViewResource");
 	private List<IFront> myFrontObjects;
+	
 	public TurtleView() {
 		myFrontObjects = new ArrayList<IFront>();
 		TurtleWorld world = new TurtleWorld();
 		BorderPane myPane = new BorderPane();
 		LeftContent left = new LeftContent(world);
 		CommandHistory history = new CommandHistory(world);
-		DisplayTurtle turtleDisplay = new DisplayTurtle(world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle());
+		DisplayTurtle turtleDisplay = new DisplayTurtle(world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle(), world);
 		myFrontObjects.add(left);
 		myFrontObjects.add(history);
 		myFrontObjects.add(turtleDisplay);
+		MenuHandler menu = new MenuHandler(turtleDisplay, world, world);
+		myFrontObjects.add(menu);
+
 		CommandPrompt prompt = new CommandPrompt(myFrontObjects);
 		BottomPane bottomController = new BottomPane(left, history, turtleDisplay);
-		MenuHandler menu = new MenuHandler(turtleDisplay, world, world);
-
 		//UpdateBackgroundColor topController = new UpdateBackgroundColor(turtleDisplay);
 		
 		prompt.makeCommandPromptArea(bottomController, world, world);
