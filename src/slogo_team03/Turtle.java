@@ -120,9 +120,13 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 			Line line = new Line(format(x0), format(y0), format(x1), format(y1));
 			line.setFill(pen.getPenColor());
 			line.setStrokeWidth(pen.getPenSize());
-			lineList.add((line));
-			// lineList.addAll(lineSplitter.split(line));
+//			lineList.add((line));
+			lineList.addAll(lineSplitter.split(line));
 		}
+		
+		Line lastLine = lineList.get(lineList.size()-1);
+		x = lastLine.getEndX();
+		y = lastLine.getEndY();
 	}
 
 	public void resetLineList() {
