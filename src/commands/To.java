@@ -36,7 +36,7 @@ public class To extends SpecialCommand {
 		int numParams = userCommand.getNumberOfParameters();
 		double[] params = new double[numParams];
 		for (int i = 0; i < numParams; i++) {
-			params[i] = 1.0;
+			params[i] = 0.0;
 		}
 		runList = userCommand.assignValuesToCommandList(params);
 		return -1;

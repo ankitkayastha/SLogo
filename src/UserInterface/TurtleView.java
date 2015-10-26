@@ -1,4 +1,5 @@
 package UserInterface;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,7 +29,7 @@ public class TurtleView {
 		BorderPane myPane = new BorderPane();
 		LeftContent left = new LeftContent(world);
 		CommandHistory history = new CommandHistory(world);
-		DisplayTurtle turtleDisplay = new DisplayTurtle(world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle(), world);
+		DisplayTurtle turtleDisplay = new DisplayTurtle(world.getTurtle(), world.getTurtle(), world.getTurtle(), world.getTurtle(), world, world.getTurtle());
 		myFrontObjects.add(left);
 		myFrontObjects.add(history);
 		myFrontObjects.add(turtleDisplay);

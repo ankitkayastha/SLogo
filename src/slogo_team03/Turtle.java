@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
-public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInterface, VisibleInterface {
+public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInterface, VisibleInterface, StampInterface {
 	private double x, y;
 	private double angle;
 	private boolean visible;

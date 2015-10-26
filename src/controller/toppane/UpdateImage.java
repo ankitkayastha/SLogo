@@ -1,20 +1,15 @@
 package controller.toppane;
 
 import UserInterface.CenterPane.DisplayTurtle;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
-public class UpdateImage implements EventHandler<ActionEvent> {
+public class UpdateImage {
 	private DisplayTurtle display;
-	private String newImage;
-	public UpdateImage(DisplayTurtle t, String s) {
+	public UpdateImage(DisplayTurtle t) {
 		display = t;
-		newImage = s;
+
 	}
 	
-	@Override
-	public void handle(ActionEvent event) {
+	public void refreshImage(String newImage) {
 		display.setImage(newImage);
 	}
-	
 }	
