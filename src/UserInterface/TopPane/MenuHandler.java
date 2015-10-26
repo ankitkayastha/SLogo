@@ -96,8 +96,10 @@ public class MenuHandler implements IFront {
 				"chocolate", "yellow", "pink", "purple", "orange"};
 //		Rectangle[] penColors = makeColorNodes(penOptions);
 		String[] penIndices = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-//		addMenuItem(penColor, penIndices, penColors);
-		
+		addMenuItem(penColor, indices, backgroundColors);
+		for (MenuItem m: backgroundColor.getItems()) {
+			m.setOnAction((event) -> update.changeBackgroundAction(m.getText()));
+		}
 		
 		Menu image = new Menu(r.getString("imageTitle"));
 		String[] imageOptions = {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")};
