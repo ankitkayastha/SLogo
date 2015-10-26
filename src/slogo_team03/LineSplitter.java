@@ -12,6 +12,7 @@ public class LineSplitter {
 	private double m; // slope
 	private double b; // y-intercept
 	private double angle;
+	private Point2D pS, pE;
 
 	public List<Line> split(Line line) {
 		List<Line> lineList = new ArrayList<Line>();
@@ -25,21 +26,50 @@ public class LineSplitter {
 //		double endY = line.getEndY();
 		
 		
-		Point2D pS = new Point2D(line.getStartX(), line.getStartY());
-		Point2D pE = new Point2D(line.getEndX(), line.getEndY());
+		pS = new Point2D(line.getStartX(), line.getStartY());
+		pE = new Point2D(line.getEndX(), line.getEndY());
 		double length = distance(pS, pE);
 //		System.out.println("Length = " + length);
 		
 		m = (pE.getY() - pS.getY()) / (pE.getX() - pS.getX());
-		angle = Math.atan(m);
+		
+		if (pE.getX() > pS.getX()) {
+			angle = ((Math.toDegrees(Math.atan(m))) + 360) % 360;
+		} else { 
+			angle = ((Math.toDegrees(Math.atan(m))) + 180) % 360;
+		}
+		
+		
+		
+//		angle = ((Math.toDegrees(Math.atan(m))) + 360) % 360;
+		System.out.println("Angle = " + angle);
 		updateYIntercept(pS);
+//		System.out.println(angle);
 
 		double bound = 250.0;
-		while (pE.getX() > bound || pE.getY() > bound) {
-			Point2D p1 = new Point2D(bound, getYWhenXEquals(bound));		//x boundary
-			Point2D p2 = new Point2D(getXWhenYEquals(bound), bound);		//y boundary
+		while (pE.getX() > bound || pE.getY() > bound || pE.getX() < (bound * -1) || pE.getY() < (bound * -1)) {
+			
+			Point2D p1, p2;
+			if (angle > 0 && angle <= 90) {
+
+				p1 = new Point2D(bound, getYWhenXEquals(bound));		//x boundary
+				p2 = new Point2D(getXWhenYEquals(bound), bound);		//y boundary
+					
+			} else if (angle > 90 && angle <= 180) {
+				p1 = new Point2D(bound * -1, getYWhenXEquals(bound * -1));		//x boundary
+				p2 = new Point2D(getXWhenYEquals(bound), bound);		//y boundary
+			} else if (angle > 180 && angle <= 270) {
+				p1 = new Point2D(bound * -1, getYWhenXEquals(bound * -1));		//x boundary
+				p2 = new Point2D(getXWhenYEquals(bound * -1), bound * -1);		//y boundary
+			} else {
+				p1 = new Point2D(bound, getYWhenXEquals(bound));		//x boundary
+				p2 = new Point2D(getXWhenYEquals(bound * -1), bound * -1);		//y boundary
+			}
+			
+
 //			System.out.println(p1);
 //			System.out.println(p2);
+			
 			
 			double d1 = distance(pS, p1);
 			double d2 = distance(pS, p2);
@@ -68,6 +98,7 @@ public class LineSplitter {
 		}
 		
 		pE = calculateNewEndPoint(pS, length);
+//		System.out.println("Last line endpoint: " + pE);
 		lineList.add(new Line(pS.getX(), pS.getY(), pE.getX(), pE.getY()));
 
 		for (int i = 0; i < lineList.size(); i++) {
@@ -79,8 +110,26 @@ public class LineSplitter {
 	}
 
 	private Point2D calculateNewEndPoint(Point2D pS, double length) {
-		double x1 = pS.getX() + length * Math.cos(angle);
-		double y1 = pS.getY() + length * Math.sin(angle);
+		double x1, y1;
+		
+//		System.out.println("Angle = " + angle);
+		//
+		// if (angle >= 90 && angle <= 270) {
+		// x1 = pS.getX() + length * Math.cos(Math.toRadians(angle));
+		// y1 = pS.getY() + length * Math.sin(Math.toRadians(angle));
+		//
+		// } else {
+		// x1 = pS.getX() + length * Math.cos(Math.toRadians(angle));
+		// y1 = pS.getY() + length * Math.sin(Math.toRadians(angle));
+		// }
+		//
+		// System.out.println(x1);
+		// System.out.println(y1);
+		//
+		
+		x1 = pS.getX() + length * Math.cos(Math.toRadians(angle));
+		y1 = pS.getY() + length * Math.sin(Math.toRadians(angle));
+
 		return new Point2D(x1, y1);
 	}
 
