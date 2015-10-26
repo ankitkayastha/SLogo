@@ -41,6 +41,8 @@ public class UpdateBackgroundColor implements EventHandler<ActionEvent> {
 		}
 		turtle.getGC().setFill(pf.getUpdatedBackgroundColor());
 		turtle.getGC().fillRect(0, 0, 500, 500);
+		turtle.update();
+
 	}
 	
 	public void changePenColorAction(Color c) {
