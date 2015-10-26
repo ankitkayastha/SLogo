@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 import UserInterface.CenterPane.DisplayTurtle;
 import controller.IFront;
 import controller.toppane.UpdateBackgroundColor;
+import controller.toppane.UpdatePenColor;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,6 +40,7 @@ public class MenuHandler implements IFront {
 	private ReceiveFromFront rf;
 	private PassToFrontInterface pf;
 	private Menu backgroundColor;
+	private Menu penColor;
 	
 	public MenuHandler(DisplayTurtle disp, ReceiveFromFront receive, PassToFrontInterface pass) {
 		this.display = disp;
@@ -91,14 +93,13 @@ public class MenuHandler implements IFront {
 		}
 		
 		
-		Menu penColor = new Menu(r.getString("penTitle"));
-		String[] penOptions = {"salmon", "green", "blue", "red", 
-				"chocolate", "yellow", "pink", "purple", "orange"};
-//		Rectangle[] penColors = makeColorNodes(penOptions);
-		String[] penIndices = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-		addMenuItem(penColor, indices, backgroundColors);
-		for (MenuItem m: backgroundColor.getItems()) {
-			m.setOnAction((event) -> update.changeBackgroundAction(m.getText()));
+		penColor = new Menu(r.getString("penTitle"));
+
+		UpdatePenColor updatePen = new UpdatePenColor(rf);
+		Rectangle[] penColors = makeColorNodes(colors);
+		addMenuItem(penColor, indices, penColors);
+		for (MenuItem m: penColor.getItems()) {
+			m.setOnAction((event) -> updatePen.changePenColorAction(m.getText()));
 		}
 		
 		Menu image = new Menu(r.getString("imageTitle"));
@@ -206,10 +207,14 @@ public class MenuHandler implements IFront {
 	@Override
 	public void update() {
 		Map<Double, Color> colorMap = pf.getPalette();
-		ObservableList<MenuItem> list = backgroundColor.getItems();
+		ObservableList<MenuItem> backgroundList = backgroundColor.getItems();
+		ObservableList<MenuItem> penList = penColor.getItems();
+
 		for (int i = 0; i < colorMap.keySet().size(); i++) {
-			Rectangle rect = (Rectangle) list.get(i).getGraphic();
+			Rectangle rect = (Rectangle) backgroundList.get(i).getGraphic();
+			Rectangle penRect = (Rectangle) penList.get(i).getGraphic();
 			rect.setFill(colorMap.get((double) i));
+			penRect.setFill(colorMap.get((double) i));
 		}
 	
 			
