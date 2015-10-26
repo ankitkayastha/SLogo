@@ -10,6 +10,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import slogo_team03.AngleInterface;
 import slogo_team03.CoordinateInterface;
+import slogo_team03.PassToFrontInterface;
 import slogo_team03.PenUpDownInterface;
 import slogo_team03.VisibleInterface;
 
@@ -31,8 +32,9 @@ public class DisplayTurtle implements IFront {
 	private PenUpDownInterface pInterface;
 	private VisibleInterface vInterface;
 	private InitialTurtle initial;
+	private PassToFrontInterface passInterface;
 	
-	public DisplayTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi) {
+	public DisplayTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf) {
 		myCanvas = new Canvas(Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 		myCanvas.setTranslateX(Double.parseDouble(r.getString("canvasTranslateX")));
 		myCanvas.setTranslateY(Double.parseDouble(r.getString("canvasTranslateY")));
@@ -45,12 +47,13 @@ public class DisplayTurtle implements IFront {
 		aInterface = ai;
 		pInterface = pi;
 		vInterface = vi;
+		passInterface = pf;
 	}
 
 	public void update() {
 		tip.update(cInterface, aInterface, pInterface, vInterface, rect);
+		gc.setFill(passInterface.getUpdatedBackgroundColor());
 		gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
-
 		List<Line> lineList = cInterface.getLineList();
 		for (int i = 0; i < lineList.size(); i++) {
 			Line line = lineList.get(i);
