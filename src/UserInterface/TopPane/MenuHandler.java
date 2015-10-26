@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
 import UserInterface.CenterPane.DisplayTurtle;
 import controller.IFront;
 import controller.toppane.UpdateBackgroundColor;
+import controller.toppane.UpdateImage;
+import controller.toppane.UpdateLanguage;
 import controller.toppane.UpdatePenColor;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,7 +43,7 @@ public class MenuHandler implements IFront {
 	private PassToFrontInterface pf;
 	private Menu backgroundColor;
 	private Menu penColor;
-	
+	private Menu image;
 	public MenuHandler(DisplayTurtle disp, ReceiveFromFront receive, PassToFrontInterface pass) {
 		this.display = disp;
 		this.rf = receive;
@@ -63,11 +65,11 @@ public class MenuHandler implements IFront {
 		return rects;
 	}
 	
-	private Rectangle[] makeImageNodes(String[] options, int width, int length) {
-		Rectangle[] rects = new Rectangle[options.length];
+	private Rectangle[] makeImageNodes(List<String> options, int width, int length) {
+		Rectangle[] rects = new Rectangle[options.size()];
 		for (int i = 0; i < rects.length; i++) {
 			Rectangle rect = new Rectangle(width,length);
-			rect.setFill(new ImagePattern(new Image(getClass().getClassLoader().getResourceAsStream(options[i]))));
+			rect.setFill(new ImagePattern(new Image(getClass().getClassLoader().getResourceAsStream(options.get(i)))));
 			rects[i] = rect;
 		}
 		return rects;
@@ -102,53 +104,58 @@ public class MenuHandler implements IFront {
 			m.setOnAction((event) -> updatePen.changePenColorAction(m.getText()));
 		}
 		
-		Menu image = new Menu(r.getString("imageTitle"));
-		String[] imageOptions = {r.getString("imageItem1"), r.getString("imageItem2"), r.getString("imageItem3")};
+		image = new Menu(r.getString("imageTitle"));
+		List<String> imageOptions = new ArrayList<String>();
+		imageOptions.add(r.getString("imageItem1"));
+		imageOptions.add(r.getString("imageItem2"));
+		imageOptions.add(r.getString("imageItem3"));
+		UpdateImage imageChanger = new UpdateImage(display);
 		Rectangle[] imageRects = makeImageNodes(imageOptions, 50, 50);
-//		addMenuItem(image, imageOptions, imageRects);
-		
+		addMenuItem(image, imageOptions, imageRects);
+		for (MenuItem m : image.getItems()) {
+			m.setOnAction((event) -> imageChanger.refreshImage(m.getText()));
+		}
+			
 		
 		Menu language = new Menu(r.getString("languageTitle"));
-		String[] languageOptions = {r.getString("languageItem1"),
-				r.getString("languageItem2"),
-				r.getString("languageItem3"),
-				r.getString("languageItem4"),
-				r.getString("languageItem5"),
-				r.getString("languageItem6"),
-				r.getString("languageItem7"),
-				r.getString("languageItem8")};
-		String[] flagOptions = {r.getString("languageFlag1"),
-				r.getString("languageFlag2"),
-				r.getString("languageFlag3"),
-				r.getString("languageFlag4"),
-				r.getString("languageFlag5"),
-				r.getString("languageFlag6"),
-				r.getString("languageFlag7"),
-				r.getString("languageFlag8")};
+		UpdateLanguage updateLang = new UpdateLanguage(rf);
+		
+		List<String> languageOptions = new ArrayList<String>();
+		List<String> flagOptions = new ArrayList<String>();
+
+		for (int i = 1; i <= 8; i++) {
+			languageOptions.add(r.getString("languageItem" + Integer.toString(i)));
+			flagOptions.add(r.getString("languageFlag" + Integer.toString(i)));
+		}
+
 		Rectangle[] flagRects = makeImageNodes(flagOptions, 75, 50);
-//		addMenuItem(language, languageOptions, flagRects);
+		addMenuItem(language, languageOptions, flagRects);
+		for (MenuItem m: language.getItems()) {
+			m.setOnAction((event) -> updateLang.changeLanguage(m.getText()));
+		}
+		
+		
 		
 		Menu penProperties = new Menu(r.getString("penPropertyTitle"));
-		
 		Menu penUpDown = new Menu(r.getString("penUpDown"));
 		List<String> penUpDownOptions = new ArrayList<String>();
 		penUpDownOptions.add(r.getString("penUp"));
 		penUpDownOptions.add(r.getString("penDown"));
 		//String[] penUpDownOptions = {r.getString("penUp"), r.getString("penDown")};
 		String[] arrowOptions = {r.getString("penUpImage"), r.getString("penDownImage")};
-		Rectangle[] arrowRects = makeImageNodes(arrowOptions, 10,10);
+//		Rectangle[] arrowRects = makeImageNodes(arrowOptions, 10,10);
 		//addMenuItem(penUpDown, penUpDownOptions, arrowRects);
 		
 		Menu penThickness = new Menu(r.getString("penThickness"));
 		String[] penThicknessOptions = {r.getString("thickness1"), r.getString("thickness2"), r.getString("thickness3"), r.getString("thickness4")};
 		String[] penThicknessImage = {r.getString("thicknessImage"), r.getString("thicknessImage"), r.getString("thicknessImage"), r.getString("thicknessImage")};
-		Rectangle[] penThicknessRects = makeImageNodes(penThicknessImage, 25, 25);
+//		Rectangle[] penThicknessRects = makeImageNodes(penThicknessImage, 25, 25);
 //		addMenuItem(penThickness, penThicknessOptions, penThicknessRects);
 		
 		Menu penType = new Menu(r.getString("penLineType"));
 		String[] lineTypes = {r.getString("lineType1"), r.getString("lineType2"), r.getString("lineType3")};
 		String[] lineTypeImage = {r.getString("lineImage1"), r.getString("lineImage2"), r.getString("lineImage3")};
-		Rectangle[] lineRects = makeImageNodes(lineTypeImage, 60, 60);
+//		Rectangle[] lineRects = makeImageNodes(lineTypeImage, 60, 60);
 //		addMenuItem(penType, lineTypes, lineRects);
 		
 		penProperties.getItems().addAll(penUpDown, penThickness, penType);
@@ -156,7 +163,7 @@ public class MenuHandler implements IFront {
 		Menu help = new Menu(r.getString("helpTitle"));
 		String[] helpOptions = {r.getString("helpLink1"), r.getString("helpLink2")};
 		String[] helpImages = {r.getString("linkImage1"), r.getString("linkImage2")};
-		Rectangle[] helpRects = makeImageNodes(helpImages, 20, 20);
+//		Rectangle[] helpRects = makeImageNodes(helpImages, 20, 20);
 //		addMenuItem(help, helpOptions, helpRects);
 		
 		

@@ -35,11 +35,4 @@ public class UpdateBackgroundColor {
 		turtle.update();
 
 	}
-
-
-	public void changeLanguage(String s, ReceiveFromFront rs) {
-		rs.receiveLanguage(s);
-	}
-
-
 }
