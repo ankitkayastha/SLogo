@@ -67,14 +67,11 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	@Override
 	public void receiveCommand(String input) throws CommandInputException, TrigonometricException {
 		interpretInput(removeCommentsAndWhitespace(input));
-		xmlWriter.writeXmlFile("D:\\Daniel\\Duke University\\2015 - 2016\\Compsci 308\\SLogo\\slogo_team03\\File.xml");
 	}
 
 	@Override
 	public void receiveLanguage(String language) {
-		parser.processLanguage(language);
-		xmlReader.readFile("D:\\Daniel\\Duke University\\2015 - 2016\\Compsci 308\\SLogo\\slogo_team03\\File.xml");
-		
+		parser.processLanguage(language);		
 	}
 
 	@Override
