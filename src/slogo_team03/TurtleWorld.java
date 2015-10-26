@@ -20,6 +20,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	private TurtleManager turtleManager;
 	private XmlWriter xmlWriter;
 	private XmlReader xmlReader;
+	private String myInput;
 
 	public TurtleWorld() {
 		turtleManager = new TurtleManager();
@@ -32,6 +33,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		Command.setMaps(userDefinedCommands, variables);
 		xmlWriter = new XmlWriter(userDefinedCommands, variables);
 		xmlReader = new XmlReader(variables, userDefinedCommands);
+		myInput = "";
 	}
 
 	public void interpretInput(List<String> inputList) throws CommandInputException, TrigonometricException {
@@ -66,6 +68,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 
 	@Override
 	public void receiveCommand(String input) throws CommandInputException, TrigonometricException {
+		myInput = input;
 		interpretInput(removeCommentsAndWhitespace(input));
 	}
 
@@ -81,7 +84,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 
 	@Override
 	public String getLastCommand() {
-		return null;
+		return myInput;
 	}
 
 	@Override
