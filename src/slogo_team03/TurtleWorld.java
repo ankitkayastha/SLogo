@@ -13,7 +13,7 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface, FileInt
 	private UserDefinedVariables variables;
 	private Parser parser;
 	private TurtleMap turtles;
-	private XmlWriter xmlCreator;
+	private XmlWriter xmlWriter;
 	private XmlReader xmlReader;
 
 	public TurtleWorld() {
@@ -24,7 +24,7 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface, FileInt
 		turtles = new TurtleMap();
 		turtles.addTurtle(turtle);
 		Command.setMaps(userDefinedCommands, variables);
-		xmlCreator = new XmlWriter(userDefinedCommands, variables);
+		xmlWriter = new XmlWriter(userDefinedCommands, variables);
 		xmlReader = new XmlReader(variables, userDefinedCommands);
 	}
 
@@ -62,32 +62,14 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface, FileInt
 	@Override
 	public void receiveCommand(String input) throws CommandInputException, TrigonometricException {
 		interpretInput(removeCommentsAndWhitespace(input));
+		xmlWriter.writeXmlFile("D:\\Daniel\\Duke University\\2015 - 2016\\Compsci 308\\SLogo\\slogo_team03\\File.xml");
 	}
 
 	@Override
 	public void receiveLanguage(String language) {
 		parser.processLanguage(language);
-		for (String c : userDefinedCommands.getCommandMap().keySet()) {
-			System.out.println(c);
-			System.out.println(userDefinedCommands.getCommandMap().get(c).getDefinition());
-			System.out.println(userDefinedCommands.getCommandMap().get(c).getParameterCode());
-		}
-		
-		for (String v : variables.getVariableMap().keySet()) {
-			System.out.println(v);
-			System.out.println(variables.getVariableMap().get(v));
-		}
 		xmlReader.readFile("D:\\Daniel\\Duke University\\2015 - 2016\\Compsci 308\\SLogo\\slogo_team03\\File.xml");
-		for (String c : userDefinedCommands.getCommandMap().keySet()) {
-			System.out.println(c);
-			System.out.println(userDefinedCommands.getCommandMap().get(c).getDefinition());
-			System.out.println(userDefinedCommands.getCommandMap().get(c).getParameterCode());
-		}
 		
-		for (String v : variables.getVariableMap().keySet()) {
-			System.out.println(v);
-			System.out.println(variables.getVariableMap().get(v));
-		}
 	}
 
 	@Override
@@ -105,6 +87,6 @@ public class TurtleWorld implements ReceiveString, PassToFrontInterface, FileInt
 	}
 	
 	public void writeXmlFile(String path) {
-		xmlCreator.writeXmlFile(path);
+		xmlWriter.writeXmlFile(path);
 	}
 }

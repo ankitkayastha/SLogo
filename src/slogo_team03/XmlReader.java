@@ -61,11 +61,16 @@ public class XmlReader {
 				if (command.getNodeType() == Node.ELEMENT_NODE) {
 					Element eCommand = (Element) command;
 					String commandName = eCommand.getElementsByTagName("CommandName").item(0).getTextContent();
+					
 					String commandParamCode = eCommand.getElementsByTagName("CommandParamCode").item(0).getTextContent();
+					
 					String unconvertedDefinition = eCommand.getElementsByTagName("CommandDefinition").item(0).getTextContent();
 					ArrayList<String> commandDefinition = new ArrayList<String>(Arrays.asList(unconvertedDefinition.split(" ")));
 					
-					UserCommand commandObject = new UserCommand(commandName, commandParamCode, commandDefinition);
+					String unconvertedVariables = eCommand.getElementsByTagName("CommandVariables").item(0).getTextContent();
+					ArrayList<String> commandVariables = new ArrayList<String>(Arrays.asList(unconvertedVariables.split(" ")));
+					
+					UserCommand commandObject = new UserCommand(commandName, commandParamCode, commandDefinition, commandVariables);
 					userDefinedCommands.addCommand(commandObject);
 				}
 			}

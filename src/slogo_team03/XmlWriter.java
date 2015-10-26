@@ -81,9 +81,15 @@ public class XmlWriter {
 				
 				Element definition = doc.createElement("CommandDefinition");
 				List<String> unconvertedDefinition = userCommands.get(commandName).getDefinition();
-				String convertedDefinition = commandDefinitionToString(unconvertedDefinition);
+				String convertedDefinition = listToString(unconvertedDefinition);
 				definition.appendChild(doc.createTextNode(convertedDefinition));
 				command.appendChild(definition);
+				
+				Element cVariables = doc.createElement("CommandVariables");
+				List<String> unconvertedCVariables = userCommands.get(commandName).getVariableList();
+				String convertedCVariables = listToString(unconvertedCVariables);
+				cVariables.appendChild(doc.createTextNode(convertedCVariables));
+				command.appendChild(cVariables);
 			}
 			
 			// write the content into xml file
@@ -106,7 +112,7 @@ public class XmlWriter {
 		}
 	}
 
-	private String commandDefinitionToString(List<String> definition) {
+	private String listToString(List<String> definition) {
 		StringBuilder sb = new StringBuilder();
 		for (String d : definition) {
 			sb.append(d);
