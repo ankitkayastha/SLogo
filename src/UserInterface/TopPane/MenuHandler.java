@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 import UserInterface.CenterPane.DisplayTurtle;
 import controller.IFront;
 import controller.toppane.UpdateBackgroundColor;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
@@ -37,6 +38,8 @@ public class MenuHandler implements IFront {
 	private DisplayTurtle display;
 	private ReceiveFromFront rf;
 	private PassToFrontInterface pf;
+	private Menu backgroundColor;
+	
 	public MenuHandler(DisplayTurtle disp, ReceiveFromFront receive, PassToFrontInterface pass) {
 		this.display = disp;
 		this.rf = receive;
@@ -72,18 +75,20 @@ public class MenuHandler implements IFront {
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
 		
-		Menu backgroundColor = new Menu(r.getString("backgroundTitle"));
+		backgroundColor = new Menu(r.getString("backgroundTitle"));
 		Map<Double, Color> backgroundColorMap = pf.getPalette();
 		Color[] colors = new Color[backgroundColorMap.keySet().size()];
 		List<String> indices = new ArrayList<String>();
-	//	UpdateBackgroundColor update = new UpdateBackgroundColor(display, rf, pf, );
+		UpdateBackgroundColor update = new UpdateBackgroundColor(display, rf, pf);
 		for (int i = 0; i < backgroundColorMap.keySet().size(); i++) {
 			indices.add(Double.toString(i));
 			colors[i] = backgroundColorMap.get((double) i);
 		}
 		Rectangle[] backgroundColors = makeColorNodes(colors);
 		addMenuItem(backgroundColor, indices, backgroundColors);
-		
+		for (MenuItem m: backgroundColor.getItems()) {
+			m.setOnAction((event) -> update.changeBackgroundAction(m.getText()));
+		}
 		
 		
 		Menu penColor = new Menu(r.getString("penTitle"));
@@ -129,7 +134,7 @@ public class MenuHandler implements IFront {
 		//String[] penUpDownOptions = {r.getString("penUp"), r.getString("penDown")};
 		String[] arrowOptions = {r.getString("penUpImage"), r.getString("penDownImage")};
 		Rectangle[] arrowRects = makeImageNodes(arrowOptions, 10,10);
-		addMenuItem(penUpDown, penUpDownOptions, arrowRects);
+		//addMenuItem(penUpDown, penUpDownOptions, arrowRects);
 		
 		Menu penThickness = new Menu(r.getString("penThickness"));
 		String[] penThicknessOptions = {r.getString("thickness1"), r.getString("thickness2"), r.getString("thickness3"), r.getString("thickness4")};
@@ -188,28 +193,24 @@ public class MenuHandler implements IFront {
 		newStage.show();
 	}
 	
-	public Menu addMenuItem(Menu menu, List<String> options, Node[] graphics, EventHandler<ActionEvent> event) {
+	public void addMenuItem(Menu menu, List<String> options, Node[] graphics) {
 		for (int i = 0; i < options.size(); i++) {
 			MenuItem m = new MenuItem(options.get(i), graphics[i]);
-			//m.setOnAction(update);
-			m.setOnAction(event);
 			menu.getItems().add(m);
 		}
-		return menu;
 	}
 
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
-		
-	}
+		Map<Double, Color> colorMap = pf.getPalette();
+		ObservableList<MenuItem> list = backgroundColor.getItems();
+		for (int i = 0; i < colorMap.keySet().size(); i++) {
+			Rectangle rect = (Rectangle) list.get(i).getGraphic();
+			rect.setFill(colorMap.get((double) i));
+		}
 	
-	private class penAction implements EventHandler<ActionEvent> {
-        @Override      
-        public void handle (ActionEvent event) {       
-                 
-        }      
-    }
+			
+	}
+		
 }
