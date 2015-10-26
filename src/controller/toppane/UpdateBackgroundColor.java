@@ -14,10 +14,9 @@ public class UpdateBackgroundColor implements EventHandler<ActionEvent> {
 	private ReceiveFromFront rf;
 	private String index;
 	private PassToFrontInterface pf;
-	public UpdateBackgroundColor(DisplayTurtle t, ReceiveFromFront receive, PassToFrontInterface pass, String ind) {
+	public UpdateBackgroundColor(DisplayTurtle t, ReceiveFromFront receive, PassToFrontInterface pass) {
 		this.turtle = t;
 		rf = receive;
-		index = ind;
 		pf = pass;
 	}
 
@@ -25,7 +24,25 @@ public class UpdateBackgroundColor implements EventHandler<ActionEvent> {
 		turtle.getGC().setFill(c);
 		turtle.getGC().fillRect(0, 0, 500, 500);
 	}
+	
 
+	public void changeBackgroundAction(String index) {
+		try {
+			rf.receiveCommand("setbg " + index);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CommandInputException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TrigonometricException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		turtle.getGC().setFill(pf.getUpdatedBackgroundColor());
+		turtle.getGC().fillRect(0, 0, 500, 500);
+	}
+	
 	public void changePenColorAction(Color c) {
 		turtle.setLineColor(c);
 	}
@@ -34,8 +51,8 @@ public class UpdateBackgroundColor implements EventHandler<ActionEvent> {
 		rs.receiveLanguage(s);
 	}
 
-
-	public void handle(ActionEvent event, String index) {
+	@Override
+	public void handle(ActionEvent event) {
 		try {
 			rf.receiveCommand("setbg " + index);
 			changeBackgroundAction(pf.getUpdatedBackgroundColor());
@@ -45,8 +62,4 @@ public class UpdateBackgroundColor implements EventHandler<ActionEvent> {
 		}
 	}
 
-	@Override
-	public void handle(ActionEvent event) {
-		//handle(event, )
-	}
 }
