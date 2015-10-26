@@ -23,6 +23,7 @@ import UserInterface.CenterPane.DisplayTurtle;
 import controller.IFront;
 import controller.toppane.UpdateBackgroundColor;
 import controller.toppane.UpdateFile;
+import controller.toppane.UpdateHelpPage;
 import controller.toppane.UpdateImage;
 import controller.toppane.UpdateLanguage;
 import controller.toppane.UpdatePenColor;
@@ -166,11 +167,18 @@ public class MenuHandler implements IFront {
 		penProperties.getItems().addAll(penUpDown, penThickness, penType);
 
 		Menu help = new Menu(r.getString("helpTitle"));
-		String[] helpOptions = {r.getString("helpLink1"), r.getString("helpLink2")};
-		String[] helpImages = {r.getString("linkImage1"), r.getString("linkImage2")};
-		//		Rectangle[] helpRects = makeImageNodes(helpImages, 20, 20);
-		//		addMenuItem(help, helpOptions, helpRects);
-
+		List<String> helpOptions = new ArrayList<String>();
+		List<String> helpPics = new ArrayList<String>();
+		helpOptions.add(r.getString("link1"));
+		helpOptions.add(r.getString("link2"));
+		helpPics.add(r.getString("linkImage1"));
+		helpPics.add(r.getString("linkImage2"));
+		Rectangle[] helpRects = makeImageNodes(helpPics, 20, 20);
+		addMenuItem(help, helpOptions, helpRects);
+		UpdateHelpPage updateHelp = new UpdateHelpPage();
+		for (MenuItem m: help.getItems()) {
+			m.setOnAction((event) -> updateHelp.openPage(m.getText()));
+		}
 		
 		
 		
