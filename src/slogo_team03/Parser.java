@@ -23,7 +23,7 @@ public class Parser {
 	public Parser(UserDefinedCommands commands, UserDefinedVariables vars, TurtleManager TW) {
 		userDefinedCommands = commands;
 		variables = vars;
-		myTurtleManager= TW;
+		myTurtleManager = TW;
 		currentTurtle = myTurtleManager.firstTurtle();
 		factory = new CommandFactory(userDefinedCommands);
 		copyOfTurtle = new Turtle();
@@ -70,14 +70,11 @@ public class Parser {
 		double result = Double.MAX_VALUE;
 		setParameters(inputList, command);
 		command.setTurtle(currentTurtle);
-		if (evaluating) { // When testing validity of User Defined Commands,
-							// don't throw exceptions.
+		if (evaluating) {
 			try {
 				result = command.executeAndFormat();
 			} catch (MathException e) {
-				result = 1;
-			} catch (ArithmeticException e) {
-				result = 1;
+				result = 0;
 			}
 		} else {
 			result = command.executeAndFormat();
@@ -95,8 +92,7 @@ public class Parser {
 		return result;
 	}
 
-	private double runExtraCommands(Command command, double result)
-			throws MathException, CommandInputException {
+	private double runExtraCommands(Command command, double result) throws MathException, CommandInputException {
 		if (command instanceof To) {
 			evaluating = true;
 			List<String> runList = ((SpecialCommand) command).getRunList();
@@ -120,8 +116,7 @@ public class Parser {
 		return result;
 	}
 
-	public void setParameters(List<String> inputList, Command command)
-			throws CommandInputException, MathException {
+	public void setParameters(List<String> inputList, Command command) throws CommandInputException, MathException {
 		String parameterCode = command.getParameterCode();
 		for (int i = 0; i < parameterCode.length(); i++) {
 			if (inputList.size() == 0) {
@@ -238,7 +233,7 @@ public class Parser {
 			}
 		}
 	}
-	
+
 	public void processLanguage(String language) {
 		factory.receiveLanguage(language);
 	}

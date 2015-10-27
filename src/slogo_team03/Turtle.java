@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-
-public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInterface, VisibleInterface, StampInterface {
+public class Turtle implements CoordinateInterface, AngleInterface, VisibleInterface{
+//public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInterface, VisibleInterface, StampInterface {
 	private double x, y;
 	private double angle;
 	private boolean visible;
@@ -21,15 +21,19 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 	private LineSplitter lineSplitter = new LineSplitter();
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
 
+	public static void setPen(Pen p) {
+		pen = p;
+	}
+	
 	public Turtle() {
-		pen = new Pen();
+//		pen = new Pen();
 		myID = ++ID;
 		initialize();
 	}
 
-	public Pen getPen() {
-		return pen;
-	}
+//	public Pen getPen() {
+//		return pen;
+//	}
 
 	// public Turtle(int ID) {
 	// myID = ID;
@@ -44,47 +48,47 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		active = b;
 	}
 
-	public void updatePalette(double index, int red, int green, int blue) {
-		pen.updatePalette(index, red, green, blue);
-	}
+//	public void updatePalette(double index, int red, int green, int blue) {
+//		pen.updatePalette(index, red, green, blue);
+//	}
 
-	public double stamp() {
-		Stamp s = new Stamp(x, y, angle);
-		pen.addStamp(s);
-		return s.getMyShape();
-	}
+//	public double stamp() {
+//		Stamp s = new Stamp(x, y, angle);
+//		pen.addStamp(s);
+//		return s.getMyShape();
+//	}
 
-	public double clearStamps() {
-		return pen.clearStampList();
-	}
+//	public double clearStamps() {
+//		return pen.clearStampList();
+//	}
 
-	public List<Stamp> getStampList() {
-		return pen.getStampList();
-	}
+//	public List<Stamp> getStampList() {
+//		return pen.getStampList();
+//	}
 
-	public void setBackground(double index) {
-		pen.setBackgroundColor(index);
-	}
+//	public void setBackground(double index) {
+//		pen.setBackgroundColor(index);
+//	}
 
-	public double getPenColor() {
-		return pen.getPenColorIndex();
-	}
+//	public double getPenColor() {
+//		return pen.getPenColorIndex();
+//	}
 
-	public void setPenColor(double index) {
-		pen.setPenColor(index);
-	}
+//	public void setPenColor(double index) {
+//		pen.setPenColor(index);
+//	}
 
-	public void setPenSize(double pixels) {
-		pen.setPenSize(pixels);
-	}
+//	public void setPenSize(double pixels) {
+//		pen.setPenSize(pixels);
+//	}
 
-	public double getShape() {
-		return pen.getShape();
-	}
+//	public double getShape() {
+//		return pen.getShape();
+//	}
 
-	public void setShape(double index) {
-		pen.setShape(index);
-	}
+//	public void setShape(double index) {
+//		pen.setShape(index);
+//	}
 
 	public static int getNumTurtles() {
 		return ID;
@@ -96,7 +100,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		angle = copyTurtle.getAngle();
 		visible = copyTurtle.isVisible();
 		active = copyTurtle.isActive();
-		pen.setPenDown(copyTurtle.isPenDown());
+//		pen.setPenDown(copyTurtle.isPenDown());
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>(copyTurtle.getLineList());
 	}
@@ -111,7 +115,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		angle = Integer.parseInt(r.getString("startAngle"));
 		visible = Boolean.parseBoolean(r.getString("visible"));
 		active = false;
-		pen.setPenDown(Boolean.parseBoolean(r.getString("penDown")));
+//		pen.setPenDown(Boolean.parseBoolean(r.getString("penDown")));
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>();
 	}
@@ -179,13 +183,13 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		this.visible = visible;
 	}
 
-	public boolean isPenDown() {
-		return pen.isPenDown();
-	}
+//	public boolean isPenDown() {
+//		return pen.isPenDown();
+//	}
 
-	public void setPenDown(boolean penDown) {
-		pen.setPenDown(penDown);
-	}
+//	public void setPenDown(boolean penDown) {
+//		pen.setPenDown(penDown);
+//	}
 
 	private double format(double d) {
 		if (Double.valueOf(df.format(d)) == 0.00000)
@@ -193,7 +197,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInt
 		return Double.valueOf(df.format(d));
 	}
 
-	public Color getBackgroundColor() {
-		return pen.getBackgroundColor();
-	}
+//	public Color getBackgroundColor() {
+//		return pen.getBackgroundColor();
+//	}
 }

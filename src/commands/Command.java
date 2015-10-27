@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import slogo_team03.CommandInputException;
 import slogo_team03.MathException;
+import slogo_team03.Pen;
 import slogo_team03.Turtle;
 import slogo_team03.UserDefinedCommands;
 import slogo_team03.UserDefinedVariables;
@@ -18,6 +19,7 @@ public abstract class Command {
 	protected List<List<String>> myCommandLists = new ArrayList<List<String>>();
 	protected static UserDefinedCommands userDefinedCommands;
 	protected static UserDefinedVariables variableMap;
+	protected static Pen pen;
 	protected final ResourceBundle ParameterCode = ResourceBundle.getBundle("commands/ParameterCode");;
 
 	public Command() {
@@ -28,9 +30,10 @@ public abstract class Command {
 
 	public abstract double execute() throws CommandInputException, MathException;
 
-	public static void setMaps(UserDefinedCommands uMap, UserDefinedVariables vMap) {
+	public static void setMapsAndPen(UserDefinedCommands uMap, UserDefinedVariables vMap, Pen p) {
 		userDefinedCommands = uMap;
 		variableMap = vMap;
+		pen = p;
 	}
 
 	public String getParameterCode() {
