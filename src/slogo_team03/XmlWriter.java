@@ -60,7 +60,7 @@ public class XmlWriter {
 		addLanguageSection(doc, rootElement);
 		
 		//Turtles
-		//addTurtleSection(doc, rootElement);
+		addTurtleSection(doc, rootElement);
 		
 		//Starting pen color
 		addPenColorSection(doc, rootElement);
@@ -112,11 +112,12 @@ public class XmlWriter {
 			turtle.appendChild(xCoord);
 			
 			Element yCoord = doc.createElement("YCoord");
-			xCoord.appendChild(doc.createTextNode(Double.toString(t.getY())));
+			yCoord.appendChild(doc.createTextNode(Double.toString(t.getY())));
 			turtle.appendChild(yCoord);
 			
 			Element angle = doc.createElement("Angle");
 			angle.appendChild(doc.createTextNode(Double.toString(t.getAngle())));
+			turtle.appendChild(angle);
 			
 			Element id = doc.createElement("ID");
 			id.appendChild(doc.createTextNode(Integer.toString(t.getID())));

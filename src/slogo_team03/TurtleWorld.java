@@ -34,6 +34,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		xmlWriter = new XmlWriter();
 		xmlReader = new XmlReader();
 		myInput = "";
+		myLanguage = "English";
 	}
 
 	public void interpretInput(List<String> inputList) throws CommandInputException, MathException {
