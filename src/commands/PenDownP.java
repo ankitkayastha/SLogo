@@ -6,7 +6,7 @@ public class PenDownP extends Command {
 	}
 
 	public double execute() {
-		if (myTurtle.isPenDown())
+		if (pen.isPenDown())
 			return 1;
 		else
 			return 0;

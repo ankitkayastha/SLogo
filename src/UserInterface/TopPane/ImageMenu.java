@@ -24,7 +24,7 @@ public class ImageMenu extends AbstractMenu implements IMenu{
 		imageOptions.add(r.getString("imageItem2"));
 		imageOptions.add(r.getString("imageItem3"));
 		UpdateImage imageChanger = new UpdateImage(display);
-		Rectangle[] imageRects = makeImageNodes(imageOptions, 50, 50);
+		Rectangle[] imageRects = makeImageNodes(imageOptions, Integer.parseInt(r.getString("imageImageHeight")), Integer.parseInt(r.getString("imageImageWidth")));
 		addMenuItem(image, imageOptions, imageRects);
 		for (MenuItem m : image.getItems()) {
 			m.setOnAction((event) -> imageChanger.refreshImage(m.getText()));

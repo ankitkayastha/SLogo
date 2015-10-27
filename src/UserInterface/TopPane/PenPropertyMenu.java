@@ -28,7 +28,7 @@ public class PenPropertyMenu extends AbstractMenu implements IMenu {
 		arrowOptions.add(r.getString("penUpImage"));
 		arrowOptions.add( r.getString("penDownImage"));
 		UpdatePenProperties updatePenProp = new UpdatePenProperties(display, rf);
-		Rectangle[] arrowRects = makeImageNodes(arrowOptions, 10,10);
+		Rectangle[] arrowRects = makeImageNodes(arrowOptions, Integer.parseInt(r.getString("penStatusImageWidth")),Integer.parseInt(r.getString("penStatusImageHeight")));
 		addMenuItem(penUpDown, penUpDownOptions, arrowRects);
 		for (MenuItem m : penUpDown.getItems()) {
 			m.setOnAction((event) -> updatePenProp.changePenUpDown(m.getText()));
@@ -36,7 +36,6 @@ public class PenPropertyMenu extends AbstractMenu implements IMenu {
 		
 		
 		Menu penSize = new Menu(r.getString("penSize"));
-		//String[] penThicknessOptions = {r.getString("thickness1"), r.getString("thickness2"), r.getString("thickness3"), r.getString("thickness4")};
 		List<String> penThicknessOptions = new ArrayList<String>();
 		for (int i = 1; i <= 4; i++) {
 			penThicknessOptions.add(r.getString("thickness" + Integer.toString(i)));
@@ -45,8 +44,7 @@ public class PenPropertyMenu extends AbstractMenu implements IMenu {
 		for (int i = 0; i < 4; i++) {
 			penThicknessImage.add(r.getString("thicknessImage"));
 		}
-		//String[] penThicknessImage = {r.getString("thicknessImage"), r.getString("thicknessImage"), r.getString("thicknessImage"), r.getString("thicknessImage")};
-		Rectangle[] penThicknessRects = makeImageNodes(penThicknessImage, 25, 25);
+		Rectangle[] penThicknessRects = makeImageNodes(penThicknessImage, Integer.parseInt(r.getString("sizeImageWidth")), Integer.parseInt(r.getString("sizeImageHeight")));
 		addMenuItem(penSize, penThicknessOptions, penThicknessRects);
 		for (MenuItem m : penSize.getItems()) {
 			m.setOnAction((event) -> updatePenProp.changePenThickness(m.getText()));
@@ -55,7 +53,6 @@ public class PenPropertyMenu extends AbstractMenu implements IMenu {
 		
 		
 		Menu penType = new Menu(r.getString("penLineType"));
-		//String[] lineTypes = {r.getString("lineType1"), r.getString("lineType2"), r.getString("lineType3")};
 		List<String> lineTypes = new ArrayList<String>();
 		for (int i = 1; i <= 3; i++) {
 			lineTypes.add(r.getString("lineType" + Integer.toString(i)));
@@ -64,8 +61,7 @@ public class PenPropertyMenu extends AbstractMenu implements IMenu {
 		for (int i = 1; i <= 3; i++) {
 			lineTypeImage.add(r.getString("lineImage" + Integer.toString(i)));
 		}
-		//String[] lineTypeImage = {r.getString("lineImage1"), r.getString("lineImage2"), r.getString("lineImage3")};
-		Rectangle[] lineRects = makeImageNodes(lineTypeImage, 60, 60);
+		Rectangle[] lineRects = makeImageNodes(lineTypeImage, Integer.parseInt(r.getString("lineImageWidth")), Integer.parseInt(r.getString("lineImageHeight")));
 		addMenuItem(penType, lineTypes, lineRects);
 		for (MenuItem m : penType.getItems()) {
 			updatePenProp.changeLineType(m.getText());

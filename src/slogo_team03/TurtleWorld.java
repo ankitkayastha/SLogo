@@ -30,7 +30,6 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		turtle = new Turtle();
 		myPen = new Pen();
 		Turtle.setPen(myPen);
-
 		Command.setMapsAndPen(userDefinedCommands, variables, myPen);
 		xmlWriter = new XmlWriter();
 		xmlReader = new XmlReader();

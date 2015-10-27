@@ -21,7 +21,7 @@ public class ChangeShapeMenu extends AbstractMenu implements IMenu {
 		shapeItems.add(r.getString("circle"));
 		List<String> shapeImages = new ArrayList<String>();
 		shapeImages.add(r.getString("circleImage"));
-		Rectangle[] shapeRects = makeImageNodes(shapeImages, 20, 20);
+		Rectangle[] shapeRects = makeImageNodes(shapeImages, Integer.parseInt(r.getString("shapeImageWidth")), Integer.parseInt(r.getString("shapeImageHeight")));
 		addMenuItem(changeShape, shapeItems, shapeRects);
 		return changeShape;
 	}
