@@ -1,6 +1,6 @@
 package controller.toppane;
 
-import UserInterface.CenterPane.DisplayTurtle;
+import ui.centerpane.DisplayTurtle;
 
 public class UpdateImage {
 	private DisplayTurtle display;

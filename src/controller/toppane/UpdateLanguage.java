@@ -1,6 +1,6 @@
 package controller.toppane;
 
-import slogo_team03.ReceiveFromFront;
+import model.commands.ReceiveFromFront;
 
 public class UpdateLanguage {
 	private ReceiveFromFront receive;

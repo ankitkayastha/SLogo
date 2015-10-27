@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.stage.FileChooser;
-import slogo_team03.FileInterface;
+import model.interfaces.FileInterface;
 
 public class UpdateFile {
 	private File inputFile;
