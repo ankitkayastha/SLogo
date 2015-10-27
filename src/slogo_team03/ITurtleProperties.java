@@ -14,6 +14,6 @@ public interface ITurtleProperties {
 	public double absoluteAngleFrontend();
 	
 	public boolean isVisible();
-
-	public List<ITurtleProperties> getTurtleList();
+	
+	public boolean isActive();
 }

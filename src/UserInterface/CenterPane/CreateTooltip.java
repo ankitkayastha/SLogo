@@ -19,7 +19,7 @@ public class CreateTooltip {
 			penStatus = r.getString("penUp");
 		Tooltip tip = new Tooltip();
 		tip.setText("Turtle X Coordinate: " + tp.getX() + "\n" + "Turtle Y Coordinate: " + tp.getY() + "\n" + 
-				"Heading: " + tp.absoluteAngleFrontend() + "\n" + "Pen: " + penStatus);
+				"Heading: " + tp.absoluteAngleFrontend() + "\n" + "Pen: " + penStatus + "\n" + "Active: " + tp.isActive());
 		Tooltip.install(node, tip);
 	}
 }
