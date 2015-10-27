@@ -29,6 +29,7 @@ public class XmlReader {
 
 		// Read the commands and add them to the command map
 		readUserDefinedCommands(doc);
+		
 	}
 	
 	public void readWorkspaceFile(String path) {
