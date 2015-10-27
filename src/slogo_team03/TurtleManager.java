@@ -117,8 +117,8 @@ public class TurtleManager {
 	// return turtleList;
 	// }
 
-	public List<Turtle> getTurtleList() {
-		List<Turtle> turtleList = new ArrayList<Turtle>();
+	public List<ITurtleProperties> getTurtleList() {
+		List<ITurtleProperties> turtleList = new ArrayList<ITurtleProperties>();
 		for (Integer key : myTurtleMap.keySet()) {
 			turtleList.add(myTurtleMap.get(key));
 		}
