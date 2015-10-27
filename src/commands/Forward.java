@@ -1,6 +1,6 @@
 package commands;
 
-public class Forward extends Command {
+public class Forward extends MultipleTurtleCommand {
 	public Forward() {
 		super();
 	}

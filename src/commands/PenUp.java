@@ -1,12 +1,12 @@
 package commands;
 
-public class PenUp extends Command {
+public class PenUp extends MultipleTurtleCommand {
 	public PenUp() {
 		super();
 	}
 
 	public double execute() {
-		myTurtle.setPenDown(false);
+		pen.setPenDown(false);
 		return 0;
 	}
 	

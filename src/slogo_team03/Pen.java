@@ -31,7 +31,7 @@ public class Pen {
 		lineList = new ArrayList<Line>();
 		penDown = true;
 	}
-	
+
 	public Map<Double, Color> getPalette() {
 		return palette;
 	}
@@ -65,33 +65,14 @@ public class Pen {
 		return s.getMyShape();
 	}
 
-//	public double clearStamps() {
-//		return pen.clearStampList();
-//	}
-
-//	public List<Stamp> getStampList() {
-//		return pen.getStampList();
-//	}
-	
-//	public void addStamp(Stamp stamp) {
-//		
-//	}
-
 	public double clearStampList() {
 		if (stampList.size() > 0) {
-			// printStampList();
 			stampList.clear();
 			return 1;
 		} else {
 			return 0;
 		}
 	}
-
-	// private void printStampList() {
-	// for (int i = 0; i < stampList.size(); i++) {
-	// System.out.println(stampList.get(i).toString());
-	// }
-	// }
 
 	public List<Stamp> getStampList() {
 		return stampList;
