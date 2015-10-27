@@ -33,7 +33,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 //		turtles = new TurtleMap();
 //		turtles.addTurtle(turtle);
 		Command.setMapsAndPen(userDefinedCommands, variables, myPen);
-		xmlWriter = new XmlWriter(userDefinedCommands, variables);
+		xmlWriter = new XmlWriter();
 		xmlReader = new XmlReader(variables, userDefinedCommands);
 		myInput = "";
 	}
@@ -72,7 +72,8 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 
 	@Override
 	public void receiveLanguage(String language) {
-		parser.processLanguage(language);		
+		parser.processLanguage(language);
+		xmlWriter.receiveLanguage(language);
 	}
 
 	@Override
@@ -99,14 +100,14 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	public Map<Double, Color> getPalette() {
 		return myPen.getPalette();
 	}
-
 	
 	public void readXmlFile(String path) {
-		xmlReader.readFile(path);
+		xmlReader.readLibraryFile(path);
 	}
 	
 	public void writeXmlFile(String path) {
-		xmlWriter.writeXmlFile(path);
+		xmlWriter.receiveVariablesAndCommands(variables, userDefinedCommands);
+		xmlWriter.writeLibraryFile(path);
 	}
 
 	@Override
