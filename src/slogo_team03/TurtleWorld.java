@@ -9,9 +9,7 @@ import commands.Command;
 import commands.UserCommand;
 import javafx.scene.paint.Color;
 
-
 public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, FileInterface, StampInterface, IPenUpDown {
-//	private Turtle turtle;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
 	private Parser parser;
@@ -27,7 +25,6 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		userDefinedCommands = new UserDefinedCommands();
 		variables = new UserDefinedVariables();
 		parser = new Parser(userDefinedCommands, variables, turtleManager);
-//		turtle = new Turtle();
 		myPen = new Pen();
 		Turtle.setPen(myPen);
 		Command.setMapsAndPen(userDefinedCommands, variables, myPen);
@@ -40,14 +37,6 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	public void interpretInput(List<String> inputList) throws CommandInputException, MathException {
 		Command.setMapsAndPen(userDefinedCommands, variables, myPen);
 		parser.processInput(inputList);
-		
-//		List<ITurtleProperties> list = turtleManager.getTurtleList();
-//		System.out.println("SIZE " + list.size());
-//		for (int i = 0; i < list.size(); i++) {
-//			System.out.println("HERE");
-//			Turtle currentTurtle = (Turtle) list.get(i);
-//			System.out.println("X: " + currentTurtle.getX() + ", Y: " + currentTurtle.getY() + ", ID: " + currentTurtle.getID());
-//		}
 	}
 
 	private List<String> removeCommentsAndWhitespace(String input) {
@@ -107,23 +96,23 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	public Map<Double, Color> getPalette() {
 		return myPen.getPalette();
 	}
-	
+
 	public void readLibraryXmlFile(String path) {
 		xmlReader.receiveVariablesAndCommandsAccess(variables, userDefinedCommands);
 		xmlReader.readLibraryFile(path);
 	}
-	
+
 	public void writeLibraryXmlFile(String path) {
 		xmlWriter.receiveVariablesAndCommands(variables, userDefinedCommands);
 		xmlWriter.writeLibraryFile(path);
 	}
-	
+
 	public void readWorkspaceXmlFile(String path) {
 		xmlReader.receiveWorkspaceAccess(turtleManager, myPen);
 		xmlReader.readWorkspaceFile(path);
 		receiveLanguage(xmlReader.getLanguageRead());
 	}
-	
+
 	public void writeWorkspaceXmlFile(String path) {
 		xmlWriter.receiveLanguage(myLanguage);
 		xmlWriter.receiveWorkspaceInformation(turtleManager, myPen);
@@ -134,7 +123,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	public List<Stamp> getStampList() {
 		return myPen.getStampList();
 	}
-	
+
 	@Override
 	public List<ITurtleProperties> getTurtleList() {
 		return turtleManager.getTurtleList();
@@ -143,5 +132,10 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	@Override
 	public boolean isPenDown() {
 		return myPen.isPenDown();
+	}
+
+	@Override
+	public void receiveImageString(String s) {
+		myPen.setCurrentImage(s);
 	}
 }

@@ -34,14 +34,6 @@ public class Turtle implements ITurtleProperties {
 		initialize();
 	}
 
-	// public Turtle(int id, double x, double y) {
-	// turtleCount++;
-	// myID = id;
-	// initialize();
-	// this.x = x;
-	// this.y = y;
-	// }
-
 	public boolean isActive() {
 		return active;
 	}

@@ -19,6 +19,7 @@ public class Pen {
 	private List<Line> lineList;
 	private double backgroundColorIndex;
 	private double penColorIndex;
+	private String currentImage;
 
 	public Pen() {
 		createPalette();
@@ -30,6 +31,11 @@ public class Pen {
 		stampList = new ArrayList<Stamp>();
 		lineList = new ArrayList<Line>();
 		penDown = true;
+		currentImage = "turtle.gif";
+	}
+	
+	public void setCurrentImage(String imageName) {
+		currentImage = imageName;
 	}
 
 	public Map<Double, Color> getPalette() {
@@ -61,6 +67,7 @@ public class Pen {
 		Stamp s = new Stamp(x, y, angle);
 		s.setColor(palette.get(penColorIndex));
 		s.setShape(shape);
+		s.setImageString(currentImage);
 		stampList.add(s);
 		return s.getMyShape();
 	}
