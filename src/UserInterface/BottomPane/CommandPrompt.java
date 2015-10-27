@@ -10,7 +10,7 @@ import javafx.scene.control.TextArea;
 import slogo_team03.CommandInputException;
 import slogo_team03.PassToFrontInterface;
 import slogo_team03.ReceiveFromFront;
-import slogo_team03.TrigonometricException;
+import slogo_team03.MathException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,9 +69,9 @@ public class CommandPrompt implements IFront {
 				}
 				alert.showAndWait();
 			}
-			catch (TrigonometricException e) {
-				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, r.getString("errorString"), r.getString("trig"));
-				alert.setContentText(e.getBadFunction()); 
+			catch (MathException e) {
+				Custom_Alert alert = new Custom_Alert(AlertType.WARNING, r.getString("errorString"), r.getString("math"));
+				alert.setContentText(e.getErrorMessage()); 
 				alert.showAndWait();
 			}
 			

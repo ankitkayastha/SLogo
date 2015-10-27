@@ -23,7 +23,7 @@ public class Parser {
 	public Parser(UserDefinedCommands commands, UserDefinedVariables vars, TurtleManager TW) {
 		userDefinedCommands = commands;
 		variables = vars;
-		myTurtleManager= TW;
+		myTurtleManager = TW;
 		currentTurtle = myTurtleManager.firstTurtle();
 		factory = new CommandFactory(userDefinedCommands);
 		copyOfTurtle = new Turtle();
@@ -31,7 +31,7 @@ public class Parser {
 		evaluating = false;
 	}
 
-	public double processInput(List<String> list) throws CommandInputException, TrigonometricException {
+	public double processInput(List<String> list) throws CommandInputException, MathException {
 		double val = Double.MAX_VALUE;
 		while (list.size() > 0) {
 			val = runCommand(list);
@@ -39,14 +39,14 @@ public class Parser {
 		return val;
 	}
 
-	public double runCommand(List<String> inputList) throws CommandInputException, TrigonometricException {
+	public double runCommand(List<String> inputList) throws CommandInputException, MathException {
 		String commandName = inputList.remove(0);
 		Command command = factory.createCommand(commandName);
 		return checkCommandAndEvaluate(inputList, commandName, command);
 	}
 
 	private double checkCommandAndEvaluate(List<String> inputList, String commandName, Command command)
-			throws CommandInputException, TrigonometricException {
+			throws CommandInputException, MathException {
 		double result = Double.MAX_VALUE;
 		if (command == null) {
 			throw new CommandInputException(commandName);
@@ -66,18 +66,15 @@ public class Parser {
 	}
 
 	private double evaluateCommand(List<String> inputList, Command command)
-			throws CommandInputException, TrigonometricException {
+			throws CommandInputException, MathException {
 		double result = Double.MAX_VALUE;
 		setParameters(inputList, command);
 		command.setTurtle(currentTurtle);
-		if (evaluating) { // When testing validity of User Defined Commands,
-							// don't throw exceptions.
+		if (evaluating) {
 			try {
 				result = command.executeAndFormat();
-			} catch (TrigonometricException e) {
-				result = 1;
-			} catch (ArithmeticException e) {
-				result = 1;
+			} catch (MathException e) {
+				result = 0;
 			}
 		} else {
 			result = command.executeAndFormat();
@@ -95,8 +92,7 @@ public class Parser {
 		return result;
 	}
 
-	private double runExtraCommands(Command command, double result)
-			throws TrigonometricException, CommandInputException {
+	private double runExtraCommands(Command command, double result) throws MathException, CommandInputException {
 		if (command instanceof To) {
 			evaluating = true;
 			List<String> runList = ((SpecialCommand) command).getRunList();
@@ -120,8 +116,7 @@ public class Parser {
 		return result;
 	}
 
-	public void setParameters(List<String> inputList, Command command)
-			throws CommandInputException, TrigonometricException {
+	public void setParameters(List<String> inputList, Command command) throws CommandInputException, MathException {
 		String parameterCode = command.getParameterCode();
 		for (int i = 0; i < parameterCode.length(); i++) {
 			if (inputList.size() == 0) {
@@ -238,7 +233,7 @@ public class Parser {
 			}
 		}
 	}
-	
+
 	public void processLanguage(String language) {
 		factory.receiveLanguage(language);
 	}
