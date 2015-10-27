@@ -39,6 +39,7 @@ public class TurtleManager {
 	}
 
 	public void setActiveList(List<Integer> activeList) {
+		myActiveList.clear();
 		for (int i = 0; i < activeList.size(); i++) {
 			if (!myTurtleMap.containsKey(activeList.get(i))) {
 				Turtle turtle = new Turtle(activeList.get(i));
