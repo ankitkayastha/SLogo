@@ -13,16 +13,20 @@ public class UpdateFile {
 		this.fi = fileInterface;
 	}
 
-	public boolean loadFile() throws IOException{
+	public void loadFile() throws IOException{
 		FileChooser fc = new FileChooser();
+		fc.setTitle("Load File");
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		fc.getExtensionFilters().add(extFilter);
 		inputFile = fc.showOpenDialog(null);
-		if (inputFile == null) {
-			return false;
+		if (!(inputFile==null)) {
+			try {
+				fi.readXmlFile(inputFile.getAbsolutePath());
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		fi.readXmlFile(inputFile.getName());
-		return true;
 	}
 
 	public boolean saveFile() throws IOException {
