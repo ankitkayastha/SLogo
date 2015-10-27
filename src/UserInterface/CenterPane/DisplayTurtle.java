@@ -28,19 +28,19 @@ public class DisplayTurtle implements IFront {
 	private Image image = new Image(r.getString("image"));
 	private CreateTooltip tip;
 	private List<ITurtleProperties> tpInterface;
-	private List<IPenUpDown> pInterface;
+	private IPenUpDown pInterface;
 	private InitialTurtle initial;
 	private PassToFrontInterface passInterface;
 	private StampInterface stampInterface;
 	
-	public DisplayTurtle(List<ITurtleProperties> tp, List<IPenUpDown> pi, PassToFrontInterface pf, StampInterface si) {
+	public DisplayTurtle(List<ITurtleProperties> tp, IPenUpDown pi, PassToFrontInterface pf, StampInterface si) {
 		myCanvas = new Canvas(Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 		myCanvas.setTranslateX(Double.parseDouble(r.getString("canvasTranslateX")));
 		myCanvas.setTranslateY(Double.parseDouble(r.getString("canvasTranslateY")));
-		rect = new ArrayList<Rectangle>(); //(40, 40);
-		for (Rectangle r : rect) {
-			r.setWidth(40);
-			r.setHeight(40);
+		rect = new ArrayList<Rectangle>(tp.size()); //(40, 40);
+		for (int i = 0; i < tp.size(); i++) {
+			Rectangle rectangle = new Rectangle(40, 40);
+			rect.add(rectangle);
 		}
 		tip = new CreateTooltip();
 		initial = new InitialTurtle();
@@ -71,9 +71,8 @@ public class DisplayTurtle implements IFront {
 		for (int i = 0; i < rect.size(); i++) {
 			Rectangle rectangle = rect.get(i);
 			ITurtleProperties turtleProp = tpInterface.get(i);
-			IPenUpDown penUpDown = pInterface.get(i);
 		
-			tip.update(turtleProp, penUpDown, rectangle);
+			tip.update(turtleProp, pInterface, rectangle);
 			gc.setFill(passInterface.getUpdatedBackgroundColor());
 			gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 			List<Line> lineList = turtleProp.getLineList();

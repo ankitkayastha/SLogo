@@ -64,7 +64,6 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 
 	@Override
 	public void receiveCommand(String input) throws CommandInputException, MathException {
-		System.out.println(input);
 		myInput = input;
 		interpretInput(removeCommentsAndWhitespace(input));
 	}
@@ -127,7 +126,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	}
 	
 //	@Override
-	public List<Turtle> getTurtleList() {
+	public List<ITurtleProperties> getTurtleList() {
 		return turtleManager.getTurtleList();
 	}
 
