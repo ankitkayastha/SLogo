@@ -53,7 +53,7 @@ public class TurtleManager {
 				Turtle turtle = new Turtle(activeList.get(i));
 				myTurtleMap.put(turtle.getID(), turtle);
 			}
-			myTurtleMap.get(i).setActive(true);
+			myTurtleMap.get(activeList.get(i)).setActive(true);
 		}
 		myActiveList = new ArrayList<Integer>(activeList);
 	}
