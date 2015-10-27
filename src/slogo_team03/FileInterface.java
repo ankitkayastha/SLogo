@@ -2,7 +2,11 @@ package slogo_team03;
 
 public interface FileInterface {
 	
-	public void writeXmlFile(String path);
+	public void writeLibraryXmlFile(String path);
 	
-	public void readXmlFile(String path);
+	public void readLibraryXmlFile(String path);
+	
+	public void writeWorkspaceXmlFile(String path);
+	
+	public void readWorkspaceXmlFile(String path);
 }

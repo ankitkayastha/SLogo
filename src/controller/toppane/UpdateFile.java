@@ -21,12 +21,14 @@ public class UpdateFile {
 		inputFile = fc.showOpenDialog(null);
 		if (!(inputFile==null)) {
 			try {
-				fi.readXmlFile(inputFile.getAbsolutePath());
+				fi.readLibraryXmlFile(inputFile.getAbsolutePath());
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+
+		fi.readLibraryXmlFile(inputFile.getName());
 	}
 
 	public boolean saveFile() throws IOException {
@@ -37,7 +39,7 @@ public class UpdateFile {
 		if (inputFile == null) {
 			return false;
 		}
-		fi.writeXmlFile(inputFile.getName());
+		fi.writeLibraryXmlFile(inputFile.getName());
 		return true;
 	}
 }
