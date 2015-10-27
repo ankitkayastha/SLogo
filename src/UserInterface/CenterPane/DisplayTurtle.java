@@ -70,8 +70,16 @@ public class DisplayTurtle implements IFront {
 	
 	public void update() {
 		List<ITurtleProperties> turtleList = passInterface.getTurtleList();
-		
+		for (Rectangle r : rect) {
+			root.getChildren().remove(r);
+		}
+		rect.clear();
+
 		for (int i = 0; i < turtleList.size(); i++) {
+			Rectangle rectangle = new Rectangle(40, 40);
+			rectangle.setFill(new ImagePattern(image));
+			rect.add(rectangle);
+			root.getChildren().add(rectangle);
 			Turtle currentTurtle = (Turtle) turtleList.get(i);
 			System.out.println("X: " + currentTurtle.getX() + ", Y: " + currentTurtle.getY() + ", ID: " + currentTurtle.getID());
 		}
@@ -81,8 +89,7 @@ public class DisplayTurtle implements IFront {
 		gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 		for (int i = 0; i < rect.size(); i++) {
 			Rectangle rectangle = rect.get(i);
-//			Rectangle rectangle = new Rectangle(40,40);
-			ITurtleProperties turtleProp = tpInterface.get(i);
+			ITurtleProperties turtleProp = turtleList.get(i);
 		
 			tip.update(turtleProp, pInterface, rectangle);
 //			gc.setFill(passInterface.getUpdatedBackgroundColor());
