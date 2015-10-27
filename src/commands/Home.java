@@ -1,6 +1,8 @@
 package commands;
 
-public class Home extends MultipleTurtleCommandsuckmyballs {
+import slogo_team03.MultipleTurtCommand;
+
+public class Home extends MultipleTurtCommand {
 	public Home() {
 		super();
 	}

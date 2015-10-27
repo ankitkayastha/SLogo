@@ -1,6 +1,8 @@
 package commands;
 
-public class Towards extends MultipleTurtleCommandsuckmyballs {
+import slogo_team03.MultipleTurtCommand;
+
+public class Towards extends MultipleTurtCommand {
 	public Towards() {
 		super();
 	}

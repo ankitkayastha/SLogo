@@ -1,6 +1,8 @@
 package commands;
 
-public class SetXY extends MultipleTurtleCommandsuckmyballs {
+import slogo_team03.MultipleTurtCommand;
+
+public class SetXY extends MultipleTurtCommand {
 	public SetXY() {
 		super();
 	}

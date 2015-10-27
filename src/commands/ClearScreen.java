@@ -1,6 +1,8 @@
 package commands;
 
-public class ClearScreen extends MultipleTurtleCommandsuckmyballs {
+import slogo_team03.MultipleTurtCommand;
+
+public class ClearScreen extends MultipleTurtCommand {
 	public ClearScreen() {
 		super();
 	}

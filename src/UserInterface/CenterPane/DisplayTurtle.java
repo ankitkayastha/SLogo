@@ -70,35 +70,26 @@ public class DisplayTurtle implements IFront {
 	
 	public void update() {
 		List<ITurtleProperties> turtleList = passInterface.getTurtleList();
-		for (Rectangle r : rect) {
-			root.getChildren().remove(r);
+
+		
+		for (int i = 0; i < rect.size(); i++) {
+			root.getChildren().remove(rect.get(i));
 		}
 		rect.clear();
-
-		for (int i = 0; i < turtleList.size(); i++) {
-			Rectangle rectangle = new Rectangle(40, 40);
-			rectangle.setFill(new ImagePattern(image));
-			rect.add(rectangle);
-			root.getChildren().add(rectangle);
-			Turtle currentTurtle = (Turtle) turtleList.get(i);
-			System.out.println("X: " + currentTurtle.getX() + ", Y: " + currentTurtle.getY() + ", ID: " + currentTurtle.getID());
-		}
 		
+		for (int i = 0; i < turtleList.size(); i++) {
+			Rectangle rectangle = new Rectangle(40,40);
+			rectangle.setFill(new ImagePattern(getImage()));
+			rect.add(rectangle);
+		}
 		
 		gc.setFill(passInterface.getUpdatedBackgroundColor());
 		gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
-		for (int i = 0; i < rect.size(); i++) {
+		
+		for (int i = 0; i < turtleList.size(); i++) {
 			Rectangle rectangle = rect.get(i);
 			ITurtleProperties turtleProp = turtleList.get(i);
-		
-			tip.update(turtleProp, pInterface, rectangle);
-//			gc.setFill(passInterface.getUpdatedBackgroundColor());
-//			gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
-			List<Line> lineList = turtleProp.getLineList();
-			for (int j = 0; j < lineList.size(); j++) {
-				Line line = lineList.get(j);
-				drawLine(line);
-			}
+			
 			double xpos = 250 + turtleProp.getX() - rectangle.getWidth() / 2;
 			double ypos = 250 - turtleProp.getY() - rectangle.getHeight() / 2;
 			rectangle.setVisible(turtleProp.isVisible());
@@ -107,9 +98,20 @@ public class DisplayTurtle implements IFront {
 				rectangle.setY(ypos);
 				rectangle.setRotate(turtleProp.absoluteAngleFrontend());
 			}
+		
+			tip.update(turtleProp, pInterface, rectangle);
+			List<Line> lineList = turtleProp.getLineList();
+			for (int j = 0; j < lineList.size(); j++) {
+				Line line = lineList.get(j);
+				drawLine(line);
+			}
+			
 			for (Stamp s : stampInterface.getStampList()) {
 				drawStamp(gc, this.image, (90 - s.getMyAngle()) % 360, 250 + s.getMyX() - rectangle.getWidth() / 2, 250 - s.getMyY() - rectangle.getHeight() / 2);
 			}
+			
+			root.getChildren().add(rectangle);
+
 		}
 
 	}

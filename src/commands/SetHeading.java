@@ -1,6 +1,8 @@
 package commands;
 
-public class SetHeading extends MultipleTurtleCommandsuckmyballs {
+import slogo_team03.MultipleTurtCommand;
+
+public class SetHeading extends MultipleTurtCommand {
 	public SetHeading() {
 		super();
 	}

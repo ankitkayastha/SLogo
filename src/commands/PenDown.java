@@ -1,6 +1,8 @@
 package commands;
 
-public class PenDown extends MultipleTurtleCommandsuckmyballs {
+import slogo_team03.MultipleTurtCommand;
+
+public class PenDown extends MultipleTurtCommand {
 	public PenDown() {
 		super();
 	}
