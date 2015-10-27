@@ -21,7 +21,7 @@ public class UpdateFile {
 		if (inputFile == null) {
 			return false;
 		}
-		fi.readXmlFile(inputFile.getName());
+		fi.readLibraryXmlFile(inputFile.getName());
 		return true;
 	}
 
@@ -33,7 +33,7 @@ public class UpdateFile {
 		if (inputFile == null) {
 			return false;
 		}
-		fi.writeXmlFile(inputFile.getName());
+		fi.writeLibraryXmlFile(inputFile.getName());
 		return true;
 	}
 }
