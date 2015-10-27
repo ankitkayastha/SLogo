@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CommandPrompt implements IFront {
-	private Group root;
 	private TextArea field;
 
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.BottomPane/bottomResource");
@@ -26,16 +25,14 @@ public class CommandPrompt implements IFront {
 		field = new TextArea();
 		frontObjects = front;
 	}
-	public Group getRoot() {
-		return root;
-	}
+
 	
 	public TextArea getField() {
 		return field;
 	}
 	
-	public void makeCommandPromptArea(BottomPane bottomController, ReceiveFromFront rs, PassToFrontInterface pf) {
-		root = new Group();
+	public Group makeCommandPromptArea(BottomPane bottomController, ReceiveFromFront rs, PassToFrontInterface pf) {
+		Group root = new Group();
 
 		ButtonHandler buttonHandler = new ButtonHandler();
 		Button[] buttonArr;
@@ -80,6 +77,7 @@ public class CommandPrompt implements IFront {
 			
 			
 		});
+		return root;
 	}
 	@Override
 	public void update() {

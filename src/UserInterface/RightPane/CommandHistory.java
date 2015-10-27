@@ -20,15 +20,14 @@ public class CommandHistory implements IFront {
 	private List<ListView<String>> commandHist;
 	private PassToFrontInterface pInterface;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.RightPane/RightResource");
-	private Group root;
 	
 	public CommandHistory(PassToFrontInterface pf) {
-		root = new Group();
 		listViewHandler = new ListViewHandler();
 		this.pInterface = pf;
 	}
 	
-	public void makeListView(TextArea field) {
+	public Group makeListView(TextArea field) {
+		Group root = new Group();
 		Text title = new Text();
 		title.setText("Command History");
 		title.setTranslateX(Double.parseDouble(r.getString("translateX")));
@@ -43,8 +42,6 @@ public class CommandHistory implements IFront {
 			root.getChildren().add(list);
 		}
 		root.getChildren().add(title);
-	}
-	public Group getRoot() {
 		return root;
 	}
 

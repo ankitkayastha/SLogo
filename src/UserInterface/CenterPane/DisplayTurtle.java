@@ -23,7 +23,6 @@ public class DisplayTurtle implements IFront {
 	private Canvas myCanvas;
 	private Group root;
 	private GraphicsContext gc;
-	private Color lineColor;
 	private Rectangle rect;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 	private Image image = new Image(r.getString("image"));
@@ -48,6 +47,7 @@ public class DisplayTurtle implements IFront {
 		passInterface = pf;
 		stampInterface = si;
 	}
+
 	
 	private void drawStamp(GraphicsContext gc, Image image, double angle, double tlx, double tly) {
 		gc.save();
@@ -91,15 +91,6 @@ public class DisplayTurtle implements IFront {
 		gc.setLineDashes(5d, 5d);
 		gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(), line.getEndX() + 250, 250 - line.getEndY());
 	}
-
-	public void setLineColor(Color color) {
-		this.lineColor = color;
-	}
-
-	public Color getLineColor() {
-		return this.lineColor;
-	}
-	
 
 	public void setImage(String s) {
 		rect.setFill(Color.WHITE);
