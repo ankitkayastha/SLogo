@@ -16,7 +16,7 @@ public class Turtle implements ITurtleProperties {
 	private List<Line> lineList;
 	private DecimalFormat df;
 	private int myID;
-	private static int ID = -1;
+	private static int turtleCount = -1;
 	private LineSplitter lineSplitter = new LineSplitter();
 	private ResourceBundle r = ResourceBundle.getBundle("slogo_team03/TurtleResource");
 
@@ -24,10 +24,23 @@ public class Turtle implements ITurtleProperties {
 		pen = p;
 	}
 	
-	public Turtle() {
-		myID = ++ID;
+	public static void resetTurtleCount() {
+		turtleCount = 0;
+	}
+
+	public Turtle(int id) {
+		turtleCount++;
+		myID = id;
 		initialize();
 	}
+
+	// public Turtle(int id, double x, double y) {
+	// turtleCount++;
+	// myID = id;
+	// initialize();
+	// this.x = x;
+	// this.y = y;
+	// }
 
 	public boolean isActive() {
 		return active;
@@ -38,7 +51,7 @@ public class Turtle implements ITurtleProperties {
 	}
 
 	public static int getNumTurtles() {
-		return ID;
+		return turtleCount;
 	}
 
 	public void setTurtle(Turtle copyTurtle) {
@@ -60,7 +73,8 @@ public class Turtle implements ITurtleProperties {
 		y = Integer.parseInt(r.getString("startY"));
 		angle = Integer.parseInt(r.getString("startAngle"));
 		visible = Boolean.parseBoolean(r.getString("visible"));
-		active = false;
+		// active = false;
+		active = true;
 		df = new DecimalFormat("#.#####");
 		lineList = new ArrayList<Line>();
 	}
@@ -73,13 +87,13 @@ public class Turtle implements ITurtleProperties {
 		Line line = new Line(format(x0), format(y0), format(x1), format(y1));
 		line.setFill(pen.getPenColor());
 		line.setStrokeWidth(pen.getPenSize());
-		//line.getStrokeDashArray().addAll(50d, 40d);
+		// line.getStrokeDashArray().addAll(50d, 40d);
 		List<Line> tempList = lineSplitter.split(line);
 
 		Line lastLine = tempList.get(tempList.size() - 1);
 		x = lastLine.getEndX();
-		y = lastLine.getEndY();		
-		
+		y = lastLine.getEndY();
+
 		if (pen.isPenDown()) {
 			lineList.addAll(tempList);
 		}

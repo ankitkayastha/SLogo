@@ -1,6 +1,7 @@
 package slogo_team03;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -10,36 +11,66 @@ import commands.Command;
 import javafx.scene.shape.Line;
 
 public class TurtleManager {
-	private List<Turtle> myTurtleList;
+	private Map<Integer, Turtle> myTurtleMap;
+	// private List<Turtle> myTurtleList;
 	private List<Integer> myActiveList;
 	private List<Integer> myTemporaryList;
 	private List<Line> myLineList;
 	private Stack<List<Integer>> temporaryListStack;
+	// private Set<Integer> existingTurtles;
 
 	public TurtleManager() {
-		Turtle turtle = new Turtle();
-		myTurtleList = new ArrayList<Turtle>();
-		myTurtleList.add(turtle);
+		Turtle turtle = new Turtle(1);
+		myTurtleMap = new HashMap<Integer, Turtle>();
+		myTurtleMap.put(turtle.getID(), turtle);
+		// myTurtleList = new ArrayList<Turtle>();
+		// myTurtleList.add(turtle);
 		myActiveList = new ArrayList<Integer>();
+		myActiveList.add(1);
 		myTemporaryList = new ArrayList<Integer>();
 		temporaryListStack = new Stack<List<Integer>>();
+		// existingTurtles = new HashSet<Integer>();
+		// existingTurtles.add(1);
+		// System.out.println(existingTurtles);
 	}
 
 	public Turtle firstTurtle() {
-		return myTurtleList.get(0);
+		return myTurtleMap.get(1);
 	}
 
 	public void setActiveList(List<Integer> activeList) {
+		for (int i = 0; i < activeList.size(); i++) {
+			if (!myTurtleMap.containsKey(activeList.get(i))) {
+				Turtle turtle = new Turtle(activeList.get(i));
+				myTurtleMap.put(turtle.getID(), turtle);
+				// existingTurtles.add(activeList.get(i));
+			}
+		}
 		myActiveList = new ArrayList<Integer>(activeList);
+		for (int i = 0; i < myActiveList.size(); i++) {
+			System.out.println(myActiveList.get(i));
+		}
 	}
 
 	public void setTemporaryList(List<Integer> temporaryList) {
+		for (int i = 0; i < temporaryList.size(); i++) {
+			if (!myTurtleMap.containsKey(temporaryList.get(i))) {
+				Turtle turtle = new Turtle(temporaryList.get(i));
+				myTurtleMap.put(turtle.getID(), turtle);
+				// existingTurtles.add(temporaryList.get(i));
+			}
+		}
 		if (temporaryListStack.isEmpty()) {
 			myTemporaryList = new ArrayList<Integer>(temporaryList);
 		} else {
 			temporaryListStack.push(new ArrayList<Integer>(myTemporaryList));
 			myTemporaryList = new ArrayList<Integer>(temporaryList);
 		}
+		// System.out.println(existingTurtles);
+		for (int i = 0; i < myTemporaryList.size(); i++) {
+			// System.out.println(myTemporaryList.get(i));
+		}
+		// System.out.println(existingTurtles);
 	}
 
 	public void deleteTemporaryList() {
@@ -52,9 +83,12 @@ public class TurtleManager {
 
 	public List<Line> getLineList() {
 		myLineList.clear();
-		for (Turtle t : myTurtleList) {
-			myLineList.addAll(t.getLineList());
+		for (Integer key : myTurtleMap.keySet()) {
+			myLineList.addAll(myTurtleMap.get(key).getLineList());
 		}
+		// for (Turtle t : myTurtleList) {
+		// myLineList.addAll(t.getLineList());
+		// }
 		return myLineList;
 	}
 
@@ -69,21 +103,41 @@ public class TurtleManager {
 
 	public List<Turtle> getActiveList() {
 		List<Turtle> turtleList = new ArrayList<Turtle>();
-		for (Integer I : myActiveList) {
-			turtleList.add(myTurtleList.get(I));
+		for (Integer num : myActiveList) {
+			turtleList.add(myTurtleMap.get(num));
 		}
 		return turtleList;
 	}
+
+	// public List<Turtle> getActiveList() {
+	// List<Turtle> turtleList = new ArrayList<Turtle>();
+	// for (Integer I : myActiveList) {
+	// turtleList.add(myTurtleList.get(I));
+	// }
+	// return turtleList;
+	// }
 
 	public List<Turtle> getTurtleList() {
-		return myTurtleList;
-	}
-
-	public List<Turtle> createTurtleList(List<Integer> turtleIndexList) {
 		List<Turtle> turtleList = new ArrayList<Turtle>();
-		for (int i = 0; i < turtleIndexList.size(); i++) {
-			turtleList.add(myTurtleList.get(turtleIndexList.get(i)));
+		for (Integer key : myTurtleMap.keySet()) {
+			turtleList.add(myTurtleMap.get(key));
 		}
 		return turtleList;
+	}
+
+	// public List<Turtle> createTurtleList(List<Integer> turtleIndexList) {
+	// List<Turtle> turtleList = new ArrayList<Turtle>();
+	// for (int i = 0; i < turtleIndexList.size(); i++) {
+	// turtleList.add(myTurtleList.get(turtleIndexList.get(i)));
+	// }
+	// return turtleList;
+	// }
+	
+	public void reinitializeTurtles() {
+		Turtle.resetTurtleCount();
+		myTurtleMap.clear();
+		myActiveList.clear();
+		myTemporaryList.clear();
+		//ADD MORE
 	}
 }
