@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import UserInterface.TurtleView;
 import UserInterface.CenterPane.DisplayTurtle;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -12,6 +11,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import slogo_team03.PassToFrontInterface;
 import slogo_team03.ReceiveFromFront;
+import slogo_team03.TurtleMainController;
 
 public class NewWorkspaceMenu extends AbstractMenu implements IMenu{
 
@@ -30,8 +30,8 @@ public class NewWorkspaceMenu extends AbstractMenu implements IMenu{
 			m.setOnAction((event) -> 
 			{
 				Stage stage = new Stage();
-				TurtleView view = new TurtleView();
-				stage.setScene(view.getScene());
+				TurtleMainController controller = new TurtleMainController();
+				stage.setScene(controller.getScene());
 				stage.show();
 				}
 			);

@@ -144,9 +144,4 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		return myPen.isPenDown();
 	}
 
-	@Override
-	public void receiveImageString(String s) {
-		
-		
-	}
 }
