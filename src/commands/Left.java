@@ -1,6 +1,6 @@
 package commands;
 
-public class Left extends MultipleTurtleCommand {
+public class Left extends MultipleTurtleCommandsuckmyballs {
 	public Left() {
 		super();
 	}

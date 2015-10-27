@@ -7,8 +7,8 @@ import commands.Command;
 import commands.SetMultipleTurtlesCommand;
 import commands.SpecialCommand;
 import commands.To;
-import commands.TurtleCommand;
-import commands.UserCommand;
+//import commands.TurtleCommand;
+//import commands.UserCommand;
 import newCommands.Ask;
 import newCommands.MultipleTurtleCommand;
 import newCommands.Tell;
@@ -49,18 +49,23 @@ public class Parser {
 	private double checkCommandAndEvaluate(List<String> inputList, String commandName, Command command)
 			throws CommandInputException, MathException {
 		double result = Double.MAX_VALUE;
+//		System.out.println(commandName);   //FUCK
 		if (command == null) {
 			throw new CommandInputException(commandName);
-		} else if (command instanceof TurtleCommand) {
+		} else if (command instanceof MultipleTurtCommand) {
+//			System.out.println("MULTIPLE TURTLE COMMAND");
 			List<Turtle> turtleList = myTurtleManager.getActiveList();
+			
 			for (int i = 0; i < turtleList.size(); i++) {
-//				System.out.println("Current ")
+//				System.out.println("Current " + turtleList.get(i).getID());
 				currentTurtle = turtleList.get(i);
 				List<String> copyOfInputList = new ArrayList<String>(inputList);
 				result = evaluateCommand(inputList, command);
+//				System.out.println(currentTurtle.getY());
 				inputList = new ArrayList<String>(copyOfInputList);
 			}
 		} else if (command instanceof Tell) {
+//			System.out.println("Tell");
 			result = evaluateCommand(inputList, command);
 			myTurtleManager.setActiveList(((Tell) command).getTurtleList());
 		} else if (command instanceof Ask) {
@@ -68,6 +73,7 @@ public class Parser {
 			myTurtleManager.setTemporaryList(((Ask) command).getTurtleList());
 
 		} else {
+			System.out.println("else");
 			result = evaluateCommand(inputList, command);
 		}
 		myTurtleManager.deleteTemporaryList();

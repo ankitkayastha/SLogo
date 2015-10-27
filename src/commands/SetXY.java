@@ -1,6 +1,6 @@
 package commands;
 
-public class SetXY extends MultipleTurtleCommand {
+public class SetXY extends MultipleTurtleCommandsuckmyballs {
 	public SetXY() {
 		super();
 	}

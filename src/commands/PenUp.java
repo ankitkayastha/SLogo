@@ -1,6 +1,6 @@
 package commands;
 
-public class PenUp extends MultipleTurtleCommand {
+public class PenUp extends MultipleTurtleCommandsuckmyballs {
 	public PenUp() {
 		super();
 	}

@@ -1,6 +1,6 @@
 package commands;
 
-public class Towards extends MultipleTurtleCommand {
+public class Towards extends MultipleTurtleCommandsuckmyballs {
 	public Towards() {
 		super();
 	}
