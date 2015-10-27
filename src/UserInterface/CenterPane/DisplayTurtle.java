@@ -11,10 +11,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import slogo_team03.ITurtleProperties;
 import slogo_team03.PassToFrontInterface;
+import slogo_team03.ReceiveFromFront;
 import slogo_team03.IPenUpDown;
 import slogo_team03.Stamp;
 import slogo_team03.StampInterface;
-import slogo_team03.Turtle;
 
 import java.util.*;
 
@@ -28,29 +28,29 @@ public class DisplayTurtle implements IFront {
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 	private Image image = new Image(r.getString("image"));
 	private CreateTooltip tip;
-	private List<ITurtleProperties> tpInterface;
 	private IPenUpDown pInterface;
 	private InitialTurtle initial;
 	private PassToFrontInterface passInterface;
 	private StampInterface stampInterface;
+	private ReceiveFromFront receiveInterface;
 	
-	public DisplayTurtle(List<ITurtleProperties> tp, IPenUpDown pi, PassToFrontInterface pf, StampInterface si) {
+	public DisplayTurtle(List<ITurtleProperties> tp, IPenUpDown pi, PassToFrontInterface pf, StampInterface si, ReceiveFromFront rf) {
 		myCanvas = new Canvas(Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 		myCanvas.setTranslateX(Double.parseDouble(r.getString("canvasTranslateX")));
 		myCanvas.setTranslateY(Double.parseDouble(r.getString("canvasTranslateY")));
 		rect = new ArrayList<Rectangle>(tp.size()); //(40, 40);
 		for (int i = 0; i < tp.size(); i++) {
-			Rectangle rectangle = new Rectangle(40, 40);
+			Rectangle rectangle = new Rectangle(Double.parseDouble(r.getString("rectangleWidth")), Double.parseDouble(r.getString("rectangleHeight")));
 			rect.add(rectangle);
 		}
 		tip = new CreateTooltip();
 		initial = new InitialTurtle();
 		gc = myCanvas.getGraphicsContext2D();
 		root = initial.makeTurtle(tp, pi, rect, tip, myCanvas, gc);
-		tpInterface = tp;
 		pInterface = pi;
 		passInterface = pf;
 		stampInterface = si;
+		receiveInterface = rf;
 	}
 
 	
@@ -70,7 +70,7 @@ public class DisplayTurtle implements IFront {
 	
 	public void update() {
 		List<ITurtleProperties> turtleList = passInterface.getTurtleList();
-
+		//receiveInterface.receiveImageString(getImage().toString());
 		
 		for (int i = 0; i < rect.size(); i++) {
 			root.getChildren().remove(rect.get(i));
@@ -78,7 +78,8 @@ public class DisplayTurtle implements IFront {
 		rect.clear();
 		
 		for (int i = 0; i < turtleList.size(); i++) {
-			Rectangle rectangle = new Rectangle(40,40);
+			Rectangle rectangle = new Rectangle(Double.parseDouble(r.getString("rectangleWidth")), Double.parseDouble(r.getString("rectangleHeight")));
+
 			rectangle.setFill(new ImagePattern(getImage()));
 			rect.add(rectangle);
 		}
@@ -89,6 +90,13 @@ public class DisplayTurtle implements IFront {
 		for (int i = 0; i < turtleList.size(); i++) {
 			Rectangle rectangle = rect.get(i);
 			ITurtleProperties turtleProp = turtleList.get(i);
+			rectangle.setOnMouseClicked((event) -> { 
+			try {
+				receiveInterface.receiveCommand("tell [ " + turtleProp.getID() + " ] ");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}});
 			
 			double xpos = 250 + turtleProp.getX() - rectangle.getWidth() / 2;
 			double ypos = 250 - turtleProp.getY() - rectangle.getHeight() / 2;
@@ -105,9 +113,9 @@ public class DisplayTurtle implements IFront {
 				Line line = lineList.get(j);
 				drawLine(line);
 			}
-			
+			double coordinateOffset = Double.parseDouble(r.getString("coordinateOffset"));
 			for (Stamp s : stampInterface.getStampList()) {
-				drawStamp(gc, this.image, (90 - s.getMyAngle()) % 360, 250 + s.getMyX() - rectangle.getWidth() / 2, 250 - s.getMyY() - rectangle.getHeight() / 2);
+				drawStamp(gc, this.image, (90 - s.getMyAngle()) % 360, coordinateOffset + s.getMyX() - rectangle.getWidth() / 2, coordinateOffset - s.getMyY() - rectangle.getHeight() / 2);
 			}
 			
 			root.getChildren().add(rectangle);
@@ -117,16 +125,17 @@ public class DisplayTurtle implements IFront {
 	}
 
 	private void drawLine(Line line) {
+		double coordinateOffset = Double.parseDouble(r.getString("coordinateOffset"));
 		gc.setStroke(line.getFill());
 		gc.setLineWidth(line.getStrokeWidth());
 		gc.setLineDashes(5d, 5d);
-		gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(), line.getEndX() + 250, 250 - line.getEndY());
+		gc.strokeLine(line.getStartX() + coordinateOffset, coordinateOffset - line.getStartY(), line.getEndX() + coordinateOffset, coordinateOffset - line.getEndY());
 	}
 
 	public void setImage(String s) {
 		for (Rectangle rectangle: rect) {
 			rectangle.setFill(Color.WHITE);
-			Image i = new Image(getClass().getClassLoader().getResourceAsStream(s), 40, 40, false, false);
+			Image i = new Image(getClass().getClassLoader().getResourceAsStream(s), Double.parseDouble(r.getString("rectangleWidth")), Double.parseDouble(r.getString("rectangleHeight")), false, false);
 			this.image = i;
 			rectangle.setFill(new ImagePattern(this.image));
 		}

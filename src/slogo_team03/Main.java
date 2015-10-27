@@ -1,7 +1,6 @@
 package slogo_team03;
 
 
-import UserInterface.TurtleView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,8 +11,9 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws CommandInputException {
-		TurtleView view = new TurtleView();
-		stage.setScene(view.getScene());
+		TurtleMainController controller = new TurtleMainController();
+		//TurtleView view = new TurtleView();
+		stage.setScene(controller.getScene());
 		stage.show();
 	}
 }
