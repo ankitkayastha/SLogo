@@ -29,6 +29,7 @@ public class XmlReader {
 
 		// Read the commands and add them to the command map
 		readUserDefinedCommands(doc);
+		
 	}
 	
 	public void readWorkspaceFile(String path) {
@@ -94,6 +95,11 @@ public class XmlReader {
 	}
 	
 	private void readTurtles(Document doc) {
+		// Reset all data structures keeping track of turtles
+		Turtle.resetTurtleCount();
+		turtleManager.resetTurtleMap();
+		turtleManager.resetActiveList();
+		
 		NodeList turtleList = doc.getElementsByTagName("Turtle");
 		for (int i = 0; i < turtleList.getLength(); i++) {
 			Node turtle = turtleList.item(i);
@@ -113,12 +119,13 @@ public class XmlReader {
 				String unconvertedId = getElementFromParent(eTurtle, "ID");
 				int id = Integer.parseInt(unconvertedId);
 				
-				Turtle turtleObject = new Turtle();
+				Turtle turtleObject = new Turtle(id);
 				turtleObject.setX(xCoord);
 				turtleObject.setY(yCoord);
 				turtleObject.setAngle(angle);
 				
-				
+				turtleManager.addToTurtleMap(turtleObject);
+				turtleManager.addToActiveList(turtleObject);
 			}
 		}
 	}

@@ -28,6 +28,7 @@ public class FileMenu extends AbstractMenu implements IMenu{
 		Menu loadWorkspace = loadWorkspaceMenu.makeMenu(display, pf, rf);
 		
 		file.getItems().addAll(saveLibrary, saveWorkspace, loadLibrary, loadWorkspace);
+
 		return file;
 		
 	}
