@@ -1,6 +1,6 @@
 package commands;
 
-public class HideTurtle extends Command {
+public class HideTurtle extends MultipleTurtleCommand {
 	public HideTurtle() {
 		super();
 	}

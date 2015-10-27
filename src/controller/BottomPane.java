@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCode;
 
 import slogo_team03.CommandInputException;
 import slogo_team03.ReceiveFromFront;
-import slogo_team03.TrigonometricException;
+import slogo_team03.MathException;
 
 public class BottomPane {
 	private List<String> commandHistory;
@@ -57,7 +57,7 @@ public class BottomPane {
 		}
 	}
 
-	public void runButtonAction(String command, List<IFront> list, ReceiveFromFront rs) throws CommandInputException, TrigonometricException {
+	public void runButtonAction(String command, List<IFront> list, ReceiveFromFront rs) throws CommandInputException, MathException {
 		rs.receiveCommand(command);
 		for (IFront pane: list) {
 			pane.update();

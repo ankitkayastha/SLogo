@@ -1,6 +1,6 @@
 package commands;
 
-import slogo_team03.TrigonometricException;
+import slogo_team03.MathException;
 
 public abstract class TurtleCommand extends Command {
 
@@ -10,6 +10,6 @@ public abstract class TurtleCommand extends Command {
 	}
 
 	@Override
-	public abstract double execute() throws TrigonometricException;
+	public abstract double execute() throws MathException;
 
 }

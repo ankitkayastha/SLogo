@@ -9,7 +9,7 @@ public class StampCommand extends Command {
 
 	@Override
 	public double execute() {
-		return myTurtle.stamp();
+		return pen.stamp(myTurtle.getX(), myTurtle.getY(), myTurtle.getAngle());
 	}
 
 	@Override

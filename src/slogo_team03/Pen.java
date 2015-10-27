@@ -29,8 +29,9 @@ public class Pen {
 		shape = 4;
 		stampList = new ArrayList<Stamp>();
 		lineList = new ArrayList<Line>();
+		penDown = true;
 	}
-	
+
 	public Map<Double, Color> getPalette() {
 		return palette;
 	}
@@ -56,27 +57,22 @@ public class Pen {
 		return new ArrayList<Line>(lineList);
 	}
 
-	public void addStamp(Stamp stamp) {
-		stamp.setColor(palette.get(penColorIndex));
-		stamp.setShape(shape);
-		stampList.add(stamp);
+	public double stamp(double x, double y, double angle) {
+		Stamp s = new Stamp(x, y, angle);
+		s.setColor(palette.get(penColorIndex));
+		s.setShape(shape);
+		stampList.add(s);
+		return s.getMyShape();
 	}
 
 	public double clearStampList() {
 		if (stampList.size() > 0) {
-			// printStampList();
 			stampList.clear();
 			return 1;
 		} else {
 			return 0;
 		}
 	}
-
-	// private void printStampList() {
-	// for (int i = 0; i < stampList.size(); i++) {
-	// System.out.println(stampList.get(i).toString());
-	// }
-	// }
 
 	public List<Stamp> getStampList() {
 		return stampList;

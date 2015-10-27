@@ -9,7 +9,7 @@ public class SetPenColor extends Command {
 
 	@Override
 	public double execute() {
-		myTurtle.setPenColor(myParameters.get(0));
+		pen.setPenColor(myParameters.get(0));
 		return myParameters.get(0);
 	}
 

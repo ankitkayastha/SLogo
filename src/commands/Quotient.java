@@ -1,13 +1,15 @@
 package commands;
 
+import slogo_team03.MathException;
+
 public class Quotient extends Command {
 	public Quotient() {
 		super();
 	}
 
-	public double execute() {
+	public double execute() throws MathException {
 		if (myParameters.get(1) == 0) {
-			return 0;	//Change to throw exception
+			throw new MathException("Cannot divide by 0!\n" + myParameters.get(0) + " / " + myParameters.get(1));
 		}
 		return (myParameters.get(0) / myParameters.get(1));
 	}

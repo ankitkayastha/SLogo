@@ -9,7 +9,7 @@ public class Shape extends Command {
 
 	@Override
 	public double execute() {
-		return myTurtle.getShape();
+		return pen.getShape();
 	}
 
 	@Override
