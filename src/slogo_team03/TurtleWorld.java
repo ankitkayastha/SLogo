@@ -2,7 +2,6 @@ package slogo_team03;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +10,7 @@ import commands.UserCommand;
 import javafx.scene.paint.Color;
 
 
-public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, FileInterface {
+public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, FileInterface, StampInterface, IPenUpDown {
 	private Turtle turtle;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
@@ -21,6 +20,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	private XmlWriter xmlWriter;
 	private XmlReader xmlReader;
 	private String myInput;
+	private Pen myPen;
 
 	public TurtleWorld() {
 		turtleManager = new TurtleManager();
@@ -28,16 +28,18 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		variables = new UserDefinedVariables();
 		parser = new Parser(userDefinedCommands, variables, turtleManager);
 		turtle = new Turtle();
+		myPen = new Pen();
+		turtle.setPen(myPen);
 		turtles = new TurtleMap();
 		turtles.addTurtle(turtle);
-		Command.setMaps(userDefinedCommands, variables);
+		Command.setMapsAndPen(userDefinedCommands, variables, myPen);
 		xmlWriter = new XmlWriter(userDefinedCommands, variables);
 		xmlReader = new XmlReader(variables, userDefinedCommands);
 		myInput = "";
 	}
 
-	public void interpretInput(List<String> inputList) throws CommandInputException, TrigonometricException {
-		Command.setMaps(userDefinedCommands, variables);
+	public void interpretInput(List<String> inputList) throws CommandInputException, MathException {
+		Command.setMapsAndPen(userDefinedCommands, variables, myPen);
 		parser.processInput(inputList);
 	}
 
@@ -58,16 +60,12 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		return inputList;
 	}
 
-	public double getAngle() {
-		return turtle.absoluteAngleFrontend();
-	}
-
 	public Turtle getTurtle() {
 		return turtleManager.firstTurtle();
 	}
 
 	@Override
-	public void receiveCommand(String input) throws CommandInputException, TrigonometricException {
+	public void receiveCommand(String input) throws CommandInputException, MathException {
 		myInput = input;
 		interpretInput(removeCommentsAndWhitespace(input));
 	}
@@ -94,12 +92,12 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 
 	@Override
 	public Color getUpdatedBackgroundColor() {
-		return turtle.getBackgroundColor();
+		return myPen.getBackgroundColor();
 	}
 
 	@Override
 	public Map<Double, Color> getPalette() {
-		return turtle.getPen().getPalette();
+		return myPen.getPalette();
 	}
 
 	
@@ -109,5 +107,15 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	
 	public void writeXmlFile(String path) {
 		xmlWriter.writeXmlFile(path);
+	}
+
+	@Override
+	public List<Stamp> getStampList() {
+		return myPen.getStampList();
+	}
+
+	@Override
+	public boolean isPenDown() {
+		return myPen.isPenDown();
 	}
 }

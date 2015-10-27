@@ -9,7 +9,7 @@ public class PenColor extends Command {
 
 	@Override
 	public double execute() {
-		return myTurtle.getPenColor();
+		return pen.getPenColorIndex();
 	}
 
 	@Override

@@ -9,7 +9,7 @@ public class SetShape extends Command {
 
 	@Override
 	public double execute() {
-		myTurtle.setShape(myParameters.get(0));
+		pen.setShape(myParameters.get(0));
 		return myParameters.get(0);
 	}
 
