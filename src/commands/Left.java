@@ -1,6 +1,8 @@
 package commands;
 
-public class Left extends MultipleTurtleCommandsuckmyballs {
+import slogo_team03.MultipleTurtCommand;
+
+public class Left extends MultipleTurtCommand {
 	public Left() {
 		super();
 	}

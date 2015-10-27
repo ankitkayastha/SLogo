@@ -1,6 +1,8 @@
 package commands;
 
-public class HideTurtle extends MultipleTurtleCommandsuckmyballs {
+import slogo_team03.MultipleTurtCommand;
+
+public class HideTurtle extends MultipleTurtCommand {
 	public HideTurtle() {
 		super();
 	}
