@@ -1,6 +1,7 @@
 package UserInterface.TopPane;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
@@ -12,10 +13,12 @@ import javafx.scene.shape.Rectangle;
 
 public abstract class AbstractMenu {
 
+	ResourceBundle r = ResourceBundle.getBundle("UserInterface.TopPane/TopResource");
+
 	protected Rectangle[] makeColorNodes(Color[] options) {
 		Rectangle[] rects = new Rectangle[options.length];
 		for (int i = 0; i < rects.length; i++) {
-			Rectangle rect = new Rectangle(50,10);
+			Rectangle rect = new Rectangle(Integer.parseInt(r.getString("ColorRectWidth")),Integer.parseInt(r.getString("ColorRectHeight")));
 			rect.setFill(options[i]);
 			//System.out.println(rect.getFill().);
 			rects[i] = rect;

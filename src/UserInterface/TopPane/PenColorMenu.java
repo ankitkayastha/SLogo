@@ -15,7 +15,6 @@ import slogo_team03.PassToFrontInterface;
 import slogo_team03.ReceiveFromFront;
 
 public class PenColorMenu extends AbstractMenu implements IMenu{
-
 	ResourceBundle r = ResourceBundle.getBundle("UserInterface.TopPane/TopResource");
 
 	@Override
