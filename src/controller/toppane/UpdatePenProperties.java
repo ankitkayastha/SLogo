@@ -1,9 +1,9 @@
 package controller.toppane;
 
-import UserInterface.CenterPane.DisplayTurtle;
-import slogo_team03.CommandInputException;
-import slogo_team03.ReceiveFromFront;
-import slogo_team03.MathException;
+import model.commands.ReceiveFromFront;
+import model.exceptions.CommandInputException;
+import model.exceptions.MathException;
+import ui.centerpane.DisplayTurtle;
 
 public class UpdatePenProperties {
 	
