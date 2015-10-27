@@ -8,9 +8,9 @@ import slogo_team03.ITurtleProperties;
 import slogo_team03.IPenUpDown;
 
 public class CreateTooltip {
-	
+
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
-	
+
 	public void update(ITurtleProperties tp, IPenUpDown pi, Node node) {
 		String penStatus;
 		if (pi.isPenDown())
@@ -19,7 +19,9 @@ public class CreateTooltip {
 			penStatus = r.getString("penUp");
 		Tooltip tip = new Tooltip();
 		tip.setText("Turtle X Coordinate: " + tp.getX() + "\n" + "Turtle Y Coordinate: " + tp.getY() + "\n" + 
-		"Heading: " + tp.absoluteAngleFrontend() + "\n" + "Pen: " + penStatus);
+				"Heading: " + tp.absoluteAngleFrontend() + "\n" + "Pen: " + penStatus);
 		Tooltip.install(node, tip);
 	}
 }
+
+

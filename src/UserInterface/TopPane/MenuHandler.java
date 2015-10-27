@@ -8,36 +8,37 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import UserInterface.CenterPane.DisplayTurtle;
 import controller.IFront;
-
+import controller.toppane.UpdateFile;
 import javafx.collections.ObservableList;
-
+import slogo_team03.FileInterface;
 import slogo_team03.PassToFrontInterface;
 import slogo_team03.ReceiveFromFront;
 
 
 public class MenuHandler implements IFront {
-	private Group root;
 	private DisplayTurtle display;
 	private ReceiveFromFront rf;
 	private PassToFrontInterface pf;
 	private Menu backgroundColor;
 	private Menu penColor;
+	private FileInterface fi;
 	
-	public MenuHandler(DisplayTurtle disp, ReceiveFromFront receive, PassToFrontInterface pass) {
+	public MenuHandler(DisplayTurtle disp, ReceiveFromFront receive, PassToFrontInterface pass, FileInterface fileInterface) {
 		this.display = disp;
 		this.rf = receive;
 		this.pf = pass;
+		this.fi = fileInterface;
 	}
 
-	public Group getRoot() {
-		return this.root;
-	}
 
-	public void makeMenuBar() {
+	public Group makeMenuBar() {
+		Group root = new Group();
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
 
@@ -69,9 +70,12 @@ public class MenuHandler implements IFront {
 		NewWorkspaceMenu nwMenu = new NewWorkspaceMenu();
 		Menu newWorkspace = nwMenu.makeMenu(display, pf, rf);
 		
-		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, penProperties, changeShape, help, newWorkspace);
+		FileMenu fileMenu = new FileMenu(fi);
+		Menu file = fileMenu.makeMenu(display, pf, rf);
+		
+		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, penProperties, changeShape, help, newWorkspace, file);
 		root.getChildren().add(menuBar);
-
+		return root;
 	}
 
 	@Override
