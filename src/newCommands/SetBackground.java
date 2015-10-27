@@ -9,7 +9,7 @@ public class SetBackground extends Command {
 
 	@Override
 	public double execute() {
-		myTurtle.setBackground(myParameters.get(0));
+		pen.setBackgroundColor(myParameters.get(0));
 		return myParameters.get(0);
 	}
 

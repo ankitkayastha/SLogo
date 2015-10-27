@@ -4,7 +4,7 @@ import UserInterface.CenterPane.DisplayTurtle;
 import slogo_team03.CommandInputException;
 import slogo_team03.PassToFrontInterface;
 import slogo_team03.ReceiveFromFront;
-import slogo_team03.TrigonometricException;
+import slogo_team03.MathException;
 
 public class UpdateBackgroundColor {
 	private DisplayTurtle turtle;
@@ -26,7 +26,7 @@ public class UpdateBackgroundColor {
 		} catch (CommandInputException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (TrigonometricException e) {
+		} catch (MathException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

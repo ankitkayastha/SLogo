@@ -9,7 +9,7 @@ public class SetPenSize extends Command {
 
 	@Override
 	public double execute() {
-		myTurtle.setPenSize(myParameters.get(0));
+		pen.setPenSize(myParameters.get(0));
 		return myParameters.get(0);
 	}
 

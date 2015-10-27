@@ -9,7 +9,7 @@ public class ClearStamps extends Command {
 
 	@Override
 	public double execute() {
-		return myTurtle.clearStamps();
+		return pen.clearStampList();
 	}
 
 	@Override

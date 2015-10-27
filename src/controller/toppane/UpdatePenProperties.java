@@ -3,7 +3,7 @@ package controller.toppane;
 import UserInterface.CenterPane.DisplayTurtle;
 import slogo_team03.CommandInputException;
 import slogo_team03.ReceiveFromFront;
-import slogo_team03.TrigonometricException;
+import slogo_team03.MathException;
 
 public class UpdatePenProperties {
 	
@@ -18,7 +18,7 @@ public class UpdatePenProperties {
 			try {
 				rf.receiveCommand("pu");
 				displayTurt.update(); //update tool tip
-			} catch (NumberFormatException | CommandInputException | TrigonometricException e) {
+			} catch (NumberFormatException | CommandInputException | MathException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -26,7 +26,7 @@ public class UpdatePenProperties {
 			try {
 				rf.receiveCommand("pd");
 				displayTurt.update(); //update tool tip
-			} catch (NumberFormatException | CommandInputException | TrigonometricException e) {
+			} catch (NumberFormatException | CommandInputException | MathException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -39,7 +39,7 @@ public class UpdatePenProperties {
 	public void changePenThickness(String text) {
 		try {
 			rf.receiveCommand("setps " + text);
-		} catch (NumberFormatException | CommandInputException | TrigonometricException e) {
+		} catch (NumberFormatException | CommandInputException | MathException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

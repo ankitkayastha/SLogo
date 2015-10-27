@@ -1,5 +1,5 @@
 package slogo_team03;
 
-public interface PenUpDownInterface {
+public interface IPenUpDown {
 	public boolean isPenDown();
 }

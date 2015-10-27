@@ -9,13 +9,11 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
-import slogo_team03.AngleInterface;
-import slogo_team03.CoordinateInterface;
+import slogo_team03.ITurtleProperties;
 import slogo_team03.PassToFrontInterface;
-import slogo_team03.PenUpDownInterface;
+import slogo_team03.IPenUpDown;
 import slogo_team03.Stamp;
 import slogo_team03.StampInterface;
-import slogo_team03.VisibleInterface;
 
 import java.util.*;
 
@@ -30,15 +28,13 @@ public class DisplayTurtle implements IFront {
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 	private Image image = new Image(r.getString("image"));
 	private CreateTooltip tip;
-	private CoordinateInterface cInterface;
-	private AngleInterface aInterface;
-	private PenUpDownInterface pInterface;
-	private VisibleInterface vInterface;
+	private ITurtleProperties tpInterface;
+	private IPenUpDown pInterface;
 	private InitialTurtle initial;
 	private PassToFrontInterface passInterface;
 	private StampInterface stampInterface;
 	
-	public DisplayTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, PassToFrontInterface pf, StampInterface si) {
+	public DisplayTurtle(ITurtleProperties tp, IPenUpDown pi, PassToFrontInterface pf, StampInterface si) {
 		myCanvas = new Canvas(Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 		myCanvas.setTranslateX(Double.parseDouble(r.getString("canvasTranslateX")));
 		myCanvas.setTranslateY(Double.parseDouble(r.getString("canvasTranslateY")));
@@ -46,11 +42,9 @@ public class DisplayTurtle implements IFront {
 		tip = new CreateTooltip();
 		initial = new InitialTurtle();
 		gc = myCanvas.getGraphicsContext2D();
-		root = initial.makeTurtle(ci, ai, pi, vi, rect, tip, myCanvas, gc);
-		cInterface = ci;
-		aInterface = ai;
+		root = initial.makeTurtle(tp, pi, rect, tip, myCanvas, gc);
+		tpInterface = tp;
 		pInterface = pi;
-		vInterface = vi;
 		passInterface = pf;
 		stampInterface = si;
 	}
@@ -70,23 +64,22 @@ public class DisplayTurtle implements IFront {
 	
 	
 	public void update() {
-		tip.update(cInterface, aInterface, pInterface, vInterface, rect);
+		tip.update(tpInterface, pInterface, rect);
 		gc.setFill(passInterface.getUpdatedBackgroundColor());
 		gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
-		List<Line> lineList = cInterface.getLineList();
+		List<Line> lineList = tpInterface.getLineList();
 		for (int i = 0; i < lineList.size(); i++) {
 			Line line = lineList.get(i);
 			drawLine(line);
 		}
-		double xpos = 250 + cInterface.getX() - rect.getWidth() / 2;
-		double ypos = 250 - cInterface.getY() - rect.getHeight() / 2;
-		rect.setVisible(vInterface.isVisible());
-		if (vInterface.isVisible()) {
+		double xpos = 250 + tpInterface.getX() - rect.getWidth() / 2;
+		double ypos = 250 - tpInterface.getY() - rect.getHeight() / 2;
+		rect.setVisible(tpInterface.isVisible());
+		if (tpInterface.isVisible()) {
 			rect.setX(xpos);
 			rect.setY(ypos);
-			rect.setRotate(aInterface.absoluteAngleFrontend());
+			rect.setRotate(tpInterface.absoluteAngleFrontend());
 		}
-		//Image image = new Image(getClass().getClassLoader().getResourceAsStream(r.getString("image")), 40, 40, false, false);
 		for (Stamp s : stampInterface.getStampList()) {
 			drawStamp(gc, this.image, (90 - s.getMyAngle()) % 360, 250 + s.getMyX() - rect.getWidth() / 2, 250 - s.getMyY() - rect.getHeight() / 2);
 		}
@@ -95,6 +88,7 @@ public class DisplayTurtle implements IFront {
 	private void drawLine(Line line) {
 		gc.setStroke(line.getFill());
 		gc.setLineWidth(line.getStrokeWidth());
+		gc.setLineDashes(5d, 5d);
 		gc.strokeLine(line.getStartX() + 250, 250 - line.getStartY(), line.getEndX() + 250, 250 - line.getEndY());
 	}
 
