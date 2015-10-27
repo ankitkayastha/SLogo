@@ -70,6 +70,7 @@ public class DisplayTurtle implements IFront {
 	
 	public void update() {
 		List<ITurtleProperties> turtleList = passInterface.getTurtleList();
+
 		
 		for (int i = 0; i < rect.size(); i++) {
 			root.getChildren().remove(rect.get(i));
@@ -77,8 +78,6 @@ public class DisplayTurtle implements IFront {
 		rect.clear();
 		
 		for (int i = 0; i < turtleList.size(); i++) {
-			Turtle currentTurtle = (Turtle) turtleList.get(i);
-			System.out.println("X: " + currentTurtle.getX() + ", Y: " + currentTurtle.getY() + ", ID: " + currentTurtle.getID());
 			Rectangle rectangle = new Rectangle(40,40);
 			rectangle.setFill(new ImagePattern(getImage()));
 			rect.add(rectangle);

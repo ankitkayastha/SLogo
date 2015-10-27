@@ -28,6 +28,22 @@ public class TurtleManager {
 	public Turtle firstTurtle() {
 		return myTurtleMap.get(1);
 	}
+	
+	public void addToTurtleMap(Turtle t) {
+		myTurtleMap.put(t.getID(), t);
+	}
+	
+	public void addToActiveList(Turtle t) {
+		myActiveList.add(t.getID());
+	}
+	
+	public void resetTurtleMap() {
+		myTurtleMap = new HashMap<Integer, Turtle>();
+	}
+	
+	public void resetActiveList() {
+		myActiveList = new ArrayList<Integer>();
+	}
 
 	public void setActiveList(List<Integer> activeList) {
 		myActiveList.clear();

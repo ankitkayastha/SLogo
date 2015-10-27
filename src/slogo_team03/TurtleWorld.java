@@ -109,6 +109,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	public void readWorkspaceXmlFile(String path) {
 		xmlReader.receiveWorkspaceAccess(turtleManager, myPen);
 		xmlReader.readWorkspaceFile(path);
+		receiveLanguage(xmlReader.getLanguageRead());
 	}
 
 	public void writeWorkspaceXmlFile(String path) {

@@ -60,7 +60,7 @@ public class XmlWriter {
 		addLanguageSection(doc, rootElement);
 		
 		//Turtles
-		addTurtleSection(doc, rootElement);
+		//addTurtleSection(doc, rootElement);
 		
 		//Starting pen color
 		addPenColorSection(doc, rootElement);
