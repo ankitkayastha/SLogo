@@ -24,7 +24,7 @@ public class NewWorkspaceMenu extends AbstractMenu implements IMenu{
 		workspaceItems.add(r.getString("addWorkspace"));
 		List<String> workspaceImages = new ArrayList<String>();
 		workspaceImages.add(r.getString("plus"));
-		Rectangle[] workspaceRects = makeImageNodes(workspaceImages, 20, 20);
+		Rectangle[] workspaceRects = makeImageNodes(workspaceImages, Integer.parseInt(r.getString("plusImageWidth")), Integer.parseInt(r.getString("plusImageHeight")));
 		addMenuItem(newWorkspace, workspaceItems, workspaceRects);
 		for (MenuItem m : newWorkspace.getItems()) {
 			m.setOnAction((event) -> 

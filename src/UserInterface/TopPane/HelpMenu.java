@@ -25,7 +25,7 @@ public class HelpMenu extends AbstractMenu implements IMenu{
 		helpOptions.add(r.getString("link2"));
 		helpPics.add(r.getString("linkImage1"));
 		helpPics.add(r.getString("linkImage2"));
-		Rectangle[] helpRects = makeImageNodes(helpPics, 20, 20);
+		Rectangle[] helpRects = makeImageNodes(helpPics, Integer.parseInt(r.getString("helpImageWidth")), Integer.parseInt(r.getString("helpImageHeight")));
 		addMenuItem(help, helpOptions, helpRects);
 		UpdateHelpPage updateHelp = new UpdateHelpPage();
 		for (MenuItem m: help.getItems()) {
