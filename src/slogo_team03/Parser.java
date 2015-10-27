@@ -90,7 +90,6 @@ public class Parser {
 					currentTurtle = list.get(i);
 
 					List<String> commandsToRun = new ArrayList<String>(command.getListOfCommands());
-					
 
 					while (!commandsToRun.isEmpty()) {
 						String commandName = commandsToRun.remove(0);
