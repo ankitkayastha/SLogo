@@ -55,6 +55,10 @@ public abstract class Command {
 	public void addListOfCommands(List<String> cList) {
 		myCommandLists.add(cList);
 	}
+	
+	public List<String> getListOfCommands() {
+		return myCommandLists.get(0);
+	}
 
 	public void setTurtle(Turtle turtle) {
 		myTurtle = turtle;

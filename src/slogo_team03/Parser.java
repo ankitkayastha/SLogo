@@ -49,40 +49,36 @@ public class Parser {
 	private double checkCommandAndEvaluate(List<String> inputList, String commandName, Command command)
 			throws CommandInputException, MathException {
 		double result = Double.MAX_VALUE;
-//		System.out.println(commandName);   //FUCK
+		// System.out.println(commandName); //FUCK
 		if (command == null) {
 			throw new CommandInputException(commandName);
 		} else if (command instanceof MultipleTurtCommand) {
-//			System.out.println("MULTIPLE TURTLE COMMAND");
-			List<Turtle> turtleList = myTurtleManager.getActiveList();
-			
-			
+
+			List<Turtle> turtleList;
+			if (myTurtleManager.tempListIsEmpty()) {
+				turtleList = myTurtleManager.getActiveList();
+			} else {
+				turtleList = myTurtleManager.getTemporaryList();
+			}
+
 			for (int i = 0; i < turtleList.size(); i++) {
-//				System.out.println("Current " + turtleList.get(i).getID());
 				currentTurtle = turtleList.get(i);
 				List<String> copyOfInputList = new ArrayList<String>(inputList);
 				result = evaluateCommand(inputList, command);
-//				System.out.println(currentTurtle.getY());
-				
-//				System.out.println("X: " + currentTurtle.getX() + ", Y: " + currentTurtle.getY() + ", ID: " + currentTurtle.getID());
-				
-				
-				
 				inputList = new ArrayList<String>(copyOfInputList);
 			}
 		} else if (command instanceof Tell) {
-//			System.out.println("Tell");
 			result = evaluateCommand(inputList, command);
 			myTurtleManager.setActiveList(((Tell) command).getTurtleList());
 		} else if (command instanceof Ask) {
 			result = evaluateCommand(inputList, command);
-			myTurtleManager.setTemporaryList(((Ask) command).getTurtleList());
+			// myTurtleManager.setTemporaryList(((Ask)
+			// command).getTurtleList());
 
 		} else {
-//			System.out.println("else");
 			result = evaluateCommand(inputList, command);
 		}
-		myTurtleManager.deleteTemporaryList();
+		// myTurtleManager.deleteTemporaryList();
 		return result;
 	}
 
@@ -101,14 +97,29 @@ public class Parser {
 			result = command.executeAndFormat();
 		}
 
-		if (command instanceof MultipleTurtleCommand) {
-			if (command instanceof Tell) {
-//				myTurtleManager.setActiveList(((MultipleTurtleCommand) command).getTurtleList());
-			} else {
-				myTurtleManager.setTemporaryList(((MultipleTurtleCommand) command).getTurtleList());
-			}
-		}
+		if (command instanceof SetMultipleTurtlesCommand) {
+			if (command instanceof Ask) {
 
+				myTurtleManager.setTemporaryList(((Ask) command).getTurtleList());
+				List<Turtle> list = myTurtleManager.getTemporaryList();
+
+				for (int i = 0; i < list.size(); i++) {
+					currentTurtle = list.get(i);
+
+					List<String> commandsToRun = new ArrayList<String>(command.getListOfCommands());
+					
+
+					while (!commandsToRun.isEmpty()) {
+						String commandName = commandsToRun.remove(0);
+
+						List<String> copyOfInputList = new ArrayList<String>(inputList);
+						result = evaluateCommand(commandsToRun, factory.createCommand(commandName));
+						inputList = new ArrayList<String>(copyOfInputList);
+					}
+				}
+			}
+
+		}
 		result = runExtraCommands(command, result);
 		return result;
 	}
@@ -284,22 +295,15 @@ public class Parser {
 						throw new CommandInputException("");
 					}
 					current = inputList.remove(0);
-					
-					
-					
-					
 
 				}
-				
-				
+
 				if (succesfullyEndedTurtleList) {
 					continue;
 
 				} else {
 					throw new CommandInputException(current);
 				}
-
-				
 
 			} else {
 				throw new CommandInputException("");

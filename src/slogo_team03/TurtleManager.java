@@ -67,11 +67,6 @@ public class TurtleManager {
 			temporaryListStack.push(new ArrayList<Integer>(myTemporaryList));
 			myTemporaryList = new ArrayList<Integer>(temporaryList);
 		}
-		// System.out.println(existingTurtles);
-		for (int i = 0; i < myTemporaryList.size(); i++) {
-			// System.out.println(myTemporaryList.get(i));
-		}
-		// System.out.println(existingTurtles);
 	}
 
 	public void deleteTemporaryList() {
@@ -87,20 +82,8 @@ public class TurtleManager {
 		for (Integer key : myTurtleMap.keySet()) {
 			myLineList.addAll(myTurtleMap.get(key).getLineList());
 		}
-		// for (Turtle t : myTurtleList) {
-		// myLineList.addAll(t.getLineList());
-		// }
 		return myLineList;
 	}
-
-	// public void executeActiveTurtles(Command command) {
-	// if (command instanceof TurtleCommand) {
-	//
-	// }
-	// List<Turtle> turtleList = getTurtleList(myActiveList);
-	// for
-	//
-	// }
 
 	public List<Turtle> getActiveList() {
 		List<Turtle> turtleList = new ArrayList<Turtle>();
@@ -110,14 +93,24 @@ public class TurtleManager {
 		return turtleList;
 	}
 
-	// public List<Turtle> getActiveList() {
-	// List<Turtle> turtleList = new ArrayList<Turtle>();
-	// for (Integer I : myActiveList) {
-	// turtleList.add(myTurtleList.get(I));
-	// }
-	// return turtleList;
-	// }
-
+	public List<Turtle> getTemporaryList() {
+		List<Turtle> turtleList = new ArrayList<Turtle>();
+		for (Integer num : myTemporaryList) {
+			turtleList.add(myTurtleMap.get(num));
+		} myTemporaryList.clear();
+		
+		System.out.println("HERE");
+		for (int i = 0; i < turtleList.size(); i++) {
+			System.out.println("INDEX"+i);
+		}
+//		if (temporaryListStack.isEmpty()) {
+//			myTemporaryList.clear();
+//		} else {
+//			myTemporaryList = new ArrayList<Integer>(temporaryListStack.pop());
+//		}
+		return turtleList;
+	}
+	
 	public List<ITurtleProperties> getTurtleList() {
 		List<ITurtleProperties> turtleList = new ArrayList<ITurtleProperties>();
 		for (Integer key : myTurtleMap.keySet()) {
@@ -143,5 +136,9 @@ public class TurtleManager {
 		myActiveList.clear();
 		myTemporaryList.clear();
 		//ADD MORE
+	}
+	
+	public boolean tempListIsEmpty() {
+		return myTemporaryList.isEmpty();
 	}
 }
