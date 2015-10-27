@@ -71,7 +71,6 @@ public class DisplayTurtle implements IFront {
 	public void update() {
 		List<ITurtleProperties> turtleList = passInterface.getTurtleList();
 		
-		
 		for (int i = 0; i < rect.size(); i++) {
 			root.getChildren().remove(rect.get(i));
 		}
@@ -85,15 +84,11 @@ public class DisplayTurtle implements IFront {
 			rect.add(rectangle);
 		}
 		
-		
 		gc.setFill(passInterface.getUpdatedBackgroundColor());
 		gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
-
-
 		
 		for (int i = 0; i < turtleList.size(); i++) {
 			Rectangle rectangle = rect.get(i);
-//			Rectangle rectangle = new Rectangle(40,40);
 			ITurtleProperties turtleProp = turtleList.get(i);
 			
 			double xpos = 250 + turtleProp.getX() - rectangle.getWidth() / 2;
@@ -106,8 +101,6 @@ public class DisplayTurtle implements IFront {
 			}
 		
 			tip.update(turtleProp, pInterface, rectangle);
-//			gc.setFill(passInterface.getUpdatedBackgroundColor());
-//			gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 			List<Line> lineList = turtleProp.getLineList();
 			for (int j = 0; j < lineList.size(); j++) {
 				Line line = lineList.get(j);
