@@ -114,7 +114,7 @@ public class XmlReader {
 				String unconvertedId = getElementFromParent(eTurtle, "ID");
 				int id = Integer.parseInt(unconvertedId);
 				
-				Turtle turtleObject = new Turtle();
+				Turtle turtleObject = new Turtle(id);
 				turtleObject.setX(xCoord);
 				turtleObject.setY(yCoord);
 				turtleObject.setAngle(angle);
