@@ -15,7 +15,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
 	private Parser parser;
-	private TurtleMap turtles;
+//	private TurtleMap turtles;
 	private TurtleManager turtleManager;
 	private XmlWriter xmlWriter;
 	private XmlReader xmlReader;
@@ -29,9 +29,9 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		parser = new Parser(userDefinedCommands, variables, turtleManager);
 		turtle = new Turtle();
 		myPen = new Pen();
-		turtle.setPen(myPen);
-		turtles = new TurtleMap();
-		turtles.addTurtle(turtle);
+		Turtle.setPen(myPen);
+//		turtles = new TurtleMap();
+//		turtles.addTurtle(turtle);
 		Command.setMapsAndPen(userDefinedCommands, variables, myPen);
 		xmlWriter = new XmlWriter(userDefinedCommands, variables);
 		xmlReader = new XmlReader(variables, userDefinedCommands);

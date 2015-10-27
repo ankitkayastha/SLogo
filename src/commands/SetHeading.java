@@ -1,6 +1,6 @@
 package commands;
 
-public class SetHeading extends Command {
+public class SetHeading extends MultipleTurtleCommand {
 	public SetHeading() {
 		super();
 	}
