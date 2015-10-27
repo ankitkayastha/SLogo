@@ -95,6 +95,11 @@ public class XmlReader {
 	}
 	
 	private void readTurtles(Document doc) {
+		// Reset all data structures keeping track of turtles
+		Turtle.resetTurtleCount();
+		turtleManager.resetTurtleMap();
+		turtleManager.resetActiveList();
+		
 		NodeList turtleList = doc.getElementsByTagName("Turtle");
 		for (int i = 0; i < turtleList.getLength(); i++) {
 			Node turtle = turtleList.item(i);
@@ -119,7 +124,8 @@ public class XmlReader {
 				turtleObject.setY(yCoord);
 				turtleObject.setAngle(angle);
 				
-				
+				turtleManager.addToTurtleMap(turtleObject);
+				turtleManager.addToActiveList(turtleObject);
 			}
 		}
 	}
