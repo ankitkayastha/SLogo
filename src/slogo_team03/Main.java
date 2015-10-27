@@ -1,6 +1,5 @@
 package slogo_team03;
 
-import java.util.Scanner;
 
 import UserInterface.TurtleView;
 import javafx.application.Application;
@@ -16,14 +15,5 @@ public class Main extends Application {
 		TurtleView view = new TurtleView();
 		stage.setScene(view.getScene());
 		stage.show();
-
-		// Scanner scan = new Scanner(System.in);
-		// TurtleWorld world = new TurtleWorld();
-		// while (true) 		{
-		// String s = scan.nextLine();
-		// // + "\n" + scan.nextLine() + "\n" +
-		// // scan.nextLine() + "\n" + scan.nextLine();
-		// world.processInput(s);
-		// }
 	}
 }

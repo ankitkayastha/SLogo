@@ -9,19 +9,17 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import slogo_team03.AngleInterface;
-import slogo_team03.CoordinateInterface;
-import slogo_team03.PenUpDownInterface;
-import slogo_team03.VisibleInterface;
+import slogo_team03.ITurtleProperties;
+import slogo_team03.IPenUpDown;
 
 public class InitialTurtle {
 	
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 	
-	public Group makeTurtle(CoordinateInterface ci, AngleInterface ai, PenUpDownInterface pi, VisibleInterface vi, Rectangle rect, CreateTooltip tip, Canvas myCanvas, GraphicsContext gc) {
+	public Group makeTurtle(ITurtleProperties tp, IPenUpDown pi, Rectangle rect, CreateTooltip tip, Canvas myCanvas, GraphicsContext gc) {
 		Group root = new Group();
 		Image image = changeImage(r.getString("image"));
-		tip.update(ci, ai, pi, vi, rect);
+		tip.update(tp, pi, rect);
 		rect.setFill(new ImagePattern(image));
 
 		double width = image.getWidth();

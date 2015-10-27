@@ -10,7 +10,7 @@ import commands.UserCommand;
 import javafx.scene.paint.Color;
 
 
-public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, FileInterface, StampInterface, PenUpDownInterface {
+public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, FileInterface, StampInterface, IPenUpDown {
 	private Turtle turtle;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;

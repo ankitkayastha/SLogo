@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-public class Turtle implements CoordinateInterface, AngleInterface, VisibleInterface{
-//public class Turtle implements CoordinateInterface, AngleInterface, PenUpDownInterface, VisibleInterface, StampInterface {
+
+public class Turtle implements ITurtleProperties {
 	private double x, y;
 	private double angle;
 	private boolean visible;
@@ -128,6 +127,7 @@ public class Turtle implements CoordinateInterface, AngleInterface, VisibleInter
 		Line line = new Line(format(x0), format(y0), format(x1), format(y1));
 		line.setFill(pen.getPenColor());
 		line.setStrokeWidth(pen.getPenSize());
+		//line.getStrokeDashArray().addAll(50d, 40d);
 		List<Line> tempList = lineSplitter.split(line);
 
 		Line lastLine = tempList.get(tempList.size() - 1);
