@@ -26,7 +26,7 @@ public class TurtleView {
 		BorderPane myPane = new BorderPane();
 		LeftContent left = new LeftContent(world);
 		CommandHistory history = new CommandHistory(world);
-		DisplayTurtle turtleDisplay = new DisplayTurtle(world.getTurtle(), world, world, world);
+		DisplayTurtle turtleDisplay = new DisplayTurtle(world.getTurtleList(), world, world, world);
 		myFrontObjects.add(left);
 		myFrontObjects.add(history);
 		myFrontObjects.add(turtleDisplay);
@@ -35,15 +35,11 @@ public class TurtleView {
 
 		CommandPrompt prompt = new CommandPrompt(myFrontObjects);
 		BottomPane bottomController = new BottomPane(left, history, turtleDisplay);
-		
-		prompt.makeCommandPromptArea(bottomController, world, world);
-		history.makeListView(prompt.getField());
-		menu.makeMenuBar();
 		myPane.setCenter(turtleDisplay.getGroup());
 		myPane.setLeft(left.makeListViews());
-		myPane.setRight(history.getRoot());
-		myPane.setTop(menu.getRoot());
-		myPane.setBottom(prompt.getRoot());
+		myPane.setRight(history.makeListView(prompt.getField()));
+		myPane.setTop(menu.makeMenuBar());
+		myPane.setBottom(prompt.makeCommandPromptArea(bottomController, world, world));
 		myScene = new Scene(myPane, Integer.parseInt(r.getString("sceneWidth")), Integer.parseInt(r.getString("sceneHeight")));
 	}
 	

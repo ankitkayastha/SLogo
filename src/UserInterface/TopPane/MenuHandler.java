@@ -22,7 +22,6 @@ import slogo_team03.ReceiveFromFront;
 
 
 public class MenuHandler implements IFront {
-	private Group root;
 	private DisplayTurtle display;
 	private ReceiveFromFront rf;
 	private PassToFrontInterface pf;
@@ -37,11 +36,9 @@ public class MenuHandler implements IFront {
 		this.fi = fileInterface;
 	}
 
-	public Group getRoot() {
-		return this.root;
-	}
 
-	public void makeMenuBar() {
+	public Group makeMenuBar() {
+		Group root = new Group();
 		MenuBar menuBar = new MenuBar();
 		root = new Group();
 
@@ -78,7 +75,7 @@ public class MenuHandler implements IFront {
 		
 		menuBar.getMenus().addAll(backgroundColor, image, penColor, language, penProperties, changeShape, help, newWorkspace, file);
 		root.getChildren().add(menuBar);
-
+		return root;
 	}
 
 	@Override
