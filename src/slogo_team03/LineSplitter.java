@@ -102,9 +102,8 @@ public class LineSplitter {
 	}
 
 	private Point2D calculateNewEndPoint(Point2D pS, double length) {
-		double x1, y1;
-		x1 = pS.getX() + length * Math.cos(Math.toRadians(angle));
-		y1 = pS.getY() + length * Math.sin(Math.toRadians(angle));
+		double x1 = pS.getX() + length * Math.cos(Math.toRadians(angle));
+		double y1 = pS.getY() + length * Math.sin(Math.toRadians(angle));
 		return new Point2D(x1, y1);
 	}
 

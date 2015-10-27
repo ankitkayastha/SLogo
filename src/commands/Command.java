@@ -30,12 +30,6 @@ public abstract class Command {
 
 	public abstract double execute() throws CommandInputException, MathException;
 
-	public static void setMapsAndPen(UserDefinedCommands uMap, UserDefinedVariables vMap, Pen p) {
-		userDefinedCommands = uMap;
-		variableMap = vMap;
-		pen = p;
-	}
-
 	public String getParameterCode() {
 		return myParameterCode;
 	}
@@ -56,6 +50,10 @@ public abstract class Command {
 		myCommandLists.add(cList);
 	}
 
+	public List<String> getListOfCommands() {
+		return myCommandLists.get(0);
+	}
+
 	public void setTurtle(Turtle turtle) {
 		myTurtle = turtle;
 	}
@@ -70,5 +68,11 @@ public abstract class Command {
 			throw new CommandInputException("(Number Formatting)");
 		}
 		return value;
+	}
+	
+	public static void setMapsAndPen(UserDefinedCommands uMap, UserDefinedVariables vMap, Pen p) {
+		userDefinedCommands = uMap;
+		variableMap = vMap;
+		pen = p;
 	}
 }

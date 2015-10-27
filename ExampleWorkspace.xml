@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<WorkspaceSettings>
+    <BackgroundColor>4.0</BackgroundColor>
+    <Language>English</Language>
+    <Turtles>
+        <Turtle>
+            <XCoord>50.0</XCoord>
+            <YCoord>50.0</YCoord>
+            <Angle>0.0</Angle>
+            <ID>1</ID>
+        </Turtle>
+        <Turtle>
+            <XCoord>50.0</XCoord>
+            <YCoord>0.0</YCoord>
+            <Angle>0.0</Angle>
+            <ID>2</ID>
+        </Turtle>
+    </Turtles>
+    <PenColor>2.0</PenColor>
+</WorkspaceSettings>

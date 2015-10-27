@@ -1,7 +1,5 @@
 package newCommands;
 
-import java.util.List;
-
 import commands.SetMultipleTurtlesCommand;
 
 public class Tell extends SetMultipleTurtlesCommand {
