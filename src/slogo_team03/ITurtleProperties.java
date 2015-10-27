@@ -16,4 +16,6 @@ public interface ITurtleProperties {
 	public boolean isVisible();
 	
 	public boolean isActive();
+	
+	public int getID();
 }
