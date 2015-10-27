@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 
 
 public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, FileInterface, StampInterface, IPenUpDown {
-	private Turtle turtle;
+//	private Turtle turtle;
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
 	private Parser parser;
@@ -27,7 +27,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		userDefinedCommands = new UserDefinedCommands();
 		variables = new UserDefinedVariables();
 		parser = new Parser(userDefinedCommands, variables, turtleManager);
-		turtle = new Turtle();
+//		turtle = new Turtle();
 		myPen = new Pen();
 		Turtle.setPen(myPen);
 		Command.setMapsAndPen(userDefinedCommands, variables, myPen);
@@ -124,6 +124,11 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	@Override
 	public List<Stamp> getStampList() {
 		return myPen.getStampList();
+	}
+	
+//	@Override
+	public List<Turtle> getTurtleList() {
+		return turtleManager.getTurtleList();
 	}
 
 	@Override

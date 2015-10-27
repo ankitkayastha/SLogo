@@ -1,9 +1,8 @@
 package newCommands;
 
-//import commands.Command;
-import commands.SpecialCommand;
+import commands.SetMultipleTurtlesCommand;
 
-public class Ask extends SpecialCommand {
+public class Ask extends SetMultipleTurtlesCommand {
 	public Ask() {
 		super();
 	}

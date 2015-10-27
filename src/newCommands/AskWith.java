@@ -1,6 +1,5 @@
 package newCommands;
 
-//import commands.Command;
 import commands.SpecialCommand;
 
 public class AskWith extends SpecialCommand {
