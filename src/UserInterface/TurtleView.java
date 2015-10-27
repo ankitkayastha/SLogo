@@ -26,7 +26,7 @@ public class TurtleView {
 		BorderPane myPane = new BorderPane();
 		LeftContent left = new LeftContent(world);
 		CommandHistory history = new CommandHistory(world);
-		DisplayTurtle turtleDisplay = new DisplayTurtle(world.getTurtleList(), world, world, world);
+		DisplayTurtle turtleDisplay = new DisplayTurtle(world.getTurtleList(), world, world, world, world);
 		myFrontObjects.add(left);
 		myFrontObjects.add(history);
 		myFrontObjects.add(turtleDisplay);

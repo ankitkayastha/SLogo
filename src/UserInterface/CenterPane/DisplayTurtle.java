@@ -11,10 +11,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import slogo_team03.ITurtleProperties;
 import slogo_team03.PassToFrontInterface;
+import slogo_team03.ReceiveFromFront;
 import slogo_team03.IPenUpDown;
 import slogo_team03.Stamp;
 import slogo_team03.StampInterface;
-import slogo_team03.Turtle;
 
 import java.util.*;
 
@@ -32,8 +32,9 @@ public class DisplayTurtle implements IFront {
 	private InitialTurtle initial;
 	private PassToFrontInterface passInterface;
 	private StampInterface stampInterface;
+	private ReceiveFromFront receiveInterface;
 	
-	public DisplayTurtle(List<ITurtleProperties> tp, IPenUpDown pi, PassToFrontInterface pf, StampInterface si) {
+	public DisplayTurtle(List<ITurtleProperties> tp, IPenUpDown pi, PassToFrontInterface pf, StampInterface si, ReceiveFromFront rf) {
 		myCanvas = new Canvas(Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 		myCanvas.setTranslateX(Double.parseDouble(r.getString("canvasTranslateX")));
 		myCanvas.setTranslateY(Double.parseDouble(r.getString("canvasTranslateY")));
@@ -49,6 +50,7 @@ public class DisplayTurtle implements IFront {
 		pInterface = pi;
 		passInterface = pf;
 		stampInterface = si;
+		receiveInterface = rf;
 	}
 
 	
@@ -68,7 +70,7 @@ public class DisplayTurtle implements IFront {
 	
 	public void update() {
 		List<ITurtleProperties> turtleList = passInterface.getTurtleList();
-
+		//receiveInterface.receiveImageString(getImage().toString());
 		
 		for (int i = 0; i < rect.size(); i++) {
 			root.getChildren().remove(rect.get(i));
@@ -88,6 +90,13 @@ public class DisplayTurtle implements IFront {
 		for (int i = 0; i < turtleList.size(); i++) {
 			Rectangle rectangle = rect.get(i);
 			ITurtleProperties turtleProp = turtleList.get(i);
+			rectangle.setOnMouseClicked((event) -> { 
+			try {
+				receiveInterface.receiveCommand("tell [ " + turtleProp.getID() + " ] ");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}});
 			
 			double xpos = 250 + turtleProp.getX() - rectangle.getWidth() / 2;
 			double ypos = 250 - turtleProp.getY() - rectangle.getHeight() / 2;
