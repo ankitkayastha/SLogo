@@ -62,8 +62,6 @@ public class MenuHandler implements IFront {
 
 		HelpMenu hMenu = new HelpMenu();
 		Menu help = hMenu.makeMenu(display, pf, rf);
-		
-		
 
 		ChangeShapeMenu csMenu = new ChangeShapeMenu();
 		Menu changeShape = csMenu.makeMenu(display, pf, rf);		
