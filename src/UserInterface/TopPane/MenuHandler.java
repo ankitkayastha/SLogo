@@ -71,7 +71,6 @@ public class MenuHandler implements IFront {
 		for (int i = 0; i < rects.length; i++) {
 			Rectangle rect = new Rectangle(50,10);
 			rect.setFill(options[i]);
-			//System.out.println(rect.getFill().);
 			rects[i] = rect;
 		}
 		return rects;
@@ -105,7 +104,6 @@ public class MenuHandler implements IFront {
 		for (MenuItem m: backgroundColor.getItems()) {
 			m.setOnAction((event) -> update.changeBackgroundAction(m.getText()));
 		}
-
 
 		penColor = new Menu(r.getString("penTitle"));
 
@@ -145,8 +143,6 @@ public class MenuHandler implements IFront {
 		for (MenuItem m: language.getItems()) {
 			m.setOnAction((event) -> updateLang.changeLanguage(m.getText()));
 		}
-
-
 
 		Menu penProperties = new Menu(r.getString("penPropertyTitle"));
 		penUpDown = new Menu(r.getString("penUpDown"));
@@ -203,7 +199,6 @@ public class MenuHandler implements IFront {
 		
 		penProperties.getItems().addAll(penUpDown, penSize, penType);
 		
-
 		Menu help = new Menu(r.getString("helpTitle"));
 		List<String> helpOptions = new ArrayList<String>();
 		List<String> helpPics = new ArrayList<String>();
@@ -271,9 +266,6 @@ public class MenuHandler implements IFront {
 		root.getChildren().add(menuBar);
 
 	}
-	
-	
-	
 	
 	private void addMenuItem(Menu menu, List<String> options, Node[] graphics) {
 		for (int i = 0; i < options.size(); i++) {
