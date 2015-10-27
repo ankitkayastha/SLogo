@@ -29,9 +29,9 @@ public class InitialTurtle {
 			double height = image.getHeight();
 			gc = myCanvas.getGraphicsContext2D();
 			gc.setFill(Color.GREEN);
-			gc.fillRect(0, 0, 500, 500);
-			double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width / 2;
-			double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
+			gc.fillRect(0, 0, Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
+			double xpos = Double.parseDouble(r.getString("xPos")) + Double.parseDouble(r.getString("coordinateOffset")) - width / 2;
+			double ypos = Double.parseDouble(r.getString("yPos")) + Double.parseDouble(r.getString("coordinateOffset")) - height / 2;
 			rectangle.setX(xpos);
 			rectangle.setY(ypos);
 			root.getChildren().add(rectangle);
