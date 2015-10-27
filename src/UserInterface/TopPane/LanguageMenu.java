@@ -26,7 +26,7 @@ public class LanguageMenu extends AbstractMenu implements IMenu {
 			languageOptions.add(r.getString("languageItem" + Integer.toString(i)));
 			flagOptions.add(r.getString("languageFlag" + Integer.toString(i)));
 		}
-		Rectangle[] flagRects = makeImageNodes(flagOptions, 75, 50);
+		Rectangle[] flagRects = makeImageNodes(flagOptions, Integer.parseInt(r.getString("flagImageWidth")), Integer.parseInt(r.getString("flagImageHeight")));
 		addMenuItem(language, languageOptions, flagRects);
 		for (MenuItem m: language.getItems()) {
 			m.setOnAction((event) -> updateLang.changeLanguage(m.getText()));
