@@ -30,7 +30,7 @@ public class TurtleView {
 		myFrontObjects.add(left);
 		myFrontObjects.add(history);
 		myFrontObjects.add(turtleDisplay);
-		MenuHandler menu = new MenuHandler(turtleDisplay, world, world);
+		MenuHandler menu = new MenuHandler(turtleDisplay, world, world, world);
 		myFrontObjects.add(menu);
 
 		CommandPrompt prompt = new CommandPrompt(myFrontObjects);
