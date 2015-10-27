@@ -7,10 +7,7 @@ import commands.Command;
 import commands.SetMultipleTurtlesCommand;
 import commands.SpecialCommand;
 import commands.To;
-//import commands.TurtleCommand;
-//import commands.UserCommand;
 import newCommands.Ask;
-import newCommands.MultipleTurtleCommand;
 import newCommands.Tell;
 
 public class Parser {
@@ -34,7 +31,7 @@ public class Parser {
 
 	public double processInput(List<String> list) throws CommandInputException, MathException {
 		double val = Double.MAX_VALUE;
-		while (list.size() > 0) {
+		while (!list.isEmpty()) {
 			val = runCommand(list);
 		}
 		return val;
@@ -49,18 +46,10 @@ public class Parser {
 	private double checkCommandAndEvaluate(List<String> inputList, String commandName, Command command)
 			throws CommandInputException, MathException {
 		double result = Double.MAX_VALUE;
-		// System.out.println(commandName); //FUCK
 		if (command == null) {
 			throw new CommandInputException(commandName);
 		} else if (command instanceof MultipleTurtCommand) {
-
-			List<Turtle> turtleList;
-			if (myTurtleManager.tempListIsEmpty()) {
-				turtleList = myTurtleManager.getActiveList();
-			} else {
-				turtleList = myTurtleManager.getTemporaryList();
-			}
-
+			List<Turtle> turtleList = myTurtleManager.getActiveList();
 			for (int i = 0; i < turtleList.size(); i++) {
 				currentTurtle = turtleList.get(i);
 				List<String> copyOfInputList = new ArrayList<String>(inputList);
@@ -70,15 +59,9 @@ public class Parser {
 		} else if (command instanceof Tell) {
 			result = evaluateCommand(inputList, command);
 			myTurtleManager.setActiveList(((Tell) command).getTurtleList());
-		} else if (command instanceof Ask) {
-			result = evaluateCommand(inputList, command);
-			// myTurtleManager.setTemporaryList(((Ask)
-			// command).getTurtleList());
-
 		} else {
 			result = evaluateCommand(inputList, command);
 		}
-		// myTurtleManager.deleteTemporaryList();
 		return result;
 	}
 

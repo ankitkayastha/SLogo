@@ -8,13 +8,22 @@ public class Stamp {
 	private double myX;
 	private double myY;
 	private double myAngle;
+	private String myImageString;
 
 	public Stamp(double x, double y, double angle) {
 		myX = x;
 		myY = y;
 		myAngle = angle;
 	}
-
+	
+	public String getImageString() {
+		return myImageString;
+	}
+	
+	public void setImageString(String imageString) {
+		myImageString = imageString;
+	}
+	
 	public void setColor(Color color) {
 		myColor = color;
 	}
