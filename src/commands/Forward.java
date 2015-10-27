@@ -1,6 +1,8 @@
 package commands;
 
-public class Forward extends MultipleTurtleCommand {
+import slogo_team03.MultipleTurtCommand;
+
+public class Forward extends MultipleTurtCommand {
 	public Forward() {
 		super();
 	}
