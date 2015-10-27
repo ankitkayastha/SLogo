@@ -39,6 +39,14 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	public void interpretInput(List<String> inputList) throws CommandInputException, MathException {
 		Command.setMapsAndPen(userDefinedCommands, variables, myPen);
 		parser.processInput(inputList);
+		
+//		List<ITurtleProperties> list = turtleManager.getTurtleList();
+//		System.out.println("SIZE " + list.size());
+//		for (int i = 0; i < list.size(); i++) {
+//			System.out.println("HERE");
+//			Turtle currentTurtle = (Turtle) list.get(i);
+//			System.out.println("X: " + currentTurtle.getX() + ", Y: " + currentTurtle.getY() + ", ID: " + currentTurtle.getID());
+//		}
 	}
 
 	private List<String> removeCommentsAndWhitespace(String input) {
@@ -125,7 +133,7 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		return myPen.getStampList();
 	}
 	
-//	@Override
+	@Override
 	public List<ITurtleProperties> getTurtleList() {
 		return turtleManager.getTurtleList();
 	}
