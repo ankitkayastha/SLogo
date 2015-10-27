@@ -41,7 +41,14 @@ public class FileMenu extends AbstractMenu implements IMenu{
 				fc.getExtensionFilters().add(extFilter);
 				File inputFile = fc.showSaveDialog(null);
 				if (inputFile != null) {
+
+					try {
 					fi.writeLibraryXmlFile(inputFile.getAbsolutePath());
+					}
+					catch (Exception e) {
+						System.out.println("shit");
+						e.printStackTrace();
+					}
 				}
 				fi.writeLibraryXmlFile(inputFile.getName());
 				});
@@ -58,6 +65,7 @@ public class FileMenu extends AbstractMenu implements IMenu{
 						fi.readLibraryXmlFile(pls.getAbsolutePath());
 					}
 					catch (Exception e) {
+						System.out.println("Shit");
 						e.printStackTrace();
 					}
 				}});

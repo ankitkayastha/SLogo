@@ -3,6 +3,7 @@ package UserInterface.CenterPane;
 import java.util.ResourceBundle;
 
 import javafx.scene.Group;
+import java.util.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -16,22 +17,25 @@ public class InitialTurtle {
 	
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.CenterPane/centerResource");
 	
-	public Group makeTurtle(ITurtleProperties tp, IPenUpDown pi, Rectangle rect, CreateTooltip tip, Canvas myCanvas, GraphicsContext gc) {
+	public Group makeTurtle(List<ITurtleProperties> tp, IPenUpDown pi, List<Rectangle> rect, CreateTooltip tip, Canvas myCanvas, GraphicsContext gc) {
 		Group root = new Group();
 		Image image = changeImage(r.getString("image"));
-		tip.update(tp, pi, rect);
-		rect.setFill(new ImagePattern(image));
-
-		double width = image.getWidth();
-		double height = image.getHeight();
-		gc = myCanvas.getGraphicsContext2D();
-		gc.setFill(Color.GREEN);
-		gc.fillRect(0, 0, 500, 500);
-		double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width / 2;
-		double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
-		((Rectangle) rect).setX(xpos);
-		((Rectangle) rect).setY(ypos);
-		root.getChildren().addAll(myCanvas, rect);
+		root.getChildren().add(myCanvas);
+		for (int i = 0; i < tp.size(); i++) {
+			Rectangle rectangle = rect.get(i);
+			rectangle.setFill(new ImagePattern(image));
+			tip.update(tp.get(i), pi, rectangle);
+			double width = image.getWidth();
+			double height = image.getHeight();
+			gc = myCanvas.getGraphicsContext2D();
+			gc.setFill(Color.GREEN);
+			gc.fillRect(0, 0, 500, 500);
+			double xpos = Double.parseDouble(r.getString("xPos")) + 250 - width / 2;
+			double ypos = Double.parseDouble(r.getString("yPos")) + 250 - height / 2;
+			rectangle.setX(xpos);
+			rectangle.setY(ypos);
+			root.getChildren().add(rectangle);
+		}
 		return root;
 		
 	}

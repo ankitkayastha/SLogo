@@ -1,8 +1,10 @@
 package newCommands;
 
-import commands.Command;
+import java.util.List;
 
-public class Tell extends Command {
+import commands.SetMultipleTurtlesCommand;
+
+public class Tell extends SetMultipleTurtlesCommand {
 	public Tell() {
 		super();
 	}

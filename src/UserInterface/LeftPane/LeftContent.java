@@ -13,7 +13,6 @@ import java.util.*;
 import commands.UserCommand;
 
 public class LeftContent implements IFront {
-	private Group root;
 	private ListViewHandler myListViewHandler;
 	private List<ObservableList<String>> myListViewObservable;
 	private ResourceBundle r = ResourceBundle.getBundle("UserInterface.LeftPane/LeftResource");
@@ -21,7 +20,6 @@ public class LeftContent implements IFront {
 	private PassToFrontInterface pInterface;
 	
 	public LeftContent(PassToFrontInterface pf) {
-		this.root = makeListViews();
 		this.pInterface = pf;
 	}
 	

@@ -1,5 +1,6 @@
 package slogo_team03;
 
+import java.util.List;
 import java.util.Map;
 
 import commands.UserCommand;
@@ -15,4 +16,6 @@ public interface PassToFrontInterface {
 	public Color getUpdatedBackgroundColor();
 	
 	public Map<Double, Color> getPalette();
+	
+	public List<ITurtleProperties> getTurtleList();
 }

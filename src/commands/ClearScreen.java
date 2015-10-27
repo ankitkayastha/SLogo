@@ -1,6 +1,6 @@
 package commands;
 
-public class ClearScreen extends MultipleTurtleCommand {
+public class ClearScreen extends MultipleTurtleCommandsuckmyballs {
 	public ClearScreen() {
 		super();
 	}

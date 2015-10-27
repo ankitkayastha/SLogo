@@ -15,4 +15,5 @@ public interface ITurtleProperties {
 	
 	public boolean isVisible();
 
+	public List<ITurtleProperties> getTurtleList();
 }

@@ -1,0 +1,59 @@
+﻿Merge branch 'master' into dws20
+
+Conflicts:
+	src/UserInterface/TopPane/FileMenu.java
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+Merged with local branch
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch dws20
+# Your branch is up-to-date with 'origin/dws20'.
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   src/UserInterface/BottomPane/CommandPrompt.java
+#	modified:   src/UserInterface/CenterPane/CreateTooltip.java
+#	modified:   src/UserInterface/CenterPane/DisplayTurtle.java
+#	modified:   src/UserInterface/CenterPane/InitialTurtle.java
+#	modified:   src/UserInterface/LeftPane/LeftContent.java
+#	modified:   src/UserInterface/RightPane/CommandHistory.java
+#	modified:   src/UserInterface/TopPane/FileMenu.java
+#	modified:   src/UserInterface/TopPane/MenuHandler.java
+#	modified:   src/UserInterface/TurtleView.java
+#	modified:   src/commands/Back.java
+#	modified:   src/commands/ClearScreen.java
+#	modified:   src/commands/Forward.java
+#	modified:   src/commands/HideTurtle.java
+#	modified:   src/commands/Home.java
+#	modified:   src/commands/Left.java
+#	deleted:    src/commands/MultipleTurtleCommand.java
+#	new file:   src/commands/MultipleTurtleCommandsuckmyballs.java
+#	modified:   src/commands/ParameterCode.properties
+#	modified:   src/commands/PenDown.java
+#	modified:   src/commands/PenUp.java
+#	modified:   src/commands/Right.java
+#	modified:   src/commands/SetHeading.java
+#	new file:   src/commands/SetMultipleTurtlesCommand.java
+#	modified:   src/commands/SetXY.java
+#	modified:   src/commands/ShowTurtle.java
+#	modified:   src/commands/Towards.java
+#	modified:   src/commands/TurtleCommand.java
+#	modified:   src/newCommands/Ask.java
+#	modified:   src/newCommands/AskWith.java
+#	modified:   src/newCommands/Tell.java
+#	modified:   src/slogo_team03/ITurtleProperties.java
+#	new file:   src/slogo_team03/MultipleTurtCommand.java
+#	modified:   src/slogo_team03/Parser.java
+#	modified:   src/slogo_team03/PassToFrontInterface.java
+#	modified:   src/slogo_team03/Turtle.java
+#	modified:   src/slogo_team03/TurtleManager.java
+#	modified:   src/slogo_team03/TurtleWorld.java
+#
+
