@@ -15,11 +15,11 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 	private UserDefinedCommands userDefinedCommands;
 	private UserDefinedVariables variables;
 	private Parser parser;
-//	private TurtleMap turtles;
 	private TurtleManager turtleManager;
 	private XmlWriter xmlWriter;
 	private XmlReader xmlReader;
 	private String myInput;
+	private String myLanguage;
 	private Pen myPen;
 
 	public TurtleWorld() {
@@ -30,11 +30,9 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		turtle = new Turtle();
 		myPen = new Pen();
 		Turtle.setPen(myPen);
-//		turtles = new TurtleMap();
-//		turtles.addTurtle(turtle);
 		Command.setMapsAndPen(userDefinedCommands, variables, myPen);
 		xmlWriter = new XmlWriter();
-		xmlReader = new XmlReader(variables, userDefinedCommands);
+		xmlReader = new XmlReader();
 		myInput = "";
 	}
 
@@ -73,8 +71,8 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 
 	@Override
 	public void receiveLanguage(String language) {
+		myLanguage = language;
 		parser.processLanguage(language);
-		xmlWriter.receiveLanguage(language);
 	}
 
 	@Override
@@ -102,13 +100,25 @@ public class TurtleWorld implements ReceiveFromFront, PassToFrontInterface, File
 		return myPen.getPalette();
 	}
 	
-	public void readXmlFile(String path) {
+	public void readLibraryXmlFile(String path) {
+		xmlReader.receiveVariablesAndCommandsAccess(variables, userDefinedCommands);
 		xmlReader.readLibraryFile(path);
 	}
 	
-	public void writeXmlFile(String path) {
+	public void writeLibraryXmlFile(String path) {
 		xmlWriter.receiveVariablesAndCommands(variables, userDefinedCommands);
 		xmlWriter.writeLibraryFile(path);
+	}
+	
+	public void readWorkspaceXmlFile(String path) {
+		xmlReader.receiveWorkspaceAccess(turtleManager, myPen);
+		xmlReader.readWorkspaceFile(path);
+	}
+	
+	public void writeWorkspaceXmlFile(String path) {
+		xmlWriter.receiveLanguage(myLanguage);
+		xmlWriter.receiveWorkspaceInformation(turtleManager, myPen);
+		xmlWriter.writeWorkspaceFile(path);
 	}
 
 	@Override

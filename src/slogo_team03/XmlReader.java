@@ -16,11 +16,9 @@ import java.util.Arrays;
 public class XmlReader {
 	private UserDefinedVariables userDefinedVariables;
 	private UserDefinedCommands userDefinedCommands;
-
-	public XmlReader(UserDefinedVariables userDefinedVariables, UserDefinedCommands userDefinedCommands) {
-		this.userDefinedVariables = userDefinedVariables;
-		this.userDefinedCommands = userDefinedCommands;
-	}
+	private TurtleManager turtleManager;
+	private Pen pen;
+	private String language;
 
 	public void readLibraryFile(String path) {
 		// Initial steps to read in XML file
@@ -36,7 +34,13 @@ public class XmlReader {
 	public void readWorkspaceFile(String path) {
 		Document doc = generateDocument(path);
 		
+		readBackgroundColor(doc);
 		
+		readLanguage(doc);
+		
+		readTurtles(doc);
+		
+		readPenColor(doc);
 	}
 
 	private Document generateDocument(String path) {
@@ -58,6 +62,20 @@ public class XmlReader {
 		return parent.getElementsByTagName(name).item(0).getTextContent();
 	}
 	
+	private void readBackgroundColor(Document doc) {
+		NodeList backgroundList = doc.getElementsByTagName("BackgroundColor");
+		String unconvertedBackground = backgroundList.item(0).getTextContent();
+		double backgroundColorIndex = Double.parseDouble(unconvertedBackground);
+		pen.setBackgroundColor(backgroundColorIndex);
+	}
+	
+	private void readLanguage(Document doc) {
+		NodeList languageList = doc.getElementsByTagName("Language");
+		language = languageList.item(0).getTextContent();
+	}
+	
+
+	
 	private void readUserDefinedVariables(Document doc) {
 		NodeList variableList = doc.getElementsByTagName("Variable");
 		for (int i = 0; i < variableList.getLength(); i++) {
@@ -73,6 +91,43 @@ public class XmlReader {
 			}
 
 		}
+	}
+	
+	private void readTurtles(Document doc) {
+		NodeList turtleList = doc.getElementsByTagName("Turtle");
+		for (int i = 0; i < turtleList.getLength(); i++) {
+			Node turtle = turtleList.item(i);
+			
+			if (turtle.getNodeType() == Node.ELEMENT_NODE) {
+				Element eTurtle = (Element) turtle;
+				
+				String unconvertedXCoord = getElementFromParent(eTurtle, "XCoord");
+				double xCoord = Double.parseDouble(unconvertedXCoord);
+				
+				String unconvertedYCoord = getElementFromParent(eTurtle, "YCoord");
+				double yCoord = Double.parseDouble(unconvertedYCoord);
+				
+				String unconvertedAngle = getElementFromParent(eTurtle, "Angle");
+				double angle = Double.parseDouble(unconvertedAngle);
+				
+				String unconvertedId = getElementFromParent(eTurtle, "ID");
+				int id = Integer.parseInt(unconvertedId);
+				
+				Turtle turtleObject = new Turtle();
+				turtleObject.setX(xCoord);
+				turtleObject.setY(yCoord);
+				turtleObject.setAngle(angle);
+				
+				
+			}
+		}
+	}
+	
+	private void readPenColor(Document doc) {
+		NodeList penColorList = doc.getElementsByTagName("PenColor");
+		String unconvertedPenColor = penColorList.item(0).getTextContent();
+		double penColorIndex = Double.parseDouble(unconvertedPenColor);
+		pen.setPenColor(penColorIndex);
 	}
 	
 	private void readUserDefinedCommands (Document doc) {
@@ -98,4 +153,19 @@ public class XmlReader {
 			}
 		}
 	}
+	
+	public String getLanguageRead() {
+		return language;
+	}
+	
+	public void receiveVariablesAndCommandsAccess(UserDefinedVariables variables, UserDefinedCommands commands) {
+		userDefinedVariables = variables;
+		userDefinedCommands = commands;
+	}
+	
+	public void receiveWorkspaceAccess(TurtleManager turtleManager, Pen pen) {
+		this.turtleManager = turtleManager;
+		this.pen = pen;
+	}
+	
 }
