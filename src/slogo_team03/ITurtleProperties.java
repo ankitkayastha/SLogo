@@ -4,10 +4,15 @@ import java.util.List;
 
 import javafx.scene.shape.Line;
 
-public interface CoordinateInterface {
+public interface ITurtleProperties {
 	public double getX();
 
 	public double getY();
 
 	public List<Line> getLineList();
+	
+	public double absoluteAngleFrontend();
+	
+	public boolean isVisible();
+
 }
