@@ -14,6 +14,7 @@ import slogo_team03.PassToFrontInterface;
 import slogo_team03.IPenUpDown;
 import slogo_team03.Stamp;
 import slogo_team03.StampInterface;
+import slogo_team03.Turtle;
 
 import java.util.*;
 
@@ -68,13 +69,24 @@ public class DisplayTurtle implements IFront {
 	
 	
 	public void update() {
+		List<ITurtleProperties> turtleList = passInterface.getTurtleList();
+		
+		for (int i = 0; i < turtleList.size(); i++) {
+			Turtle currentTurtle = (Turtle) turtleList.get(i);
+			System.out.println("X: " + currentTurtle.getX() + ", Y: " + currentTurtle.getY() + ", ID: " + currentTurtle.getID());
+		}
+		
+		
+		gc.setFill(passInterface.getUpdatedBackgroundColor());
+		gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 		for (int i = 0; i < rect.size(); i++) {
 			Rectangle rectangle = rect.get(i);
+//			Rectangle rectangle = new Rectangle(40,40);
 			ITurtleProperties turtleProp = tpInterface.get(i);
 		
 			tip.update(turtleProp, pInterface, rectangle);
-			gc.setFill(passInterface.getUpdatedBackgroundColor());
-			gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
+//			gc.setFill(passInterface.getUpdatedBackgroundColor());
+//			gc.fillRect(Double.parseDouble(r.getString("originX")), Double.parseDouble(r.getString("originY")), Double.parseDouble(r.getString("canvasWidth")), Double.parseDouble(r.getString("canvasHeight")));
 			List<Line> lineList = turtleProp.getLineList();
 			for (int j = 0; j < lineList.size(); j++) {
 				Line line = lineList.get(j);

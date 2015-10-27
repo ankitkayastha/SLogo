@@ -120,8 +120,11 @@ public class TurtleManager {
 	public List<ITurtleProperties> getTurtleList() {
 		List<ITurtleProperties> turtleList = new ArrayList<ITurtleProperties>();
 		for (Integer key : myTurtleMap.keySet()) {
-			turtleList.add(myTurtleMap.get(key));
+			Turtle turtle = myTurtleMap.get(key);
+			turtleList.add(turtle);
+//			System.out.println("X: " + turtle.getX() + " Y: " + turtle.getY() + "ID: " + turtle.getID());
 		}
+		
 		return turtleList;
 	}
 

@@ -56,12 +56,18 @@ public class Parser {
 //			System.out.println("MULTIPLE TURTLE COMMAND");
 			List<Turtle> turtleList = myTurtleManager.getActiveList();
 			
+			
 			for (int i = 0; i < turtleList.size(); i++) {
 //				System.out.println("Current " + turtleList.get(i).getID());
 				currentTurtle = turtleList.get(i);
 				List<String> copyOfInputList = new ArrayList<String>(inputList);
 				result = evaluateCommand(inputList, command);
 //				System.out.println(currentTurtle.getY());
+				
+//				System.out.println("X: " + currentTurtle.getX() + ", Y: " + currentTurtle.getY() + ", ID: " + currentTurtle.getID());
+				
+				
+				
 				inputList = new ArrayList<String>(copyOfInputList);
 			}
 		} else if (command instanceof Tell) {
@@ -73,7 +79,7 @@ public class Parser {
 			myTurtleManager.setTemporaryList(((Ask) command).getTurtleList());
 
 		} else {
-			System.out.println("else");
+//			System.out.println("else");
 			result = evaluateCommand(inputList, command);
 		}
 		myTurtleManager.deleteTemporaryList();
